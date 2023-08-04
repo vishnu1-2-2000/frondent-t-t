@@ -1,8 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; 
 }
+#login{
+  background-image: url("https://t4.ftcdn.net/jpg/05/05/09/85/240_F_505098516_ALIp3V4EaMdXiFcdUTfJ1gLHtnop8U8d.jpg"); 
+  margin-left: 130px;
+  margin-bottom: 300px;
+  margin-top: 200px;
+  width: 10%;
+  height: 260px;
+  color: #fff;
+  
+}
+#loginReportSearchTableID{
+  
+  width: 100%;
+ margin-left: 1px;
+ margin-top: 10px;
+ color: #fff;
+ 
+ background: linear-gradient(90deg, rgba(15,52,40,1) 8%, rgba(62,172,134,1) 87%);
+ /* background-image: url("https://t4.ftcdn.net/jpg/04/43/84/53/240_F_443845350_HzORmiSI9rx9vXcvENPZkv8JpQE5WcJD.jpg");  */
+}
+.head{
+  /* background-color: beige; */
+  background: linear-gradient(90deg, rgba(102,129,126,1) 0%, rgba(75,165,155,1) 5%, rgba(69,85,94,1) 73%, rgba(53,71,80,1) 87%);
+  height: 790px;
+  position: fixed;
+  width: 100%;
+  color: #fff;
+  
+}
+
+/* #loginbox{
+  width: 100%;
+  height: 1100px;
+  position: fixed;
+  
+  background: linear-gradient(90deg, rgba(102,129,126,1) 0%, rgba(75,165,155,1) 5%, rgba(69,85,94,1) 73%, rgba(53,71,80,1) 87%);
+  border: 4px circle rgb(51, 74, 72);
+  
+} */
+#loginpagefield{
+  
+  margin-left: 200px;
+  height: 600px;
+  
+
+}
+#loginfullcard{
+  width: 40%;
+  height: 410px;
+margin-top: 170px;
+  margin-left: 490px;
+  border-radius: 65px;
+  background: linear-gradient(90deg, rgba(68,162,142,1) 8%, rgba(6,24,22,1) 73%);
+}
+
+/* #loginbutton{
+  margin-left: 240px;
+ margin-top: -460px;
+ width: 10%;
+
+
+} */
+/* #loginfullpage{
+  height: 900px;
+  margin-top: -100px;
+  background: linear-gradient(90deg, rgba(102,129,126,1) 0%, rgba(75,165,155,1) 5%, rgba(69,85,94,1) 73%, rgba(53,71,80,1) 87%);
+} */
+
 
 .main-container {
   display: flex;
@@ -13,17 +82,25 @@ main {
 
 .title {
   font-size: 3rem;
-  display: grid;
+  display: grid; 
   place-items: center;
 }
 
 /* Sidebar */
 .sidebar {
-  background: rgb(0, 7, 61);
+  /* background-color:#4C787E; */
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,121,68,1) 35%, rgba(0,212,255,1) 100%);
+  /* background-image: url("https://img.freepik.com/free-psd/abstract-background-design_1297-78.jpg?size=626&ext=jpg&ga=GA1.1.1508111170.1671688676"); */
   color: white;
-  height: 100vh;
-  overflow-y: auto;
+  height: 130vh;
+  /* overflow-y: auto; */
+  width:40%;
 }
+.prod1{
+  /* background-image: url("https://img.freepik.com/free-psd/abstract-background-design_1297-78.jpg?size=626&ext=jpg&ga=GA1.1.1508111170.1671688676"); */
+ 
+}
+
 
 .top_section {
   display: flex;
@@ -61,16 +138,16 @@ main {
 .routes {
   margin-top: 15px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   gap: 5px;
 }
 .link {
-  display: flex;
+  display: flex; 
   color: white;
   gap: 10px;
   padding: 5px 10px;
-  border-right: 4px solid transparent;
-  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  border-right: 4px solid transparent; 
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045); 
 }
 .link:hover {
   border-right: 4px solid white;
@@ -89,11 +166,12 @@ main {
 .menu {
   display: flex;
   color: white;
+  width:18%;
 
   padding: 5px 10px;
-  border-right: 4px solid transparent;
-  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
-  justify-content: space-between;
+  border-right: 4px solid transparent;  
+  transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045); 
+  justify-content: space-between; 
 }
 .menu_item {
   display: flex;
@@ -107,3 +185,726 @@ main {
   padding-left: 20px;
   border-bottom: #fff 0.5px solid;
 }
+.dash-body
+{
+  background-image: url("https://img.freepik.com/free-vector/abstract-white-gold-background_23-2149290000.jpg?size=626&ext=jpg&ga=GA1.1.1508111170.1671688676"); 
+  width: 108%;
+  height: 783px;
+}
+
+/* report */
+.productionOrderReportResultTable {
+  width: 100%;
+  height: 200px;
+ }
+  
+ .productionOrderReportResultTH {
+  border-bottom: 1px solid black;
+  text-align: left;
+  padding: 5px 0px 6px 7px;
+ }
+  
+ .productionOrderReportResultTD {
+  text-align: left;
+  padding: 0px 0px 13px 7px;
+ }
+ 
+ .productionOrderReportSearchTable {
+  border: 2px solid lightgray;
+  font-family:Arial, Helvetica, sans-serif;
+ }
+ 
+ .productionOrderReportSearchBoxInvisble {
+  color: transparent;
+  display: none;
+ }
+ 
+ .productionOrderReportResultTableDIVouter {
+  padding-right: 100px;
+ }
+ 
+ .productionOrderReportResultTableDIV {
+  overflow-y: scroll;
+  height: 360px;
+  border: 2px solid gray;
+ }
+ .naclass
+ {
+  width:105%;
+ }
+ 
+
+ #exportTable
+ {
+  width:50%;
+ }
+ 
+ #login{
+  background-image: url("https://t4.ftcdn.net/jpg/05/05/09/85/240_F_505098516_ALIp3V4EaMdXiFcdUTfJ1gLHtnop8U8d.jpg"); 
+  margin-left: 130px;
+  margin-bottom: 300px;
+  margin-top: 200px;
+  width: 80%;
+  height: 260px;
+  color: #fff;
+  
+}
+.totalpage{
+   background-color:#848B79; 
+  /* background-image: url("https://img.freepik.com/free-vector/abstract-white-gold-background_23-2149290000.jpg?size=626&ext=jpg&ga=GA1.1.1508111170.1671688676");   */
+}
+ /* .naclass{
+  background-image: url("https://img.freepik.com/free-psd/abstract-background-design_1297-78.jpg?size=626&ext=jpg&ga=GA1.1.1508111170.1671688676"); 
+  color:aliceblue
+ } */
+ #productionOrderReportSearchTableID{
+  background-color:#86a0a8;
+  /* background-image: url("https://img.freepik.com/free-photo/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture_1258-54237.jpg?size=626&ext=jpg&ga=GA1.2.1508111170.1671688676&semt=ais"); */
+  color:rgb(9, 9, 9) 
+ }
+ .s{
+  color:black;
+  
+ }
+ .da{
+  color:whitesmoke
+ }
+ .nav-link,
+ .navbar-brand
+ {
+  color:#fff;
+  
+
+  
+  
+ }
+ .nav-item1{
+  margin-left: 900px;
+  
+ }
+ #logout1{
+  margin-left: 180px;
+  margin-top: -56px;
+ }
+ #h3{
+  color: rgb(13, 1, 6);
+ }
+ #tab{
+  color:aliceblue;
+margin-left: -79px;
+ }
+ .logout{
+  margin-left: 900px;
+ }
+ .mb-5{
+  border: 2px solid rgb(100, 180, 254);
+ }
+ #box{
+  border: 2px solid rgb(13, 184, 169);
+ }
+ /* #wrapper{
+  background-image: url("https://img.freepik.com/free-vector/abstract-white-gold-background_23-2149290000.jpg?size=626&ext=jpg&ga=GA1.1.1508111170.1671688676"); 
+  width: 108%;
+  height: 783px;
+  margin-right: 100px;
+} */
+#notauhorized{
+  margin-left: 300px;
+}
+#appbar{
+  /* background-color:#4C787E; */
+  background: linear-gradient(90deg, rgba(102,129,126,1) 0%, rgba(75,165,155,1) 5%, rgba(69,85,94,1) 73%, rgba(53,71,80,1) 87%);
+  color:#fff
+  /* background-image: url("https://img.freepik.com/free-photo/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture_1258-54237.jpg?size=626&ext=jpg&ga=GA1.2.1508111170.1671688676&semt=ais"); */
+}
+
+#adminsistraction{
+  background: linear-gradient(90deg, rgba(102,129,126,1) 0%, rgba(75,165,155,1) 5%, rgba(69,85,94,1) 73%, rgba(53,71,80,1) 87%);
+  color:#fff
+}
+#serialization{
+  background: linear-gradient(90deg, rgba(102,129,126,1) 0%, rgba(75,165,155,1) 5%, rgba(69,85,94,1) 73%, rgba(53,71,80,1) 87%);
+  color:#fff
+}
+#masterdata{
+  background: linear-gradient(90deg, rgba(102,129,126,1) 0%, rgba(75,165,155,1) 5%, rgba(69,85,94,1) 73%, rgba(53,71,80,1) 87%);
+  color:#fff
+}
+#productionline{
+  background: linear-gradient(90deg, rgba(102,129,126,1) 0%, rgba(75,165,155,1) 5%, rgba(69,85,94,1) 73%, rgba(53,71,80,1) 87%);
+  color:#fff
+}
+
+
+#card1{
+  width: 20%; 
+   /* margin-top: 20px; 
+ 
+  height: 205px; */
+  
+   margin-left: 40px; 
+  
+}
+#card2{
+  width: 20%;
+  margin-left: 350px;
+  margin-top: -196px; 
+  margin-bottom: -10px;
+ 
+}
+#card3{
+  width: 20%;
+  margin-left: 650px;
+  margin-top: -185px; 
+  margin-bottom: 8px;
+  
+}
+#card4{
+  width: 20%;
+  margin-left: 950px;
+  margin-top: -210px; 
+ 
+  
+}
+#dascardbg{
+  height: 198px;
+ 
+}
+#tablecard{
+  height: 412px;
+ width: 50%;
+ margin-left: 74px; 
+}
+#tablebox{
+  margin-left: 20px;
+}
+#piedash{
+  margin-left: 830px;
+  margin-top: -420px;
+  height: 400px;
+  border: 2px solid gray;
+}
+#image{
+ margin-left: 100px;
+}
+#shipping{
+ 
+  margin-left: -120px;
+}
+#po{
+  margin-left: -140px;
+  
+  }
+#company{
+ 
+  margin-left: -100px;
+  
+  } 
+.customer{
+    margin-left: -110px; 
+  }
+.customerlocation{
+  margin-left: -110px; 
+}
+#product{
+  margin-left: -110px; 
+  margin-top: -50px;
+}
+#manufact{
+  margin-left: -110px; 
+  
+  height: 500px;
+}
+#registeredsystem{
+  margin-left: -110px; 
+}
+#reguser{
+  margin-left: 10px; 
+}
+#userheadfield{
+  margin-left: -70px; 
+  }
+  #userrole{
+    /* background-image: url("https://img.freepik.com/free-photo/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture_1258-54237.jpg?size=626&ext=jpg&ga=GA1.2.1508111170.1671688676&semt=ais"); */
+    /* background-color:#86a0a8; */
+    background: linear-gradient(90deg, rgba(102,129,126,1) 0%, rgba(75,165,155,1) 5%, rgba(69,85,94,1) 73%, rgba(53,71,80,1) 87%);
+  color:#fff
+  }
+  #permission{
+    color: #0c0b0b;
+    width: 130%;
+   margin-top: -3%;
+   margin-left: -90px;
+  }
+  #datatable{
+    color: #fff;
+  }
+  #role{
+    /* color: #040404; */
+    color: #fff;
+  }
+#regimage{
+  margin-top: 120px;
+  margin-left: 200px;
+}
+#homepagestyle{
+  margin-top: 90px;
+  margin-left: 80px;
+ 
+}
+#boxstyle{
+  width: 10%;
+}
+#buttonid{
+  margin-left: 550px;
+  margin-top: -50px;
+}
+/* customer page box styling code */
+#customernamefield{
+  margin-left: 10px;
+  margin-top: -15px;
+}
+#locationbox{
+  margin-left: 300px;
+}
+.form-select{
+  width: 26%;
+  margin-left: 16px;
+  height: 53px;
+  margin-top: 20px;
+
+}
+.col-1{
+  margin-top: -70px;
+  margin-left: 280px;
+}
+#customerbox{
+  border: 4px solid rgb(51, 74, 72); 
+  margin-left: 50px;
+  height: 380px;
+  width: 90%;
+  margin-right: 200px;
+  
+}
+#customerhead{
+  margin-left: 240px;
+  font-style: oblique;
+ 
+}
+
+/* end of customer page styling */
+
+/* customertracelink styling */
+
+#customertracelinkbox{
+  margin-right: 2px;
+  border: 4px solid rgb(51, 74, 72);
+}
+#customertracelinkbutton{
+  margin-left: 1050px;
+  margin-top: -340px;
+}
+#customertracelinkhead{
+  margin-left: 300px;
+ font-style: normal;
+ 
+}
+#customercardhead{
+  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+}
+#customerfullcard{
+  width: 100%;
+}
+#customerselectbox{
+  width: 23%;
+  margin-left: 16px;
+  height: 53px;
+}
+/* End of customer tracelink styling */
+
+/* Location page styling */
+#locationhead{
+  margin-left: 280px;
+  font-style: oblique;
+}
+#locationbutton{
+  margin-left: 900px;
+  margin-top: -240px;
+}
+#locationselectbox{
+  margin-left: 18px;
+  margin-bottom: -20px;
+}
+#locationbox{
+  margin-left: 73px;
+  width: 87%;
+  border: 4px solid rgb(51, 74, 72);
+}
+#locationpropertybox{
+  margin-right: 70px;
+  border: 4px solid rgb(51, 74, 72);
+  width:90%;
+}
+#locationpropertybutton{
+  margin-left: 930px;
+  margin-top: -160px;
+}
+/* end of location page styling */
+
+/* registereduser page styling */
+#userhead{
+  margin-left: 330px;
+  font-style: oblique; 
+}
+#userselectbox{
+  width: 66%;
+  margin-left: 16px;
+  height: 53px;
+}
+#userbox{
+  margin-right: 100px;
+  border: 4px solid rgb(51, 74, 72);
+  width:89%;
+}
+#userbutton{
+  margin-left: 1000px;
+  margin-top: -247px;
+}
+#usercardhead{
+  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+}
+#companyproperty{
+  margin-left:-10px;
+  width: 100%;
+}
+#companyerp{
+  width:100%;
+margin-left: 15px;
+
+}
+#companyservice{
+  margin-left: 255px;
+ margin-top: -70px;
+}
+#companyerphead{
+  margin-left: 170px;
+  font-style: oblique;
+}
+#companyerpfullcard{
+  width: 80%;
+  margin-left: 100px;
+
+}
+#companytracelinkfullcard{
+  width: 80%;
+  margin-left: 100px;
+}
+#companytracelinkcardhead{
+  margin-left: 170px;
+  font-style: oblique;
+}
+
+#productselectbox{
+margin-top: -70px;
+margin-left: 273px;
+width: 50%;
+}
+#productstatus{
+  margin-left: 550px;
+  margin-top: -50px;
+  
+}
+#producteditselectbox{
+  margin-top: -70px;
+  margin-left: 273px;
+  width: 50%;
+}
+
+#productpropertybox{
+  margin-left: -7px;
+  width: 100%;
+  border: 4px solid rgb(51, 74, 72);
+}
+#productpropertybutton{
+  margin-left: 1000px;
+  margin-top: -505px;
+  margin-bottom: 500px;
+}
+#productpropertyhead{
+  margin-left: 260px;
+  font-style: oblique;
+}
+#productpropertycardhead{
+  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+}
+#producterpbox{
+  margin-left: 107px;
+  width: 80%;
+  border: 4px solid rgb(51, 74, 72);
+}
+#producthrf{
+ 
+}
+#producthrfbox{
+  width: 170%;
+}
+#producthrf2{
+  margin-left: 357px;
+  margin-top: -57px;
+}
+#producthrf3{
+  margin-left: 757px;
+  margin-top: -57px;
+}
+#producthrf4{
+  /* margin-left: 957px; */
+  margin-top: 127px;
+}
+#producthrf5{
+  /* margin-left: 757px; */
+  margin-top: 57px;
+}
+#producthrf6{
+  margin-left: 757px;
+  margin-top: -57px;
+}
+#producthrfbutton{
+  margin-left: 970px;
+  margin-top: -130px;
+}
+#historycard{
+  margin-left: -100px;
+  width: 105%;
+}
+#auditreportempoyeid{
+  margin-left: 640px;
+}
+.productionOrderReportResultTableDIV {
+
+  overflow-y: scroll;
+
+  height: 360px;
+
+  border: 2px solid gray;
+
+ }
+ #auditreporthead{
+  margin-left: -1px;
+
+ }
+ #productionboxbox{
+  width: 30%;
+ }
+ #auditfullcard{
+  width: 40%;
+  margin-left: 900px;
+  margin-top: -650px;
+ }
+ #productionreportfullcard{
+  width: 100%;
+  margin-left: -30px;
+  margin-top: -10px;
+ }
+ #shippingreportfullcard{
+  width: 40%;
+  margin-top: 500px;
+  margin-left: 100px;
+  
+ }
+ #productionboxbox{
+  width: 90%;
+
+ }
+
+ #productionorderhead{
+  margin-left: 170px;
+  font-style: oblique;
+}
+#productionorderfullcard{
+  width: 103%;
+  margin-left: -30px;
+}
+
+#productionordercardhead{
+  margin-left: 1px;
+  font-style: oblique;
+  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+}
+
+#productionorderbox{
+  margin-left: 10px;
+  width: 100%;
+
+  border: 4px solid rgb(51, 74, 72);
+  
+
+}
+#po1{
+  margin-left: 2px;
+}
+#po2{
+  width: 200%;
+  margin-left: 530px;
+  margin-top: -55px;
+}
+#po3{
+  
+  margin-left: 530px;
+  margin-top: -55px;
+}
+#po4{
+
+  margin-left: 264px;
+  margin-top: -95px;
+}
+#po5{
+  margin-left: 1px;
+  margin-bottom: 40px;
+ 
+}
+#pofetchbutton{
+  margin-left: 300px;
+  margin-top: -60px;
+}
+#pobutton{
+  margin-left: 790px;
+  margin-top: -73px;
+}
+#pogtin{
+  margin-left: 635px;
+  margin-top: -100px;
+}
+#pocontant{
+  margin-left: 100px;
+  width: 100%;
+}
+#poedit2{
+  width: 206%;
+  margin-left: 547px;
+  margin-top: -76px;
+}
+#poedit3{
+  margin-left: 546px;
+  margin-top: -70px;
+ 
+}
+#poedit5{
+  margin-left: 20px;
+  margin-bottom: 40px;
+ 
+}
+#poedit6{
+  margin-left: 280px;
+  margin-top: -96px;
+}
+#poeditbutton{
+  margin-left: 800px;
+  margin-top: -60px;
+}
+
+#shippingsourceloc{
+  margin-top: -76px;
+  margin-left: 300px;
+}
+#shippingdestloc{
+  margin-top: -55px;
+  margin-left: 600px;
+}
+#subjectselectbox{
+  margin-left: 600px;
+  margin-top: -70px;
+}
+#statusselectbox{
+  margin-left: 302px;
+  margin-top: -70px;
+}
+#shippingbutton{
+  margin-left: 830px;
+  margin-top: -60px;
+}
+#shippingwarningdiv{
+  width: 97%;
+  margin-left: 18px;
+}
+#shippingpropertybutton{
+  margin-left: 1020px;
+  margin-top: -160px;
+}
+
+
+#regsyfullcard{
+  width: 100%;
+  margin-left: 100px;
+}
+#regstycardhead{
+  margin-left: 1px;
+  font-style: oblique;
+  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+}
+
+#regsystembox{
+  margin-left: 60px;
+  border: 4px solid rgb(51, 74, 72);
+  width:89%;
+}
+#regstyhead{
+  margin-left: 300px;
+}
+#regsymanufactbox{
+  margin-left: 280px;
+  margin-top: -70px;
+}
+#saperpbox{
+  margin-left: 13px;
+  /* margin-top: 17px; */
+}
+#sandtlinkbutton{
+  margin-left: 1100px;
+  margin-top: -335px;
+}
+#gtindatagrid{
+  margin-left: 1px;
+}
+
+#gtincreatebox{
+  margin-right: 2px;
+  height: 300px;
+  border: 4px solid rgb(51, 74, 72);
+}
+#gtincreatebutton{
+  margin-left: 300px;
+  margin-top: -160px;
+}
+#gtincreatehead{
+  margin-left: 300px;
+ font-style: normal;
+ 
+}
+#gtincreatecardhead{
+  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+}
+#gtincreatefullcard{
+  width: 100%;
+  height: 500px;
+  margin-left: 120px;
+}
+#gtincreateselectbox{
+  width: 23%;
+  margin-left: 16px;
+  height: 53px;
+}
+#prod1{
+  margin-left: -70px;
+}
+#gtineditbutton{
+  margin-left: 500px;
+  margin-top: -160px;
+}
+
+
+
+
+
+
+
+
