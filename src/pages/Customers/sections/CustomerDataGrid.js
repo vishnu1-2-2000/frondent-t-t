@@ -65,8 +65,9 @@ const CustomerDataGrid=(props)=>{
                     let userDataColumns = [
                       { field: 'id', headerName: 'Id', width: 100,headerClassName: "MuiDataGrid-columnHeaders", },
                       { field: 'name', headerName: 'Name', width: 120,headerClassName: "MuiDataGrid-columnHeaders", },
-                      { field: 'company_prefix', headerName: 'GS1 CompanyPrefix', width: 200,headerClassName: "MuiDataGrid-columnHeaders", },
-                      { field: 'company_gln', headerName: 'CompanyGLN', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
+                      { field: 'country', headerName: 'Country', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
+                      { field: 'state', headerName: 'State', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
+                      { field: 'city', headerName: 'City', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
                       { field: 'address', headerName: 'Address', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
                       { field: 'zip', headerName: 'Zip', width: 130,headerClassName: "MuiDataGrid-columnHeaders", },
                       { field: 'group', headerName: 'Group', width: 120,headerClassName: "MuiDataGrid-columnHeaders", },
@@ -290,7 +291,7 @@ const CustomerDataGrid=(props)=>{
                        else(
                         tempstatus="Not Confirmed"
                        )
-                        tempArrayfunction.push({'id':rowData.id, 'name':rowData.name,'company_prefix':rowData.company_prefix,'company_gln':rowData.company_gln,
+                        tempArrayfunction.push({'id':rowData.id, 'name':rowData.name,'country':rowData.country,'state':rowData.state,'city':rowData.city,
                         'address':rowData.address,'zip':rowData.zip,
                         'created_by':rowData.created_by,'group':rowData.group,'status':tempstatus},)  
                         

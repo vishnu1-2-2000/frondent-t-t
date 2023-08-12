@@ -21,7 +21,24 @@ import MailIcon from '@mui/icons-material/Mail';
 import { AiFillHome } from 'react-icons/ai';
 import {SiMediamarkt} from 'react-icons/si';
 import {GiMedicines} from 'react-icons/gi';
+import axios from "axios";
+import {FaUserLock} from 'react-icons/fa';
 
+
+
+import {FaHistory} from 'react-icons/fa';
+import {MdOutlineProductionQuantityLimits} from 'react-icons/md';
+import {HiUsers} from 'react-icons/hi';
+import {MdDashboard} from 'react-icons/md';
+import {FiSend} from 'react-icons/fi';
+import {RiStoreFill} from 'react-icons/ri';
+import {AiTwotonePropertySafety} from 'react-icons/ai';
+import {SiProducthunt} from 'react-icons/si';
+import {MdOutlinePersonAddAlt} from 'react-icons/md';
+import {RiUserLocationFill} from 'react-icons/ri';
+import {MdLocationOn} from "react-icons/md";
+import {RiComputerFill} from "react-icons/ri"
+import * as  FiIcons from "react-icons/fi"
 
 
 import { useNavigate } from "react-router-dom";
@@ -99,16 +116,38 @@ export default function Sidebar() {
   const [open, setOpen] = React.useState(true);
   const navigate=useNavigate();
   const [menudata, setMenudata] = useState("Login");
+  var loggedInUsername=window.localStorage.getItem('loggedInUsername')
 
+  var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
   const handleDrawerOpen = () => {
                     setOpen(true);
                   };
 function logout() {
-        window.localStorage.removeItem("loggedInUsername");
-        window.localStorage.removeItem("loggedInUserPassword");
-        window.localStorage.removeItem("loggedInUserrole");
-                
-        navigate("/");
+  window.localStorage.removeItem('loggedInUsername');
+
+  window.localStorage.removeItem('loggedInUserPassword');
+
+  window.localStorage.removeItem('loggedInUserrole');
+
+ 
+
+  axios
+
+  .post('http://127.0.0.1:8000/accounts/logoutController',
+
+  {
+
+    "username": loggedInUsername,    
+
+    "userrole": loggedInUserrole,
+
+  })
+
+  .then((response) => {
+
+      navigate("/");
+
+  })
         } 
                      
   const listStyle3 = {
@@ -207,7 +246,7 @@ function logout() {
                     justifyContent: 'center',
                   }}
                 >
-                 <AiFillHome />
+                 <AiFillHome size={30}/>
                 </ListItemIcon>
                 <ListItemText primary="Home" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -232,7 +271,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-               <i class="fa-solid fa-user-lock fa-1x"></i>
+              <FaUserLock size={30}/>
              </ListItemIcon>
              <ListItemText primary="Role" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -253,7 +292,7 @@ function logout() {
                     justifyContent: 'center',
                   }}
                 >
-                   <i class="fa-solid fa-users fa-1x"></i>
+                   <HiUsers size={30}/>
                 </ListItemIcon>
                 <ListItemText primary="Users" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -275,7 +314,7 @@ function logout() {
                     justifyContent: 'center',
                   }}
                 >
-                   <i class="fa-solid fa-users fa-1x"></i>
+                   <FaUserLock size={30}/>
                 </ListItemIcon>
                 <ListItemText primary="SnProvider" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -296,7 +335,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-               <i class="fa-solid fa-user-lock fa-1x"></i>
+              <FaHistory size= {30}/>
              </ListItemIcon>
              <ListItemText primary="History" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -331,7 +370,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-                <InboxIcon/>
+               <MdOutlineProductionQuantityLimits size={30}/>
              </ListItemIcon>
              <ListItemText primary="Productionorder" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -351,7 +390,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-                <InboxIcon/>
+                <MdDashboard size={30}/>
              </ListItemIcon>
              <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -373,7 +412,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-                <InboxIcon/>
+                <FiSend size={30}/>
              </ListItemIcon>
              <ListItemText primary="ShippingOrder" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -394,7 +433,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-                <InboxIcon/>
+              <RiStoreFill size={30}/>
              </ListItemIcon>
              <ListItemText primary="Stock" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -422,7 +461,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-                <InboxIcon/>
+                <AiTwotonePropertySafety size={30}/>
              </ListItemIcon>
              <ListItemText primary="Company" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -442,7 +481,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-                <InboxIcon/>
+                <SiProducthunt size={30}/>
              </ListItemIcon>
              <ListItemText primary="Product" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -463,7 +502,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-                <InboxIcon/>
+                <MdOutlinePersonAddAlt size={30}/>
              </ListItemIcon>
              <ListItemText primary="Customers" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -484,7 +523,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-                <InboxIcon/>
+                 <RiUserLocationFill size={30}/>
              </ListItemIcon>
              <ListItemText primary="CustomerLocations" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -512,7 +551,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-                <InboxIcon/>
+               <MdLocationOn size={30}/>
              </ListItemIcon>
              <ListItemText primary="ManufacturingLocation" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -534,7 +573,7 @@ function logout() {
                  justifyContent: 'center',
                }}
              >
-                <InboxIcon/>
+                 <RiComputerFill size={30}/>
              </ListItemIcon>
              <ListItemText primary="RegisteredSystem" sx={{ opacity: open ? 1 : 0 }} />
            </ListItemButton>
@@ -571,7 +610,7 @@ function logout() {
          </ListItem>
         
         
-         <ListItem  disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/registeredsystem")}}>
+         <ListItem  disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/shippingreport")}}>
            <ListItemButton
              sx={{
                minHeight: 48,
@@ -592,7 +631,7 @@ function logout() {
            </ListItemButton>
          </ListItem>
 
-         <ListItem  disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/registeredsystem")}}>
+         <ListItem  disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/report/productionorderreport")}}>
            <ListItemButton
              sx={{
                minHeight: 48,

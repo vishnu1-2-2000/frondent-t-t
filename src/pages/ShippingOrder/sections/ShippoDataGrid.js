@@ -272,7 +272,7 @@ const ShippoDataGrid=(props)=> {
                                (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
                                         );
                                       //alert(thisRow.name);
-                               navigate("/shipping/export/")
+                               navigate("/shipping/export/"+ thisRow.process_no_original+"/"+thisRow.id)
                               
                                       // setToLocalStorage(
                                       //   thisRow.id,
@@ -291,19 +291,17 @@ const ShippoDataGrid=(props)=> {
                             
                               if(props.propertyButtonStatus === "enabled" ) {
                                     return <button
-                                                  className="btn btn-primary" 
+                                                  className="btn btn-info" 
                                                   onClick={onClick}><i class="fa-sharp fa-solid fa-paper-plane"></i></button>;
                                                 }
                               else if(props.propertyButtonStatus === "disabled" ) {
                                       return <button
-                                                  className="btn btn-primary" 
+                                                  className="btn btn-info" 
                                                   disabled = "true"
                                                   onClick={onClick}><i class="fa-sharp fa-solid fa-paper-plane"></i></button>;
                                    }
                                   },
                                 },
-                            
-                      
                   
                   
                       
@@ -460,12 +458,9 @@ const ShippoDataGrid=(props)=> {
                   
                     useEffect(() => {
                       //console.log('i fire once');
-                       if(window.localStorage.getItem('username') && window.localStorage.getItem('password')) {
+                      
                       getData();
-                       }
-                       else{
-                        navigate("/");
-                       }
+                       
                       //alert("anu");
                     }, []);
         function CustomToolbar() {

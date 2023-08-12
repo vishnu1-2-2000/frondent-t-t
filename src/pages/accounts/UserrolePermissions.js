@@ -107,6 +107,11 @@ const UserrolePermissions = () => {
     const [Auditreport_delete_checked_state, setAuditreport_delete_checked_state] = useState(false);
 
 
+    const [Shippingreport_read_checked_state, setShippingreport_read_checked_state] = useState(false);
+    const [Shippingreport_create_checked_state, setShippingreport_create_checked_state] = useState(false);
+    const [Shippingreport_update_checked_state, setShippingreport_update_checked_state] = useState(false);
+    const [Shippingreport_delete_checked_state, setShippingreport_delete_checked_state] = useState(false);
+
     const [Registeredusers_read, setRegisteredusers_read] = useState("");
     const [saveButtonText_state, setSaveButtonText_state] = useState("Save the data");
     const [saveButtonMode_state, setSaveButtonMode_state] = useState(false);
@@ -224,6 +229,11 @@ const UserrolePermissions = () => {
             Auditreport_update:   Auditreport_update_checked_state === true ? "Checked" : "Unchecked",
             Auditreport_delete:   Auditreport_delete_checked_state === true ? "Checked" : "Unchecked",
 
+
+            Shippingreport_read:     Shippingreport_read_checked_state === true ? "Checked" : "Unchecked",
+            Shippingreport_create:   Shippingreport_create_checked_state === true ? "Checked" : "Unchecked",
+            Shippingreport_update:   Shippingreport_update_checked_state === true ? "Checked" : "Unchecked",
+            Shippingreport_delete:   Shippingreport_delete_checked_state === true ? "Checked" : "Unchecked",
             
 
         
@@ -849,6 +859,44 @@ const UserrolePermissions = () => {
 
 
 
+                else if(data['activity_name'] ==='shippingreport')
+                //alert(data.activity_name)
+                //alert(data.admin["READ"])
+                {
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ? setShippingreport_read_checked_state(true):setShippingreport_read_checked_state(false);
+                        data.admin['CREATE']==="Checked"?setShippingreport_create_checked_state(true):setShippingreport_create_checked_state(false);
+                        data.admin['UPDATE']==="Checked"?setShippingreport_update_checked_state(true):setShippingreport_update_checked_state(false);
+                        data.admin['DELETE']==="Checked"?setShippingreport_delete_checked_state(true):setShippingreport_delete_checked_state(false);
+                    }
+                     else if(event.target.value==="supervisor")
+                    
+                    {
+                        //alert(data.admin['CREATE'])
+                        data.supervisor['READ']==="Checked" ?setShippingreport_read_checked_state(true):setShippingreport_read_checked_state(false);
+                        data.supervisor['CREATE']==="Checked"?setShippingreport_create_checked_state(true):setShippingreport_create_checked_state(false);
+                        data.supervisor['UPDATE']==="Checked"?setShippingreport_update_checked_state(true):setShippingreport_update_checked_state(false);
+                        data.supervisor['DELETE']==="Checked"?setShippingreport_delete_checked_state(true):setShippingreport_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==="Checked" ? setShippingreport_read_checked_state(true):setShippingreport_read_checked_state(false);
+                        data.masterdata['CREATE']==="Checked"?setShippingreport_create_checked_state(true):setShippingreport_create_checked_state(false);
+                        data.masterdata['UPDATE']==="Checked"?setShippingreport_update_checked_state(true):setShippingreport_update_checked_state(false);
+                        data.masterdata['DELETE']==="Checked"?setShippingreport_delete_checked_state(true):setShippingreport_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==="Checked" ? setShippingreport_read_checked_state(true):setShippingreport_read_checked_state(false);
+                        data.operator['CREATE']==="Checked"?setShippingreport_create_checked_state(true):setShippingreport_create_checked_state(false);
+                        data.operator['UPDATE']==="Checked"?setShippingreport_update_checked_state(true):setShippingreport_update_checked_state(false);
+                        data.operator['DELETE']==="Checked"?setShippingreport_delete_checked_state(true):setShippingreport_delete_checked_state(false);
+                    }
+                }
+
+
+
 
 
 
@@ -885,7 +933,7 @@ const UserrolePermissions = () => {
         <br></br>
         <br></br>
         <Box sx={{ display: 'flex' }}> 
-        <Sidebar/>  
+        {/* <Sidebar/>   */}
 
 <div id="permission">
                    
@@ -1387,6 +1435,30 @@ const UserrolePermissions = () => {
                                             onChange={() => setAuditreport_delete_checked_state(!Auditreport_delete_checked_state)}></input></td>
                                         
                                         </tr>
+
+                                        <tr>
+                                            <td>Shipping Report</td>
+                                            <td><input type="checkbox" 
+                                                    name="Shippingreport_read" 
+                                                   checked={Shippingreport_read_checked_state} onChange={()=>setShippingreport_read_checked_state(!Shippingreport_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                            <td><input type="checkbox" 
+                                                    name="Shippingreport_create"
+                                                    checked = {Shippingreport_create_checked_state}
+                                                    onChange={() => setShippingreport_create_checked_state(!Shippingreport_create_checked_state)}>
+                                                </input></td>
+
+                                             <td><input type="checkbox" name="Shippingreport_update"
+                                             checked = {Shippingreport_update_checked_state}
+                                             onChange={() => setShippingreport_update_checked_state(!Shippingreport_update_checked_state)}
+                                            ></input></td>
+                                            <td><input type="checkbox" name="Shippingreport_delete" 
+                                            checked = {Shippingreport_delete_checked_state}
+                                            onChange={() => setShippingreport_delete_checked_state(!Shippingreport_delete_checked_state)}></input></td>
+                                        
+                                        </tr>
+
                                         <tr>
                                             <td>Send Productionorder to production</td>
                                             <td><input type="checkbox"></input></td>

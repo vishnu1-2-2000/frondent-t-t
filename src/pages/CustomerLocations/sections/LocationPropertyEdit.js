@@ -66,7 +66,7 @@ useEffect(()=>{
                   fullWidth
 
                   id="outlined-Company Prefix"
-                  label={<h4 ><pre><h4 style={{color:"red"}}>   Enter Customer Location Property </h4></pre></h4>}
+                  label={<h4 ><pre><h4 style={{color:"white"}}>   Enter Customer Location Property </h4></pre></h4>}
                
 
             />

@@ -9,99 +9,87 @@ import StockDataGrid from './StockDataGrid';
 import { Box } from '@mui/material';
 
 function StockReadAfterLoginCheck() {
-                    const loadingSection = <div class="container-fluid">
-                    <div class="card shadow mb-4"> 
-                        <div class="card-body">  
-                          <div class="px-3 py-5 text-primary text-center">
-                            <div class="spinner-border" role="status">
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                </div>
+  const loadingSection = 
+    <div class="container-fluid">
+      <div class="card shadow mb-4"> 
+        <div class="card-body">  
+          <div class="px-3 py-5 text-primary text-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
           
-              const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
+    const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
                 
-              const notAuthorizedSection = <div class="container-fluid">
-                        <div class="card shadow mb-4"> 
-                            <div class="card-body">  
-                              
-                              <div class="text-primary text-center">
-                                <img src='/img/forbidden.jpg'/>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
+    const notAuthorizedSection = 
+      <div class="container-fluid">
+        <div class="card shadow mb-4"> 
+          <div class="card-body">                    
+            <div class="text-primary text-center">
+              <img src='/img/forbidden.jpg'/>
+            </div>
+          </div>
+        </div>
+      </div>
           
-              function checkAuthorization() 
-              {
-                axios
-                .get("http://localhost:8000/accounts/userrolePermissionsRead")
-                .then((res) => {
-                  var authorized = false;
+    function checkAuthorization() 
+      {
+      axios
+      .get("http://localhost:8000/accounts/userrolePermissionsRead")
+      .then((res) => {
+        var authorized = false;
                   //  alert("haiii")
                   // alert(window.localStorage.getItem('loggedInUserrole'))
                   //alert( res.data[3].admin['UPDATE']);
                   //alert(res.data[2].activity_name)
-                      if(window.localStorage.getItem('loggedInUserrole') === "admin") {
-                          
-                              res.data[4].activity_name ==='stock' && res.data[4].admin['READ']==="Checked" ? setSelectedDIV_state(<StockDataGrid   />) :setSelectedDIV_state(notAuthorizedSection);
-                                                    
-                          
-                          
-                          
-                      }
-                      else if(window.localStorage.getItem('loggedInUserrole') === "operator") {
-                          
-                              res.data[4].activity_name ==='stock' && res.data[4].operator['READ']==="Checked" ? setSelectedDIV_state(<StockDataGrid   />) :setSelectedDIV_state(notAuthorizedSection);
-                          
-                          
-                      
-                      }
-                      else if(window.localStorage.getItem('loggedInUserrole') === "supervisor") {
-                          
-                              res.data[4].activity_name ==='stock' && res.data[4].supervisor['READ']==="Checked" ? setSelectedDIV_state(<StockDataGrid  />) :setSelectedDIV_state(notAuthorizedSection);
-                          
-                          
-                      }
-                      else if(window.localStorage.getItem('loggedInUserrole')==="masterdata")
-                      {
-                         
-                              res.data[4].activity_name==="stock"&&res.data[4].masterdata['READ']==="Checked"?setSelectedDIV_state(<StockDataGrid   />):setSelectedDIV_state(notAuthorizedSection);
-                          
-                          
-                      }
+        res.data.forEach(element=>{
+                    // alert(element.activity_name)
+          if(element['activity_name'] ==='stock'){
+            if(window.localStorage.getItem('loggedInUserrole') === "admin") {            
+              element.activity_name ==='stock' && element.admin['READ']==="Checked" ? setSelectedDIV_state(<StockDataGrid   />) :setSelectedDIV_state(notAuthorizedSection);    
+            }
+            else if(window.localStorage.getItem('loggedInUserrole') === "operator") {            
+              element.activity_name ==='stock' && element.operator['READ']==="Checked" ? setSelectedDIV_state(<StockDataGrid   />) :setSelectedDIV_state(notAuthorizedSection);
+            }
+            else if(window.localStorage.getItem('loggedInUserrole') === "supervisor") {         
+              element.activity_name ==='stock' && element.supervisor['READ']==="Checked" ? setSelectedDIV_state(<StockDataGrid  />) :setSelectedDIV_state(notAuthorizedSection);
+            }
+            else if(window.localStorage.getItem('loggedInUserrole')==="masterdata")
+            {
+                element.activity_name==="stock"&& element.masterdata['READ']==="Checked"?setSelectedDIV_state(<StockDataGrid   />):setSelectedDIV_state(notAuthorizedSection);    
+            }
           
-                      
+          }
+        })  
                 
-                  });
-              }
+      });
+    }
           
               
               
           
-              useEffect(() => {     
-                checkAuthorization();
+    useEffect(() => {     
+      checkAuthorization();
                 
-              }, []);
+    }, []);
              
-              return (
-                  <div id="wrapper">
-                        
-                    
-                      <div id="content-wrapper" class="d-flex flex-column">
-                          <div id="content">
+    return (
+      <div id="wrapper">
+        <div id="content-wrapper" class="d-flex flex-column">
+          <div id="content">
                               {/* <Header></Header>   */}
-                              {selectedDIV_state}
-                          </div>
+            {selectedDIV_state}
+          </div>
                           
                           {/* </Sidebar>Footer></Footer> */}
           
-                      </div>
+        </div>
                       
-              </div>
-            )
+      </div>
+    )
 }
 
 export default StockReadAfterLoginCheck

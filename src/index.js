@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+window.url = "http://192.168.200.131:8000";
 ReactDOM.render(
   <React.StrictMode>
     <App />

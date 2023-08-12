@@ -241,13 +241,13 @@ var headwidget=
  </Box>
 
     var locnameFieldWidget = <TextField
-            required
-          id="outlined-Location Name"
-          label="Location Name"
-          value = {name}
-          onChange={(e) => setName(e.target.value)}
-   
- />
+                              required
+                              id="outlined-Location Name"
+                              label="Location Name"
+                              value = {name}
+                              onChange={(e) => setName(e.target.value)}
+                            />
+
         var hjwidget=<label className="form-label">Customer Name</label>
         // var custnameFieldWidget = <input
         // type="text"
@@ -256,7 +256,7 @@ var headwidget=
       // /> 
     
    
-      var custnameFieldWidget = 
+  var custnameFieldWidget = 
 
       <Select  className="s" onChange={getLocation} options={CustomerIdOptionsNew} placeholder="Custermer Name" id="locationselectbox" styles={customStyles} value={{value:cuslocvalue,label:cusloclabel}}  /> 
 //     var custnameFieldWidget =  
@@ -283,49 +283,50 @@ var headwidget=
           
           
      
-        var addressFieldWidget = <TextField
-        required
-       id="outlined-Address"
-       label="Address"
-       value = {address}
-       onChange={(e) => setAddress(e.target.value)}
-       
-     />
-      var zipFieldWidget = <TextField
-      required
-     id="outlined-Zip"
-     label="Zip"
-     value = {zip}
-     onChange={(e) => setZip(e.target.value)}
-     
-   />
-    var stateFieldWidget = <TextField
-    required
-   id="outlined-State"
-   label="State"
-   value = {state}
-   onChange={(e) => setState(e.target.value)}
-   
- />
+  var addressFieldWidget = <TextField
+                            required
+                            id="outlined-Address"
+                            label="Address"
+                            value = {address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            
+                          />
+
+  var zipFieldWidget = <TextField
+                        required
+                        id="outlined-Zip"
+                        label="Zip"
+                        value = {zip}
+                        onChange={(e) => setZip(e.target.value)}
+                        
+                      />
+  var stateFieldWidget = <TextField
+                          required
+                          id="outlined-State"
+                          label="State"
+                          value = {state}
+                          onChange={(e) => setState(e.target.value)}
+                          
+                        />
  
   var locglnFieldWidget = <TextField
-  required
- id="outlined-Location Gln"
- label="Location Gln"
- value={loc_gln}
- onChange={(e) => setLocgln(e.target.value)}
- 
-/>
+                          required
+                          id="outlined-Location Gln"
+                          label="Location Gln"
+                          value={loc_gln}
+                          onChange={(e) => setLocgln(e.target.value)}
+                          
+                          />
 
 
-    var createdbyFieldWidget = <TextField
-    required
-   id="outlined-Createdby"
-   label="Createdby"
-   value={created_by} 
-   onChange={(e) => setCreatedby(e.target.value)}
-   
-  />
+  var createdbyFieldWidget = <TextField
+                              required
+                              id="outlined-Createdby"
+                              label="Createdby"
+                              value={created_by} 
+                              onChange={(e) => setCreatedby(e.target.value)}
+                              
+                              />
 
 }
 
@@ -440,9 +441,9 @@ var testPassed = "false";
     if(testPassed == "true"){
 
       if(operation === 'edit') {
-alert(customer_id)
-    axios
-      .put(`http://localhost:8000/master/locations/update/${locationEditID}`, 
+        alert(customer_id)
+        axios
+          .put(`http://localhost:8000/master/locations/update/${locationEditID}`, 
 
 
         {

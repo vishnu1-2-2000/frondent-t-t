@@ -161,21 +161,28 @@ function CustomerDataEntry() {
      
    />
    
-  var companyprefixFieldWidget = <TextField
+  var countryFieldWidget = <TextField
         required
-       id="outlined-Company Prefix"
-       label="Company Prefix"
-       onChange={(e) => setCompany_prefix(e.target.value)}
+       id="outlined-country"
+       label="Country"
+       onChange={(e) => setCountry(e.target.value)}
        
      />
-  var companyglnFieldWidget = <TextField
+    var stateFieldWidget = <TextField
       required
-      id="outlined-Company Gln"
-      label="Company Gln"
+      id="outlined-state"
+      label="State"
       // type="password"
       // autoComplete="current-password"
-      onChange={(e) => setCompany_gln(e.target.value)}
+      onChange={(e) => setState(e.target.value)}
     />
+    var cityFieldWidget = <TextField
+    required
+   id="outlined-CITY"
+   label="City"
+   onChange={(e) => setCity(e.target.value)}
+   
+ />
   var addressFieldWidget = <TextField
         required
         id="outlined-Address"
@@ -411,8 +418,9 @@ var groupfield=<select  class="form-select" id="customerselectbox" aria-label="g
         .post('http://localhost:8000/master/customer/', 
         {
           "name": name,  
-          'company_prefix': company_prefix,
-          'company_gln':company_gln,
+          "country":country,
+          "state":state,
+          "city":city,
           'address':address,
           'zip':zip , 
           'group':group,   
@@ -538,9 +546,9 @@ var groupfield=<select  class="form-select" id="customerselectbox" aria-label="g
          
           {nameFieldWidget}
 
-          {companyprefixFieldWidget}
+          {countryFieldWidget}
 
-          {companyglnFieldWidget}
+          {stateFieldWidget}
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button onClick={handleSubmit}><MdOutlineSave size={38}/>
                                                       
@@ -559,6 +567,7 @@ var groupfield=<select  class="form-select" id="customerselectbox" aria-label="g
 
           <div >
           {groupfield}
+          
           <br></br>
           
         <div className="col-1">
@@ -571,11 +580,11 @@ var groupfield=<select  class="form-select" id="customerselectbox" aria-label="g
               label="Gilad Gray"
             />} label="Status" />
         </div>
-          
+       
       </div>
 
-      <div>
-      
+      <div id="customercity">
+      {cityFieldWidget}
 
     </div>              
  

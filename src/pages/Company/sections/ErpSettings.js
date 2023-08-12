@@ -15,29 +15,33 @@ import { styled } from '@mui/material/styles';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
 function ErpSettings() {
-                    const [id, setId] = useState(0);
-                    const [erp, setErp] = useState("");
-                    const [sap_client, setSapclient] = useState("");
-                    const [sap_destination ,setDestination] = useState("");
-                    const [sap_language,setLanguage] = useState("");
-                    const [sap_password, setPassword] = useState("");
-                    const [sap_pool_size,setPoolsize] =useState("");
-                    const[sap_server_host,setServerhost] =useState("");
-                    const[sap_service,setSapservice]=useState("");
-                    const[sap_system_id,setSapsystemid]=useState("");
-                    const[sap_sytem_number,setSystemnumber]=useState("");
-                    const[sap_user,setUser]=useState("");
-                    const [companyEditID,setCompanyEditID]=useState("");                    
+  const [id, setId] = useState(0);
+  const [erp, setErp] = useState("");
+  const [sap_client, setSapclient] = useState("");
+  const [sap_destination ,setDestination] = useState("");
+  const [sap_language,setLanguage] = useState("");
+  const [sap_password, setPassword] = useState("");
+  const [sap_pool_size,setPoolsize] =useState("");
+  const[sap_server_host,setServerhost] =useState("");
+  const[sap_service,setSapservice]=useState("");
+  const[sap_system_id,setSapsystemid]=useState("");
+  const[sap_sytem_number,setSystemnumber]=useState("");
+  const[sap_user,setUser]=useState("");
+  const [companyEditID,setCompanyEditID]=useState("");                    
+  const [showPassword, setShowPassword] = React.useState(false);
+    ///   For navigate function
+  const navigate = useNavigate();
                     
-                    ///   For navigate function
-                    const navigate = useNavigate();
-                    
-                    const { operation } = useParams();
-                    const {uniqueID} =useParams();
-                    var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+      const { operation } = useParams();
+      const {uniqueID} =useParams();
+      var loggedInUsername=window.localStorage.getItem('loggedInUsername')
 
-                    var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
+      var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
 
 
     function getErpdataEdit(){
@@ -105,25 +109,29 @@ function ErpSettings() {
         width: 450,
       },
     },
-  };       
+  }; 
+  
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
                     // if(operation === 'new') {
-    var headwidget=
-                      <Box
-                          component="form"
-                          sx={{
+  var headwidget=
+                  <Box
+                    component="form"
+                        sx={{
                             width: 500,
                             maxWidth: '100%',
-                            
-                            
-                          }}
-                          noValidate
-                          autoComplete="off"
+                            }}
+                        noValidate
+                        autoComplete="off"
                     ><Controls.Input 
-                      disabled
+                        disabled
                       // fullWidth
                       
-                            id="outlined-Company Prefix"
-                            label={<h4 ><pre><h4 style={{color:"white"}}>           Enter Company Erp Details </h4></pre></h4>}
+                          id="outlined-Company Prefix"
+                          label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                Enter Company Erp Details</font> </h4></pre></h4>}
                            
                      
                    />
@@ -149,15 +157,15 @@ function ErpSettings() {
   // </FormControl>  
 
   <FormControl sx={{ m: 1, width: 220 }}>
-  <InputLabel id="demo-multiple-name-label">Erp</InputLabel>
-  <NativeSelect
-    labelId="demo-multiple-name-label"
-    id="demo-multiple-name"
-    multiple
-    value={erp}
-    onChange={(e) => setErp(e.target.value)}
-    input={<OutlinedInput label="Erp" />}
-    MenuProps={MenuProps}
+    <InputLabel id="demo-multiple-name-label">Erp</InputLabel>
+      <NativeSelect
+      labelId="demo-multiple-name-label"
+      id="demo-multiple-name"
+      multiple
+      value={erp}
+      onChange={(e) => setErp(e.target.value)}
+      input={<OutlinedInput label="Erp" />}
+      MenuProps={MenuProps}
   >
     <option aria-label="None" value="" />
        <option value="">Select</option>
@@ -192,10 +200,29 @@ function ErpSettings() {
                                         value={sap_language}
                                         /> 
     var passwordFieldWidget = <TextField required
-                                        id="outlined-sappassword"
-                                        label="Sap Password"
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        value={sap_password}
+                                  id="outlined-sappassword"
+                                  label="Sap Password"
+                                  onChange={(e) => setPassword(e.target.value)}
+                                  value={sap_password}
+                                  InputLabelProps={{
+                                      shrink: true,
+                                  }}
+                                  type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+                                  // value={password}
+                                  onChange={(e) => setPassword(e.target.value)}
+                                  InputProps={{ // <-- This is where the toggle button is added.
+                                    endAdornment: (
+                                      <InputAdornment position="end">
+                                        <IconButton
+                                          aria-label="toggle password visibility"
+                                          onClick={handleClickShowPassword}
+                                          onMouseDown={handleMouseDownPassword}
+                                        >
+                                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                                        </IconButton>
+                                      </InputAdornment>
+                                    )
+                                  }}
                                         /> 
                                     
                                     //   var producedFieldWidget = <input
@@ -225,8 +252,8 @@ function ErpSettings() {
                                         value={sap_service}
                                         />
       var systemidFieldWidget = <TextField required
-                                          id="outlined-sapsystemid"
-                                          label="Sap SystemId"
+                                        id="outlined-sapsystemid"
+                                        label="Sap SystemId"
                                         onChange={(e) => setSapsystemid(e.target.value)}
                                         value={sap_system_id}
                                         />
@@ -237,53 +264,53 @@ function ErpSettings() {
                                         onChange={(e) => setSystemnumber(e.target.value)}
                                         value={sap_sytem_number}
                                         />
-                    var userFieldWidget = <TextField required
-                    id="outlined-sapuser"
-                    label="Sap User"
+      var userFieldWidget = <TextField required
+                                        id="outlined-sapuser"
+                                        label="Sap User"
                                         onChange={(e) => setUser(e.target.value)}
                                         value={sap_user}
                                         />
                     // }
                     
-                    const handleSubmit = (e) => {
-                       e.preventDefault();
-                       console.log("clicked");
+    const handleSubmit = (e) => {
+              e.preventDefault();
+                  console.log("clicked");
                                         //alert(address);
                                         // companyEditID=uniqueID;
                     //  alert(sap_service);
                                         // if(operation === 'new') {
-                                        axios
-                                        .put(`http://127.0.0.1:8000/master/companyerp/update/${uniqueID}`, 
+                        axios
+                            .put(`http://127.0.0.1:8000/master/companyerp/update/${uniqueID}`, 
                                           
-                                            {
-                                              "erp":erp,    
-                                              "sap_client":sap_client,
-                                              "sap_destination":sap_destination,
-                                              "sap_language":sap_language,
+                                {
+                                  "erp":erp,    
+                                  "sap_client":sap_client,
+                                  "sap_destination":sap_destination,
+                                  "sap_language":sap_language,
                                       
                                               
-                                              "sap_password":sap_password,
-                                              "sap_pool_size":sap_pool_size,
-                                              'sap_server_host':sap_server_host,
+                                  "sap_password":sap_password,
+                                  "sap_pool_size":sap_pool_size,
+                                  'sap_server_host':sap_server_host,
                                              
-                                               "sap_service":sap_service,
-                                               'sap_system_id':sap_system_id,
-                                               'sap_sytem_number':sap_sytem_number,
-                                               'sap_user': sap_user,
-                                               "loggedInUsername":loggedInUsername,
+                                  "sap_service":sap_service,
+                                  'sap_system_id':sap_system_id,
+                                  'sap_sytem_number':sap_sytem_number,
+                                  'sap_user': sap_user,
+                                  "loggedInUsername":loggedInUsername,
 
-                                                "loggedInUserrole":loggedInUserrole
+                                  "loggedInUserrole":loggedInUserrole
                                                
                                                
-                                            },
+                              },
                                             
-                                            )
-                                            .then(() => {
-                                              navigate("/company");
-                                            });
-                                          }
-                    return (
-                       <>
+                        )
+                        .then(() => {
+                                      navigate("/company");
+                                    });
+                                  }
+  return (
+            <>
 
 <br></br>
     <div class="container-fluid">
@@ -301,10 +328,6 @@ function ErpSettings() {
                   <br></br>
     <br></br>
     
-    {/* <div id="locationhead">
-    {headwidget}
-    </div>
-    <br></br> */}
     
     <Box id="customerbox"
       component="form"
@@ -353,7 +376,7 @@ function ErpSettings() {
           {userFieldWidget}
          
 
-          <div id= "companyerp">
+      <div id= "companyerp">
          {erpwidget}
          
 

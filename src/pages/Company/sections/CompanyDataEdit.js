@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
 
 import Select from "react-select";
- import * as  AiIcons from "react-icons/ai";
+import * as  AiIcons from "react-icons/ai";
 import { Alert } from "bootstrap";
 import moment from "moment";
 
@@ -29,7 +29,8 @@ function CompanyDataEdit() {
   const [address, setAddress] = useState("");
   const [zip,setZip] = useState("");
   const [state,setState] = useState("");
-                    
+  const[city,setCity]=useState("");
+  const[country,setCountry]=useState("");                 
   const [gln,setGln] = useState("");
   const [created_by, setCreatedby] = useState("");
                     
@@ -67,27 +68,22 @@ function CompanyDataEdit() {
 
                       
     axios
-    .get("http://localhost:8000/master/company/"+comEditID+"/",
-                          
+    .get("http://localhost:8000/master/company/"+comEditID+"/",                     
     )
     .then((res)=>{
                       
-      setId(res.data[0].id);
-                          
+      setId(res.data[0].id);                  
       setComname(res.data[0].company_name);
-      setAddress(res.data[0].address);
-                            
+      setAddress(res.data[0].address);                       
       setZip(res.data[0].zip);
       setState(res.data[0].state);
-                            
+      setCity(res.data[0].city);
+      setCountry(res.data[0].country);                 
       setGln(res.data[0].gln);
       setCreatedby(res.data[0].created_by);
-                      
-                      
-                      
+                                
     })
-                      
-                      
+                                        
   }
                       
   useEffect(() => {
@@ -112,29 +108,25 @@ function CompanyDataEdit() {
         sx={{
           width: 500,
           maxWidth: '100%',
-          
-          
-        }}
+          }}
         noValidate
         autoComplete="off"
   ><Controls.Input 
     disabled
     // fullWidth
     
-          id="outlined-Company Prefix"
-          label={<h4 ><pre><h4 style={{color:"white"}}>           Edit Company Data </h4></pre></h4>}
-         
-   
- />
+    id="outlined-Company Prefix"
+    label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                      Edit Company Data</font> </h4></pre></h4>}
+    />
  </Box>
-    var comnameFieldWidget = 
+  var comnameFieldWidget = 
                             // <input
                             //     type="text"
                             //     className="form-control  form-control-sm"
                             //     value = {company_name}
                             //     onChange={(e) => setComname(e.target.value)}
                             // />
-                            <TextField
+                          <TextField
                               required
                               id="outlined-Location Name"
                               label="Company Name"
@@ -173,7 +165,7 @@ function CompanyDataEdit() {
                           value = {zip}
                           onChange={(e) => setZip(e.target.value)}
                 
-                    />
+                        />
     var stateFieldWidget =
                           //  <input
                           //   type="text"
@@ -218,36 +210,59 @@ function CompanyDataEdit() {
                           // /> 
 
                           <TextField
-                                    disabled
-                                    id="outlined-createdby"
-                                    label="Createdby"
-                                    value={loggedInUsername}
+                            disabled
+                            id="outlined-createdby"
+                            label="Createdby"
+                            value={loggedInUsername}
 
-                      />
+                          />
+                      var cityFieldWidget = 
+                      // <input
+                      //       type="text"
+                      //       className="form-control form-control-sm"
+                      //       aria-describedby="emailHelp"
+                      //       onChange={(e) => setCity(e.target.value)}
+                      //     />
+
+                          <TextField
+                                   
+                            id="outlined-city"
+                            value={city}
+                            label="City"
+                            onChange={(e) => setCity(e.target.value)}
+                          />
+                        var countryFieldWidget = 
+                        // <input
+                        //   type="text"
+                        //   className="form-control form-control-sm"
+                        //   aria-describedby="emailHelp"
+                        //   onChange={(e) => setCountry(e.target.value)}
+                        // />
+                        <TextField
+                                  
+                          id="outlined-country"
+                          label="Country"
+                          value={country}
+                          onChange={(e) => setCountry(e.target.value)}
+                        />
+
     }
                 
     const handleSubmit = (e) => {
       e.preventDefault();
       console.log("clicked");
-                        //alert(address);
-                    
-                    
-                    
-      var comEditID= uniqueID;
-                    
-                    
+                        //alert(address);             
+      var comEditID= uniqueID;               
       var testPassed = "false";
       console.log("clicked");
-                        //alert(address);
-                       
+                        //alert(address);                 
       if(company_name != "") {
         testPassed = "true";
       }
       else {
         warningDIV =  <div className="alert alert-danger pt-4" role="alert">
         <h5>Input company name</h5>
-        </div>
-                    
+        </div>            
         setWarningDIVstate(warningDIV);
         testPassed = "false";                  
       }
@@ -258,8 +273,7 @@ function CompanyDataEdit() {
         else {
           warningDIV =  <div className="alert alert-danger pt-4" role="alert">
           <h5>Input Address</h5>
-          </div>
-                    
+          </div>          
           setWarningDIVstate(warningDIV);
           testPassed = "false";
         }
@@ -272,8 +286,7 @@ function CompanyDataEdit() {
           else {
             warningDIV =  <div className="alert alert-danger pt-4" role="alert">
             <h5>Input Zip</h5>
-            </div>
-                    
+            </div>       
             setWarningDIVstate(warningDIV);
             testPassed = "false";
           }
@@ -285,8 +298,7 @@ function CompanyDataEdit() {
           else {
             warningDIV =  <div className="alert alert-danger pt-4" role="alert">
               <h5>Input State</h5>
-            </div>
-                    
+            </div>       
             setWarningDIVstate(warningDIV);
             testPassed = "false";
           }
@@ -298,13 +310,11 @@ function CompanyDataEdit() {
           else {
             warningDIV =  <div className="alert alert-danger pt-4" role="alert">
             <h5>Input GLN</h5>
-            </div>
-                    
+            </div>        
             setWarningDIVstate(warningDIV);
             testPassed = "false";
           }
-        }
-                    
+        }            
         if(testPassed == "true") {
           if(created_by!= "") {
             testPassed = "true";
@@ -312,21 +322,18 @@ function CompanyDataEdit() {
           else {
             warningDIV =  <div className="alert alert-danger pt-4" role="alert">
             <h5>Input Createdby</h5>
-            </div>
-                    
+            </div>         
             setWarningDIVstate(warningDIV);
             testPassed = "false";
           }
-        }
-                        
-                        
+        }        
         if(testPassed == "true") {
           warningDIV =  <div className="alert alert-warning pt-4" role="alert">
                           <h5>Verifying data</h5>
                         </div>
                         setWarningDIVstate(warningDIV);
                         }
-                        if(testPassed == "true") {
+          if(testPassed == "true") {
                     //       if(operation === 'new') {
                     //         // alert(company_name)
                     //         axios
@@ -354,166 +361,119 @@ function CompanyDataEdit() {
                     //           });
                         
                     //       }
-                          if(operation === 'edit') {
-                            axios
-                              .put(`http://127.0.0.1:8000/master/company/update/${comEditID}`, 
+            if(operation === 'edit') {
+            axios
+              .put(`http://127.0.0.1:8000/master/company/update/${comEditID}`, 
                               
-                              {
-                                "company_name":company_name,  
-                                "address":address, 
-                                "state":state, 
-                                "gln":gln, 
-                                // "country":country, 
-                                "zip":zip,   
+                {
+                  "company_name":company_name,  
+                  "address":address, 
+                  "state":state, 
+                  "gln":gln, 
+                  "country":country,
+                  "city":city,   
+                  "zip":zip,   
                              
-                                "created_by":loggedInUsername,
-                                "loggedInUsername":loggedInUsername,
+                  "created_by":loggedInUsername,
+                  "loggedInUsername":loggedInUsername,
 
-                                "loggedInUserrole":loggedInUserrole,
-                                "loggedInemployeeid":loggedInemployeeid
-                              },
+                  "loggedInUserrole":loggedInUserrole,
+                  "loggedInemployeeid":loggedInemployeeid
+                },
                               
-                              )
-                              .then(() => {
-                                navigate("/company");
-                              });
-                          }
-                        }
-                        };
+                )
+                .then(() => {
+                  navigate("/company");
+                });
+              }
+            }
+          };
                     
                     
                     
     return (
       <>
-                           {/* <Navbar data= {window.localStorage.getItem('username') ? window.localStorage.getItem('username') : ""}/>
-                           <div className="d-flex justify-content-between m-2">
-                             
-                             <div className="mb-3">
-                              
-                               {headwidget}
-                             </div>
-                             <Link to="/company/comdatagrid">
-                               <button className="btn btn-primary">Show Data</button>
-                             </Link>
-                           </div>
-                           {warningmessage}
-                           <form >
-                          
-                             <div className="mb-3">
-                               <label className="form-label">Name</label>
-                               {comnameFieldWidget}
-                             </div>
-                             <div className="mb-3">
-                              <label className="form-label">Address</label>
-                               {addressFieldWidget}
-                             </div>
-                             <div className="mb-3">
-                               <label className="form-label">Zip</label>
-                               {zipFieldWidget}
-                             </div>
-                            <div className="mb-3">
-                              <label className="form-label">State</label>
-                              {stateFieldWidget}
-                             </div>
                            
-                             <div className="mb-3">
-                               <label className="form-label">GLN</label>
-                               {glnFieldWidget}
-                            </div>
-                    
-                             <div className="mb-3">
-                               <label className="form-label">Created By</label>
-                              {createdbyFieldWidget}
-                            </div>
-                    
-                          
-                          <button
-                              type="submit"
-                              className="btn btn-primary"
-                              onClick={handleSubmit}
-                            >
-                              Submit
-                            </button>
-                          </form>   */}
                     
                     
-                    <br></br>
+  <br></br>
     <div class="container-fluid">
-              <div class="card shadow mb-4" id="customerfullcard"> 
-                  <div class="card-header py-3" id="customercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="customerhead">
-                          {headwidget}
-                          </div>
-                      </div>
+        <div class="card shadow mb-4" id="customerfullcard"> 
+            <div class="card-header py-3" id="customercardhead">
+                <div className='row'>
+                    <div className='col-10' id="customerhead">
+                        {headwidget}
+                    </div>
+                </div>
                                                       
-                  </div>
+            </div>
 
-                  <div class="card-body">  
-                  <br></br>
-    <br></br>
+            <div class="card-body">  
+            <br></br>
+            <br></br>
     
     {/* <div id="locationhead">
     {headwidget}
     </div>
     <br></br> */}
     
-    <Box id="customerbox"
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <br></br>
-      <div>
-          {warningmessage}
-         
-          {comnameFieldWidget}
+          <Box id="customerbox"
+            component="form"
+            sx={{
+              '& .MuiTextField-root': { m: 2, width: '25ch' },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <br></br>
+            <div>
+                {warningmessage}
+              
+                {comnameFieldWidget}
 
-          {addressFieldWidget}
+                {addressFieldWidget}
 
-          {zipFieldWidget}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-            </button>
-          <div>
+                {zipFieldWidget}
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button onClick={handleSubmit}><MdOutlineSave size={38}/>
+                                                            
+                  </button>
+                <div>
 
-          {stateFieldWidget}
+                {stateFieldWidget}
 
-           
-          {glnFieldWidget}
+                
+                {glnFieldWidget}
 
-          {createdbyFieldWidget}
+                {createdbyFieldWidget}
 
+                  
+                </div>
+
+                <div >
+              
+                {countryFieldWidget}
+                {cityFieldWidget}
+              
+                
+            </div>
+
+            <div>
             
-          </div>
 
-          <div >
-         
-          
-        
-          
+          </div>              
+      
+
+        </div>
+        <div>
+            
       </div>
-
-      <div>
-      
-
-    </div>              
- 
-
-  </div>
-  <div>
-      
-</div>
-      
-    </Box> 
-    <hr></hr>    
-                  </div>
-              </div>
-          </div>   
+            
+          </Box> 
+            <hr></hr>    
+        </div>
+      </div>
+    </div>   
                         
       </>
     );

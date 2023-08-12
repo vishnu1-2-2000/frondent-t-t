@@ -149,11 +149,11 @@ const handleClickShowPassword = () => setShowPassword((show) => !show);
       
       if(testPassed === "true") {
 
-            axios
+          axios
             .put(`http://localhost:8000/accounts/update/${registerEditID}`, 
             
             {
-              "employeeid":employeeid,
+                "employeeid":employeeid,
                 "Name": Name,    
                 "email": email,  
                 "date_birth" : date_birth,  
@@ -180,28 +180,28 @@ const handleClickShowPassword = () => setShowPassword((show) => !show);
             });
         }
     }
-    var headwidget=
+  var headwidget=
     
-    <Box 
-   
-        component="form"
-        sx={{
-          width: 500,
-          maxWidth: '100%',
+          <Box 
+        
+              component="form"
+              sx={{
+                width: 500,
+                maxWidth: '100%',
+                
+                
+              }}
+            noValidate
+            autoComplete="off"
           
-          
-        }}
-    noValidate
-    autoComplete="off"
-    
-  >
+        >
 
 <Controls.Input 
           disabled
           fullWidth
           id="outlined-Company Prefix"
           // label={<Typography>Customer  Create</Typography>}
-          label={<h4 ><pre><h4 style={{color:"white"}}>         Edit User Data </h4></pre></h4>}
+          label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                       Edit User Data</font> </h4></pre></h4>}
         
 
 />
@@ -216,13 +216,13 @@ var employeeidFieldWidget =
 //   className="form-control"
 //   onChange={(e) => setName(e.target.value)}
 // /> 
-        <TextField
-          required
-          value={employeeid}
-          label="Employee Id"
-          color="secondary"
-          onChange={(e) => setEmployeeid(e.target.value)}
-          />
+                    <TextField
+                      required
+                      value={employeeid}
+                      label="Employee Id"
+                      color="secondary"
+                      onChange={(e) => setEmployeeid(e.target.value)}
+                      />
 
     var nameFieldWidget = 
         //   <input
@@ -231,14 +231,14 @@ var employeeidFieldWidget =
         //   value = {Name}
         //   onChange={(e) => setName(e.target.value)}
         // />
-        <TextField
-                  required
-     
-                  label="Name"
-                  color="secondary"
-                  value = {Name}
-                  onChange={(e) => setName(e.target.value)}
-                  />
+                          <TextField
+                                    required
+                      
+                                    label="Name"
+                                    color="secondary"
+                                    value = {Name}
+                                    onChange={(e) => setName(e.target.value)}
+                          />
 
 
     var emailFieldWidget =
@@ -257,7 +257,7 @@ var employeeidFieldWidget =
                   value={email}
                   color="secondary"
                   onChange={(e) => setEmail(e.target.value)}
-                  />
+              />
 
       // var Passwordwidget=
       //             <TextField
@@ -268,7 +268,7 @@ var employeeidFieldWidget =
       //             value={password}
       //             onChange={(e) => setPassword(e.target.value)}
       //             />
-      var Passwordwidget=
+  var Passwordwidget=
                         <TextField
                               label='Password'
                               variant="outlined"
@@ -291,9 +291,9 @@ var employeeidFieldWidget =
                                   </InputAdornment>
                                 )
                               }}
-/>
+                          />
 
-    var DOBwidget = 
+  var DOBwidget = 
     // <input
     //     type="date"
     //     className="form-control"
@@ -301,17 +301,17 @@ var employeeidFieldWidget =
     //     aria-describedby="emailHelp"
     //     onChange={(e) => setDob(e.target.value)}
     //   />
-    <TextField
-          required
-          type="date"
-          label="Date Of Birth"
-          color="secondary"
-          value={date_birth}
-          onChange={(e) => setDob(e.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-    />
+                          <TextField
+                                required
+                                type="date"
+                                label="Date Of Birth"
+                                color="secondary"
+                                value={date_birth}
+                                onChange={(e) => setDob(e.target.value)}
+                                InputLabelProps={{
+                                  shrink: true,
+                                }}
+                          />
     
     var userRoleWidget=<select value={userRole} class="form-select" id="userselectbox" aria-label="group" onChange={(e) => setUserRole(e.target.value)} >
     <option value="">Select Role</option>
@@ -323,16 +323,16 @@ var employeeidFieldWidget =
 </select>
     
     var addressWidget = 
-      // <textarea value={address} onChange={(e) => setAddress(e.target.value)} className="form-control"></textarea>
-      <TextField
-      required
-      id="outlined-multiline-static"
-      rows={4}
-      label="Address"
-      value={address}
-      color="secondary"
-      onChange={(e) => setAddress(e.target.value)}
-      />
+                    // <textarea value={address} onChange={(e) => setAddress(e.target.value)} className="form-control"></textarea>
+                        <TextField
+                              required
+                              id="outlined-multiline-static"
+                              rows={4}
+                              label="Address"
+                              value={address}
+                              color="secondary"
+                              onChange={(e) => setAddress(e.target.value)}
+                              />
 
     function getRegisterEditRequestData() {
       // var productionOrderEditID = window.localStorage.getItem("productionOrderEditID");
@@ -378,19 +378,16 @@ var employeeidFieldWidget =
               <br></br>
               <br></br>
 
-{/* <div id="locationhead">
-{headwidget}
-</div>
-<br></br> */}
 
-<Box 
-    component="form"
-    sx={{
-      '& .MuiTextField-root': { m: 2, width: '25ch' },
-    }}
-    noValidate
-    autoComplete="off"
->
+
+      <Box 
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 2, width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off"
+      >
 
 <div className="container" id="userbox" >
   <div className="row" >

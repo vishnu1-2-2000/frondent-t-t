@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/accounts/Login";
 import UserrolePermissions from "./pages/accounts/UserrolePermissions";
 
+import Permission from "./pages/accounts/Permission";
+
 import RegisteredUsers from "./pages/RegisteredUsers/RegisteredUsers";
 import RegisteredUserscreate from "./pages/RegisteredUsers/RegisteredUserscreate";
 
@@ -14,6 +16,7 @@ import Productionorder from "./pages/Productionorder/Productionorder";
 import ProductionorderCreate from "./pages/Productionorder/ProductionorderCreate";
 import PoPropertys from "./pages/Productionorder/PoPropertys";
 import Identifiers from "./pages/Productionorder/Identifiers";
+import PoHrf from "./pages/Productionorder/PoHrf";
 
 //import UserDataGrid from "./pages/RegisteredUsers/sections/UserDataGrid";
 import ShippingOrder from "./pages/ShippingOrder/ShippingOrder";
@@ -22,6 +25,10 @@ import ShippingCreate from "./pages/ShippingOrder/ShippingCreate";
 import Property from "./pages/ShippingOrder/Property";
 import XMLExport from "./pages/ShippingOrder/XMLExport";
 import ShippoDataGrid from "./pages/ShippingOrder/sections/ShippoDataGrid";
+import ShipmentdataEntry from "./pages/ShippingOrder/ShipmentdataEntry";
+import Commissioningxml from "./pages/ShippingOrder/Commissioningxml";
+import Destroyxml from "./pages/ShippingOrder/Destroyxml";
+import ExportXmldata from "./pages/ShippingOrder/ExportXmldata";
 
 import Stock from "./pages/Stock/Stock";
 
@@ -57,6 +64,7 @@ import History from "./pages/History/History";
 import Demo from "./pages/Customers/Demo";
 import AuditReport from "./pages/Auditreport/Auditreport";
 import ShippingAuditreport from "./pages/Auditreport/sections/ShippingAuditreport";
+import UserAuditReport from "./pages/Auditreport/sections/UserAuditReport";
 
 import Dashboard from "./pages/Dashboard/Dashboard";
 
@@ -68,13 +76,20 @@ import Gtin from "./pages/SerialnumberProvider/Gtin";
 import Printerdata from "./pages/PrinterTableData/Printerdata";
 import PrinterdataRead from "./pages/PrinterTableData/PrinterdataRead";
 
+import Downloadcodes from "./pages/Productionorder/sections/Downloadcodes";
+import Customerproperty from "./pages/Customers/Customerproperty";
+
+// import ShippingReport from "./pages/ShippingReport/ShippingReport";
+import ShippingReportPage from "./pages/ShippingReport/ShippingReportPage";
+import Productionreport from "./pages/ProductionReport/Productionreport";
+
 function App() {
   return (
     <Router>
      
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/account/userpermission" element={<UserrolePermissions />} />
+          <Route path="/account/userpermission" element={<Permission />} />
 
         <Route path="/registeredusers" element={<RegisteredUsers />} />
         <Route path="registeredusers/:operation/:uniqueID/" element={<RegisteredUserscreate />} />
@@ -84,13 +99,18 @@ function App() {
         <Route path="productionorder/:operation/:uniqueID/" element={<ProductionorderCreate />} />
         <Route path="/productionorder/property/:uniqueID" element={<PoPropertys/>} /> 
         <Route path="/productionorder/identifier" element={<Identifiers/>} />
-        
+        <Route path="/productionorder/hrf/:uniqueID" element={<PoHrf />} />
+        <Route path="/productionorder/downloadcodes/:gtin/:processnumber" element={<Downloadcodes />} />
 
         <Route path="/shippingorder/shippocreate/:operation/:uniqueID/:processnumber" element={<ShippingCreate />} />
         <Route path="/shippingorder" element={<ShippingOrder />} />
        
         <Route path="/shippingorder/properties/:uniqueID" element={<Property />} />
-        <Route path="/shipping/export/" element={<XMLExport/>} /> 
+        {/* <Route path="/shipping/export/" element={<XMLExport/>} />  */}
+        <Route path="/shipping/export/:processnumber/:uniqueID" element={<ExportXmldata/>} /> 
+        <Route path="/shipment/export/:process/:uniqueID" element={<ShipmentdataEntry/>} />
+        <Route path="/commissioning/export/:processnumber/:uniqueID" element={<Commissioningxml/>} /> 
+        <Route path="/destroy/export/:processnumber" element={<Destroyxml/>} />
 
          <Route path="/stock" element={<Stock />}/> 
 
@@ -104,6 +124,7 @@ function App() {
          <Route path="/customer/cuscreate/:operation/:uniqueID" element={<CustomerCreate />} />
         <Route path="/customer" element={<Customer />} /> 
         <Route path="/customer/tracelink/:uniqueID" element={<Tracelink/>} />
+        <Route path="/customer/properties/:uniqueID" element={<Customerproperty/>} />
 
         <Route path="/customerlocation/cusloccreate/:operation/:uniqueID" element={<CustomerLocationCreate />} />
         <Route path="/customerlocation" element={<CustomerLocation />} />
@@ -137,6 +158,10 @@ function App() {
         <Route exact path="/history" element={<History/>}></Route>
         <Route exact path="/auditreport" element={<AuditReport/>}></Route>    
         <Route exact path="/shippingauditreport" element={<ShippingAuditreport/>}></Route>    
+        <Route exact path="/userauditreport" element={<UserAuditReport/>}></Route>   
+
+         <Route exact path="/shippingreport" element={<ShippingReportPage/>}></Route>
+         <Route path="/report/productionorderreport" element={<Productionreport />} />     
           <Route path="*" element={<> not found</>} />
         </Routes>
      

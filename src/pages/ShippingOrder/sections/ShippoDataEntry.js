@@ -43,7 +43,7 @@ function ShippoDataEntry() {
 
           const [destinationlocationlabel,setDestinationlabel]=useState("");
           const [destinationlocationvalue,setDestinationvalue]=useState("");
-                  
+          const[time,setTime]=useState("");    
                   
                     // const [Sorlocation,SetSorlocation] =useState("");
                     // const [source_location, setSourceLoc] = useState("");
@@ -116,6 +116,7 @@ function ShippoDataEntry() {
                           setCreatedby(res.data[0].created_by);
                           setExport(res.data[0].batch_for_export);
                           setStatusOptionsSelected(res.data[0].status);
+                          setTime(res.data[0].shipping_time);
                           // setManufacture(res.data[0].manufacturing_location);
                           // setProd(res.data[0].product_conn);
                           // setProduction(res.data[0].Production_line_id);
@@ -298,7 +299,7 @@ function ShippoDataEntry() {
             fullWidth
             
             id="outlined-Company Prefix"
-            label={<h4 ><pre><h4 style={{color:"white"}}>           Enter Shipping Order  Data </h4></pre></h4>}
+            label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">            Enter Shipping Order  Data </font></h4></pre></h4>}
           />
           </Box>
 var nameFieldWidget = 
@@ -457,6 +458,21 @@ var nameFieldWidget =
 
                                   onChange={(e) => setExport(e.target.value)}
                                   />
+
+                        var shipingtimeFieldWidget = 
+                        // <input
+                        //           type="time"
+                        //           className="form-control form-control-sm"
+                        //           aria-describedby="emailHelp"
+                        //           onChange={(e) =>setTime(e.target.value)}
+                        //         />   
+                                <TextField required
+                                label="Shipping Time"
+                                type="time"
+                                id="outline-time"
+
+                                onChange={(e) =>setTime(e.target.value)}
+                                />     
                   
                             var statusOptionsWidget= 
                           //    <Select onChange={statusOptionsChangeFunction} 
@@ -692,14 +708,14 @@ var nameFieldWidget =
                         
                           if(testPassed =="true"){
                             if(operation === 'new') {
-                              alert(shipping_order_name)
-                              alert(source_location)
-                              alert(destination_location)
-                              alert(created_by)
-                              alert(subject_name)
-                              alert(shipping_date)
-                              alert(batch_for_export)
-                              alert(statusOptionsSelected)
+                              // alert(shipping_order_name)
+                              // alert(source_location)
+                              // alert(destination_location)
+                              // alert(created_by)
+                              // alert(subject_name)
+                              // alert(shipping_date)
+                              // alert(batch_for_export)
+                              // alert(statusOptionsSelected)
                                     axios
                                       .post('http://127.0.0.1:8000/master/shippo/', 
                                       {
@@ -713,6 +729,7 @@ var nameFieldWidget =
                                         "shipping_date":shipping_date,
                                         "batch_for_export":batch_for_export,
                                         'status':statusOptionsSelected,
+                                        "shipping_time":time,
                                         "loggedInUsername":loggedInUsername,
 
                                         "loggedInUserrole":loggedInUserrole,
@@ -836,8 +853,13 @@ autoComplete="off"
  
 </div>
 <div >
-{shipinddateFieldWidget}
-
+{shipinddateFieldWidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;
+{shipingtimeFieldWidget}
 
 </div>
 <div id="statusselectbox">

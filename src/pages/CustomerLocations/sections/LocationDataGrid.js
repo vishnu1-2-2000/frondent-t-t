@@ -13,42 +13,38 @@ import { FaLink } from 'react-icons/fa';
 
 
 const LocationDataGrid = (props) => {
-                    const theme = useTheme();
-                    const colors = tokens(theme.palette.mode);
-                    const [data, setData] = useState([]);
-                    const [tabledark, setTableDark] = useState("");
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const [data, setData] = useState([]);
+  const [tabledark, setTableDark] = useState("");
                   
-                    const [userDataRows, setUserDataRows] = useState([]);
+  const [userDataRows, setUserDataRows] = useState([]);
                   
                     ///   For navigate function
-                    const navigate = useNavigate();
+  const navigate = useNavigate();
                   
-                    function logout() {
+  function logout() {
                       window.localStorage.removeItem("username");
                       window.localStorage.removeItem("password");
                   
                       navigate("/account/login");
                     }
                   
-                    var username = window.localStorage.getItem('username')
-                    var password = window.localStorage.getItem('password')
-                    var currentUserrole = window.localStorage.getItem('userrole')
+    var username = window.localStorage.getItem('username')
+    var password = window.localStorage.getItem('password')
+    var currentUserrole = window.localStorage.getItem('userrole')
                     //alert(window.localStorage.getItem('password'));
                   
                   
-                    function handleDelete(id) {
-                      axios
-                        .delete(`http://192.168.200.131:8000/master/locations/delete/${id}`,
-                          {
-                            auth: {
-                              username: username,
-                              password: password
-                            }
-                          }
-                        )
-                        .then(() => {
+  function handleDelete(id) {
+      axios
+          .delete(`http://192.168.200.131:8000/master/locations/delete/${id}`,
+                          
+                )
+                  .then(() => {
                           //getData();
-                          alert("anu");
+                          // alert("anu");
                           navigate("/customerlocation/cuslocdatagrid");
                         });
                     }
@@ -64,7 +60,7 @@ const LocationDataGrid = (props) => {
                       localStorage.setItem("created_by", created_by);
                     };
                   
-                    let userDataColumns = [
+  let userDataColumns = [
                       { field: 'id', headerName: 'Id', width:100, headerClassName: "MuiDataGrid-columnHeaders", },
                       { field: 'name',headerName: 'Name', width: 180, headerClassName: "MuiDataGrid-columnHeaders", },
                       { field: 'customer_id',headerName:'Customer Name', width: 180, headerClassName: "MuiDataGrid-columnHeaders", },

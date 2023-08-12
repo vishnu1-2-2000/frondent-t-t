@@ -31,6 +31,9 @@ function CustomerDataEdit() {
   const [created_by, setCreatedby] = useState("");
   const [group,setGroup]=useState("");
   const[status,setStatus]=useState("");
+  const[country,setCountry]=useState("");
+    const[state,setState]=useState("");
+    const[city,setCity]=useState("");
   const [testStatusChecked, setTestStatusChecked] = useState(false);
 
   const[warningmessage,setWarningmessage]=useState("");
@@ -63,7 +66,9 @@ function CustomerDataEdit() {
         
         setCompany_gln(res.data[0].company_gln);
         setAddress(res.data[0].address);
-        
+        setCountry(res.data[0].country);
+        setCity(res.data[0].city);
+        setState(res.data[0].state);
         setZip(res.data[0].zip);
         setCreatedby(res.data[0].created_by);
         setGroup(res.data[0].group);
@@ -134,31 +139,39 @@ var nameFieldWidget =
 
 />
 
-var companyprefixFieldWidget = <TextField
-                                required
-                                id="outlined-Company Prefix"
-                                label="Company Prefix"
-                                value = {company_prefix}
-                                onChange={(e) => setCompany_prefix(e.target.value)}
-
-                                />
-var companyglnFieldWidget = <TextField
-                              required
-                              id="outlined-Company Gln"
-                              label="Company Gln"
-                              value = {company_gln}
-                              // type="password"
-                              // autoComplete="current-password"
-                              onChange={(e) => setCompany_gln(e.target.value)}
-                              />
+var countryFieldWidget = <TextField
+                          required
+                          id="outlined-country"
+                          label="Country"
+                          value={country}
+                          onChange={(e) => setCountry(e.target.value)}
+       
+                        />
+var stateFieldWidget = <TextField
+                        required
+                        id="outlined-state"
+                        label="State"
+                        value={state}
+                        // type="password"
+                        // autoComplete="current-password"
+                        onChange={(e) => setState(e.target.value)}
+                      />
+    var cityFieldWidget = <TextField
+                          required
+                          id="outlined-CITY"
+                          label="City"
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
+                        
+                        />
 var addressFieldWidget = <TextField
-required
-id="outlined-Address"
-label="Address"
-value = {address}
-onChange={(e) => setAddress(e.target.value)}
+                        required
+                        id="outlined-Address"
+                        label="Address"
+                        value = {address}
+                        onChange={(e) => setAddress(e.target.value)}
 
-/>
+                        />
 var zipFieldWidget = <TextField
                         required
                         id="outlined-Zip"
@@ -336,8 +349,9 @@ var createdbyFieldWidget = <TextField id="outlined-Createdby"
         
         {
           "name": name,  
-          'company_prefix': company_prefix,
-          'company_gln':company_gln,
+          "country":country,
+          "state":state,
+          "city":city,
           'address':address,
           'zip':zip , 
           'group':group,   
@@ -349,7 +363,7 @@ var createdbyFieldWidget = <TextField id="outlined-Createdby"
         
         )
         .then(() => {
-          navigate("/customer/cusdatagrid");
+          navigate("/customer");
         });
     }
   };
@@ -386,9 +400,9 @@ var createdbyFieldWidget = <TextField id="outlined-Createdby"
          
           {nameFieldWidget}
 
-          {companyprefixFieldWidget}
+          {countryFieldWidget}
 
-          {companyglnFieldWidget}
+          {stateFieldWidget}
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button onClick={handleSubmit}><MdOutlineSave size={38}/>
                                                       
@@ -422,17 +436,17 @@ var createdbyFieldWidget = <TextField id="outlined-Createdby"
           
       </div>
 
-      <div>
-      
-
-    </div>              
+                      
  
 
   </div>
   <div>
       
 </div>
-      
+<div id="customercityedit">
+      {cityFieldWidget}
+
+    </div>  
     </Box>
     </div>
               </div>

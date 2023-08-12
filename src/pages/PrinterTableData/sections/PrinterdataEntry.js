@@ -2,10 +2,11 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
-// import Select from "react-select";
+
+import Select from "react-select";
 import * as  AiIcons from "react-icons/ai";
-import * as  FcDownload from "react-icons/fc";
-import { azAZ } from "@mui/material/locale";
+import { Alert } from "bootstrap";
+import moment from "moment";
 import { Box, Button, TextField } from "@mui/material";
 import MenuItem from '@mui/material/MenuItem';
 import {MdOutlineSave } from 'react-icons/md';
@@ -21,24 +22,25 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import * as  FcDownload from "react-icons/fc";
 function PrinterdataEntry() {
 
- const[id,setId]=useState("");
+  const[id,setId]=useState("");
  const[processordernumber,setProcessOrderNumber]=useState([]);
  const[gtin,setGtin] =useState("");
+ const[gtinvalue,setGtinvalue]=useState("");
  const[gtinlabel,setGtinlabel]=useState("");
  const[expiration_date,setExp] =useState("");
  const[lot,setLot]=useState("");
  const[numbers,setNumbers]=useState("");
- const[povalue,setpovalue]=useState("");
+ const[po,setpo]=useState("");
  const[polabel,setPolabel]=useState("");
-const[processno,setProcessno]=useState("");
  const[type,setType]=useState("");
  const[hrf,setHrf]=useState("");
  const[hrf1,setHrf1]=useState("");
  const[hrf1value,setHrf1value]=useState("")
  const[warningmessage,setWaringmessage]=useState("");
-
+ const[processno,setProcessno]=useState("");
 const { operation } = useParams();
 const { uniqueID } = useParams();
 
@@ -53,354 +55,329 @@ const MenuProps = {
       width: 550,
     },
   },
-};     
+};  
 let gtinoptions=[]
 let pooptions=[]
 var warningDIV = <div className="alert alert-success pt-4" role="alert">
                   <h5>Input all the values</h5>
-               </div>  
-
-
-// function getpo() {
+               </div> 
+ 
+ 
+ function getProductionorder() {
+  axios
+  .get("http://127.0.0.1:8000/master/productionorder/")
+  
+  .then((res) => {
+    // let batchNumberOptionsInitial = "";
+    //
+    res.data.map(data => {
+     
+      pooptions.push({ value: data.id, label: data.process_order_number  });
+      
+    });
+          
+    setProcessOrderNumber(pooptions);
    
-//     axios
-//     .get("http://127.0.0.1:8000/master/productionorder/")
-//     .then((res)=>{
-//     //    alert(res.data)
-// res.data.map(data =>{pooptions.push({value:data.id,label:data.process_order_number})})
-//     })
-//     setProcessOrderNumber(pooptions);
-//     // alert(pooptions)
+  });
+}
+
+// function getGtin() {
+//   axios
+//   .get("http://127.0.0.1:8000/master/product/") 
+  
+//   .then((res) => {
+//     // let batchNumberOptionsInitial = "";
+//     //
+//     res.data.map(data => {
+     
+//       gtinoptions.push({ value: data.id, label: data.gtin_number});
+      
+//     });
+          
+//    setGtin(gtinoptions);
+   
+//   });
 // }
 
-function  getpo() {
-    axios
-    .get("http://127.0.0.1:8000/master/productionorder/",
-    {
-      
-    },
-    {
-      'param': 'anu' 
-    })
-    .then((res) => {
-      // let batchNumberOptionsInitial = "";
-      //
-      res.data.map(data => {
-      
-            pooptions.push({ value: data.id, label: data.process_order_number });
-       
-      });
-            
-      setProcessOrderNumber(pooptions);
-     
-    });
-  }
-  
+
 function getData(){
                     
-    axios
-    .get("http://127.0.0.1:8000/master/productionorder/"+povalue+"/")
-    .then((res2)=>{
-    // var jsonobject=JSON.parse(res2.data[0].hrf)
-                    
-    //                 alert(jsonobject.hrf1value)
-    //                 setHrf1(jsonobject.hrf1);
-    //                 setHrf1value(jsonobject.hrf1value)
+  axios
+  .get("http://127.0.0.1:8000/master/productionorder/"+po+"/")
+  .then((res2)=>{
+  // var jsonobject=JSON.parse(res2.data[0].hrf)
+                  
+  //  alert(res2.data[0].expiration_date)
+  //                 setHrf1(jsonobject.hrf1);
+  //                 setHrf1value(jsonobject.hrf1value)
 
-        setExp(res2.data[0].expiration_date)
-        setLot(res2.data[0].batch_number)
-        setHrf(res2.data[0].hrf)
-        setType(res2.data[0].type)
-        setGtin(res2.data[0].gtin_number)
+      setExp(res2.data[0].expiration_date)
+      setLot(res2.data[0].batch_number)
+      setHrf(res2.data[0].hrf)
+      setType(res2.data[0].type)
+      setGtin(res2.data[0].gtin_number)
 
-    }) 
-    warningDIV =  <div className="alert alert-success pt-4" role="alert">
-  <h5>Production order fetched from Productionorder table successfully</h5>
+  }) 
+  warningDIV =  <div className="alert alert-success pt-4" role="alert">
+<h5>Production order fetched from Productionorder table successfully</h5>
 </div>
 
 setWaringmessage(warningDIV);               
 }
-
-// function getGtin(){
-   
-//      axios
-//      .get("http://127.0.0.1:8000/master/product/") 
-//         .then((res)=>{
-//         //    alert("hi")
-//         res.data.map(data=>{
-//                     gtinoptions.push({value:data.id,label:data.gtin_number})
-//         }) 
-//         setGtin(gtinoptions)           
-//      })              
-// }
 useEffect(()=>{
    
+ 
+  // getGtin();
+  getProductionorder();
+                     
+  },[])
 
-// getGtin();
-getpo();
-                   
-},[])
-
-// const gtindata=event =>{
-//     setGtin(event.value)
-//     setGtinlabel(event.label)                
-// }
-// const getProcessorderdata =event =>{
-//     setpo(event.target.value)
-//     setPolabel(event.target.label)
-
-// }
-const getProcessorderdata = event => {
-    // alert(event.value)
-    // setProcessno(event.target.value); 
-  
-    setpovalue(event.target.value)
-    setPolabel(event.target.label)
-
-  
-  
+  const productionorderevent=event =>{
+    setProcessno(event.target.value);
+    setpo(event.target.value);
+    setPolabel(event.target.label);
   }
 
-// var processnowidget=<input
-//       type="text"
-//       className="form-control"
-//       onChange={(e) => setpo(e.target.value)}
-      
-//     />
-var headwidget=
+  
+  var headwidget=
     <Box
-    component="form"
-    sx={{
-      width: 500,
-      maxWidth: '100%',
-      
-      
-    }}
-      noValidate
-      autoComplete="off"
+        component="form"
+        sx={{
+          width: 500,
+          maxWidth: '100%',
+          
+          
+        }}
+        noValidate
+        autoComplete="off"
   ><Controls.Input 
     disabled
-    fullWidth
+    // fullWidth
     
-    id="outlined-Company Prefix"
-    label={<h4 ><pre><h4 style={{color:"white"}}>           Enter Productionorder  Data </h4></pre></h4>}
-  />
-  </Box>
-  {/* <Select className="s" options={processordernumber} onChange={getProcessorderdata}/> */}
-var powidget=
+          id="outlined-Company Prefix"
+          label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                                   Create Printer Data </font></h4></pre></h4>}
+         
+   
+ />
+ </Box>
+   var powidget=  
+    // <Select className="s" onChange={getmanlocation} options={manufactureLocationOptionsNew} /> 
+    <Box sx={{  }}>
 
-<Box sx={{  }}>
-          <FormControl >
-          <InputLabel id="demo-simple-select-label">Production Order Number</InputLabel>
-          <NativeSelect 
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          input={<OutlinedInput label="Production Order Number" />}
-          MenuProps={MenuProps}
-          style={{width:'220px'}}
-          label="Production Order Number"
-          onChange={getProcessorderdata}
-          ><option>Select Po</option> 
-          {processordernumber.map((data) => (
-
-
-          <option key={data.label} value={data.value}>
-
-          {data.label}
-
-          </option>
-
-          ))}
-          </NativeSelect>
-          </FormControl>
-          </Box> 
-
+                          <FormControl >
+                          <InputLabel id="demo-simple-select-label">Production Order</InputLabel>
+                          <NativeSelect 
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          input={<OutlinedInput label="Production Order" />}
+                          MenuProps={MenuProps}
+                          style={{width:'220px'}}
+                          label="Production Order"
+                          onChange={ productionorderevent}
+                          ><option>Select Production Order</option> 
+                          {processordernumber.map((data) => (
+                
+                
+                          <option key={data.label} value={data.value}>
+                
+                          {data.label}
+                
+                          </option>
+                
+                          ))}
+                          </NativeSelect>
+                          </FormControl>
+                          </Box>
 var fetchwidget=  <button className="btn btn-info"
-          onClick={() => getData()}>
-          <FcDownload.FcDownload size={20} />
-      </button> 
-var expwidget=
-//                 <input
-//                     type="text"
-//                     className="form-control"
-//                     value={expiration_date}
-//                     onChange={(e) => setExp(e.target.value)}
-// />
-<TextField required
-                      label="Expiration Date"
-                      id="outline-expire"
-                      value={expiration_date}
-                      onChange={(e) => setExp(e.target.value)}
-                      /> 
+    onClick={() => getData()}>
+    <FcDownload.FcDownload size={20} />
+</button> 
+    var expwidget=
+              <TextField required
+                  label="Expiration Date"
+                  id="outline-Experi"
+                  value={expiration_date}
+                  onChange={(e) => setExp(e.target.value)}
+              /> 
+                        // var hjwidget=<label className="form-label">Batch Number</label> 
+      var lotwidget=
+              <TextField required
+              label="Lot Number"
+              id="outline-Lot Number"
+              value={lot}
+              onChange={(e) => setLot(e.target.value)}
+          /> 
+                    
+  var gtinwidget=
+                <TextField required
+                label="Gtin"
+                id="outline-gtin"
+                value={gtin}
+                onChange={(e) => setGtin(e.target.value)}
+            /> 
 
-var lotwidget=
-                // <input
-                //     type="text"
-                //     className="form-control"
-                //     value={lot}
-                //     onChange={(e) => setLot(e.target.value)}
-                // />
-
-<TextField required
-                      label="Lot Number"
-                      id="outline-lot"
-                      value={lot}
-                      onChange={(e) => setLot(e.target.value)}
-                      /> 
-
-// var gtinwidget=<Select className="s" options={gtin} onChange={gtindata}/>
-
- var gtinwidget=
-    // <input
-    //   type="text"
-    //   value={gtin}
-    //   className="form-control"
-    //   onChange={(e) => setGtin(e.target.value)}
-      
-    // />
-    <TextField required
-                      label="Gtin"
-                      id="outline-gtin"
-                      value={gtin}
-                      onChange={(e) => setGtin(e.target.value)}
-                      /> 
+var typewidget = 
+            <TextField required
+            label="Type"
+            id="outline-type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+           /> 
+        
 var serialnowidget = <input 
                     type="text"
                     className="form-control"
                     value={numbers}
                     onChange={(e) => setNumbers(e.target.value)}
 />
-
-var typewidget = 
-                // <input 
-                //     type="text"
-                //     className="form-control"
-                //     value={type}
-                //     onChange={(e) => setType(e.target.value)}
-                // />
-
-                <TextField required
-                      label="Type"
-                      id="outline-type"
-                      value={type}
-                      onChange={(e) => setType(e.target.value)}
-                      /> 
-
-
-const handleSubmit=(e)=>{
-e.preventDefault(); 
-alert(processno)
-if(operation === 'new') {
-axios
-
-.post("http://127.0.0.1:8000/master/printer/",
-
-{
-            "processordernumber":polabel,
-            "lot":lot,
-            "gtin":gtin,
-            "expiration_date" :expiration_date,
-            "numbers":"numbers" ,   
-            "type" :type 
-})
-
-.then((res2) => {
-    //alert("hi")
-    //alert(res2.data.lot);
-    if(res2.data.processordernumber == "printerdata table with this processordernumber already exists."){
-        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                          <h5>Process order already downloaded, try another process order</h5>
-                        </div>
-
-      setWaringmessage(warningDIV)                         
-      }
-
-    else if(res2.data.gtin == "printerdata table with this gtin already exists."){
-        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                          <h5>Gtin Already Downloaded Try Another Gtin</h5>
-                        </div>
-
-      setWaringmessage(warningDIV)                         
-      }
-
-
-      else{
-      navigate("/productionorder");
-      }
-    });
-
- }
-
-}
-
+ 
+ const handleSubmit=(e)=>{
+  e.preventDefault(); 
+  //alert(po)
+  if(operation === 'new') {
+      alert(processno)
+  axios
+  
+  .post("http://127.0.0.1:8000/master/printer/",
+  
+  {
+              "processordernumber":po,
+              "lot":lot,
+              "gtin":gtin,
+              "expiration_date" :expiration_date,
+              "numbers":"numbers" ,   
+              "type" :type 
+  })
+  
+  .then((res2) => {
+      //alert("hi")
+      //alert(res2.data.lot);
+      if(res2.data.processordernumber == "printerdata table with this processordernumber already exists."){
+          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                            <h5>Process order already downloaded, try another process order</h5>
+                          </div>
+  
+        setWaringmessage(warningDIV)                         
+        }
+  
+      else if(res2.data.gtin == "printerdata table with this gtin already exists."){
+          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                            <h5>Gtin Already Downloaded Try Another Gtin</h5>
+                          </div>
+  
+        setWaringmessage(warningDIV)                         
+        }
+  
+  
+        else{
+        navigate("/productionorder");
+        }
+      });
+  
+   }
+  
+  }
+  
+                    
+               
   return (
-        <div>
-            <br></br>
-            <br></br>
-            <br></br>
-            <div className="container">
-                <div className="row">
-                    <Link to="/printerpool">
-                        <button className="btn btn-primary">Show Data</button>
+    <>
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+<div class="container-fluid">
+<div class="card shadow mb-4" id="printerfullcard"> 
+   <div class="card-header py-3" id="printercardhead">
+       <div className='row'>
+           <div className='col-10' id="printerhead">
+           {headwidget}
+           </div>
+       </div>
+      
+   </div>
+   <br></br>
+   <Link to="/printerpool">
+                      &nbsp; &nbsp;  <button className="btn btn-primary">Show Data</button>
                     </Link>
-                    <br></br>
-                    {warningmessage}
-                    <table class="table table-borderless productionOrderReportSearchTable" id="productionOrderReportSearchTableID">
-                        <tbody>
-                            <tr>
-                                <td class="productionOrderReportSearchTD">Gtin</td>
-                                <td class="productionOrderReportSearchTD">
-                                    {gtinwidget}     
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="productionOrderReportSearchTD">Productionnumber</td>
-                                <td class="productionOrderReportSearchTD">
-                                    {/* {processnowidget} */}
-                                    {powidget}
-                                </td>
-                                <td> {fetchwidget}</td>
-                            </tr>
-                            <tr>
-                                <td class="productionOrderReportSearchTD">Exp</td>
-                                    <td class="productionOrderReportSearchTD">
-                                    {expwidget}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="productionOrderReportSearchTD">Lot</td>
-                                    <td class="productionOrderReportSearchTD">
-                                        {lotwidget}
-                                    </td>
-                            </tr>
+   <div class="card-body">  
+  
 
-                                            <tr>
-                                                <td class="productionOrderReportSearchTD">Printing Type</td>
-                                                <td class="productionOrderReportSearchTD">
-                                                    {typewidget}
-                                                </td>
-                                            </tr>
 
-                                            
+{/* <div id="locationhead">
+{headwidget}
+</div>
+<br></br> */}
 
-                                            
-                            <tr></tr>
-                            <tr>
-                                <td class="productionOrderReportSearchTD">
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary"
-                                        onClick={handleSubmit} >
-                                            Save data
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>                 
+                <div id="gtincreatebox"
+                component="form"
+                sx={{
+                '& .MuiTextField-root': { m: 2, width: '25ch' },
+                }}
+                noValidate
+                autoComplete="off"
+                >
+                <br></br>
+                <div>
+                {warningmessage}
+                <div id="gtincreateselectbox">
+                {powidget}
+
+                </div>
+                <br></br>
+                <div id="fetchbutton">
+                {fetchwidget}
+                </div>
+                <br></br>
+                <br></br> &nbsp;&nbsp;&nbsp;
+
+
+                {gtinwidget}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+                {expwidget} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {lotwidget}
+
+                <div id="printbutton">
+
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button onClick={handleSubmit}><MdOutlineSave size={38}/>
+                                                    
+                </button>
+
+
+
+
+
+                </div>
+
+                <div >
+
+                <br></br>
+
+                <div  id="printype">
+                {typewidget}
+                </div>
+
+                </div>
+
+                <div>
+
+
                 </div>              
-            </div> 
-        </div>
-    )
+
+
+                </div>
+                <div>
+
+                </div>
+
+                </div> 
+                <hr></hr>    
+                </div>
+                </div>
+                </div>  
+                </> 
+  )
 }
 
 export default PrinterdataEntry

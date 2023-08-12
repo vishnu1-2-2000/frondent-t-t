@@ -96,10 +96,10 @@ main {
   /* overflow-y: auto; */
   width:40%;
 }
-.prod1{
-  /* background-image: url("https://img.freepik.com/free-psd/abstract-background-design_1297-78.jpg?size=626&ext=jpg&ga=GA1.1.1508111170.1671688676"); */
+/* .prod1{
+  background-image: url("https://img.freepik.com/free-psd/abstract-background-design_1297-78.jpg?size=626&ext=jpg&ga=GA1.1.1508111170.1671688676");
  
-}
+} */
 
 
 .top_section {
@@ -258,7 +258,8 @@ main {
   color:aliceblue
  } */
  #productionOrderReportSearchTableID{
-  background-color:#86a0a8;
+  /* background-color:#86a0a8; */
+  background: linear-gradient(90deg, rgba(102,129,126,1) 0%, rgba(75,165,155,1) 5%, rgba(69,85,94,1) 73%, rgba(53,71,80,1) 87%);
   /* background-image: url("https://img.freepik.com/free-photo/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture_1258-54237.jpg?size=626&ext=jpg&ga=GA1.2.1508111170.1671688676&semt=ais"); */
   color:rgb(9, 9, 9) 
  }
@@ -428,13 +429,18 @@ margin-left: -79px;
     /* background-image: url("https://img.freepik.com/free-photo/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture_1258-54237.jpg?size=626&ext=jpg&ga=GA1.2.1508111170.1671688676&semt=ais"); */
     /* background-color:#86a0a8; */
     background: linear-gradient(90deg, rgba(102,129,126,1) 0%, rgba(75,165,155,1) 5%, rgba(69,85,94,1) 73%, rgba(53,71,80,1) 87%);
-  color:#fff
+  color:#fff;
+  width:100%
   }
   #permission{
     color: #0c0b0b;
-    width: 130%;
+    width: 500%;
    margin-top: -3%;
    margin-left: -90px;
+  }
+  #permissionpage2{
+    width: 100%;
+    
   }
   #datatable{
     color: #fff;
@@ -476,7 +482,7 @@ margin-left: -79px;
 }
 .col-1{
   margin-top: -70px;
-  margin-left: 280px;
+  margin-left: 560px;
 }
 #customerbox{
   border: 4px solid rgb(51, 74, 72); 
@@ -490,6 +496,15 @@ margin-left: -79px;
   margin-left: 240px;
   font-style: oblique;
  
+}
+#customercity{
+  margin-left: 258px;
+  margin-top: -58px;
+}
+#customercityedit{
+  margin-left: 258px;
+  margin-top: -75px;
+  position: fixed;
 }
 
 /* end of customer page styling */
@@ -554,7 +569,8 @@ margin-left: -79px;
 /* registereduser page styling */
 #userhead{
   margin-left: 330px;
-  font-style: oblique; 
+  /* font-style: oblique; */
+  
 }
 #userselectbox{
   width: 66%;
@@ -642,9 +658,9 @@ width: 50%;
   width: 80%;
   border: 4px solid rgb(51, 74, 72);
 }
-#producthrf{
+/* #producthrf{
  
-}
+} */
 #producthrfbox{
   width: 170%;
 }
@@ -706,10 +722,16 @@ width: 50%;
   margin-top: -10px;
  }
  #shippingreportfullcard{
-  width: 40%;
-  margin-top: 500px;
+  width: 50%;
+  margin-top: 400px;
   margin-left: 100px;
   
+  
+ }
+ 
+ #shipmentxmlbutton{
+  margin-left: 750px;
+  margin-top: -70px;
  }
  #productionboxbox{
   width: 90%;
@@ -830,6 +852,10 @@ width: 50%;
   margin-left: 1020px;
   margin-top: -160px;
 }
+#commissioningxmlfullcard{
+  width: 102%;
+  margin-left: -63px;
+}
 
 
 #regsyfullcard{
@@ -901,7 +927,90 @@ width: 50%;
   margin-top: -160px;
 }
 
+#gtincreatebox{
+  margin-right: 2px;
+  height: 300px;
+  border: 4px solid rgb(51, 74, 72);
+}
+#gtincreatebutton{
+  margin-left: 300px;
+  margin-top: -160px;
+}
+#gtincreatehead{
+  margin-left: 300px;
+ font-style: normal;
+ 
+}
+#printercardhead{
+  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+}
+#printerfullcard{
+  width: 80%;
+  height: 500px;
+  margin-left: 120px;
+}
+#printerselectbox{
+  width: 23%;
+  margin-left: 16px;
+  height: 53px;
+}
+#fetchbutton{
+  margin-left: 300px;
+  margin-top: -70px;
+}
+#printype{
+  margin-left: 550px;
+  margin-top: -60px;
+}
+#printbutton{
+margin-left: 750px;
+margin-top: -150px;
+}
 
+
+#colmiddle{
+  width: 70%;
+  border: 2px solid rgb(13, 184, 169);
+  margin-left: 200px;
+}
+
+#downloadallxmlfilesbutton{
+  margin-left: 70px;
+}
+
+#shippingreportbox{
+  margin-right: 40px;
+  width: 100%;
+  height: 750px;
+  border: 4px solid rgb(51, 74, 72); 
+}
+#shippingreportcontent{
+  margin-left: 50px;
+}
+#shippingreportfullcard{
+  width: 100%;
+  height: 1000px; 
+  margin-left: -10px;
+  margin-top: 80px;
+}
+#shippingorderreport{margin-top: -92px;}
+#sourcelocationbox{
+  margin-left: 40px;
+
+  height: 300px;
+  width: 45%;
+  border: 4px solid rgb(51, 74, 72);  
+}
+#destinationlocationbox{
+  margin-left: 620px;
+  margin-top: -300px;
+  height: 300px;
+  width: 45%;
+  border: 4px solid rgb(51, 74, 72);  
+}
+#shipreportpdf{
+  margin-left: 660px;
+}
 
 
 

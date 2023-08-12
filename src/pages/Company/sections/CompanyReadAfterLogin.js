@@ -8,7 +8,7 @@ import CompanyDataGrid from './CompanyDataGrid';
 // import { Alert } from 'react-bootstrap';
 
 function CompanyReadAfterLogin() {
-                    const loadingSection = <div class="container-fluid">
+  const loadingSection = <div class="container-fluid">
                     <div class="card shadow mb-4"> 
                         <div class="card-body">  
                           <div class="px-3 py-5 text-primary text-center">
@@ -20,9 +20,9 @@ function CompanyReadAfterLogin() {
                     </div>
                 </div>
           
-              const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
+  const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
                 
-              const notAuthorizedSection = <div class="container-fluid">
+  const notAuthorizedSection = <div class="container-fluid">
                         <div class="card shadow mb-4"> 
                             <div class="card-body">  
                               
@@ -33,9 +33,9 @@ function CompanyReadAfterLogin() {
                         </div>
                     </div>
           
-              function checkAuthorization() 
-              {
-                axios
+  function checkAuthorization() 
+        {
+            axios
                 .get("http://localhost:8000/accounts/userrolePermissionsRead")
                 .then((res) => {
                   var authorized = false;

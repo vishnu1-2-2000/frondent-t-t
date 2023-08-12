@@ -33,9 +33,9 @@ function ProductHrfEdit() {
   const {uniqueID} =useParams();
                     ////    for receiving the parameters from URL
   const { operation } = useParams();
-  var username = window.localStorage.getItem('username')
-  var password = window.localStorage.getItem('password')
-  var currentUserrole = window.localStorage.getItem('userrole')                
+  var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+
+var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')        
   function getHrfEditdata(){
     axios
     .get("http://127.0.0.1:8000/master/producthrf/"+uniqueID+"/",
@@ -885,6 +885,9 @@ var hrf5Widget =
           "hrf4":hrf4,
           "hrf5":hrf5,
           "hrf6":hrf6,
+          "loggedInUsername":loggedInUsername,
+
+          "loggedInUserrole":loggedInUserrole
         },
       )
       .then(() => {

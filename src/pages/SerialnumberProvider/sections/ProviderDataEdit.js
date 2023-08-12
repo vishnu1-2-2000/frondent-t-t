@@ -120,7 +120,7 @@ function ProviderDataEdit() {
     }
     else if (extrafield === "sap"){
       axios
-      .get("http://localhost:8000//master/erpsettings/")
+      .get("http://127.0.0.1:8000/master/companyerp/")
       .then ((res)=>{
         setId(res.data[0].id);
         setErp(res.data[0].erp);
@@ -220,7 +220,7 @@ function ProviderDataEdit() {
             
                   id="outlined-Company Prefix"
                   // label={<Typography>Customer  Create</Typography>}
-                  label={<span ><pre><h4 style={{color:"white"}}>               Enter Tracelink Data </h4></pre></span>}
+                  label={<span ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                           Enter Tracelink Data </font></h4></pre></span>}
                 
 
       />
@@ -418,7 +418,7 @@ else if(extrafield==="sap"&& operation==='edit'){
             
                   id="outlined-Company Prefix"
                   // label={<Typography>Customer  Create</Typography>}
-                  label={<span ><pre><h4 style={{color:"white"}}>                   Enter Erp Data </h4></pre></span>}
+                  label={<span ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                                  Enter Erp Data</font> </h4></pre></span>}
                 
 
 />

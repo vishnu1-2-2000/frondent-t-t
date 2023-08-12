@@ -169,7 +169,7 @@ function RegSystemDataEdit() {
     // fullWidth
     
           id="outlined-Company Prefix"
-          label={<h4 ><pre><h4 style={{color:"white"}}>Update Registered System </h4></pre></h4>}
+          label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6"> Update Registered System</font> </h4></pre></h4>}
          
    
  />

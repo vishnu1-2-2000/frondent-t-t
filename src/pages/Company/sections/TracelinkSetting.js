@@ -11,7 +11,10 @@ import { useForm,Form } from "../../../components/useForm";
 import Controls from "../../../components/Controls";
 import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
-
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
 function TracelinkSetting() {
   const[id,setId]=useState("");
   const[ title,setTitle]=useState("");
@@ -27,7 +30,7 @@ function TracelinkSetting() {
   const[sftp_username,setSftpusername]=useState("");
   const[file_receiver,setfilereceiver]=useState("");
                  
-                 
+  const [showPassword, setShowPassword] = React.useState(false);              
                     //   For navigate function
   const navigate = useNavigate();
           ////    for receiving the parameters from URL
@@ -63,7 +66,14 @@ function TracelinkSetting() {
             
   useEffect(()=>{
     getTracelinkEditdata()
-  },[])          
+  },[]) 
+  
+  
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
                    //if(operation=='new'){
       // if(operation === 'new') {
         var headwidget=
@@ -82,7 +92,7 @@ function TracelinkSetting() {
         // fullWidth
         
               id="outlined-Company Prefix"
-              label={<h4 ><pre><h4 style={{color:"white"}}>           Enter Company Tracelink Details </h4></pre></h4>}
+              label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">            Enter Company Tracelink Details </font></h4></pre></h4>}
              
        
      />
@@ -131,6 +141,26 @@ function TracelinkSetting() {
                             label="Sftp Password"
                             value={sftp_password}
                             onChange={(e)=> setSftppassword(e.target.value)}
+
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                      type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+                      // value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      InputProps={{ // <-- This is where the toggle button is added.
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                            >
+                              {showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                          </InputAdornment>
+                        )
+                      }}
                           />
                  
   var filesenderwidget =<TextField required 
@@ -154,6 +184,26 @@ function TracelinkSetting() {
                       label="Tracelink Password"
                         value={tracelink_password}
                         onChange={(e)=> setPassword(e.target.value)}
+
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                  type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+                  // value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  InputProps={{ // <-- This is where the toggle button is added.
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
                       />
                  
                  

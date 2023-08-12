@@ -17,53 +17,53 @@ GridToolbarFilterButton, GridToolbarDensitySelector, GridToolbarExport } from '@
 const CompanyDataGrid=(props)=> {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-                    const [data, setData] = useState([]);
-                    const [tabledark, setTableDark] = useState("");
+  const [data, setData] = useState([]);
+  const [tabledark, setTableDark] = useState("");
                   
-                    const [userDataRows, setUserDataRows] = useState([]);
-                    const [selectedDIV_state, setSelectedDIV_state] = useState("");
+  const [userDataRows, setUserDataRows] = useState([]);
+  const [selectedDIV_state, setSelectedDIV_state] = useState("");
                     ///   For navigate function
-                    const navigate = useNavigate();
+  const navigate = useNavigate();
                   
-                    function logout() {
-                      window.localStorage.removeItem("username");
-                      window.localStorage.removeItem("password");
+  function logout() {
+                    window.localStorage.removeItem("username");
+                    window.localStorage.removeItem("password");
                   
-                      navigate("/");
-                    }
+                    navigate("/");
+                  }
                   
                  
 
-                    var editButtonStatus;
-                    var deleteButtonStatus;
+  var editButtonStatus;
+  var deleteButtonStatus;
                     //alert(window.localStorage.getItem('password'));
                   
                   
-                    function handleDelete(id) {
-                      axios
-                        .delete(`http://127.0.0.1:8000/master/company/delete/${id}`,
+    function handleDelete(id) {
+        axios
+            .delete(`http://127.0.0.1:8000/master/company/delete/${id}`,
                           
-                        )
-                        .then(() => {
+          )
+          .then(() => {
                           //getData();
-                          alert("anu");
-                          navigate("/company/comdatagrid");
+                        // alert("anu");
+                        navigate("/company/comdatagrid");
                         });
                     }
                   
                     
-                    let userDataColumns = [
-                      { field: 'id', headerName: 'Id', width:100,headerClassName: "MuiDataGrid-columnHeaders", },
-                      { field: 'company_name',headerName: 'Company Name', width: 200,headerClassName: "MuiDataGrid-columnHeaders", },
-                      { field: 'address', headerName: 'Address', width: 130,headerClassName: "MuiDataGrid-columnHeaders", },
-                      { field: 'zip', headerName: 'Zip', width: 100,headerClassName: "MuiDataGrid-columnHeaders", },
-                      { field: 'state', headerName: 'State', width: 120,headerClassName: "MuiDataGrid-columnHeaders", },
+  let userDataColumns = [
+                      { field: 'id', headerName:<b>Id</b> , width:100,headerClassName: "MuiDataGrid-columnHeaders", },
+                      { field: 'company_name',headerName:<strong>Company Name</strong> , width: 200,headerClassName: "MuiDataGrid-columnHeaders", },
+                      { field: 'address', headerName: <strong>Address</strong>, width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
+                      { field: 'zip', headerName: <strong>Zip</strong>, width: 100,headerClassName: "MuiDataGrid-columnHeaders", },
+                      { field: 'state', headerName:<strong>State</strong> , width: 120,headerClassName: "MuiDataGrid-columnHeaders", },
                   
-                      { field: 'gln', headerName: 'GLN', width: 130,headerClassName: "MuiDataGrid-columnHeaders", },
-                      { field: 'created_by', headerName: 'Created By', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
+                      { field: 'gln', headerName: <strong>GLN</strong>, width: 130,headerClassName: "MuiDataGrid-columnHeaders", },
+                      { field: 'created_by', headerName: <strong>Created By</strong>, width: 160,headerClassName: "MuiDataGrid-columnHeaders", },
                       {
                         field: 'edit',
-                        headerName: 'Edit',
+                        headerName:<strong>Edit</strong> ,
                         width:100,
                         headerClassName: "MuiDataGrid-columnHeaders",               
                         sortable: false,
@@ -114,7 +114,7 @@ const CompanyDataGrid=(props)=> {
                                     },
                       {
                         field: 'delete',
-                        headerName: 'Delete',
+                        headerName: <strong>Delete</strong>,
                         headerClassName: "MuiDataGrid-columnHeaders",
                         width:100,            
                         sortable: false,
@@ -192,7 +192,7 @@ const CompanyDataGrid=(props)=> {
                       
                       {
                         field: 'properties',
-                        headerName: 'Properties',
+                        headerName: <strong>Properties</strong>,
                         sortable: false,
                         headerClassName: "MuiDataGrid-columnHeaders",
                         width:100,
@@ -236,7 +236,7 @@ const CompanyDataGrid=(props)=> {
                       },
                       {
                         field: 'erp settings',
-                        headerName: 'Erp Settings',
+                        headerName: <strong>Erp Settings</strong>,
                         sortable: false,
                         headerClassName: "MuiDataGrid-columnHeaders",
                         width:100,
@@ -281,7 +281,7 @@ const CompanyDataGrid=(props)=> {
 
                       {
                         field: 'tracelink settings',
-                        headerName: 'Tracelink Settings',
+                        headerName: <strong>Tracelink Settings</strong>,
                         sortable: false,
                         headerClassName: "MuiDataGrid-columnHeaders",
                         width:150,
@@ -320,11 +320,11 @@ const CompanyDataGrid=(props)=> {
                                           className="btn btn-dark" 
                                           disabled = "true"
                                           onClick={onClick}><FaLink size={23}/></button>;
-                                      }
-                        },
-                      },
+                        }
+                },
+            },
                   
-                    ]; 
+        ]; 
                   
                   
                   
@@ -332,18 +332,18 @@ const CompanyDataGrid=(props)=> {
                       //alert(rowDatas.length);
                   
                
-                let tempArrayFunction = []; 
-                  rowDatas.map(rowData => {
+    let tempArrayFunction = []; 
+    rowDatas.map(rowData => {
                         //alert(rowData.id);
-                        tempArrayFunction.push( 
-                          {'id':rowData.id, 'company_name':rowData.company_name,'address':rowData.address,'zip':rowData.zip,
-                          'state':rowData.state,'gln':rowData.gln,
-                          'created_by':rowData.created_by},
-                        );
+        tempArrayFunction.push( 
+          {'id':rowData.id, 'company_name':rowData.company_name,'address':rowData.address,'zip':rowData.zip,
+            'state':rowData.state,'gln':rowData.gln,
+            'created_by':rowData.created_by},
+          );
                   
-                      })
+        })
 
-                      setSelectedDIV_state(<div>
+        setSelectedDIV_state(<div>
                         {/* <div class="card shadow mb-4"> 
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Company</h6>                         
@@ -354,9 +354,9 @@ const CompanyDataGrid=(props)=> {
                             {/* </div> */}
                 
                             {/* <div class="card-body">   */}
-                                <div style={{ height: 700, width: '100%'}} >
-                                    <DataGrid rows={tempArrayFunction} columns={userDataColumns} pageSize={10} components={{ Toolbar: CustomToolbar }}/>
-                                </div>
+                      <div style={{ height: 700, width: '100%'}} >
+                          <DataGrid rows={tempArrayFunction} columns={userDataColumns} pageSize={10} components={{ Toolbar: CustomToolbar }}/>
+                      </div>
                             {/* </div>
                         </div> */}
                     </div>);  
@@ -366,16 +366,16 @@ const CompanyDataGrid=(props)=> {
                   
   function getData() {
                       //alert("anu");
-              axios
-                  .get("http://127.0.0.1:8000/master/company/",
+        axios
+            .get("http://127.0.0.1:8000/master/company/",
                           
-                        )
-                        .then((res) => {
+                )
+                  .then((res) => {
                           //alert(res.data.length);
-                          setData(res.data);
-                          createRows(res.data);
-                        });
-                    }
+                      setData(res.data);
+                      createRows(res.data);
+                  });
+                }
                   
   function handleDelete(id) {
     axios
@@ -498,11 +498,11 @@ const CompanyDataGrid=(props)=> {
     </Box>
   </Box>
       </div>
-      </div>
+    </div>
 </Box>
 </Box>
     </>
-                    );
+    );
 }
 
 export default CompanyDataGrid

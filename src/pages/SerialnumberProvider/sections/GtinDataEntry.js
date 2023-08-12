@@ -167,7 +167,7 @@ if (operation=="new"){
             
                   id="outlined-Company Prefix"
                   // label={<Typography>Customer  Create</Typography>}
-                  label={<span ><pre><h4 style={{color:"white"}}>Enter Gtin Data </h4></pre></span>}
+                  label={<span ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">   Enter Gtin Data </font></h4></pre></span>}
                 
 
       />

@@ -360,9 +360,9 @@ function ShippoDataEdit() {
                     //       />
                     //   }
                   
-                       if(operation === 'edit') {
-                        var headwidget=
-                        <Box
+        if(operation === 'edit') {
+            var headwidget=
+                    <Box
                         component="form"
                         sx={{
                           width: 500,
@@ -377,29 +377,29 @@ function ShippoDataEdit() {
                         fullWidth
                         
                         id="outlined-Company Prefix"
-                        label={<h4 ><pre><h4 style={{color:"white"}}>           Enter Shipping Order  Data </h4></pre></h4>}
+                        label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                 Edit Shipping Order  Data </font></h4></pre></h4>}
                       />
                       </Box>
-                            var nameFieldWidget = 
+            var nameFieldWidget = 
                             // <input
                             //       type="text"
                             //       className="form-control form-control-sm"
                             //       value = {shipping_order_name}
                             //       onChange={(e) => setName(e.target.value)}
                             //     />
-                                <TextField required
-                                label="Name"
-                                id="outline-Productionorder"
-                                value = {shipping_order_name}
-                                onChange={(e) => setName(e.target.value)}
-                                />
+                            <TextField required
+                              label="Name"
+                              id="outline-Productionorder"
+                              value = {shipping_order_name}
+                              onChange={(e) => setName(e.target.value)}
+                            />
                               //   var sorcelocFieldWidget = <input
                               //   type="text"
                               //   className="form-control form-control-sm"
                               //   value = {source_location}
                               //   onChange={(e) => setSourceLoc(e.target.value)}
                               // />
-                              var sourcelocationwidget= 
+                var sourcelocationwidget= 
                               // <Select options={sourcelocoptions}  className="s" onChange={getSourcelocationasoptions} /> 
                               <Box sx={{  }}>
 
@@ -408,7 +408,7 @@ function ShippoDataEdit() {
                               <NativeSelect 
                               labelId="demo-simple-select-label-source"
                               id="demo-simple-select"
-                              input={<OutlinedInput label="Source" />}
+                              input={<OutlinedInput label="Sourceloc" />}
                               MenuProps={MenuProps}
                               style={{width:'220px'}}
                               value={sourcelocationvalue}
@@ -431,7 +431,7 @@ function ShippoDataEdit() {
                               </FormControl>
                               </Box>
                           
-                            var destinationFieldWidget=
+                var destinationFieldWidget=
                             // <Select className="s" options={deslocation} onChange={getDestinationLocationoption}/>
                             <Box sx={{  }}>
 
@@ -555,7 +555,7 @@ function ShippoDataEdit() {
 
                             <Box sx={{  }}>
 
-                            <FormControl >
+                            <FormControl>
                             <InputLabel id="demo-simple-select-label">Status</InputLabel>
                             <NativeSelect 
                             labelId="demo-simple-select-label"
@@ -592,13 +592,11 @@ function ShippoDataEdit() {
                             var testPassed = "false";
                             if(shipping_order_name!=""){
                               testPassed="true"
-                        
                             }
                             else {
                               warningDIV =  <div className="alert alert-danger pt-4" role="alert">
                                   <h5>Input shipping_order_name</h5>
                                 </div>
-                        
                               setWarningmessage(warningDIV);
                               testPassed = "false";
                             }
@@ -686,8 +684,6 @@ function ShippoDataEdit() {
                               testPassed = "false"; 
                               }
                             }
-                            
-                        
                           if(testPassed =="true"){
                             // if(operation === 'new') {
                             //   alert(shipping_order_name)
@@ -752,40 +748,40 @@ function ShippoDataEdit() {
                                   }
                           }
                         }
-                          var editSaveButtonDisabled = 
-                        <button disabled="true" className="btn btn-primary" onClick={handleSubmit}>Save</button>
+    var editSaveButtonDisabled = 
+                      <button disabled="true" className="btn btn-primary" onClick={handleSubmit}>Save</button>
                   
-                    var editSaveButtonEnabled = 
-                        <button className="btn btn-primary" onClick={handleSubmit}>Save</button>
+    var editSaveButtonEnabled = 
+                      <button className="btn btn-primary" onClick={handleSubmit}>Save</button>
                   
-                    var editSaveButton = "";
-                    return (
-                      <>
+    var editSaveButton = "";
+  return (
+    <>
                        
-                      <br></br>
-            <br></br>
-            <br></br>
-            <div class="container-fluid">
-                 <div class="card shadow mb-4" id="customerfullcard"> 
-                     <div class="card-header py-3" id="customercardhead">
-                         <div className='row'>
-                             <div className='col-10' id="customerhead">
-                             {headwidget}
-                             </div>
-                         </div>
+    <br></br>
+    <br></br>
+    <br></br>
+    <div class="container-fluid">
+      <div class="card shadow mb-4" id="customerfullcard"> 
+        <div class="card-header py-3" id="customercardhead">
+          <div className='row'>
+            <div className='col-10' id="customerhead">
+              {headwidget}
+            </div>
+          </div>
                                                          
-                     </div>
+        </div>
             
-                     <div class="card-body">  
-                     <br></br>
-            <br></br>
+        <div class="card-body">  
+          <br></br>
+          <br></br>
             
             {/* <div id="locationhead">
             {headwidget}
             </div>
             <br></br> */}
             
-            <Box id="customerbox"
+          <Box id="customerbox"
             component="form"
             sx={{
             '& .MuiTextField-root': { m: 2, width: '25ch' },
@@ -798,7 +794,7 @@ function ShippoDataEdit() {
             {warningmessage}
             </div>
             <div>
-             
+
              {nameFieldWidget}
              
             

@@ -63,12 +63,14 @@ function AuditReportRead() {
  const theme = useTheme();
 const colors = tokens(theme.palette.mode);
  const [data, setData] = useState([]);
+ const [data2, setData2] = useState([]);
+ const [data3, setData3] = useState([]);
  const [userDataRows, setUserDataRows] = useState([]);
  const [selectedDIV_state, setSelectedDIV_state] = useState("");
 
  const[datefunction,setDatefun]=useState("");
  const[exportpdf,setExportpdf]=useState("");
-
+const[headwidget,setHeadwidget]=useState("");
  const conponentPDF= useRef();
  const doc = new jsPDF()
  autoTable(doc, { html: '#my-table' })
@@ -87,6 +89,32 @@ const colors = tokens(theme.palette.mode);
   { field: 'rejectedbycamera', headerName: 'Rejected By Camera', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
   { field: 'unused', headerName: 'Unused', width: 120,headerClassName: "MuiDataGrid-columnHeaders", },
   { field: 'production_date', headerName: 'Production Date', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
+
+ ]
+
+ let userDataColumns1 = [
+  { field: 'id', headerName: 'ID', width:100,headerClassName: "MuiDataGrid-columnHeaders", },
+  { field: 'modelname', headerName: 'Modelname', width:180,headerClassName: "MuiDataGrid-columnHeaders", },
+  { field: 'operationdone',headerName: 'operationdone', width: 180,headerClassName: "MuiDataGrid-columnHeaders", },
+  { field: 'donebyuser', headerName: 'Donebyuser', width: 160,headerClassName: "MuiDataGrid-columnHeaders", },
+  { field: 'donebyuserrole', headerName: 'Donebyuserrole', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
+  { field: 'donedatetime', headerName: 'Donedatetime', width: 120,headerClassName: "MuiDataGrid-columnHeaders", },
+
+ 
+  
+
+ ]
+
+ let userDataColumns2 = [
+  { field: 'id', headerName: 'ID', width:100,headerClassName: "MuiDataGrid-columnHeaders", },
+  { field: 'shipping_order_name', headerName: 'Shipping Order Name', width:180,headerClassName: "MuiDataGrid-columnHeaders", },
+  { field: 'process_no_original',headerName: 'Process Number', width: 180,headerClassName: "MuiDataGrid-columnHeaders", },
+  { field: 'source_location', headerName: 'Source Location', width: 160,headerClassName: "MuiDataGrid-columnHeaders", },
+  { field: 'destination_location', headerName: 'Destination Location', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
+  { field: 'subject_name', headerName: 'Subject Name', width: 120,headerClassName: "MuiDataGrid-columnHeaders", },
+
+  { field: 'shipping_date', headerName: 'Shipping Date', width: 130,headerClassName: "MuiDataGrid-columnHeaders", },
+  
 
  ]
 
@@ -134,6 +162,7 @@ rowDatas.map(rowData => {
     );
 
   })
+
   function CustomToolbar() {
       return (
 <GridToolbarExport
@@ -169,6 +198,78 @@ rowDatas.map(rowData => {
 
  }
  
+ function createRows2(rowDatas) {
+  // alert(rowDatas.length);
+ 
+
+let tempArrayFunction = []; 
+rowDatas.map(rowData => {
+  //   alert(rowData.id);
+    tempArrayFunction.push( 
+      {'id':rowData.id,'modelname':rowData.modelname, 'operationdone':rowData.operationdone,
+      'donebyuser':rowData.donebyuser,'donebyuserrole':rowData.donebyuserrole,
+      'donedatetime':rowData.donedatetime,
+      
+   
+    },
+    );
+
+  })
+  setSelectedDIV_state(<div>
+
+    <div style={{ height: 500, width: '110%'}}  >
+        <DataGrid rows={tempArrayFunction}  columns={userDataColumns1} pageSize={10}   
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            printOptions:{
+              hideFooter: true,
+              hideToolbar: true,
+            }
+          }
+        }} 
+         />
+    </div>
+
+</div>);
+ }
+ 
+
+ function createRows3(rowDatas) {
+  //alert(rowDatas.length);
+ 
+
+let tempArrayFunction = []; 
+rowDatas.map(rowData => {
+    //alert(rowData.id);
+    tempArrayFunction.push( 
+      {'id':rowData.id,'shipping_order_name':rowData.shipping_order_name, 'process_no_original':rowData.process_no_original,
+      'source_location':rowData.source_location,'destination_location':rowData.destination_location,
+      'subject_name':rowData.subject_name,'shipping_date':rowData.shipping_date,
+      
+   
+    },
+    );
+
+  })
+  setSelectedDIV_state(<div>
+
+    <div style={{ height: 500, width: '110%'}}  >
+        <DataGrid rows={tempArrayFunction}  columns={userDataColumns2} pageSize={10}   
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            printOptions:{
+              hideFooter: true,
+              hideToolbar: true,
+            }
+          }
+        }} 
+         />
+    </div>
+
+</div>);
+ }
  
  
 // const getProductionreport = (e) => {
@@ -225,13 +326,61 @@ rowDatas.map(rowData => {
                           // alert(res.data)
                           .then((res)=>{
            
-                           alert("anu");
-                                        
+                          //  alert("anu");
+                          setHeadwidget("Production Audit Report")             
                           setData(res.data);
                           createRows(res.data);
                             })              
       
         }
+        function getData() {
+          // alert("anu");
+  axios
+      .get("http://localhost:8000/accounts/userAuditReportdate/",
+      {
+        "datefrom":startdate,  
+        "dateto":enddate,
+}, 
+            )
+            .then((res) => {
+              //alert(res.data.length);
+              setHeadwidget("Users Audit Report")   
+              setData2(res.data);
+              createRows2(res.data);
+            });
+        }
+
+        const getShipporeport = (e) => {
+          e.preventDefault();
+          console.log("clicked");
+          //alert(address);
+        
+        
+        
+          
+          //     alert(startdate)
+              axios
+                .post('http://localhost:8000/master/ShippoauditReportdate/', 
+               
+                {
+                              "datefrom":startdate,  
+                              "dateto":enddate,
+                },
+                
+                )
+               
+                              // alert("8445")
+                              // alert(res.data)
+                              .then((res)=>{
+               
+                              //  alert("anu");
+                               setHeadwidget("Shipping Audit Report")             
+                              setData3(res.data);
+                              createRows3(res.data);
+                                })              
+          
+            }
+    
 
  var userheadwidget=
     <Box
@@ -249,7 +398,7 @@ rowDatas.map(rowData => {
     // fullWidth
     
           id="outlined-Company Prefix"
-  label={<h4 ><pre>   <h4 style={{color:"white"}}>Users Audit Report </h4></pre></h4>}
+  label={<h4 ><pre>   <h4 style={{color:"white"}}><font face="times new roman" size="6"> {headwidget} </font></h4></pre></h4>}
          
    
  />
@@ -271,7 +420,7 @@ disabled
 // fullWidth
 
       id="outlined-Company Prefix"
-      label={<h4 ><pre><h4 style={{color:"white"}}>               Production Audit Report </h4></pre></h4>}
+      label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                {headwidget} </font></h4></pre></h4>}
      
 
 />
@@ -293,7 +442,7 @@ var shippingheadwidget=
     // fullWidth
     
           id="outlined-Company Prefix"
-          label={<h4 ><pre><h4 style={{color:"white"}}>Shipping Audit Report </h4></pre></h4>}
+          label={<h4 ><pre><h4 style={{color:"white"}}>{headwidget} </h4></pre></h4>}
          
    
  />
@@ -344,7 +493,10 @@ var shippingheadwidget=
                         // doc.save('table.pdf')   
                         const navigateToCreatepage = () => {
                           navigate("/shippingauditreport");
-                        };                                
+                        };  
+                        const navigateToUseauditreportpage = () => {
+                          navigate("/userauditreport");
+                        };                               
   return (
     <>
     <Box sx={{ display: 'flex' }} > 
@@ -414,10 +566,10 @@ var shippingheadwidget=
           {/* <button onClick={autoTable} className="btn btn-success">                                              
           Production Report pdf</button> */}
          
-          <button  className="btn btn-success">                                               
+          <button onClick={getData}  className="btn btn-success">                                               
           User Report</button>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button onClick={navigateToCreatepage} className="btn btn-success">                                              
+          <button onClick={getShipporeport} className="btn btn-success">                                              
           Shipping Report</button> 
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button className="btn btn-success" onClick={ generatePDF}>PDF</button>   

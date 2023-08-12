@@ -126,7 +126,7 @@ function RegSystemDataEntry() {
     // fullWidth
     
           id="outlined-Company Prefix"
-          label={<h4 ><pre><h4 style={{color:"white"}}>Create Registered System </h4></pre></h4>}
+          label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6"> Create Registered System </font></h4></pre></h4>}
          
    
  />
@@ -141,6 +141,7 @@ function RegSystemDataEntry() {
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           input={<OutlinedInput label="Manufacturing Location" />}
+                         
                           MenuProps={MenuProps}
                           style={{width:'220px'}}
                           label="Manufacturing Location"

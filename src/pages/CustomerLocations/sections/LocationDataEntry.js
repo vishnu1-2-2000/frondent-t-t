@@ -214,13 +214,13 @@ const getLocation=event=>{
  </Box>
 
     var locnameFieldWidget = <TextField
-            required
-          id="outlined-Location Name"
-          label="Location Name"
-          onChange={(e) => setName(e.target.value)}
-   
- />
-        var hjwidget=<label className="form-label">Customer Name</label>
+                              required
+                              id="outlined-Location Name"
+                              label="Location Name"
+                              onChange={(e) => setName(e.target.value)}
+                            />
+
+    var hjwidget=<label className="form-label">Customer Name</label>
         // var custnameFieldWidget = <input
         // type="text"
         // className="form-control form-control-sm"
@@ -255,44 +255,44 @@ const getLocation=event=>{
           
           
      
-        var addressFieldWidget = <TextField
-        required
-       id="outlined-Address"
-       label="Address"
-       onChange={(e) => setAddress(e.target.value)}
-       
-     />
-      var zipFieldWidget = <TextField
-      required
-     id="outlined-Zip"
-     label="Zip"
-     onChange={(e) => setZip(e.target.value)}
-     
-   />
+  var addressFieldWidget = <TextField
+                            required
+                            id="outlined-Address"
+                            label="Address"
+                            onChange={(e) => setAddress(e.target.value)}
+                            
+                            />
+  var zipFieldWidget = <TextField
+                            required
+                            id="outlined-Zip"
+                            label="Zip"
+                            onChange={(e) => setZip(e.target.value)}
+                            
+                          />
     var stateFieldWidget = <TextField
-    required
-   id="outlined-State"
-   label="State"
-   onChange={(e) => setState(e.target.value)}
-   
- />
+                            required
+                            id="outlined-State"
+                            label="State"
+                            onChange={(e) => setState(e.target.value)}
+                            
+                          />
  
   var locglnFieldWidget = <TextField
-  required
- id="outlined-Location Gln"
- label="Location Gln"
- onChange={(e) => setLocgln(e.target.value)}
- 
-/>
+                            required
+                            id="outlined-Location Gln"
+                            label="Location Gln"
+                            onChange={(e) => setLocgln(e.target.value)}
+                            
+                            />
 
 
     var createdbyFieldWidget = <TextField
-    required
-   id="outlined-Createdby"
-   label="Createdby"
-   onChange={(e) => setCreatedby(e.target.value)}
-   
-  />
+                                required
+                                id="outlined-Createdby"
+                                label="Createdby"
+                                onChange={(e) => setCreatedby(e.target.value)}
+                                
+                                />
         
   
       
@@ -407,7 +407,7 @@ const getLocation=event=>{
     }
     if(testPassed == "true"){
     if(operation === 'new') {
-    alert(customer_id)
+    // alert(customer_id)
       axios
       
 

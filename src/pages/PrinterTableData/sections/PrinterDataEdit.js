@@ -38,6 +38,7 @@ function getpo() {
                     axios
                     .get("http://127.0.0.1:8000/master/master/productionorder/")
                     .then((res)=>{
+                        // alert(res.data[0].process_order_number)
                 res.data.map(data =>{pooptions.push({value:data.id,label:data.process_order_number})})
                     })
                     setProcessOrderNumber(pooptions);
@@ -230,18 +231,13 @@ const handleSubmit=(e)=>{
                                 </td>
                             </tr>
                             <tr>
-                                                <td class="productionOrderReportSearchTD">Printing Type</td>
-                                                <td class="productionOrderReportSearchTD">
-                                                    {typewidget}
-                                                </td>
-                                            </tr>
+                                <td class="productionOrderReportSearchTD">Printing Type</td>
+                                <td class="productionOrderReportSearchTD">
+                                    {typewidget}
+                                </td>
+                            </tr>
                     
-                                                    {/* <tr>
-                                                        <td class="productionOrderReportSearchTD">Serialnumbers</td>
-                                                        <td class="productionOrderReportSearchTD">
-                                                            {serialnowidget}
-                                                        </td>
-                                                    </tr> */}
+                                                  
                                            
                             <tr></tr>
                             <tr>

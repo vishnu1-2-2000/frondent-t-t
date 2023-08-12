@@ -7,7 +7,8 @@ import { DataGrid, GridToolbar, GridApi, GridCellValue, GridToolbarContainer, Gr
   GridToolbarFilterButton, GridToolbarDensitySelector, GridToolbarExport } from '@material-ui/data-grid';
 import axios from "axios";
 import Sidebar from '../../../components/Sidnav/Sidebar';
-
+import { RiInsertRowTop } from 'react-icons/ri';
+import { MdDownloadForOffline } from 'react-icons/md';
  const PoDataGrid = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -251,6 +252,148 @@ import Sidebar from '../../../components/Sidnav/Sidebar';
       },
     },
 
+    {
+      field: 'hrf',
+      headerName: 'hrf',
+      headerClassName: "MuiDataGrid-columnHeaders",
+      sortable: false,
+      renderCell: (params) => {
+        const onClick = (e) => {
+          e.stopPropagation(); // don't select this row after clicking
+    
+          const api: GridApi = params.api;
+          const thisRow: Record<string, GridCellValue> = {};
+    
+          api
+            .getAllColumns()
+            .filter((c) => c.field !== '__check__' && !!c)
+            .forEach(
+              (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
+            );
+          //alert(thisRow.id);
+    
+          // window.localStorage.setItem("productionOrderEditID", thisRow.id);
+    
+          // navigate("/po/pocreate/edit");
+          navigate("/productionorder/hrf/"+thisRow.id);
+    
+         
+        };
+    
+        const api2: GridApi = params.api;
+        const thisRow2: Record<string, GridCellValue> = {};
+    
+        api2
+          .getAllColumns()
+          .filter((c) => c.field !== '__check__' && !!c)
+          .forEach(
+            (c) => (thisRow2[c.field] = params.getValue(params.id, c.field)),
+          );
+    
+          //if(currentUserrole == 'admin') {
+            // if(props.propertyButtonStatus === "enabled"&& thisRow2.status=='Draft' ) {
+            //   return <button
+            //     className="btn btn-dark" 
+               
+            //     onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
+            // }
+            // else if(props.propertyButtonStatus === "disabled" || thisRow2.status=='Closed'|| thisRow2.status=='Inproduction') {
+            //   return <button
+            //     className="btn btn-dark" 
+            //     disabled = "true"
+            //     onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
+            // }
+            if(props.editButtonStatus === "enabled"&& thisRow2.status=='Draft' ) {
+              return <button
+                className="btn btn-info" 
+               
+                onClick={onClick}><RiInsertRowTop size={23}/></button>;
+            }
+            else if(props.editButtonStatus === "disabled"|| thisRow2.status=='Closed'|| thisRow2.status=='Inproduction') {
+              return <button
+                className="btn btn-info" 
+                disabled = "true"
+                onClick={onClick}><RiInsertRowTop size={23}/></button>;
+            }
+    
+        //alert(currentUserrole);
+    
+    
+        
+      },
+    },
+
+
+    {
+      field: 'downloadcodes',
+      headerName: 'Downloadcodes',
+      headerClassName: "MuiDataGrid-columnHeaders",
+      sortable: false,
+      renderCell: (params) => {
+        const onClick = (e) => {
+          e.stopPropagation(); // don't select this row after clicking
+    
+          const api: GridApi = params.api;
+          const thisRow: Record<string, GridCellValue> = {};
+    
+          api
+            .getAllColumns()
+            .filter((c) => c.field !== '__check__' && !!c)
+            .forEach(
+              (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
+            );
+          //alert(thisRow.id);
+    
+          // window.localStorage.setItem("productionOrderEditID", thisRow.id);
+    
+          // navigate("/po/pocreate/edit");
+          navigate("/productionorder/downloadcodes/"+thisRow.gtin_number+"/"+thisRow.process_order_number);
+    
+         
+        };
+    
+        const api2: GridApi = params.api;
+        const thisRow2: Record<string, GridCellValue> = {};
+    
+        api2
+          .getAllColumns()
+          .filter((c) => c.field !== '__check__' && !!c)
+          .forEach(
+            (c) => (thisRow2[c.field] = params.getValue(params.id, c.field)),
+          );
+    
+          //if(currentUserrole == 'admin') {
+            // if(props.propertyButtonStatus === "enabled"&& thisRow2.status=='Draft' ) {
+            //   return <button
+            //     className="btn btn-dark" 
+               
+            //     onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
+            // }
+            // else if(props.propertyButtonStatus === "disabled" || thisRow2.status=='Closed'|| thisRow2.status=='Inproduction') {
+            //   return <button
+            //     className="btn btn-dark" 
+            //     disabled = "true"
+            //     onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
+            // }
+            if(props.editButtonStatus === "enabled"&& thisRow2.status=='Draft' ) {
+              return <button
+                className="btn btn-dark" 
+               
+                onClick={onClick}><MdDownloadForOffline size={23}/></button>;
+            }
+            else if(props.editButtonStatus === "disabled"|| thisRow2.status=='Closed'|| thisRow2.status=='Inproduction') {
+              return <button
+                className="btn btn-dark" 
+                disabled = "true"
+                onClick={onClick}><MdDownloadForOffline size={23}/></button>;
+            }
+    
+        //alert(currentUserrole);
+    
+    
+        
+      },
+    },
 
 
     {

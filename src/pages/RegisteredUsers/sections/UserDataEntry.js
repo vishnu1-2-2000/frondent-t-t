@@ -220,7 +220,7 @@ const UserDataEntry = (props) => {
           fullWidth
           id="outlined-Company Prefix"
           // label={<Typography>Customer  Create</Typography>}
-          label={<h4 ><pre><h4 style={{color:"white"}}>         Register New User </h4></pre></h4>}
+          label={<h4 ><pre><h4 style={{color:"white"}}>  <font face="times new roman" size="6">           Register New User </font></h4></pre></h4>}
         
 
 />

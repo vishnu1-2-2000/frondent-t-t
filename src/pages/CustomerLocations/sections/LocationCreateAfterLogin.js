@@ -12,14 +12,14 @@ import LocationDataEntry from "./LocationDataEntry";
 import Loading from "../../../components/Common/Loading";
 
 function LocationCreateAfterLogin() {
-                    const { operation } = useParams();
-                    const { uniqueID } = useParams();
+    const { operation } = useParams();
+    const { uniqueID } = useParams();
                                     
                                        
                                     
-                    const [selectedDIV_state, setSelectedDIV_state] = useState(<Loading/>);
+    const [selectedDIV_state, setSelectedDIV_state] = useState(<Loading/>);
                                     
-                                      const notAuthorizedSection = <div class="container-fluid" id="regimage">
+    const notAuthorizedSection = <div class="container-fluid" id="regimage">
                                         <div class="card shadow mb-4"> 
                                             <div class="card-body">  
                                               
@@ -31,8 +31,8 @@ function LocationCreateAfterLogin() {
                                       </div>
                                     
                                     
-                    function checkAuthorization() {
-                                        axios
+    function checkAuthorization() {
+                                    axios
                                         .get("http://192.168.200.131:8000/accounts/userrolePermissionsRead")
                                         .then((res) => {
                                           var authorized = false;
@@ -91,26 +91,26 @@ function LocationCreateAfterLogin() {
                                         checkAuthorization();
                                       }, []);
                                     
-                                      return (
-                                        <>
+  return (
+            <>
                                     
-                                          <div id="wrapper">
-                                          <Box sx={{ display: 'flex' }}>
-                                            <Sidebar/>
+      <div id="wrapper">
+          <Box sx={{ display: 'flex' }}>
+              <Sidebar/>
                                                      
                                             
-                                              <div id="content-wrapper" class="d-flex flex-column">
-                                                <div id="content">
+                <div id="content-wrapper" class="d-flex flex-column">
+                    <div id="content">
                                                   {/* <Header></Header>   */}
-                                                  {selectedDIV_state}
-                                                </div>
+                            {selectedDIV_state}
+                    </div>
                                               {/* <Footer></Footer> */}
-                                            </div>
-                                           </Box>
-                                          </div>
+                </div>
+          </Box>
+      </div>
                                     
-                                        </>
-                                      );
+  </>
+  );
 }
 
 export default LocationCreateAfterLogin

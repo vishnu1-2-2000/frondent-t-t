@@ -21,85 +21,76 @@ function CompanyProperty() {
     <h5>Input all the values</h5>
   </div>
            
-                    const [id, setId] = useState(0);
-                    const [central_repository_api_secret, setCentralrepository] = useState("");
-                    const [gln, setGln] = useState("");
-                    const [gs1_company_prefix ,setGs1_company_prefix] = useState("");
-                    const [landmark,setLandmark] = useState("");
-                    const [sgln_extension, setSglnextension] = useState("");
-                    const [warningmessage,setWarningDIVstate]=useState(warningDIV);
-                    const [ to_businessparty_lookupfield,setTo_businessparty_lookupfield] =useState("");
-                    const[tracelink_file_receiver,setTracelink_file_receiver] =useState("");
+    const [id, setId] = useState(0);
+    const [central_repository_api_secret, setCentralrepository] = useState("");
+    const [gln, setGln] = useState("");
+    const [gs1_company_prefix ,setGs1_company_prefix] = useState("");
+    const [landmark,setLandmark] = useState("");
+    const [sgln_extension, setSglnextension] = useState("");
+    const [warningmessage,setWarningDIVstate]=useState(warningDIV);
+    const [ to_businessparty_lookupfield,setTo_businessparty_lookupfield] =useState("");
+    const[tracelink_file_receiver,setTracelink_file_receiver] =useState("");
                     
                   
                   
                   
                     
                    
-                    ///   For navigate function
-                    const navigate = useNavigate();
+      ///   For navigate function
+    const navigate = useNavigate();
                   
-                    ////    for receiving the parameters from URL
-                    const { operation } = useParams();
-                    const {uniqueID} =useParams();
-                    var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+    ////    for receiving the parameters from URL
+    const { operation } = useParams();
+    const {uniqueID} =useParams();
+    var loggedInUsername=window.localStorage.getItem('loggedInUsername')
 
-                    var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
+    var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
                     ////  Fetch data from local storage
                   
-                    function getCompanyEditRequestData() {
-                      axios
-                      .get("http://localhost:8000/master/companyproperty/"+uniqueID+"/",
+    function getCompanyEditRequestData() {
+        axios
+            .get("http://localhost:8000/master/companyproperty/"+uniqueID+"/",
                       
-                      )
-                      .then((res)=>{
+                )
+                  .then((res)=>{
                   
-                        setId(res.data[0].id);
+                    setId(res.data[0].id);
                       
-                        setCentralrepository(res.data[0].central_repository_api_secret);
-                        setGln(res.data[0].gln);
+                    setCentralrepository(res.data[0].central_repository_api_secret);
+                    setGln(res.data[0].gln);
                         
-                        setGs1_company_prefix(res.data[0].gs1_company_prefix);
-                        setLandmark(res.data[0].landmark);
+                    setGs1_company_prefix(res.data[0].gs1_company_prefix);
+                    setLandmark(res.data[0].landmark);
                         
-                        setSglnextension(res.data[0].sgln_extension);
-                        setTo_businessparty_lookupfield(res.data[0].to_businessparty_lookupfield);
-                        setTracelink_file_receiver(res.data[0].tracelink_file_receiver);
+                    setSglnextension(res.data[0].sgln_extension);
+                    setTo_businessparty_lookupfield(res.data[0].to_businessparty_lookupfield);
+                    setTracelink_file_receiver(res.data[0].tracelink_file_receiver);
                         
-                  
-                  
-                  
-                      })
-                  
-                  
+                  })
+            } 
+
+  useEffect(() => {
                       
-                    } 
-                    useEffect(() => {
-                      
-                      getCompanyEditRequestData(); 
-                    }, []);
+                    getCompanyEditRequestData(); 
+                }, []);
                     // if(operation === 'new') {
   var headwidget=
-                    <Box
-                          component="form"
-                          sx={{
+                  <Box
+                        component="form"
+                        sx={{
                             width: 500,
                             maxWidth: '100%',
-                            
-                            
-                          }}
+                            }}
                           noValidate
                           autoComplete="off"
                     ><Controls.Input 
                       disabled
                       // fullWidth
                       
-                            id="outlined-Company Prefix"
-                            label={<h4 ><pre><h4 style={{color:"white"}}>           Enter Company Properties </h4></pre></h4>}
-                           
-                     
-                   />
-            </Box>
+                          id="outlined-Company Prefix"
+                          label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">              Enter Company Properties </font></h4></pre></h4>}
+                           />
+                  </Box>
                       
   var centralFieldWidget =<TextField
                             required
@@ -108,7 +99,7 @@ function CompanyProperty() {
                             value={central_repository_api_secret}
                             onChange={(e) => setCentralrepository(e.target.value)}
                   
-                      />
+                          />
                  
   var glnFieldWidget = <TextField
                           required
