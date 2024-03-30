@@ -41,14 +41,14 @@ const pieChartOptions = {
                     ]
                     };
           useEffect(() => {
-                          getProductionorder();
+                        getProductionorder();
                       }, []);
                   
-function getProductionorder() {
+    function getProductionorder() {
           
       //alert("anu");
           axios
-            .get("http://localhost:8000//master/productionorder/",
+            .get(window.url+"/master/productionorder/",
                                             
                                           
               )

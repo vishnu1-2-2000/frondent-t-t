@@ -37,7 +37,7 @@ const ShippoDataGrid=(props)=> {
                   
       function handleDelete(id) {
                       axios
-                        .delete(`http://127.0.0.1:8000/master/shippo/delete/${id}`,
+                        .delete(window.url+`/master/shippo/delete/${id}`,
                          
                         )
                         .then(() => {
@@ -45,7 +45,7 @@ const ShippoDataGrid=(props)=> {
                           //alert("anu");
                           navigate("/shippingorder");
                         });
-                    }
+                }
                   
           
                   
@@ -161,10 +161,12 @@ const ShippoDataGrid=(props)=> {
                                         )
               if (confirmBox === true) {
                     axios
-                    .delete(`http://127.0.0.1:8000/master/shippo/delete/${thisRow.id}`,
+                    
+                    .delete(window.url+`/master/shippo/trash/${thisRow.id}`,
                     {
-                    data: { 
-                      "Name" : thisRow.name,
+                    data: {
+                    "id":thisRow.id,
+                    "shipping_order_name" : thisRow.shipping_order_name,
                     "email" : thisRow.email,
                     "userRole" : thisRow.userRole,
                     "loggedInUsername": window.localStorage.getItem('loggedInUsername'),
@@ -211,11 +213,9 @@ const ShippoDataGrid=(props)=> {
               renderCell: (params) => {
                 const onClick = (e) => {
                     e.stopPropagation(); // don't select this row after clicking
-                    
                     const api: GridApi = params.api;
                     const thisRow: Record<string, GridCellValue> = {};
-                    
-                     api
+                    api
                     .getAllColumns()
                      .filter((c) => c.field !== '__check__' && !!c)
                      .forEach(
@@ -240,10 +240,10 @@ const ShippoDataGrid=(props)=> {
                   
                   
                     if(props.propertyButtonStatus === "enabled" ) {
-                           return <button
-                                        className="btn btn-primary" 
-                                        onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
-                                      }
+                      return <button
+                              className="btn btn-primary" 
+                              onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
+                            }
                     else if(props.propertyButtonStatus === "disabled" ) {
                             return <button
                                         className="btn btn-primary" 
@@ -284,48 +284,45 @@ const ShippoDataGrid=(props)=> {
                                       // );
                               
                                       //return alert(JSON.stringify(thisRow, null, 4));
-                               };
+                          };
                               
                                     //alert(currentUserrole);
                             
                             
-                              if(props.propertyButtonStatus === "enabled" ) {
-                                    return <button
-                                                  className="btn btn-info" 
-                                                  onClick={onClick}><i class="fa-sharp fa-solid fa-paper-plane"></i></button>;
-                                                }
-                              else if(props.propertyButtonStatus === "disabled" ) {
-                                      return <button
-                                                  className="btn btn-info" 
-                                                  disabled = "true"
-                                                  onClick={onClick}><i class="fa-sharp fa-solid fa-paper-plane"></i></button>;
-                                   }
-                                  },
-                                },
-                  
-                  
-                      
+                          if(props.propertyButtonStatus === "enabled" ) {
+                            return <button
+                                    className="btn btn-info" 
+                                    onClick={onClick}><i class="fa-sharp fa-solid fa-paper-plane"></i></button>;
+                                  }
+                          else if(props.propertyButtonStatus === "disabled" ) {
+                              return <button
+                                className="btn btn-info" 
+                                disabled = "true"
+                                onClick={onClick}><i class="fa-sharp fa-solid fa-paper-plane"></i></button>;
+                          }
+                        },
+                      },  
                     ];  
                   
-      function createRows(rowDatas) {
+    function createRows(rowDatas) {
                   
                       //alert(rowDatas.length);
                   
                   
                   
-                rowDatas.map(rowData => {
-                  
+      rowDatas.map(rowData => {
+        if(rowData.shippoflag===false){        
                        
                   
-                    axios
+        axios
                   
-                        .get("http://127.0.0.1:8000/master/locations/"+rowData.source_location,
+        .get(window.url+"/master/locations/"+rowData.source_location,
                   
                           
                   
-                        )
+        )
                   
-                        .then((res) => {
+        .then((res) => {
                   
                           // alert(res.data[0].source_location);
                   
@@ -333,27 +330,27 @@ const ShippoDataGrid=(props)=> {
                   
                   
                   
-                          axios
+          axios
                   
-                          .get("http://127.0.0.1:8000/master/locations/"+rowData.destination_location,
+          .get(window.url+"/master/locations/"+rowData.destination_location,
                   
                             
-                          )
+          )
                   
-                          .then((res2) => {
-                  
-                  
+          .then((res2) => {
                   
                   
-                            axios
                   
-                            .get("http://127.0.0.1:8000/master/customer/"+rowData.subject_name,
+                  
+            axios
+                  
+            .get(window.url+"/master/customer/"+rowData.subject_name,
                   
                               
                   
-                            )
+            )
                   
-                            .then((res3) => {
+            .then((res3) => {
                   
                   
                   
@@ -368,122 +365,124 @@ const ShippoDataGrid=(props)=> {
                   
                    
                   
-                            setUserDataRows(userDataRows => [
+        setUserDataRows(userDataRows => [
                   
-                              ...userDataRows,
+                ...userDataRows,
                   
-                              {
+                {
                   
-                                'id':rowData.id,
+                  'id':rowData.id,
                   
-                                'shipping_order_name':rowData.shipping_order_name,
+                  'shipping_order_name':rowData.shipping_order_name,
                   
-                                'source_location':res.data[0].name,
+                  'source_location':res.data[0].name,
                   
-                                'destination_location':res2.data[0].name,
+                  'destination_location':res2.data[0].name,
                   
                                 //'Production_line_id':res.data[0].system_name,
                   
-                                'subject_name':res3.data[0].name,
+                  'subject_name':res3.data[0].name,
                   
-                                'shipping_type':rowData.shipping_type,
+                  'shipping_type':rowData.shipping_type,
                   
-                                'shipping_date':rowData.shipping_date,
-                                'batch_for_export':rowData.batch_for_export,
+                  'shipping_date':rowData.shipping_date,
+                  'batch_for_export':rowData.batch_for_export,
                   
                          
                   
                                 // 'requested':rowData.requested,
                   
-                                'created_by':rowData.created_by,
+                  'created_by':rowData.created_by,
                   
-                                'status':rowData.status,
-                                'process_no_original':rowData.process_no_original
+                  'status':rowData.status,
+                  'process_no_original':rowData.process_no_original
                                 //'packaging_Version':rowData.packaging_Version,
                   
                                 //'expiration_date':rowData.expiration_date
                   
-                              },
+                  },
                   
-                            ]);
+                ]);
                   
-                          });
+              });
                   
-                          });
-                  
-                  
-                  
-                        });
+            });
                   
                   
                   
-                      })
+          });
                   
-                    }
+                  
+        }         
+        })
+    
+                  
+      }
                             
                   
                     // {'id':rowData.id, 'shipping_order_name':rowData.shipping_order_name,'source_location':rowData.source_location,
                     //       'destination_location':rowData.destination_location,
                     //       'created_by':rowData.created_by,'subject_name':rowData.subject_name,'shipping_date':rowData.shipping_date,'batch_for_export':rowData.batch_for_export},
                   
-        function getData() {
+    function getData() {
                       //alert("anu");
-                      axios
-                        .get("http://127.0.0.1:8000/master/shippo/",
+        axios
+          .get(window.url+"/master/shippo/",
                           
-                        )
-                        .then((res) => {
+        )
+        .then((res) => {
                           //alert(res.data.length);
-                          setData(res.data);
-                          createRows(res.data);
-                        });
-                    }
+          setData(res.data);
+          createRows(res.data);
+        });
+      }
                   
-        function handleDelete(id) {
-                      axios
-                        .delete(`http://127.0.0.1:8000/master/shippo/delete/${id}`,
-                          
-                        )
-                        .then(() => {
-                          getData();
-                        });
-                    }
+    function handleDelete(id) {
+          axios
+            .delete(`window.url+/master/shippo/delete/${id}`,
+                            
+          )
+          .then(() => {
+            getData();
+          });
+      }
                   
-                    const navigateToCreatePage = () => {
-                      navigate("/shippingorder/shippocreate/new/new");
-                    };
-                    const navigateToPropertiesPage = () => {
-                      navigate("/shippingorder/properties/");
-                    };
+      const navigateToCreatePage = () => {
+        navigate("/shippingorder/shippocreate/new/new");
+      };
+      const navigateToPropertiesPage = () => {
+        navigate("/shippingorder/properties/");
+      };
                   
-                    useEffect(() => {
+      useEffect(() => {
                       //console.log('i fire once');
                       
-                      getData();
+        getData();
                        
                       //alert("anu");
-                    }, []);
-        function CustomToolbar() {
-                      return (
-                        <GridToolbarContainer>
-                          <GridToolbarColumnsButton />
-                          <GridToolbarFilterButton />
-                          <GridToolbarDensitySelector />
-                          <GridToolbarExport />
-                        </GridToolbarContainer>
-                      );
-                    }  
+      }, []);
+
+      function CustomToolbar() {
+        return (
+          <GridToolbarContainer>
+          <GridToolbarColumnsButton />
+          <GridToolbarFilterButton />
+          <GridToolbarDensitySelector />
+          <GridToolbarExport />
+          </GridToolbarContainer>
+        );
+      }  
                   
-            return (
-              <>
-              <br></br>
-              <br></br>
-              <Box sx={{ display: 'flex' }}> 
+      return (
+        <>
+        <br></br>
+        <br></br>
+        <Box sx={{ display: 'flex' }}> 
           
-             <Sidebar/>
+          <Sidebar/>
           
               
-              <Box component="main" sx={{ flexGrow: 3, p: 7 }}>
+            <Box component="main" sx={{ flexGrow: 3, p: 7 }}>
           
               <div class="container" id="shipping">
                 <div class="row">
@@ -500,61 +499,61 @@ const ShippoDataGrid=(props)=> {
             
                       
                       <Box m="20px">
-    <Box display="flex" justifyContent="space-between" alignItems="center">
-      {/* <Header  subtitle="welcome to you Contacts" /> */}
-    </Box>
-   
-    <Box
-      m="8px 0 0 0"
-      width="100%"
-      height="80vh"
-      sx={{
-        "& .MuiDataGrid-root": {
-          border: "none",
-        },
-        "& .MuiDataGrid-cell": {
-          borderBottom: "none",
-        },
-        "& .name-column--cell": {
-          color: colors.greenAccent[300],
-        },
-       
-        "& .MuiDataGrid-columnHeaders": {
-          backgroundColor: colors.greenAccent[700],
-          borderBottom: "none",
-        },
-        "& .MuiDataGrid-virtualScroller": {
-          backgroundColor: colors.primary[400],
-        },
-        "& .MuiDataGrid-footerContainer": {
-          borderTop: "none",
-          backgroundColor: colors.greenAccent[700],
-        },
-        "& .MuiCheckbox-root": {
-          color: `${colors.greenAccent[200]} !important`,
-        },
-        "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-          color: `${colors.grey[100]} !important`,
-        },
-      }}
-    >
+                        <Box display="flex" justifyContent="space-between" alignItems="center">
       
-      < DataGrid
-        rows={userDataRows}
-        columns={userDataColumns}
-        components={{ Toolbar: GridToolbar}}
-      />
-    </Box>
-  </Box>
-                    </div>
+                        </Box>
+   
+                        <Box
+                          m="8px 0 0 0"
+                          width="100%"
+                          height="80vh"
+                          sx={{
+                            "& .MuiDataGrid-root": {
+                              border: "none",
+                            },
+                            "& .MuiDataGrid-cell": {
+                              borderBottom: "none",
+                            },
+                            "& .name-column--cell": {
+                              color: colors.greenAccent[300],
+                            },
+                          
+                            "& .MuiDataGrid-columnHeaders": {
+                              backgroundColor: colors.greenAccent[700],
+                              borderBottom: "none",
+                            },
+                            "& .MuiDataGrid-virtualScroller": {
+                              backgroundColor: colors.primary[400],
+                            },
+                            "& .MuiDataGrid-footerContainer": {
+                              borderTop: "none",
+                              backgroundColor: colors.greenAccent[700],
+                            },
+                            "& .MuiCheckbox-root": {
+                              color: `${colors.greenAccent[200]} !important`,
+                            },
+                            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                              color: `${colors.grey[100]} !important`,
+                            },
+                          }}
+                        >
+                                            
+                        < DataGrid
+                          rows={userDataRows}
+                          columns={userDataColumns}
+                          components={{ Toolbar: GridToolbar}}
+                        />
+                      </Box>
+                    </Box>
                   </div>
-          
                 </div>
-          </div>
+          
+              </div>
+            </div>
           </Box>
-          </Box>
-            </>
-                    );
+        </Box>
+      </>
+    );
 }
 
 export default ShippoDataGrid

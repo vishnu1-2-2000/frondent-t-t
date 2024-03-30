@@ -28,6 +28,12 @@ function ShippoCreateAfterLoginCheck() {
   const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
                   
   const notAuthorizedSection = <div class="container-fluid">
+     <br></br>
+         <br></br>
+         <br></br>
+         <br></br>
+         <br></br>
+         <br></br>  
     <div class="card shadow mb-4"> 
       <div class="card-body">  
                             
@@ -37,11 +43,11 @@ function ShippoCreateAfterLoginCheck() {
       </div>
     </div>
   </div>
-                  
+               
                   
   function checkAuthorization() {
   axios
-  .get("http://localhost:8000/accounts/userrolePermissionsRead")
+  .get(window.url+"/accounts/userrolePermissionsRead")
   .then((res) => {
     var authorized = false;
     res.data.forEach(element=>{

@@ -10,28 +10,29 @@ import ManufactDataEdit from "./ManufactDataEdit";
 import ManufactDataEntry from "./ManufactDataEntry";
 import Loading from "../../../components/Common/Loading";
 function ManufactCreateAfterLogin() {
-                    const { operation } = useParams();
-                    const { uniqueID } = useParams();
+
+  const { operation } = useParams();
+  const { uniqueID } = useParams();
                                     
                                        
                                     
-                    const [selectedDIV_state, setSelectedDIV_state] = useState(<Loading/>);
+  const [selectedDIV_state, setSelectedDIV_state] = useState(<Loading/>);
                                     
-                                      const notAuthorizedSection = <div class="container-fluid" id="regimage">
-                                        <div class="card shadow mb-4"> 
-                                            <div class="card-body">  
+  const notAuthorizedSection = <div class="container-fluid" id="regimage">
+                                  <div class="card shadow mb-4"> 
+                                    <div class="card-body">  
                                               
-                                              <div class="text-primary text-center">
-                                                <img src='/img/forbidden.jpg'/>
-                                              </div>
-                                            </div>
-                                        </div>
+                                      <div class="text-primary text-center">
+                                        <img src='/img/forbidden.jpg'/>
                                       </div>
+                                    </div>
+                                  </div>
+                                </div>
                                     
                                     
-                                      function checkAuthorization() {
-                                        axios
-                                        .get("http://localhost:8000/accounts/userrolePermissionsRead")
+  function checkAuthorization() {
+                                  axios
+                                        .get(window.url+"/accounts/userrolePermissionsRead")
                                         .then((res) => {
                                           var authorized = false;
                                           // alert("haiii")
@@ -55,7 +56,7 @@ function ManufactCreateAfterLogin() {
                                                          
                                       
                                          
-                                          else if(window.localStorage.getItem('loggedInUserrole') === "operator") {
+                                        else if(window.localStorage.getItem('loggedInUserrole') === "operator") {
                                             if(operation === "new") {
                                               element.operator['CREATE']==="Checked" ? setSelectedDIV_state(<ManufactDataEntry />) :setSelectedDIV_state(notAuthorizedSection);      
                                             }
@@ -82,33 +83,33 @@ function ManufactCreateAfterLogin() {
                                           }
                                         }
                                       })
-                                        });
-                                      }
+                                    });
+                                  }
                                     
-                                      useEffect(() => {
-                                        checkAuthorization();
-                                      }, []);
+  useEffect(() => {
+                      checkAuthorization();
+                  }, []);
                                     
-                                      return (
-                                        <>
+  return (
+           <>
                                     
-                                          <div id="wrapper">
-                                          <Box sx={{ display: 'flex' }}>
-                                            <Sidebar/>
+            <div id="wrapper">
+              <Box sx={{ display: 'flex' }}>
+                <Sidebar/>
                                                      
                                             
-                                              <div id="content-wrapper" class="d-flex flex-column">
-                                                <div id="content">
-                                                  {/* <Header></Header>   */}
-                                                  {selectedDIV_state}
-                                                </div>
-                                              {/* <Footer></Footer> */}
-                                            </div>
-                                           </Box>
-                                          </div>
+                  <div id="content-wrapper" class="d-flex flex-column">
+                      <div id="content">
+                                                
+                        {selectedDIV_state}
+                      </div>
+                                            
+                    </div>
+              </Box>
+            </div>
                                     
-                                        </>
-                                      );
+          </>
+    );
 }
 
 export default ManufactCreateAfterLogin

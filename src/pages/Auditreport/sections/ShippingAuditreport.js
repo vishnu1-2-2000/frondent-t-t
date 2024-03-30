@@ -112,7 +112,7 @@ const getShipporeport = (e) => {
                     
                     //     alert(startdate)
                         axios
-                          .post('http://localhost:8000/master/ShippoauditReportdate/', 
+                          .post(window.url+'/master/ShippoauditReportdate/', 
                          
                           {
                                         "datefrom":startdate,  
@@ -125,7 +125,7 @@ const getShipporeport = (e) => {
                                         // alert(res.data)
                                         .then((res)=>{
                          
-                                         alert("anu");
+                                        //  alert("anu");
                                                       
                                         setData(res.data);
                                         createRows(res.data);

@@ -32,7 +32,7 @@ const RegisteredUsersCreateAfterLoginCheck = () => {
 
   const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
 
-  const notAuthorizedSection = <div class="container-fluid">
+  const notAuthorizedSection = <div class="container-fluid" id="usercreatepermissions">
     <div class="card shadow mb-4"> 
         <div class="card-body">  
           
@@ -46,7 +46,7 @@ const RegisteredUsersCreateAfterLoginCheck = () => {
 
   function checkAuthorization() {
     axios
-    .get("http://localhost:8000/accounts/userrolePermissionsRead")
+    .get(window.url+"/accounts/userrolePermissionsRead")
     .then((res) => {
       var authorized = false;
       // alert("haiii")

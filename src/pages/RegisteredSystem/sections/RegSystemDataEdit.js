@@ -20,9 +20,10 @@ import InputBase from '@mui/material/InputBase';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import Tooltip from '@mui/material/Tooltip';
 function RegSystemDataEdit() {
   var warningDIV= <div className="alert alert-success pt-4" role="alert">
-                  <h5>Input all the values</h5>
+                  <h5>Upadate All Textbox Values </h5>
                 </div>
   const [id, setId] = useState(0);                
   const [ip_address, setIp] = useState("");
@@ -46,7 +47,9 @@ function RegSystemDataEdit() {
   var password = window.localStorage.getItem('password')
   var currentUserrole = window.localStorage.getItem('userrole')
                       ////  Fetch data from local storage
-                    
+  var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+
+  var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')                   
       const ITEM_HEIGHT = 48;
       const ITEM_PADDING_TOP = 8;   
         const MenuProps = {
@@ -62,7 +65,7 @@ function RegSystemDataEdit() {
     var regsyEditID= uniqueID;
                       
     axios
-    .get("http://localhost:8000/productionline/registeredsystem/"+regsyEditID+"/",
+    .get(window.url+"/productionline/registeredsystem/"+regsyEditID+"/",
     )
     .then((res)=>{
       setId(res.data[0].id);
@@ -87,17 +90,17 @@ function RegSystemDataEdit() {
   }, []);
                     
   const getmanlocation = event => {
-    setManufacturinglocationid(event.target.value); 
-    setLocationname(event.target.label); 
+    setManufacturinglocationid(event.value); 
+    setLocationname(event.label); 
 
-    setManufactlabel(event.target.label);
-    setManufactvalue(event.target.value);
+    setManufactlabel(event.label);
+    setManufactvalue(event.value);
                         // window.localStorage.setItem("customername")    
   }
                       // window.localStorage.setItem("customername")   
   function getManlocid(manufacturinglocationparams) {
     axios
-    .get("http://localhost:8000/productionline/manufacturinglocation/",
+    .get(window.url+"/productionline/manufacturinglocation/",
     )
     .then((res) => {
                               // let batchNumberOptionsInitial = "";
@@ -110,7 +113,7 @@ function RegSystemDataEdit() {
 
   function getManufacturinglocselecteddata(manufacturinglocationparams) {
     axios
-    .get("http://localhost:8000/productionline/manufacturinglocation/",
+    .get(window.url+"/productionline/manufacturinglocation/",
     )
     .then((res) => {
                               // let batchNumberOptionsInitial = "";
@@ -152,59 +155,76 @@ function RegSystemDataEdit() {
                     
                           
                     //   }
+                    const customStyles = {
+                      control: base => ({
+                        ...base,
+                        height: 55,
+                        minHeight: 55,
+                        width:230,
+                        marginLeft:30
+                        
+                        
+                      })
+                    };
   if(operation === 'edit') {
     var headwidget=
     <Box
+       
         component="form"
-        sx={{
-          width: 500,
-          maxWidth: '100%',
-          
-          
-        }}
-        noValidate
-        autoComplete="off"
-  ><Controls.Input 
+      // sx={{
+      //   '& .MuiTextField-root': { m: 1, width: '25ch' },
+      // }}
+      noValidate
+      autoComplete="off"
+  ><Controls.Input
+    // disabled
+    //  fullWidth
+    // style = {{width: 300,marginleft:100}}
     disabled
-    // fullWidth
-    
           id="outlined-Company Prefix"
-          label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6"> Update Registered System</font> </h4></pre></h4>}
-         
+          label="Required"
+          label="Created By"
+          value={loggedInUsername}
+          
+          // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6"> Create Registered System </font></h4></pre></h4>}
+          // required
+          // id="outlined-required"
+          // label="System Name"
+          // onChange={(e) => setSystem(e.target.value)}
    
  />
  </Box>
     var manufacturinglocationFieldWidget = 
-    // <Select className="s" onChange={getmanlocation} options={manufactureLocationOptionsNew} /> 
+    <Select className="s" onChange={getmanlocation} styles={customStyles} value={{value:manufactvalue,label:manufactlabel}}  options={manufactureLocationOptionsNew} /> 
 
-    <Box sx={{  }}>
+    // <Box sx={{  }}>
 
-    <FormControl >
-    <InputLabel id="demo-simple-select-label">Manufacturing Location</InputLabel>
-    <NativeSelect 
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    input={<OutlinedInput label="Manufacturing Location" />}
-    MenuProps={MenuProps}
-    style={{width:'220px'}}
-    value={manufactvalue}
-    label={manufactlabel}
-    label="Manufacturing Location"
-    onChange={getmanlocation}
-    ><option>Select Source Location</option> 
-    {manufactureLocationOptionsNew.map((data) => (
+    // <FormControl >
+    // <InputLabel id="demo-simple-select-label">Manufacturing Location</InputLabel>
+    // <NativeSelect 
+    // labelId="demo-simple-select-label"
+    // id="demo-simple-select"
+    // input={<OutlinedInput label="Manufacturing Location" />}
+    // MenuProps={MenuProps}
+    // style={{width:'220px'}}
+    // value={manufactvalue}
+    // label={manufactlabel}
+    // label="Manufacturing Location"
+    // onChange={getmanlocation}
+    // ><option>Select Source Location</option> 
+    // {manufactureLocationOptionsNew.map((data) => (
 
 
-    <option key={data.label} value={data.value}>
+    // <option key={data.label} value={data.value}>
 
-    {data.label}
+    // {data.label}
 
-    </option>
+    // </option>
 
-    ))}
-    </NativeSelect>
-    </FormControl>
-    </Box>
+    // ))}
+    // </NativeSelect>
+    // </FormControl>
+    // </Box>
     var ipaddressFieldWidget =<TextField
                                 id="outline-ipaddress"
                                 label="Ip Address"
@@ -216,17 +236,17 @@ function RegSystemDataEdit() {
     var systemnameFieldWidget =  <TextField required
                                     id="outline-systemname"
                                     label="System Name"
-                                value={system_name}
-                                  onChange={(e) => setSystem(e.target.value)}
-                                /> 
+                                    value={system_name}
+                                    onChange={(e) => setSystem(e.target.value)}
+                                  /> 
                     
     var lineFieldWidget = <TextField required
                               type="text"
-                             id="outline-line"
-                             label="Line"
-                             value={line}
+                              id="outline-line"
+                              label="Line"
+                              value={line}
                               onChange={(e) => setLine(e.target.value)}
-                            />
+                          />
                     
                        
   }
@@ -313,20 +333,32 @@ function RegSystemDataEdit() {
                     //         });
                             
                     //     }
-        if(operation === 'edit') {
-          axios
-          .put(`http://localhost:8000/productionline/registeredsystem/update/${regsyEditID}`, 
+          if(operation === 'edit') {
+              axios
+                .put(window.url+`/productionline/registeredsystem/update/${regsyEditID}`, 
                               
-          {
-            "manufacturinglocation_id": manufacturinglocation_id,    
-            "ip_address":ip_address,
-            "system_name": system_name,
-            "line":line
+            {
+              "manufacturinglocation_id": manufacturinglocation_id,    
+              "ip_address":ip_address,
+              "system_name": system_name,
+              "line":line,
+              "loggedInUsername":loggedInUsername,
+              "loggedInUserrole":loggedInUserrole,
+              "uniqueid":regsyEditID,
           },
           
           )
-          .then(() => {
-            navigate("/regsystem/regsystemdatagrid");
+          .then((res) => {
+            if (res.data === 200){
+       
+              warningDIV =  <div className="alert alert-success pt-4" role="alert">
+              <h5>Update Successfully</h5>
+            </div>
+      
+              setWarningmessage(warningDIV) 
+      
+            }
+            // navigate("/regsystem/regsystemdatagrid");
           });
         }
       };
@@ -334,82 +366,60 @@ function RegSystemDataEdit() {
                     
   return (
     <>
-                          
-                          <br></br>
-             <br></br>
-             <br></br>
-             <br></br>
-    <div class="container-fluid">
-              <div class="card shadow mb-4" id="regsyfullcard"> 
-                  <div class="card-header py-3" id="regstycardhead">
-                      <div className='row'>
-                          <div className='col-10' id="regstyhead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
+                           
+    <br/>        <br/>        <br/>   <br/> 
+    {warningmessage}        
+ 
+<Box
+component="form"
+sx={{
+ '& .MuiTextField-root': { m: 4, width: '25' },
+}}
+noValidate
+autoComplete="off"
+>
 
-                  <div class="card-body">  
-                  <br></br>
-    <br></br>
-    
-    {/* <div id="locationhead">
-    {headwidget}
-    </div>
-    <br></br> */}
-    
-    <Box id="regsystembox"
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <br></br>
-      <div>
-          {warningmessage}
-          {systemnameFieldWidget}
-        
-          {ipaddressFieldWidget}
+<div style={{backgroundColor:"#AAF0D1"}} >
+<h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Update Registered System Details </font></h4></center></h4>            
+ 
+  {ipaddressFieldWidget}
+ 
+ {systemnameFieldWidget}
 
-        
+ {lineFieldWidget}
 
-        
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-            </button>
-          <div>
-        
-          {lineFieldWidget}
 
-         
 
-            
-          </div>
 
-          <div id="regsymanufactbox" >
-          {manufacturinglocationFieldWidget}
-          
-        
-          
-      </div>
-      <br></br>
 
-                   
+ {headwidget}
+ {manufacturinglocationFieldWidget}
+<div className="row">
+ <div className="col-4">
+
+ </div>
+ <div className="col-6">
+ <center><button
+             type="submit"
+             className="btn btn-primary"
+            //  style={{alignItems:"center"}}
+             onClick={handleSubmit} >
+               Save data
+           </button></center>
+ </div>
+ <div className="col-2">
+ 
+ </div>
  
 
-  </div>
-  
-      
-    </Box> 
-    <hr></hr>    
-                  </div>
-              </div>
-          </div>   
-</>
+
+</div>
+ 
+
+</div>
+
+</Box>
+                 </>
 );
 }
 

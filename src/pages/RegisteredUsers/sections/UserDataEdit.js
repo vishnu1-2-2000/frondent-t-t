@@ -24,6 +24,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
+
+import Tooltip from '@mui/material/Tooltip';
+
 const UserDataEdit = (props) => {
 
     const [id, setId] = useState(0);
@@ -48,7 +51,7 @@ const UserDataEdit = (props) => {
         <h5>Input all the data</h5>
       </div>
 
-const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -150,7 +153,7 @@ const handleClickShowPassword = () => setShowPassword((show) => !show);
       if(testPassed === "true") {
 
           axios
-            .put(`http://localhost:8000/accounts/update/${registerEditID}`, 
+            .put(window.url+`/accounts/update/${registerEditID}`, 
             
             {
                 "employeeid":employeeid,
@@ -182,46 +185,47 @@ const handleClickShowPassword = () => setShowPassword((show) => !show);
     }
   var headwidget=
     
-          <Box 
+        //   <Box 
         
-              component="form"
-              sx={{
-                width: 500,
-                maxWidth: '100%',
+        //       component="form"
+        //       sx={{
+        //         width: 500,
+        //         maxWidth: '100%',
                 
                 
-              }}
-            noValidate
-            autoComplete="off"
+        //       }}
+        //     noValidate
+        //     autoComplete="off"
           
-        >
+        // >
 
 <Controls.Input 
           disabled
-          fullWidth
+          // fullWidth
           id="outlined-Company Prefix"
+          value={loggedInUsername}
           // label={<Typography>Customer  Create</Typography>}
-          label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                       Edit User Data</font> </h4></pre></h4>}
+          // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                       Edit User Data</font> </h4></pre></h4>}
         
 
 />
 
-</Box>
+// </Box>
  
 
  
-var employeeidFieldWidget = 
+  var employeeidFieldWidget = 
 //   <input
 //   type="text"
 //   className="form-control"
 //   onChange={(e) => setName(e.target.value)}
 // /> 
                     <TextField
-                      required
-                      value={employeeid}
-                      label="Employee Id"
-                      color="secondary"
-                      onChange={(e) => setEmployeeid(e.target.value)}
+                        required
+                        value={employeeid}
+                        label="Employee Id"
+                        color="secondary"
+                        onChange={(e) => setEmployeeid(e.target.value)}
                       />
 
     var nameFieldWidget = 
@@ -233,7 +237,6 @@ var employeeidFieldWidget =
         // />
                           <TextField
                                     required
-                      
                                     label="Name"
                                     color="secondary"
                                     value = {Name}
@@ -315,10 +318,10 @@ var employeeidFieldWidget =
     
     var userRoleWidget=<select value={userRole} class="form-select" id="userselectbox" aria-label="group" onChange={(e) => setUserRole(e.target.value)} >
     <option value="">Select Role</option>
-<option value="admin">Admin</option>
-<option value="supervisor">Supervisor</option>
-<option value="masterdata">Masterdata</option>
-<option value="operator">Operator</option>
+    <option value="admin">Admin</option>
+    <option value="supervisor">Supervisor</option>
+    <option value="masterdata">Masterdata</option>
+    <option value="operator">Operator</option>
 
 </select>
     
@@ -340,7 +343,7 @@ var employeeidFieldWidget =
       var registerEditID = uniqueID;
       // alert(registerEditID );
       axios
-        .get("http://127.0.0.1:8000/accounts/register/"+registerEditID)
+        .get(window.url+"/accounts/register/"+registerEditID)
         .then((res) => {
         
         setId(res.data[0].id);
@@ -363,67 +366,65 @@ var employeeidFieldWidget =
 
     return(
       <>
-      <div class="container-fluid">
-          <div class="card shadow mb-4" id="fullcard"> 
-              <div class="card-header py-3" id="usercardhead">
-                  <div className='row'>
-                      <div className='col-10' id="userhead">
-                      {headwidget}
-                      </div>
-                  </div>
-                                                  
-              </div>
-
-              <div class="card-body">  
-              <br></br>
-              <br></br>
+  <br/><br/><br/>
 
 
+{warningDIVstate}       
 
-      <Box 
-          component="form"
-          sx={{
-            '& .MuiTextField-root': { m: 2, width: '25ch' },
-          }}
-          noValidate
-          autoComplete="off"
-      >
+<Box
+component="form"
+sx={{
+  '& .MuiTextField-root': { m: 4, width: '25' },
+}}
+noValidate
+autoComplete="off"
+>
+ 
+<div style={{backgroundColor:"#AAF0D1"}} >
+<h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Update User</font></h4></center></h4>            
+{employeeidFieldWidget}
+{nameFieldWidget}
+{emailFieldWidget}
+{Passwordwidget}
 
-<div className="container" id="userbox" >
-  <div className="row" >
-    {warningDIVstate}
-      <div className="col-4">
-        {employeeidFieldWidget}
-        {nameFieldWidget}
 
-        {emailFieldWidget}
-    </div>
+
+ 
+
+<br/>
+{addressWidget}
+
+
+{headwidget}
+{DOBwidget}
+<br/>
+
+
+ 
+  {userRoleWidget}
+
+<div className="row">
   <div className="col-4">
-        {addressWidget}
-
-        {userRoleWidget}
+ 
   </div>
   <div className="col-4">
-        {DOBwidget}
-        {Passwordwidget}
+  <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={handleSubmit} >
+               Update data
+            </button>
   </div>
+  <div className="col-4">
+  </div>
+ 
 
+</div>
   
+ 
+</div>
 
-  <div className="col-2" id="userbutton" >
-  <button  onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                  
-  </button>
-  </div>
-
-        <br></br>
-    </div>
-  </div>
-</Box>
-<hr></hr>    
-              </div>
-          </div>
-      </div>            
+</Box>                 
   </>
     )
 };

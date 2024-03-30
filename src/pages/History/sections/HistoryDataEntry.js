@@ -4,22 +4,22 @@ import { useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
 
 function HistoryDataEntry() {
-                    const [id, setId] = useState(0);
-                    const [model_name, setModelname] = useState("");
-                    const [history_event, setHistoryevent] = useState("");
-                    const [history_message, setHistorymessage] = useState("");
-                    const [history_date, setHistorydate] = useState("");
+    const [id, setId] = useState(0);
+    const [model_name, setModelname] = useState("");
+    const [history_event, setHistoryevent] = useState("");
+    const [history_message, setHistorymessage] = useState("");
+    const [history_date, setHistorydate] = useState("");
                   
-                    ///   For navigate function
-                    const navigate = useNavigate();
+      ///   For navigate function
+    const navigate = useNavigate();
                   
-                    ////    for receiving the parameters from URL
-                    const { operation } = useParams();
-                    var username = window.localStorage.getItem('username')
-                    var password = window.localStorage.getItem('password')
-                    var currentUserrole = window.localStorage.getItem('userrole')
+      ////    for receiving the parameters from URL
+    const { operation } = useParams();
+    var username = window.localStorage.getItem('username')
+    var password = window.localStorage.getItem('password')
+    var currentUserrole = window.localStorage.getItem('userrole')
                     ////  Fetch data from local storage
-                    useEffect(() => {
+      useEffect(() => {
                       if(operation === 'edit') {
                         setId(localStorage.getItem("id"));
                         setModelname(localStorage.getItem("model_name"));
@@ -29,30 +29,31 @@ function HistoryDataEntry() {
                       }
                     }, []);
                   
-                    if(operation === 'new') {
-                      var headwidget=<h3>Create</h3>
-                      var modelnameFieldWidget = <input
-                            type="text"
-                            className="form-control form-control-sm"
-                            onChange={(e) => setModelname(e.target.value)}
-                          /> 
-                          var historyeventFieldWidget = <input
-                          type="text"
-                          className="form-control form-control-sm"
-                          onChange={(e) => setHistoryevent(e.target.value)}
-                        />
-                        var historymessageFieldWidget = <input
-                        type="text"
-                        className="form-control form-control-sm"
-                        onChange={(e) => setHistorymessage(e.target.value)}
-                      />
+      if(operation === 'new') {
+
+        var headwidget=<h3>Create</h3>
+        var modelnameFieldWidget = <input
+                                    type="text"
+                                    className="form-control form-control-sm"
+                                    onChange={(e) => setModelname(e.target.value)}
+                                  /> 
+        var historyeventFieldWidget = <input
+                                        type="text"
+                                        className="form-control form-control-sm"
+                                        onChange={(e) => setHistoryevent(e.target.value)}
+                                      />
+        var historymessageFieldWidget = <input
+                                          type="text"
+                                          className="form-control form-control-sm"
+                                          onChange={(e) => setHistorymessage(e.target.value)}
+                                        />
                   
-                      var historydateFieldWidget = <input
-                            type="text"
-                            className="form-control form-control-sm"
-                            aria-describedby="emailHelp"
-                            onChange={(e) => setHistorydate(e.target.value)}
-                          />
+        var historydateFieldWidget = <input
+                                        type="text"
+                                        className="form-control form-control-sm"
+                                        aria-describedby="emailHelp"
+                                        onChange={(e) => setHistorydate(e.target.value)}
+                                    />
                   
                         
                     }
@@ -88,13 +89,13 @@ function HistoryDataEntry() {
                      
                     // }
                   
-                    const handleSubmit = (e) => {
+        const handleSubmit = (e) => {
                     
-                      e.preventDefault();
-                      console.log("clicked");
+                    e.preventDefault();
+                    console.log("clicked");
                       //alert(name);
                       
-                      if(operation === 'new') {
+                    if(operation === 'new') {
                         axios
                           .post(window.url+'/accounts/auditlog/', 
                           {
@@ -104,12 +105,7 @@ function HistoryDataEntry() {
                             "history_date": history_date,
                           },
                         
-                          {
-                            // auth: {
-                            //   username: username,
-                            //   password: password
-                            // }
-                          }
+                          
                           )
                           .then(() => {
                             navigate("/history");

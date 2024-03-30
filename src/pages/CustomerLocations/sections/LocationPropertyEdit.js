@@ -11,6 +11,7 @@ import Controls from "../../../components/Controls";
 import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
 import Select from "react-select";
+import Tooltip from '@mui/material/Tooltip';
 
 
 function LocationPropertyEdit() {
@@ -32,7 +33,7 @@ var loggedInUsername=window.localStorage.getItem('loggedInUsername')
 function getLocationPropertyEditdata(){
  
  axios
- .get("http://127.0.0.1:8000/master/locationproperty/"+uniqueID+"/",
+ .get(window.url+"/master/locationproperty/"+uniqueID+"/",
  
  )
  .then((res)=>{
@@ -51,26 +52,17 @@ useEffect(()=>{
 },[]) 
 
    var headwidget=
-            <Box
-               component="form"
-               sx={{
-               width: 500,
-               maxWidth: '100%',
-               
-            
-            }}
-               noValidate
-               autoComplete="off"
-            ><Controls.Input 
+           <Controls.Input 
                   disabled
-                  fullWidth
+                  // fullWidth
 
                   id="outlined-Company Prefix"
-                  label={<h4 ><pre><h4 style={{color:"white"}}>   Enter Customer Location Property </h4></pre></h4>}
+                  value={loggedInUsername}
+                  // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">   Enter Customer Location Property </font></h4></pre></h4>}
                
 
             />
-            </Box>
+          
 var districtwidget=
       //    <input type="text"
     //   className="form-control form-control-sm"
@@ -158,7 +150,7 @@ const handleSubmit = (e) => {
                     // companyEditID=uniqueID;
                     // alert(sap_service);
          axios
-        .put(`http://127.0.0.1:8000/master/locationproperty/update/${uniqueID}`, 
+        .put(window.url+`/master/locationproperty/update/${uniqueID}`, 
       
         {
             "district":district,    
@@ -168,7 +160,8 @@ const handleSubmit = (e) => {
             "tracelink_file_sender":tracelink_file_sender,
             "sgln_extension":sgln_extension,
             "loggedInUsername":loggedInUsername,
-            "loggedInUserrole":loggedInUserrole
+            "loggedInUserrole":loggedInUserrole,
+            "uniqueid":uniqueID
           
            
         },
@@ -184,61 +177,69 @@ const handleSubmit = (e) => {
 
 
   return (
-    <>                                    
-   <br></br>
-   <br></br>
-    
-    <div class="container-fluid">
-              <div class="card shadow mb-4" id="customerfullcard"> 
-                  <div class="card-header py-3" id="customercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="locationhead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
+   <>
 
-                  <div class="card-body">  
-                  <br></br>
-    
-   <Box 
-         component="form"
-         sx={{
-         '& .MuiTextField-root': { m: 2, width: '25ch' },
-         }}
-         noValidate
-         autoComplete="off"
-   >
 
-      <div className="container" id="locationpropertybox" >
-         <div className="row">
-            <div className="col-4">
-               {districtwidget}
-               {glnwidget} 
-                 
-              
-            </div>
-            <div className="col-4">
-               {tracelinkwidget}
-               {sglnwidget}
-            </div>
-            <div className="col-2">
-            {shiptowidget}
-            </div>
-            <div className="col-4" id="locationpropertybutton" >
-           
-               <button  onClick={handleSubmit}><MdOutlineSave size={38}/>                                                
-               </button>
-            </div>
-         </div>
-      </div>
-  </Box>
-  </div>
-              </div>
-          </div>   
-    <hr></hr>  
-             
+<br></br>
+    <br></br>
+    <br/><br/><br/><br/> 
+    
+      
+ 
+<Box
+component="form"
+sx={{
+ '& .MuiTextField-root': { m: 4, width: '25' },
+}}
+noValidate
+autoComplete="off"
+>
+
+<div style={{backgroundColor:"#AAF0D1"}} >
+<h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Customer Location Property </font></h4></center></h4>            
+
+{districtwidget}
+ 
+{glnwidget} 
+
+{tracelinkwidget}
+<br/>
+
+
+
+
+
+{/* {createdbyFieldWidget} */}
+{sglnwidget}
+{shiptowidget}
+{headwidget}
+
+
+    <br/> <br/>
+<div className="row">
+ <div className="col-4">
+
+ </div>
+ <div className="col-4">
+   <center><button
+             type="submit"
+             className="btn btn-primary"
+             onClick={handleSubmit} >
+               Save data
+           </button></center>
+ </div>
+ <div className="col-4">
+ </div>
+ 
+
+
+</div>
+ 
+
+</div>
+
+</Box>
+        
 </>
   )
 }

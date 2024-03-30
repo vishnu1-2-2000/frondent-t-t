@@ -22,6 +22,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
 const PoDataEntry =(props) =>{
                     let statusOptions = [ {value:"Draft", label:"Draft"},
                     {value:"Inproduction", label:"Inproduction"},
@@ -119,7 +120,7 @@ function getProductOrderEditRequestData() {
   var productionOrderEditID = uniqueID;
   //alert(productionOrderEditID);
   axios
-    .get("http://127.0.0.1:8000/master/productionorder/"+productionOrderEditID+"/",
+    .get(window.url+"/master/productionorder/"+productionOrderEditID+"/",
     {
       
     },
@@ -153,11 +154,28 @@ function getProductOrderEditRequestData() {
 
   });
 } 
+  
 
+// function getRegSystemLinebasedData(){
+//   // alert(productionlinevalue)
+//   axios
+//   .get(window.url+"/productionline/registeredsystem/"+productionlinevalue+"/",
+ 
+// )
+// .then((res) => {
+//   // alert("klo")
+//   // alert(res.data[0].ip_address)
+
+//   setLine(res.data[0].ip_address);
+  
+ 
+
+// });
+// }
 function selectedManufactname(manufactnameparam) {
   //alert("anu");
   axios
-    .get("http://localhost:8000/productionline/manufacturinglocation/",
+    .get(window.url+"/productionline/manufacturinglocation/",
       {
         
       },
@@ -184,7 +202,7 @@ function selectedManufactname(manufactnameparam) {
 function selectedProductname(productnameparam) {
   //alert("anu");
   axios
-    .get("http://localhost:8000/master/product/",
+    .get(window.url+"/master/product/",
       {
         
       },
@@ -211,7 +229,7 @@ function selectedProductname(productnameparam) {
 function selectedProductionlinename(productionlinenameparam) {
   //alert("anu");
   axios
-    .get("http://localhost:8000/productionline/registeredsystem/",
+    .get(window.url+"/productionline/registeredsystem/",
       {
         
       },
@@ -223,8 +241,10 @@ function selectedProductionlinename(productionlinenameparam) {
       // let batchNumberOptionsInitial = "";
       res.data.map(data => {
       if(data.id==productionlinenameparam){
+        // alert(data.ip_address)
         setproductionlineLabel(data.line);
         setProductionlineValue(data.id);
+        // setLine(data.ip_address)
       }
         
 
@@ -238,9 +258,11 @@ function selectedProductionlinename(productionlinenameparam) {
 
 
 
+
+
 function getManufacturinglocations() {
   axios
-    .get("http://localhost:8000/productionline/manufacturinglocation/",
+    .get(window.url+"/productionline/manufacturinglocation/",
     {
       
     },
@@ -261,7 +283,7 @@ function getManufacturinglocations() {
 
 function getProducts() {
   axios
-  .get("http://localhost:8000/master/product/",
+  .get(window.url+"/master/product/",
   {
     
   },
@@ -283,9 +305,9 @@ function getProducts() {
   });
 }
 
-function getProductionlines() {
+function getProductionlines(regsystemline) {
   axios
-   .get("http://localhost:8000/productionline/registeredsystem/",
+   .get(window.url+"/productionline/registeredsystem/",
     {
       
     },
@@ -309,6 +331,7 @@ useEffect(() => {
   getManufacturinglocations();
   getProducts();
   getProductionlines();
+  // getRegSystemLinebasedData();
   if(operation === 'edit') {
     getProductOrderEditRequestData();
 
@@ -335,7 +358,7 @@ function getProcessOrderNumberData() {
   }
 
   axios
-  .get("http://127.0.0.1:8000/sapapp/sapproductionorder/"+processOrderNumber+"/",
+  .get(window.url+"/sapapp/sapproductionorder/"+processOrderNumber+"/",
     {
       
     },
@@ -362,48 +385,82 @@ function getProcessOrderNumberData() {
   <h5>Production order fetched from SAP successfully</h5>
 </div>
 
-setWaringmessage(warningDIV);
+    setWaringmessage(warningDIV);
 }
-else {
-warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-    <h5> Process order number does not exists in SAP</h5>
-  </div>
+  else {
+        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+          <h5> Process order number does not exists in SAP</h5>
+        </div>
 
-setWaringmessage(warningDIV);
-}
-});
-}
+          setWaringmessage(warningDIV);
+        }
+    });
+  }
 
 
 const getManufacturingasoptions = event => {
   // alert(event.value)
-  setManufactureforegin(event.target.value); 
+  setManufactureforegin(event.value); 
 
-  setManufactnameLabel(event.target.label);
-  setManufactnameValue(event.target.value);
+  setManufactnameLabel(event.label);
+  setManufactnameValue(event.value);
   //setCustomername(event.label); 
   //window.localStorage.setItem(option); 
 
 }
 const getProductasoptions = event => {
-  // alert(event.value)
-  setProdforegin(event.target.value); 
+  // alert(event.target.value)
+  setProdforegin(event.value); 
 
-  setProductnameLabel(event.target.label);
-  setProductnameValue(event.target.name);
+  setProductnameLabel(event.label);
+  setProductnameValue(event.name);
 // mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm
 // ghghghghghghghghghghghghghghghghghghghghghghghghghghghghghgh
   // setCustomername(event.label);
   //  window.localStorage.setItem(option);
+  axios
+  .get(window.url+"/master/product/"+event.value+"/",
+ 
+)
+.then((res) => {
+  // alert("klo")
+  // alert(res.data)
+  // alert(res.data[0].gtin_number)
+
+  setGtin(res.data[0].gtin_number);
+  
+ 
+
+});
 
 }
 
 const getProductionlineasoptions = event => {
-  //alert(event.value)
-  setProductionforegin(event.target.value); 
+  // alert(event.value)
+  setProductionforegin(event.value); 
 
-  setproductionlineLabel(event.target.label);
-  setProductionlineValue(event.target.value);
+  setproductionlineLabel(event.label);
+  setProductionlineValue(event.value);
+
+//  alert(productionforegin)
+   
+    axios
+    .get(window.url+"/productionline/registeredsystem/"+event.value+"/",
+   
+  )
+  .then((res) => {
+    // alert("klo")
+    // alert(res.data)
+    // alert(res.data[0].ip_address)
+  
+    setLine(res.data[0].ip_address);
+    
+   
+  
+  });
+  
+  
+
   // setCustomername(event.label); 
   //  window.localStorage.setItem(option)    
 }
@@ -415,30 +472,22 @@ const getProductionlineasoptions = event => {
 if(operation=='new') {
 
   var headwidget=
-    <Box
-    component="form"
-    sx={{
-      width: 500,
-      maxWidth: '100%',
-      
-      
-    }}
-      noValidate
-      autoComplete="off"
-  ><Controls.Input 
+<Controls.Input 
     disabled
-    fullWidth
+    // fullWidth
     
     id="outlined-Company Prefix"
-    label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">            Enter Productionorder  Data </font></h4></pre></h4>}
+    value={loggedInUsername}
+    //label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">            Enter Productionorder  Data </font></h4></pre></h4>}
   />
-  </Box>
-  var processnowidget= 
-  <TextField required
-                      label="Productionorder Number"
-                      id="outline-Productionorder"
 
-                      onChange={(e) => setProcessOrderNumber(e.target.value)}
+  var processnowidget= 
+                      <TextField 
+                        required
+                        label="Productionorder Number"
+                        id="outlined-Productionorder"
+
+                        onChange={(e) => setProcessOrderNumber(e.target.value)}
                       /> 
   // var processnowidget=<input
   //     type="text"
@@ -452,34 +501,34 @@ if(operation=='new') {
                     <AiIcons.AiOutlineCloudDownload size={35}/>
                   </button>
 
-  var productwidget=
-  // <Select className="s"     options={products} onChange={getProductasoptions}/>
+    var productwidget=
+  <Select className="s"     options={products} onChange={getProductasoptions}/>
 
-  <Box sx={{  }}>
-          <FormControl >
-          <InputLabel id="demo-simple-select-label">Product</InputLabel>
-          <NativeSelect 
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          input={<OutlinedInput label="Product" />}
-          MenuProps={MenuProps}
-          style={{width:'220px'}}
-          label="Product"
-          onChange={getProductasoptions}
-          ><option>Select Product</option> 
-          {products.map((data) => (
+    // <Box sx={{  }}>
+    //       <FormControl>
+    //         <InputLabel id="demo-simple-select-label">Product</InputLabel>
+    //         <NativeSelect 
+    //         labelId="demo-simple-select-label"
+    //         id="demo-simple-select"
+    //         input={<OutlinedInput label="Product" />}
+    //         MenuProps={MenuProps}
+    //         style={{width:'220px'}}
+    //         label="Product"
+    //         onChange={getProductasoptions}
+    //         ><option>Select Product</option> 
+    //         {products.map((data) => (
 
 
-          <option key={data.label} value={data.value}>
+    //       <option key={data.label} value={data.value}>
 
-          {data.label}
+    //       {data.label}
 
-          </option>
+    //       </option>
 
-          ))}
-          </NativeSelect>
-          </FormControl>
-          </Box> 
+    //       ))}
+    //       </NativeSelect>
+    //       </FormControl>
+    //       </Box> 
   var batchnowidget=
   // <input
   //     type="text"
@@ -487,39 +536,42 @@ if(operation=='new') {
   //     value={batch}
   //     onChange={(e) => setBatch(e.target.value)}
   //     /> 
-      <TextField required
+                  <TextField required
                       label="Batch Number"
-                      id="outline-Batch"
+                      id="outlined-Batch"
                       value={batch}
+                      InputProps={{
+                        readOnly: true,
+                      }}
                       onChange={(e) => setBatch(e.target.value)}
-                      /> 
+                  /> 
   var manufactwidget= 
-  // <Select className="s" options={manufacturinglocations} onChange={getManufacturingasoptions}/>
-  <Box sx={{ minWidth: 70 }}>
-          <FormControl >
-          <InputLabel id="demo-simple-select-label">Manufacturing Location</InputLabel>
-          <NativeSelect
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          input={<OutlinedInput label="Manufacturing Location" />}
-          MenuProps={MenuProps}
-          style={{width:'224px'}}
-          label="Manufacturing Location"
-          onChange={getManufacturingasoptions}
-          ><option>Select Manufacturing Location</option> 
-          {manufacturinglocations.map((data) => (
+  <Select className="s" options={manufacturinglocations} onChange={getManufacturingasoptions}/>
+  // <Box sx={{ minWidth: 70 }}>
+  //         <FormControl >
+  //         <InputLabel id="demo-simple-select-label">Manufacturing Location</InputLabel>
+  //         <NativeSelect
+  //         labelId="demo-simple-select-label"
+  //         id="demo-simple-select"
+  //         input={<OutlinedInput label="Manufacturing Location"/>}
+  //         MenuProps={MenuProps}
+  //         style={{width:'224px'}}
+  //         label="Manufacturing Location"
+  //         onChange={getManufacturingasoptions}
+  //         ><option>Select Manufacturing Location</option> 
+  //         {manufacturinglocations.map((data) => (
 
 
-          <option key={data.label} value={data.value}>
+  //         <option key={data.label} value={data.value}>
 
-          {data.label}
+  //         {data.label}
 
-          </option>
+  //         </option>
 
-          ))}
-          </NativeSelect>
-          </FormControl>
-          </Box> 
+  //         ))}
+  //         </NativeSelect>
+  //         </FormControl>
+  //         </Box> 
   
   var createdbywidget=
   // <input
@@ -528,12 +580,15 @@ if(operation=='new') {
   //     value={created_by}
   //     onChange={(e) => setCreatedby(e.target.value)}
   //     /> 
-      <TextField required
-      label="Created By"
-      id="outline-CreatedBy"
-      value={created_by}
-      onChange={(e) => setCreatedby(e.target.value)}
-      /> 
+                          <TextField required
+                              label="Created By"
+                              id="outlined-CreatedBy"
+                              value={created_by}
+                              InputProps={{
+                                readOnly: true,
+                              }}
+                              onChange={(e) => setCreatedby(e.target.value)}
+                          /> 
   var regulationwidget= 
   // <input
   //     type="text"
@@ -542,10 +597,13 @@ if(operation=='new') {
   //     onChange={(e) => setRegulation(e.target.value)}
   //     /> 
       <TextField required
-      label="Regulation"
-      id="outline-Regulation"
-      value={regulation}
-      onChange={(e) => setRegulation(e.target.value)}
+        label="Regulation"
+        id="outlined-Regulation"
+        value={regulation}
+        InputProps={{
+          readOnly: true,
+        }}
+        onChange={(e) => setRegulation(e.target.value)}
       /> 
   var productiondatewidget=
     // <input
@@ -555,12 +613,15 @@ if(operation=='new') {
     //     onChange={(e) => setProductiondate(e.target.value)}
     //   />
 
-      <TextField required
-      label="Production Date"
-      id="outline-ProductionDate"
-      value={production_date}
-      onChange={(e) => setProductiondate(e.target.value)}
-      /> 
+                    <TextField required
+                      label="Production Date"
+                      id="outlined-ProductionDate"
+                      value={production_date}
+                      InputProps={{
+                        readOnly: true,
+                      }}
+                      onChange={(e) => setProductiondate(e.target.value)}
+                    /> 
   var serialnowidget=
   // <input
   //     type="text"
@@ -568,12 +629,15 @@ if(operation=='new') {
   //     value={serialno}
   //     onChange={(e) => setSerialno(e.target.value)}
   //     /> 
-      <TextField required
-      label="SeialNumber"
-      id="outline-SeialNumber"
-      value={serialno}
-      onChange={(e) => setSerialno(e.target.value)}
-      /> 
+                      <TextField required
+                        label="SeialNumber"
+                        id="outlined-SeialNumber"
+                        value={serialno}
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        onChange={(e) => setSerialno(e.target.value)}
+                      /> 
   var packageverwidget=
   // <input
   //     type="text"
@@ -581,12 +645,15 @@ if(operation=='new') {
   //     value={packaging_Version}
   //     onChange={(e) => setPackVer(e.target.value)}
   //     />
-      <TextField required
-      label="Packaging Version"
-      id="outline-Packaging"
-      value={packaging_Version}
-      onChange={(e) => setPackVer(e.target.value)}
-      /> 
+                      <TextField required
+                          label="Packaging Version"
+                          id="outlined-Packaging"
+                          value={packaging_Version}
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                          onChange={(e) => setPackVer(e.target.value)}
+                      /> 
   var imnwidget=
   // <input
   //     type="text"
@@ -596,10 +663,13 @@ if(operation=='new') {
   //     /> 
 
       <TextField required
-      label="Imn"
-      id="outline-imn"
-      value={imn}
-      onChange={(e) => setImn(e.target.value)}
+                  label="Imn"
+                  id="outlined-imn"
+                  value={imn}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  onChange={(e) => setImn(e.target.value)}
       /> 
   var expwidget=
   // <input
@@ -608,12 +678,15 @@ if(operation=='new') {
         // value={expiration_date}
         // onChange={(e) => setExpir(e.target.value)}
         // /> 
-        <TextField required
-      label="Expiration Date"
-      id="outline-exp"
-      value={expiration_date}
-      onChange={(e) => setExpir(e.target.value)}
-      /> 
+                      <TextField required
+                          label="Expiration Date"
+                          id="outlined-exp"
+                          value={expiration_date}
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                          onChange={(e) => setExpir(e.target.value)}
+                      /> 
   var linewidget=
   // <input
   //       type="text"
@@ -622,12 +695,17 @@ if(operation=='new') {
   //       onChange={(e) => setLine(e.target.value)}
   //       /> 
 
-        <TextField required
-      label="Line"
-      id="outline-line"
-      value={line}
-      onChange={(e) => setLine(e.target.value)}
-      /> 
+                      <TextField required
+                        label="Line"
+                        id="outlined-line"
+                        value={line}
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        // onChange={Regsystemlnedata}
+
+                        // onChange={(e) => setLine(e.target.value)}
+                      /> 
 
 //     var statusOptionsWidget=  <Select onChange={statusOptionsChangeFunction} 
 //     options={statusOptionsState}
@@ -640,58 +718,64 @@ var statusOptionsWidget=
 //         value={status}
 //         onChange={(e) => setStatus(e.target.value)}
 //         />  */}
-        <TextField required
-        label="Status"
-        id="outline-status"
-        value={status}
-        onChange={(e) => setStatus(e.target.value)}
-        /> 
+                      <TextField required
+                          label="Status"
+                          id="outlined-status"
+                          value={status}
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                          onChange={(e) => setStatus(e.target.value)}
+                      /> 
   var productionlinewidget= 
-  // <Select className="s" options={productionline} onChange={getProductionlineasoptions}/>
-          <Box sx={{ minWidth: 70 }}>
-          <FormControl >
-          <InputLabel id="demo-simple-select-label">Production Line</InputLabel>
-          <NativeSelect
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          input={<OutlinedInput label="Production Line" />}
-          MenuProps={MenuProps}
-          style={{width:'223px'}}
-          label="Production Line"
-          onChange={getProductionlineasoptions}
-          ><option>Select Production Line</option> 
-          {productionline.map((data) => (
+   <Select className="s" options={productionline} onChange={getProductionlineasoptions}/>
+          // <Box sx={{ minWidth: 70 }}>
+          // <FormControl >
+          // <InputLabel id="demo-simple-select-label">Production Line</InputLabel>
+          // <NativeSelect
+          // labelId="demo-simple-select-label"
+          // id="demo-simple-select"
+          // input={<OutlinedInput label="Production Line" />}
+          // MenuProps={MenuProps}
+          // style={{width:'223px'}}
+          // label="Production Line"
+          // onChange={getProductionlineasoptions}
+          // ><option>Select Production Line</option> 
+          // {productionline.map((data) => (
 
 
-          <option key={data.label} value={data.value}>
+          // <option key={data.label} value={data.value}>
 
-          {data.label}
+          // {data.label}
 
-          </option>
+          // </option>
 
-          ))}
-          </NativeSelect>
-          </FormControl>
-          </Box> 
+          // ))}
+          // </NativeSelect>
+          // </FormControl>
+          // </Box> 
 
-var gtinwidget=
+  var gtinwidget=
 
-    <TextField required
-    label="Gtin"
-    id="outline-Gtin"
-    value={gtin}
-    onChange={(e) => setGtin(e.target.value)}
-    />    
+                <TextField required
+                    label="Gtin"
+                    id="outlined-Gtin"
+                    value={gtin}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    // onChange={(e) => setGtin(e.target.value)}
+                />    
 
 
     var typewidget=
 
-    <TextField required
-    label="Type"
-    id="outline-Type"
-    value={type}
-    onChange={(e) => setType(e.target.value)}
-    />    
+                  <TextField required
+                      label="Type"
+                      id="outlined-Type"
+                      value={type}
+                      onChange={(e) => setType(e.target.value)}
+                  />    
 
 }
 
@@ -897,7 +981,7 @@ if(testPassed == "true") {
     // alert(imn)
     // alert(line)
     axios
-      .post('http://127.0.0.1:8000/master/productionorder/', 
+      .post(window.url+'/master/productionorder/', 
       {
         "process_order_number": processOrderNumber, 
         "product_conn":prodforegin,   
@@ -935,7 +1019,7 @@ if(testPassed == "true") {
                             <h5>Process order already downloaded, try another process order</h5>
                           </div>
 
- setWaringmessage(warningDIV)                         
+            setWaringmessage(warningDIV)                         
         }
 
         else{
@@ -949,12 +1033,12 @@ if(testPassed == "true") {
   }
 }
   var editSaveButtonDisabled = 
-  <button disabled="true" className="btn btn-primary" onClick={handleSubmit}>Save</button>
+    <button disabled="true" className="btn btn-primary" onClick={handleSubmit}>Save</button>
 
-var editSaveButtonEnabled = 
-  <button className="btn btn-primary" onClick={handleSubmit}>Save</button>
+  var editSaveButtonEnabled = 
+    <button className="btn btn-primary" onClick={handleSubmit}>Save</button>
 
-var editSaveButton = "";
+  var editSaveButton = "";
   
 // if(statusReceivedFromDataGrid == "Draft") {
 //   editSaveButton = editSaveButtonEnabled;
@@ -964,124 +1048,171 @@ var editSaveButton = "";
 // }
   return(
     <>
-    <br></br> 
-    <br></br>
-    <br></br>
-    <div class="container-fluid">
-      <div class="card shadow mb-4" id="productionorderfullcard"> 
-        <div class="card-header py-3" id="productionordercardhead">
-          <div className='row'>
-            <div className='col-10' id="productionorderhead">
-              {headwidget}
-            </div>
-          </div>                                                
-        </div>
-        <div class="card-body" id="pocardbody">  
-          <br></br>
-          
       
-      {/* <div id="locationhead">
-      {headwidget}
-      </div>
-      <br></br> */}
-      <div id="productionorderbox">
-      {warningmessage}
-      
-          {/* <Box id="productionorderbox"
-            component="form"
-            sx={{
-            '& .MuiTextField-root': { m: 2, width: '26ch' },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <br></br> */}
-        <div id="pocontant">
-          <br></br>
-            <div id="po1">
-              
-              {processnowidget}
-              
-             
-            </div>
-            <div id="pofetchbutton">
-            {fetchwidget}
+      <br/>        <br/>       
+           
+           
+
+           <div class="container" style={{display:"flexbox"}}>  
+           
+  <div className="row">
+   
+  <div className="col-3"></div>
+            <div className="col-6"><br/>
             
+            <h4 ><h4 style={{color:"black"}}><font face="times new roman" size="6">Production Order Data Entry </font></h4></h4><br/>                 
+          
+            
+              </div>
+              <div className="col-3">   </div>
+            {/* <div className="col-2"><br/> 
+             
+              
             </div>
-            <br></br>
-            <br></br>
-            <div>
-              {batchnowidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div className="col-2"><br/>  */}
+          
+              
+            {/* </div> */}
+            </div>
+
+            <div className="row">
+   
+   <div className="col-4">  {processnowidget}&nbsp;&nbsp;&nbsp;
+             {fetchwidget} </div>
+    
+   <div className="col-5"></div>
+    
+   <div className="col-3"></div>
+   </div>
+   <br/> 
+
+   
+   
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 4, width: '25' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+     
+   
+      <div style={{backgroundColor:"#AAF0D1",alignContent:"flex-end"}} >
+      <div className="row">
+   
+   <div className="col-2"></div>
+    
+   <div className="col-8">{warningmessage}</div>
+    
+   <div className="col-2"></div>
+   </div>
+      
+      {batchnowidget}
               {regulationwidget}
-              
-            </div>
-           
-            <div id="po2">
-              {productwidget}
-            </div>
-            <br></br>
-            <div id="pobutton">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <button onClick={handleSubmit}><MdOutlineSave size={38}/>                                          
-              </button>
-            </div>
-            <br></br>
-            <div>
-              {createdbywidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              {packageverwidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {packageverwidget}
+              {productiondatewidget}
+                 
+                 
+                <br/>
+                {expwidget}
               {imnwidget} 
-            </div>
-            <br></br>
-          
+              
+       
+      
+        
+        {serialnowidget}
+        {headwidget}
+               <br/>
             
-
-
-            <div>
-           
-              {serialnowidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              {expwidget}
-          
+              {gtinwidget}
+              {linewidget}
               
-              </div>
-              <div id="po3">
-              {manufactwidget}
-              </div>
-              <br></br>
+               {typewidget}
+               {statusOptionsWidget} 
+               <br/>
              
-               
-                
-               
-              <div id="po5">
-                {productionlinewidget}
- 
-              </div>
-              
-          
-              <div id="po4">
-                {statusOptionsWidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {linewidget}
-                
-              </div>
-              <br></br>
-              <div >
-              {productiondatewidget} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           
+               </div>
+               </Box>
+    
+    
 
-              {gtinwidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              {typewidget}
-              </div>
-  
-              
-            </div>
-            <br></br>
-          {/* </Box>  */}
-          </div>
-          <hr></hr>    
+                <br/>
+                <table class="table table-borderless productionOrderReportSearchTable" style={{backgroundColor:"#AAF0D1"}}>
+                            <tbody>
+                             
+                              <tr>
+                                <td class="productionOrderReportSearchTD">Product Name</td>
+                                <td class="productionOrderReportSearchTD">
+                                
+{productwidget} 
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="productionOrderReportSearchTD">Production Line</td>
+                                <td class="productionOrderReportSearchTD">
+                                {productionlinewidget}
+                                </td>
+                              </tr>
+                  
+                            
+                              <tr>
+                                <td class="productionOrderReportSearchTD">Manufacturing Location</td>
+                                <td class="productionOrderReportSearchTD">
+                                {manufactwidget}
+                                </td>
+                              </tr>
+                           
+                            
+                             
+                              
+                            <tr></tr>
+                            
+                          </tbody>
+                        </table> 
+
+
+
+
+
+
+      <div className="row">
+        <div className="col-4">
+       
         </div>
+        <div className="col-4">
+        <center><button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button></center>
+        </div>
+        <div className="col-4">
+        </div>
+       
+       
+      
       </div>
-    </div>  
+        
+       
+      </div>
+     
+  
   </>
   )
 
 }
 
 export default PoDataEntry
+
+
+{/* <div className="row">
+   
+<div className="col-4"></div>
+ 
+<div className="col-4"></div>
+ 
+<div className="col-4"></div>
+</div> */}

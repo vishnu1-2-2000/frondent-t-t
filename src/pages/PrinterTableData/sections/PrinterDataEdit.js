@@ -36,7 +36,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
 
 function getpo() {
                     axios
-                    .get("http://127.0.0.1:8000/master/master/productionorder/")
+                    .get(window.url+"/master/productionorder/")
                     .then((res)=>{
                         // alert(res.data[0].process_order_number)
                 res.data.map(data =>{pooptions.push({value:data.id,label:data.process_order_number})})
@@ -60,9 +60,9 @@ function getpo() {
 
 
 function getPrinterEditData(){
-                    axios
-                    .get("http://127.0.0.1:8000/master/printer/"+uniqueID+"/")
-                    .then((res)=>{
+    axios
+        .get(window.url+"/master/printer/"+uniqueID+"/")
+            .then((res)=>{
                                   //alert(res.data[0].gtin)
                        setProcessOrderNumber(res.data[0].processordernumber);
                        setGtin(res.data[0].gtin);
@@ -77,34 +77,33 @@ function getPrinterEditData(){
               
 function SelectedPo(poparams){
 axios
-.get("http://127.0.0.1:8000/master/master/productionorder/")
-.then((res)=>{
-    res.data.map(data =>{
-       if(data.id==poparams) {
+    .get(window.url+"/master/productionorder/")
+        .then((res)=>{
+            res.data.map(data =>{
+            if(data.id==poparams) {
        
                     setPolabel(data.process_order_number);
                     setPovalue(data.id);
-       }            
-    })                
-})
-}              
+                }            
+            })                
+        })
+    }              
 
-                useEffect(() => {
-                    if(operation == 'edit') {
-                   
-                      
-                     getPrinterEditData();
+    useEffect(() => {
+
+        if(operation == 'edit') {
+            getPrinterEditData();
                     
                    
-                    }
-                   getpo();
-                  }, []);
+        }
+        getpo();
+    }, []);
 
                                    
                     
 const gtindata=event =>{
-                    setGtin(event.value)                
-                    }
+            setGtin(event.value)                
+        }
 
 const getProcessorderdata =event =>{
                     setpo(event.value)
@@ -125,64 +124,64 @@ var powidget=<input
                     value={processordernumber}
                     readOnly={true}
                     onChange={(e) => setProcessOrderNumber(e.target.value)}
-/>
-var expwidget=<input
+            />
+var expwidget=  <input
                     type="text"
                     className="form-control"
                     value={expiration_date}
                     readOnly={true}
                     onChange={(e) => setExp(e.target.value)}
-/>
+                />
 
-var lotwidget=<input
+var lotwidget=  <input
                     type="text"
                     className="form-control"
                     value={lot}
                     readOnly={true}
                     onChange={(e) => setLot(e.target.value)}
-/>
+                />
 
 var typewidget = <input 
                     type="text"
                     className="form-control"
                     value={type}
                     onChange={(e) => setType(e.target.value)}
-/>
+                />
 
 //var gtinwidget=<Select className="s" options={gtin} onChange={gtindata}/>
 
- var gtinwidget=<input
-      type="text"
-      className="form-control"
-      value={gtin}
-      readOnly={true}
-      onChange={(e) => setGtin(e.target.value)}
+ var gtinwidget=  <input
+                        type="text"
+                        className="form-control"
+                        value={gtin}
+                        readOnly={true}
+                        onChange={(e) => setGtin(e.target.value)}
       
-    />
+                    />
 var serialnowidget = <input 
-                    type="text"
-                    className="form-control"
-                    value={numbers}
-                    onChange={(e) => setNumbers(e.target.value)}
-/>
+                        type="text"
+                        className="form-control"
+                        value={numbers}
+                        onChange={(e) => setNumbers(e.target.value)}
+                    />
 
 const handleSubmit=(e)=>{
-                    e.preventDefault(); 
+        e.preventDefault(); 
                     //alert(polabel)
-                    axios
-                    .put(`http://127.0.0.1:8000/master/master/printer/update/${uniqueID}`,
-                    {
-                        "processordernumber":po,
-                        "lot":lot,
-                        "gtin":gtin,
-                        "expiration_date" :expiration_date,
-                        "type" :type ,
+        axios
+        .put(window.url+`/master/printer/update/${uniqueID}`,
+        {
+            "processordernumber":po,
+            "lot":lot,
+            "gtin":gtin,
+            "expiration_date" :expiration_date,
+            "type" :type ,
 
-                        "numbers":"numbers"      
-                    })
+            "numbers":"numbers"    
+        })
                     //  alert(res.data.gtin);
-                        navigate("/productionorder");       
-                    }
+            navigate("/productionorder");       
+    }
                     
     return (
         <div>
@@ -197,7 +196,7 @@ const handleSubmit=(e)=>{
                     </Link>
                     <br></br>
                     <br></br>
-                    {warningmessage}
+                        {warningmessage}
                     <button className="btn btn-info">Only Serialnumbers are Editable</button>
                     <br></br>
                     <br></br>
@@ -208,7 +207,7 @@ const handleSubmit=(e)=>{
                                 <td class="productionOrderReportSearchTD">Gtin</td>
                                     <td class="productionOrderReportSearchTD">
                                         {gtinwidget}
-                                </td>
+                                    </td>
                             </tr>
                             <tr>
                                 <td class="productionOrderReportSearchTD">Productionnumber</td>
@@ -239,7 +238,7 @@ const handleSubmit=(e)=>{
                     
                                                   
                                            
-                            <tr></tr>
+                        <tr></tr>
                             <tr>
                                 <td class="productionOrderReportSearchTD">
                                     <button

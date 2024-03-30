@@ -26,7 +26,7 @@ function Home() {
                         }, []);
                     
   return (
-    <div className="homepage">
+    <div className="homepage" id="homepagebackground" style={{height:"800px"}} >
                    <br></br>
                      
                      

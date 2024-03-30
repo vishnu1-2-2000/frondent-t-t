@@ -22,6 +22,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
 function PoDataEdit() {
   let statusOptions = [ {value:"Draft", label:"Draft"},
                       {value:"Inproduction", label:"Inproduction"},
@@ -108,7 +109,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
     var productionOrderEditID = uniqueID;
     
     axios
-      .get("http://127.0.0.1:8000/master/productionorder/"+productionOrderEditID+"/",
+      .get(window.url+"/master/productionorder/"+productionOrderEditID+"/",
       {
         
       },
@@ -148,7 +149,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
   function selectedManufactname(manufactnameparam) {
     //alert("anu");
     axios
-      .get("http://localhost:8000/productionline/manufacturinglocation/",
+      .get(window.url+"/productionline/manufacturinglocation/",
         {
           
         },
@@ -175,7 +176,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
   function selectedProductname(productnameparam) {
     //alert("anu");
     axios
-      .get("http://localhost:8000/master/product/",
+      .get(window.url+"/master/product/",
         {
           
         },
@@ -202,7 +203,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
   function selectedProductionlinename(productionlinenameparam) {
     //alert("anu");
     axios
-      .get("http://localhost:8000/productionline/registeredsystem/",
+      .get(window.url+"/productionline/registeredsystem/",
         {
           
         },
@@ -231,7 +232,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
 
   function getManufacturinglocations() {
     axios
-      .get("http://localhost:8000/productionline/manufacturinglocation/",
+      .get(window.url+"/productionline/manufacturinglocation/",
       {
         
       },
@@ -252,7 +253,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
 
   function getProducts() {
     axios
-    .get("http://localhost:8000/master/product/",
+    .get(window.url+"/master/product/",
     {
       
     },
@@ -276,7 +277,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
 
   function getProductionlines() {
     axios
-     .get("http://localhost:8000/productionline/registeredsystem/",
+     .get(window.url+"/productionline/registeredsystem/",
       {
         
       },
@@ -312,7 +313,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
     //setBatchNumber(event.value);    
     //alert(event.value);
 
-    setStatusOptionsSelected(event.target.value);
+    setStatusOptionsSelected(event.value);
   }
 
   function getProcessOrderNumberData() {
@@ -326,7 +327,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
     }
 
     axios
-    .get("http://127.0.0.1:8000/sapapp/sapproductionorder/"+processOrderNumber+"/",
+    .get(window.url+"/sapapp/sapproductionorder/"+processOrderNumber+"/",
       {
         
       },
@@ -368,20 +369,20 @@ setWaringmessage(warningDIV);
 
   const getManufacturingasoptions = event => {
     // alert(event.value)
-    setManufactureforegin(event.target.value); 
+    setManufactureforegin(event.value); 
 
-    setManufactnameLabel(event.target.label);
-    setManufactnameValue(event.target.value);
+    setManufactnameLabel(event.label);
+    setManufactnameValue(event.value);
     //setCustomername(event.label); 
     //window.localStorage.setItem(option); 
   
   }
   const getProductasoptions = event => {
     // alert(event.value)
-    setProdforegin(event.target.value); 
+    setProdforegin(event.value); 
 
-    setProductnameLabel(event.target.label);
-    setProductnameValue(event.target.name);
+    setProductnameLabel(event.label);
+    setProductnameValue(event.value);
 // mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm
 // ghghghghghghghghghghghghghghghghghghghghghghghghghghghghghgh
     // setCustomername(event.label);
@@ -390,16 +391,29 @@ setWaringmessage(warningDIV);
   }
   
   const getProductionlineasoptions = event => {
-    //alert(event.value)
-    setProductionforegin(event.target.value); 
-
-    setproductionlineLabel(event.target.label);
-    setProductionlineValue(event.target.value);
-    // setCustomername(event.label); 
-    //  window.localStorage.setItem(option)    
+    // alert(event.value)
+    setProductionforegin(event.value); 
+  
+    setproductionlineLabel(event.label);
+    setProductionlineValue(event.value);
+  
+  //  alert(productionforegin)
+     
+      axios
+      .get(window.url+"/productionline/registeredsystem/"+event.target.value+"/",
+     
+    )
+    .then((res) => {
+      // alert("klo")
+      // alert(res.data)
+      // alert(res.data[0].ip_address)
+    
+      setLine(res.data[0].ip_address);
+      
+     
+    
+    });
   }
-
-
 
      
    if(operation==='edit') {
@@ -410,24 +424,15 @@ setWaringmessage(warningDIV);
   //   value={processOrderNumber}
   // />
   var headwidget=
-  <Box
-  component="form"
-  sx={{
-    width: 500,
-    maxWidth: '100%',
-    
-    
-  }}
-    noValidate
-    autoComplete="off"
-><Controls.Input 
+ 
+  <Controls.Input 
   disabled
-  fullWidth
-  
+  // fullWidth
+  value={loggedInUsername}
   id="outlined-Company Prefix"
-  label={<h4 ><pre><h4 style={{color:"white"}}>  <font face="times new roman" size="6">          Edit Productionorder  Data</font> </h4></pre></h4>}
+  // label={<h4 ><pre><h4 style={{color:"white"}}>  <font face="times new roman" size="6">          Edit Productionorder  Data</font> </h4></pre></h4>}
 />
-</Box>
+{/* </Box> */}
 var processnowidget= 
 <TextField required
                     label="Productionorder Number"
@@ -436,34 +441,34 @@ var processnowidget=
                     onChange={(e) => setProcessOrderNumber(e.target.value)}
                     /> 
   var productwidget=
-  // <Select className="s" options={products} onChange={getProductasoptions} value={{label:productnamelabel,value:productnamevalue}}/>
-  <Box sx={{  }}>
-          <FormControl >
-          <InputLabel id="demo-simple-select-label">Product</InputLabel>
-          <NativeSelect 
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          input={<OutlinedInput label="Product" />}
-          MenuProps={MenuProps}
-          label={productnamelabel}
-          value={productnamevalue}
-          style={{width:'231px'}}
-          label="Product"
-          onChange={getProductasoptions}
-          ><option>Select Product</option> 
-          {products.map((data) => (
+  <Select className="s" options={products} onChange={getProductasoptions} value={{label:productnamelabel,value:productnamevalue}}/>
+  // <Box sx={{  }}>
+  //         <FormControl >
+  //         <InputLabel id="demo-simple-select-label">Product</InputLabel>
+  //         <NativeSelect 
+  //         labelId="demo-simple-select-label"
+  //         id="demo-simple-select"
+  //         input={<OutlinedInput label="Product" />}
+  //         MenuProps={MenuProps}
+  //         label={productnamelabel}
+  //         value={productnamevalue}
+  //         style={{width:'231px'}}
+  //         label="Product"
+  //         onChange={getProductasoptions}
+  //         ><option>Select Product</option> 
+  //         {products.map((data) => (
 
 
-          <option key={data.label} value={data.value}>
+  //         <option key={data.label} value={data.value}>
 
-          {data.label}
+  //         {data.label}
 
-          </option>
+  //         </option>
 
-          ))}
-          </NativeSelect>
-          </FormControl>
-          </Box> 
+  //         ))}
+  //         </NativeSelect>
+  //         </FormControl>
+  //         </Box> 
   var batchnowidget=
   // <input
   // type="text"
@@ -479,35 +484,35 @@ var processnowidget=
                     onChange={(e) => setBatch(e.target.value)}
                     /> 
   var manufactwidget= 
-  // <Select className="s" options={manufacturinglocations} onChange={getManufacturingasoptions} value={{value:manufactnamevalue,label:manufactnamelabel}}/>
+  <Select className="s" options={manufacturinglocations} onChange={getManufacturingasoptions} value={{value:manufactnamevalue,label:manufactnamelabel}}/>
 
-  <Box sx={{ minWidth: 70 }}>
-          <FormControl >
-          <InputLabel id="demo-simple-select-label">Manufacturing Location</InputLabel>
-          <NativeSelect
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          input={<OutlinedInput label="Manufacturing Location" />}
-          MenuProps={MenuProps}
-          label={manufactnamelabel}
-          value={manufactnamevalue}
-          style={{width:'230px'}}
-          label="Manufacturing Location"
-          onChange={getManufacturingasoptions}
-          ><option>Select Manufacturing Location</option> 
-          {manufacturinglocations.map((data) => (
+  // <Box sx={{ minWidth: 70 }}>
+  //         <FormControl >
+  //         <InputLabel id="demo-simple-select-label">Manufacturing Location</InputLabel>
+  //         <NativeSelect
+  //         labelId="demo-simple-select-label"
+  //         id="demo-simple-select"
+  //         input={<OutlinedInput label="Manufacturing Location" />}
+  //         MenuProps={MenuProps}
+  //         label={manufactnamelabel}
+  //         value={manufactnamevalue}
+  //         style={{width:'230px'}}
+  //         label="Manufacturing Location"
+  //         onChange={getManufacturingasoptions}
+  //         ><option>Select Manufacturing Location</option> 
+  //         {manufacturinglocations.map((data) => (
 
 
-          <option key={data.label} value={data.value}>
+  //         <option key={data.label} value={data.value}>
 
-          {data.label}
+  //         {data.label}
 
-          </option>
+  //         </option>
 
-          ))}
-          </NativeSelect>
-          </FormControl>
-          </Box>
+  //         ))}
+  //         </NativeSelect>
+  //         </FormControl>
+  //         </Box>
     var createdbywidget=
     // <input
     //       type="text"
@@ -542,10 +547,10 @@ var processnowidget=
     //     onChange={(e) => setProductiondate(e.target.value)}
     //   />
       <TextField required
-      label="Production Date"
-      id="outline-gtin"
-      value={production_date}
-      onChange={(e) => setProductiondate(e.target.value)}
+        label="Production Date"
+        id="outline-gtin"
+        value={production_date}
+        onChange={(e) => setProductiondate(e.target.value)}
       /> 
     var serialnowidget=
     // <input
@@ -555,10 +560,10 @@ var processnowidget=
     //   onChange={(e) => setSerialno(e.target.value)}
     //   /> 
       <TextField required
-      label="Serial Number"
-      id="outline-gtin"
-      value={serialno}
-      onChange={(e) => setSerialno(e.target.value)}
+        label="Serial Number"
+        id="outline-gtin"
+        value={serialno}
+        onChange={(e) => setSerialno(e.target.value)}
       /> 
     var packageverwidget=
     // <input
@@ -594,11 +599,11 @@ var processnowidget=
     //     onChange={(e) => setExpir(e.target.value)}
     //     /> 
         <TextField required
-      label="Expiration Date"
-      id="outline-gtin"
-      value={expiration_date}
-      onChange={(e) => setExpir(e.target.value)}
-      />  
+            label="Expiration Date"
+            id="outline-gtin"
+            value={expiration_date}
+            onChange={(e) => setExpir(e.target.value)}
+        />  
     var linewidget=
     // <input
     //     type="text"
@@ -607,97 +612,97 @@ var processnowidget=
     //     onChange={(e) => setLine(e.target.value)}
     //     /> 
         <TextField required
-      label="Line"
-      id="outline-gtin"
-      value={line}
-      onChange={(e) => setLine(e.target.value)}
-      />  
+            label="Line"
+            id="outline-gtin"
+            value={line}
+            // onChange={(e) => setLine(e.target.value)}
+        />  
 
     var statusOptionsWidget=  
-    // <Select onChange={statusOptionsChangeFunction} 
-    //                                   options={statusOptionsState}
-    //                                   value={{label:statusOptionsSelected, value:statusOptionsSelected}}  
-    //                                   className="s" />
+    <Select onChange={statusOptionsChangeFunction} 
+                                      options={statusOptionsState}
+                                      value={{label:statusOptionsSelected, value:statusOptionsSelected}}  
+                                      className="s" />
 
-                                      <Box sx={{ minWidth: 70 }}>
-                                      <FormControl >
-                                      <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                                      <NativeSelect
-                                      labelId="demo-simple-select-label"
-                                      id="demo-simple-select"
-                                      input={<OutlinedInput label="Status" />}
-                                      MenuProps={MenuProps}
-                                      style={{width:'232px'}}
-                                      value={statusOptionsSelected}
-                                      label={statusOptionsSelected}
-                                      label="Production Line"
-                                      onChange={statusOptionsChangeFunction}
-                                      ><option>Select Production Line</option>
+                                      // <Box sx={{ minWidth: 70 }}>
+                                      // <FormControl >
+                                      // <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                                      // <NativeSelect
+                                      // labelId="demo-simple-select-label"
+                                      // id="demo-simple-select"
+                                      // input={<OutlinedInput label="Status" />}
+                                      // MenuProps={MenuProps}
+                                      // style={{width:'232px'}}
+                                      // value={statusOptionsSelected}
+                                      // label={statusOptionsSelected}
+                                      // label="Production Line"
+                                      // onChange={statusOptionsChangeFunction}
+                                      // ><option>Select Production Line</option>
                                      
-                                      {statusOptionsState.map((data) => (
+                                      // {statusOptionsState.map((data) => (
                                   
                                   
-                                      <option key={data.label} value={data.value}>
+                                      // <option key={data.label} value={data.value}>
                                   
-                                      {data.label}
+                                      // {data.label}
                                   
-                                      </option>
+                                      // </option>
                                   
-                                      ))}
-                                      </NativeSelect>
-                                      </FormControl>
-                                      </Box>  
+                                      // ))}
+                                      // </NativeSelect>
+                                      // </FormControl>
+                                      // </Box>  
                                       
                                      
     var productionlinewidget= 
-    // <Select  className="s" options={productionline} onChange={getProductionlineasoptions} value={{value:productionlinevalue,label:productionlinelabel}}/>
+    <Select  className="s" options={productionline} onChange={getProductionlineasoptions} value={{value:productionlinevalue,label:productionlinelabel}}/>
 
-    <Box sx={{ minWidth: 70 }}>
-    <FormControl >
-    <InputLabel id="demo-simple-select-label">Production Line</InputLabel>
-    <NativeSelect
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    input={<OutlinedInput label="Production Line" />}
-    MenuProps={MenuProps}
-    style={{width:'228px'}}
-    value={productionlinevalue}
-    label={productionlinelabel}
-    label="Production Line"
-    onChange={getProductionlineasoptions}
-    ><option>Select Production Line</option> 
-    {productionline.map((data) => (
+    // <Box sx={{ minWidth: 70 }}>
+    // <FormControl >
+    // <InputLabel id="demo-simple-select-label">Production Line</InputLabel>
+    // <NativeSelect
+    //   labelId="demo-simple-select-label"
+    //   id="demo-simple-select"
+    //   input={<OutlinedInput label="Production Line" />}
+    //   MenuProps={MenuProps}
+    //   style={{width:'228px'}}
+    //   value={productionlinevalue}
+    //   label={productionlinelabel}
+    //   label="Production Line"
+    //   onChange={getProductionlineasoptions}
+    // ><option>Select Production Line</option> 
+    // {productionline.map((data) => (
 
 
-    <option key={data.label} value={data.value}>
+    // <option key={data.label} value={data.value}>
 
-    {data.label}
+    // {data.label}
 
-    </option>
+    // </option>
 
-    ))}
-    </NativeSelect>
-    </FormControl>
-    </Box> 
+    // ))}
+    // </NativeSelect>
+    // </FormControl>
+    // </Box> 
 
 var gtinwidget=
 
-<TextField required
-label="Gtin"
-id="outline-Gtin"
-value={gtin}
-onChange={(e) => setGtin(e.target.value)}
-/> 
+              <TextField required
+                        label="Gtin"
+                        id="outline-Gtin"
+                        value={gtin}
+                        onChange={(e) => setGtin(e.target.value)}
+              /> 
 
 var typewidget=
 
-<TextField required
-label="Type"
-id="outline-Type"
-value={type}
-onChange={(e) => setType(e.target.value)}
-/> 
-  }
+              <TextField required
+                  label="Type"
+                  id="outline-Type"
+                  value={type}
+                  onChange={(e) => setType(e.target.value)}
+              /> 
+    }
 
   
 
@@ -759,10 +764,10 @@ if(testPassed == "true") {
     warningDIV =  <div className="alert alert-danger pt-4" role="alert">
                     <h5>Input batch number</h5>
                   </div>
-setWaringmessage(warningDIV)
-testPassed = "false";
+    setWaringmessage(warningDIV)
+    testPassed = "false";
+    }
   }
-}
 
  ///////  Manufacturing location testing
 
@@ -827,7 +832,7 @@ if(testPassed == "true") {
     testPassed = "false";
   }
 }
-if(testPassed == "true") {
+  if(testPassed == "true") {
   if(line != "") {
     testPassed = "true";
   }
@@ -860,10 +865,10 @@ if(testPassed == "true") {
        if( operation=== "edit")
       {
         
-        alert(statusOptionsSelected);
+        // alert(statusOptionsSelected);
          
         axios
-        .put(`http://127.0.0.1:8000/master/productionorder/update/${productionOrderEditID}`, 
+        .put(window.url+`/master/productionorder/update/${productionOrderEditID}`, 
         
         {
           "process_order_number": processOrderNumber, 
@@ -898,7 +903,7 @@ if(testPassed == "true") {
       if(res.data['process_order_number'] == 'edit with this process_order_number already exists.') {
           //alert(res.data['email']);
           warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                  <h5>Processordernumber already Exit</h5>
+                  <h5>Processordernumber already Exist</h5>
                   </div>
                   setWaringmessage(warningDIV);
       }
@@ -928,114 +933,153 @@ var editSaveButton = "";
 // }
     return(
       <>
-      <br></br> 
-      <br></br>
-      <br></br>
-      <div class="container-fluid">
-        <div class="card shadow mb-4" id="productionorderfullcard"> 
-          <div class="card-header py-3" id="productionordercardhead">
-            <div className='row'>
-              <div className='col-10' id="productionorderhead">
-                {headwidget}
-              </div>
-            </div>                                                
-          </div>
-          <div class="card-body" id="pocardbody">  
-            <br></br>
-            
-        
-        {/* <div id="locationhead">
-        {headwidget}
-        </div>
-        <br></br> */}
-        
-            <Box id="productionorderbox"
-              component="form"
-              sx={{
-              '& .MuiTextField-root': { m: 2, width: '26ch' },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-              <br></br>
-          <div id="pocontant">
-              <div >
-                {warningmessage}
-                {processnowidget}
-                {batchnowidget}
-                {regulationwidget}
-                
-               
-              </div>
-             
-              <div id="poeditbutton">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button onClick={handleSubmit}><MdOutlineSave size={38}/>                                          
-                </button>
-              </div>
-              <br></br>
-             
-              <div >
-                {productiondatewidget} 
-                {imnwidget} 
-                </div>
-              <div id="poedit2">
-                {productwidget}
-              </div>
-             
-              <br></br>
-            
-              <div>
-                {createdbywidget}
-                {packageverwidget}
-                {linewidget}
-              </div>
-              
-              
-  
-              <div>
-             
-                {serialnowidget}
-                {expwidget}
-                
-            
-                
-                </div>
-                <div id="poedit3">
-                {manufactwidget}
-                </div>
-               
-                  <br></br>
-                  
-                 
-                <div id="poedit5">
-                  {productionlinewidget}
+        <br/>        <br/>       
+           
+           
+
+           <div class="container" style={{display:"flexbox"}}>  
+           
+  <div className="row">
    
-                </div>
+  <div className="col-3"></div>
+            <div className="col-6"><br/>
             
-                <div id="poedit6" >
-                  {statusOptionsWidget}
-                 
-                 <br></br>
-                  
-                </div>
-               
-               
-    
-               
+            <h4 ><h4 style={{color:"black"}}><font face="times new roman" size="6"> Edit Productionorder  Data</font></h4></h4><br/>                 
+          
+            
               </div>
-              <div id="pogtin">
-               {gtinwidget}
-                </div>
-                <div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{typewidget}
-                </div>
-            </Box> 
-            <hr></hr>    
-          </div>
+              <div className="col-3">   </div>
+            {/* <div className="col-2"><br/> 
+             
+              
+            </div>
+            <div className="col-2"><br/>  */}
+          
+              
+            {/* </div> */}
+            </div>
+
+ 
+  
+
+   
+   
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 4, width: '25' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+     
+   
+      <div style={{backgroundColor:"#AAF0D1",alignContent:"flex-end"}} >
+      <div className="row">
+   
+   <div className="col-2"></div>
+    
+   <div className="col-8">{warningmessage}</div>
+    
+   <div className="col-2"></div>
+   </div>
+   {processnowidget}
+      {batchnowidget}
+      
+              {regulationwidget}
+              {packageverwidget}<br/>
+              {productiondatewidget}
+                 
+                 
+             
+                {expwidget}
+              {imnwidget} 
+              
+       
+      
+        
+        {serialnowidget}   <br/>
+        {headwidget}
+             
+            
+              {gtinwidget}
+              {linewidget}
+              
+               {typewidget}  <br/>
+              
+             
+             
+           
+               </div>
+               </Box>
+    
+    
+
+                <br/>
+                <table class="table table-borderless productionOrderReportSearchTable" style={{backgroundColor:"#AAF0D1"}}>
+                            <tbody>
+                             
+                              <tr>
+                                <td class="productionOrderReportSearchTD">Product Name</td>
+                                <td class="productionOrderReportSearchTD">
+                                
+{productwidget} 
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="productionOrderReportSearchTD">Production Line</td>
+                                <td class="productionOrderReportSearchTD">
+                                {productionlinewidget}
+                                </td>
+                              </tr>
+                  
+                            
+                              <tr>
+                                <td class="productionOrderReportSearchTD">Manufacturing Location</td>
+                                <td class="productionOrderReportSearchTD">
+                                {manufactwidget}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="productionOrderReportSearchTD">Status</td>
+                                <td class="productionOrderReportSearchTD">
+                                {statusOptionsWidget} 
+                                </td>
+                              </tr>
+                              
+                             
+                              
+                            <tr></tr>
+                            
+                          </tbody>
+                        </table> 
+
+
+
+
+
+
+      <div className="row">
+        <div className="col-4">
+       
         </div>
-      </div>  
+        <div className="col-4">
+        <center><button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button></center>
+        </div>
+        <div className="col-4">
+        </div>
+       
+       
+      
+      </div>
+        
+       
+      </div>
     </>
     )
 }

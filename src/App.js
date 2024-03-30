@@ -17,6 +17,7 @@ import ProductionorderCreate from "./pages/Productionorder/ProductionorderCreate
 import PoPropertys from "./pages/Productionorder/PoPropertys";
 import Identifiers from "./pages/Productionorder/Identifiers";
 import PoHrf from "./pages/Productionorder/PoHrf";
+import PoView from "./pages/Productionorder/PoView";
 
 //import UserDataGrid from "./pages/RegisteredUsers/sections/UserDataGrid";
 import ShippingOrder from "./pages/ShippingOrder/ShippingOrder";
@@ -42,6 +43,7 @@ import CompanyPropertyCreate from "./pages/Company/CompanyPropertyCreate";
 import Customer from "./pages/Customers/Customer";
 import CustomerCreate from "./pages/Customers/CustomerCreate";
 import Tracelink from "./pages/Customers/Tracelink";
+import Customerproperty from "./pages/Customers/Customerproperty";
 
 import CustomerLocation from "./pages/CustomerLocations/CustomerLocation";
 import CustomerLocationCreate from "./pages/CustomerLocations/CustomerLocationCreate";
@@ -77,19 +79,33 @@ import Printerdata from "./pages/PrinterTableData/Printerdata";
 import PrinterdataRead from "./pages/PrinterTableData/PrinterdataRead";
 
 import Downloadcodes from "./pages/Productionorder/sections/Downloadcodes";
-import Customerproperty from "./pages/Customers/Customerproperty";
+
 
 // import ShippingReport from "./pages/ShippingReport/ShippingReport";
 import ShippingReportPage from "./pages/ShippingReport/ShippingReportPage";
 import Productionreport from "./pages/ProductionReport/Productionreport";
 
+import Trash from "./pages/Trash/Trash";
+import ProductionOrderTrash from "./pages/Trash/sections/ProductionorderTrash/ProductionOrderTrash";
+import CustomerTrash from "./pages/Trash/sections/CustomerTrash/CustomerTrash";
+import CompanyTrash from "./pages/Trash/sections/CompanyTrash/CompanyTrash";
+import ProductTrash from "./pages/Trash/sections/ProductTrash/ProductTrash";
+import RegisteredUsersTrash from "./pages/Trash/sections/RegisteredUsersTrash/RegisteredUsersTrash";
+import LocationTrash from "./pages/Trash/sections/LocationTrash/LocationTrash";
+import HistoryTrash from "./pages/Trash/sections/HistoryTrash/HistoryTrash";
+import ShippoTrash from "./pages/Trash/sections/Shippotrash/Shippotrash";
+import ManufacturingLocationTrash from "./pages/Trash/sections/ManufacturinglocationTrash/ManufacturingLocationTrash";
+import ProductionlineTrash from "./pages/Trash/sections/ProductionlineTrash/ProductionlineTrash";
+
+
+
 function App() {
   return (
     <Router>
      
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/account/userpermission" element={<Permission />} />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/account/userpermission" element={<Permission />} />
 
         <Route path="/registeredusers" element={<RegisteredUsers />} />
         <Route path="registeredusers/:operation/:uniqueID/" element={<RegisteredUserscreate />} />
@@ -101,6 +117,7 @@ function App() {
         <Route path="/productionorder/identifier" element={<Identifiers/>} />
         <Route path="/productionorder/hrf/:uniqueID" element={<PoHrf />} />
         <Route path="/productionorder/downloadcodes/:gtin/:processnumber" element={<Downloadcodes />} />
+        <Route path="productionorderview/:operation/:uniqueID/" element={<PoView/>} />
 
         <Route path="/shippingorder/shippocreate/:operation/:uniqueID/:processnumber" element={<ShippingCreate />} />
         <Route path="/shippingorder" element={<ShippingOrder />} />
@@ -160,9 +177,21 @@ function App() {
         <Route exact path="/shippingauditreport" element={<ShippingAuditreport/>}></Route>    
         <Route exact path="/userauditreport" element={<UserAuditReport/>}></Route>   
 
-         <Route exact path="/shippingreport" element={<ShippingReportPage/>}></Route>
-         <Route path="/report/productionorderreport" element={<Productionreport />} />     
-          <Route path="*" element={<> not found</>} />
+        <Route exact path="/shippingreport" element={<ShippingReportPage/>}></Route>
+        <Route path="/report/productionorderreport" element={<Productionreport />} />     
+        <Route path="*" element={<> not found</>} />
+
+        <Route path="/trash" element={<Trash/>}></Route>
+          <Route path="/productionordertrash" element={<ProductionOrderTrash/>}></Route>
+          <Route path="/customertrash" element={<CustomerTrash/>}></Route>
+          <Route path="/companytrash" element={<CompanyTrash/>}></Route>
+          <Route path="/producttrash" element={<ProductTrash/>}></Route>
+          <Route path="/registereduserstrash" element={<RegisteredUsersTrash/>}></Route>
+          <Route path="/locationtrash" element={<LocationTrash/>}></Route>
+          <Route path="/historytrash" element={<HistoryTrash/>}></Route>
+          <Route path="/shippotrash" element={<ShippoTrash/>}></Route>
+          <Route path="/manufacturinglocationtrash" element={<ManufacturingLocationTrash/>}></Route>
+          <Route path="/productionlinetrash" element={<ProductionlineTrash/>}></Route>
         </Routes>
      
     </Router>

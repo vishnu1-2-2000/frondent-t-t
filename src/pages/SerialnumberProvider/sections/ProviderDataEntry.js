@@ -19,15 +19,15 @@ function ProviderDataEntry() {
   onChange={(e)=>setName(e.target.value)}
   />
 
-const handleSubmit=(e)=>{
+  const handleSubmit=(e)=>{
 
-e.preventDefault();
-axios
-.post("http://localhost:8000/master/snprovider/",
-{
-   "name":name ,
-   "extrafield":name              
-}) 
+  e.preventDefault();
+    axios
+      .post(window.url+"/master/snprovider/",
+        {
+          "name":name ,
+          "extrafield":name              
+        }) 
 .then(()=>{
        navigate("/snprovider") ;            
 })            

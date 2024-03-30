@@ -11,10 +11,10 @@ import PoDataEntry from "./PoDataEntry";
 import PoDtataEdit from "./PoDataEdit";
 import Box from '@mui/material/Box';
 function PoCreateAfterLoginCheck() {
-                    const { operation } = useParams();
-                    const { uniqueID } = useParams();
+    const { operation } = useParams();
+    const { uniqueID } = useParams();
                   
-                    const loadingSection = <div class="container-fluid" id="regimage">
+    const loadingSection = <div class="container-fluid" id="regimage">
                         <div class="card shadow mb-4"> 
                             <div class="card-body">  
                               <div class="px-3 py-5 text-primary text-center">
@@ -51,47 +51,52 @@ function PoCreateAfterLoginCheck() {
                   
                     function checkAuthorization() {
                       axios
-                      .get("http://localhost:8000/accounts/userrolePermissionsRead")
+                      .get(window.url+"/accounts/userrolePermissionsRead")
                       .then((res) => {
                         var authorized = false;
                         // alert("haiii")
                         // alert(res.data.length)
                         // alert(res.data[0].admin['CREATE']);
                         //alert(res.data[0].activity_name)
+                        res.data.forEach(element=>{
+                          // alert(element.activity_name)
+                          if(element['activity_name'] ==='productionorder'){
                         if(window.localStorage.getItem('loggedInUserrole') === "admin") {
                           
                           if(operation === "new") {
-                            res.data[1].activity_name ==='productionorder' && res.data[1].admin['CREATE']==="Checked" ? setSelectedDIV_state(<PoDataEntry />) : setSelectedDIV_state(notAuthorizedSection);
+                            element.activity_name ==='productionorder' && element.admin['CREATE']==="Checked" ? setSelectedDIV_state(<PoDataEntry />) : setSelectedDIV_state(notAuthorizedSection);
                           }
                           
                           else if(operation === "edit") {
-                            res.data[1].activity_name ==='productionorder' && res.data[1].admin['UPDATE']==="Checked" ? setSelectedDIV_state(<PoDtataEdit/>) : setSelectedDIV_state(notAuthorizedSection);
+                            element.activity_name ==='productionorder' && element.admin['UPDATE']==="Checked" ? setSelectedDIV_state(<PoDtataEdit/>) : setSelectedDIV_state(notAuthorizedSection);
                           }
                         }
                         else if(window.localStorage.getItem('loggedInUserrole') === "operator") {
                           if(operation === "new") {
-                            res.data[1].activity_name ==='productionorder' && res.data[1].operator['CREATE']==="Checked" ? setSelectedDIV_state(<PoDataEntry/>) :setSelectedDIV_state(notAuthorizedSection);      
+                            element.activity_name ==='productionorder' && element.operator['CREATE']==="Checked" ? setSelectedDIV_state(<PoDataEntry/>) :setSelectedDIV_state(notAuthorizedSection);      
                           }
                           else if(operation === "edit") {
-                            res.data[1].activity_name ==='productionorder' && res.data[1].operator['UPDATE']==="Checked" ? setSelectedDIV_state(<PoDtataEdit/>) :setSelectedDIV_state(notAuthorizedSection);
+                            element.activity_name ==='productionorder' && element.operator['UPDATE']==="Checked" ? setSelectedDIV_state(<PoDtataEdit/>) :setSelectedDIV_state(notAuthorizedSection);
                           }
                         }
                         else if(window.localStorage.getItem('loggedInUserrole') === "supervisor") {
                           if(operation === "new") {
-                            res.data[1].activity_name ==='productionorder' && res.data[1].supervisor['CREATE']==="Checked" ? setSelectedDIV_state(<PoDataEntry/>) :setSelectedDIV_state(notAuthorizedSection);      
+                            element.activity_name ==='productionorder' && element.supervisor['CREATE']==="Checked" ? setSelectedDIV_state(<PoDataEntry/>) :setSelectedDIV_state(notAuthorizedSection);      
                           }
                           else if(operation === "edit") {
-                            res.data[1].activity_name ==='productionorder' && res.data[1].supervisor['UPDATE']==="Checked" ? setSelectedDIV_state(<PoDtataEdit/>) :setSelectedDIV_state(notAuthorizedSection);      
+                            element.activity_name ==='productionorder' && element.supervisor['UPDATE']==="Checked" ? setSelectedDIV_state(<PoDtataEdit/>) :setSelectedDIV_state(notAuthorizedSection);      
                           }
                         }
                         else if(window.localStorage.getItem('loggedInUserrole') === "masterdata") {
                           if(operation === "new") {
-                            res.data[1].activity_name ==='productionorder' && res.data[1].masterdata['CREATE']==="Checked" ? setSelectedDIV_state(<PoDataEntry/>) :setSelectedDIV_state(notAuthorizedSection);      
+                            element.activity_name ==='productionorder' && element.masterdata['CREATE']==="Checked" ? setSelectedDIV_state(<PoDataEntry/>) :setSelectedDIV_state(notAuthorizedSection);      
                           }
                           else if(operation === "edit") {
-                            res.data[1].activity_name ==='productionorder' && res.data[1].masterdata['UPDATE']==="Checked" ? setSelectedDIV_state(<PoDtataEdit/>) :setSelectedDIV_state(notAuthorizedSection);      
+                            element.activity_name ==='productionorder' && element.masterdata['UPDATE']==="Checked" ? setSelectedDIV_state(<PoDtataEdit/>) :setSelectedDIV_state(notAuthorizedSection);      
                           }
                         }
+                      }
+                    })
                       });
                     }
                   

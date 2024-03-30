@@ -21,6 +21,9 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
+import Autocomplete from '@mui/material/Autocomplete';
+
 function GtinDataEntry() {
 
 const[gtin,setGtin]=useState([]);
@@ -34,17 +37,21 @@ const[available,setAvailable]=useState("")
 const[newsnnumber,setNewsnnumber]=useState("");
 const[gtinlabel,setGtinlabel]=useState("");
 const[gtinvalue,setGtinvalue]=useState("");
-const[warningmessage,setWaringmessage]=useState("");
+
 const navigate=useNavigate();
 const{uniqueID}=useParams();
 const{operation}=useParams();
-
+var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
+var warningDIV= <div className="alert alert-success pt-4" role="alert">
+<h5>Input all the values</h5>
+</div>
 let gtinoptions=[]
 let serialnumberoptions=[];
 var warningDIV = <div className="alert alert-success pt-4" role="alert">
                   <h5>Input all the values</h5>
                </div>
-
+  const [warningmessage,setWarningmessage]=useState(warningDIV);
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;   
 const MenuProps = {
@@ -57,7 +64,7 @@ const MenuProps = {
 }; 
 function getGtinforeignData(){
     axios
-    .get("http://127.0.0.1:8000//master/product/")
+    .get(window.url+"/master/product/")
     .then((res)=>{
     res.data.map(data =>{
     gtinoptions.push({value:data.gtin_number,label:data.gtin_number})
@@ -116,7 +123,7 @@ setGtin(gtinoptions)
 function getSerialnumber(){
   
     axios
-    .get("http://127.0.0.1:8000/http://localhost:8000//master/pool/"+available+"/")
+    .get(window.url+"/master/pool/"+available+"/")
     .then((res)=>{
        
 
@@ -139,11 +146,21 @@ useEffect(()=>{
     
 
 
-const getGtin = event =>{
-    setGtinnumber(event.target.value)
-    setGtinlabel(event.target.label)
-    setGtinvalue(event.target.value) ; 
-  }
+  // const getGtin = event =>{
+  //   alert(event)
+  //   setGtinnumber(event.target.value)
+  //   setGtinlabel(event.target.label)
+  //   setGtinvalue(event.target.value) ; 
+  // }
+  const getGtin = (event, value) => {
+    // alert(event.label)
+    setGtinnumber(value)
+      // setGtinlabel(label)
+      setGtinvalue(value) ; 
+
+    this.setState({ ...this.state, [event.target.id.split("-")[0]]: value });
+    
+}
 
   const getSerialnumberoptions=event =>{
 // alert(event.value)
@@ -153,58 +170,63 @@ const getGtin = event =>{
 
 if (operation=="new"){
     var headwidget=
-    <Box
-      sx={{
-        width: 500,
-        maxWidth: '100%',
-                  
-                  
-        }}
-      >
+    
       <Controls.Input 
                   disabled
-                  fullWidth
+                  // fullWidth
             
                   id="outlined-Company Prefix"
+                  value={loggedInUsername}
                   // label={<Typography>Customer  Create</Typography>}
-                  label={<span ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">   Enter Gtin Data </font></h4></pre></span>}
+                  // label={<span ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">   Enter Gtin Data </font></h4></pre></span>}
                 
 
       />
-    </Box>
+  
 
-var gtinfield= 
+  var gtinfield= 
 //  <Select className="s" onChange={getGtin} options={gtin}  />  
- <Box sx={{ minWidth: 70 }}>
-          <FormControl >
-          <InputLabel id="demo-simple-select-label">Gtin</InputLabel>
-          <NativeSelect
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          input={<OutlinedInput label="Gtin" />}
-          MenuProps={MenuProps}
-          style={{width:'224px'}}
-          label="Gtin"
-          onChange={getGtin}
-          ><option>Select Gtin</option> 
-          {gtin.map((data) => (
+//  <Box sx={{ minWidth: 70 }}>
+//           <FormControl >
+//           <InputLabel id="demo-simple-select-label">Gtin</InputLabel>
+//           <NativeSelect
+//           labelId="demo-simple-select-label"
+//           id="demo-simple-select"
+//           input={<OutlinedInput label="Gtin" />}
+//           MenuProps={MenuProps}
+//           style={{width:'224px'}}
+//           label="Gtin"
+//           onChange={getGtin}
+//           ><option>Select Gtin</option> 
+//           {gtin.map((data) => (
 
 
-          <option key={data.label} value={data.value}>
+//           <option key={data.label} value={data.value}>
 
-          {data.label}
+//           {data.label}
 
-          </option>
+//           </option>
 
-          ))}
-          </NativeSelect>
-          </FormControl>
-          </Box>  
+//           ))}
+//           </NativeSelect>
+//           </FormControl>
+//           </Box>  
+
+ <Autocomplete
+disablePortal
+
+id="combo-box-demo"
+
+options={gtin}
+onInputChange={getGtin}
+sx={{ width: 300 }}
+renderInput={(params) => <TextField {...params}  label="Select Gtin" />}
+/> 
 // var gtinfield=<input type="text"
 //                     className="form-control"
 //                     onChange={(e)=>setGtin(e.target.value)} 
 //                     /> 
-var availablefield=
+  var availablefield=
                     // <input type="text"
                     // className="form-control"
                     // onChange={(e)=>setAvailableQuantity(e.target.value)} 
@@ -226,12 +248,12 @@ var availablefield=
 // onChange={(e)=>setSerialnumbers(e.target.value)} 
 // />   
 
-var newserrialnofield=<textarea type="textarea"
-className="form-control"
+  var newserrialnofield=<textarea type="textarea"
+                        className="form-control"
 
-onChange={(e)=>setNewsnnumber(e.target.value.split(","))} 
-/>   
-var minimumfield=
+                      onChange={(e)=>setNewsnnumber(e.target.value.split(","))} 
+                    />   
+  var minimumfield=
                 // <input type="text"
                 //     className="form-control"
                 //     onChange={(e)=>setMinimumQuantity(e.target.value)}
@@ -243,7 +265,7 @@ var minimumfield=
                 onChange={(e)=>setMinimumQuantity(e.target.value)}
                 /> 
                     
-var renewalfield=
+  var renewalfield=
                 // <input type="text"
                 //     className="form-control"
                 //     onChange={(e)=>setRenewalQuantity(e.target.value)} 
@@ -255,11 +277,52 @@ var renewalfield=
                 onChange={(e)=>setRenewalQuantity(e.target.value)}
                 />                  
 }
-const handleSubmit= (e)=>{
+  const handleSubmit= (e)=>{
                     e.preventDefault();
-                    //alert(minimumquantity)
+                    // alert(minimumquantity)
+                    var testpassed="false"
+                    if(gtinnumber!=""){
+                      // alert(gtin)
+                      testpassed="true"
+                    }
+                    else{
+                      warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                  <h5>Input  Gtin</h5>
+                                </div>
+                              setWarningmessage(warningDIV);
+                      testpassed="false"
+                    }
+                    if(testpassed=="true"){
+                      // alert(testpassed)  
+                      if(minimumquantity!="")
+                      {
+                        testpassed="true"
+                      }
+                      else{
+                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                        <h5>Input  Mininmum Quantity</h5>
+                      </div>
+                    setWarningmessage(warningDIV);
+                    testpassed="false"
+                      }
+                    }
+                    if(testpassed=="true"){
+                      if(renewalquantity!="")
+                      {
+                        testpassed="true"
+                      }
+                      else{
+                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                        <h5>Input  Renewal Quantity</h5>
+                      </div>
+                    setWarningmessage(warningDIV);
+                    testpassed="false"
+                      }
+                    }
+                    if(testpassed=="true"){
+                      alert("hi")   
                  axios
-                 .post("http://localhost:8000//master/gtin/",
+                 .post(window.url+"/master/gtin/",
                  {
                     // "numbers":JSON.stringify({
                     //     serialnumbers
@@ -280,7 +343,7 @@ const handleSubmit= (e)=>{
                                           <h5>Gtin Already Exist Try Another Gtin </h5>
                                         </div>
                 
-                      setWaringmessage(warningDIV)                         
+                setWarningmessage(warningDIV)                         
                       }
                       else{ 
                         navigate("/gtinpool")
@@ -288,101 +351,62 @@ const handleSubmit= (e)=>{
                     
                  })   
 }
-
+  }
 
 
 
   return (
-    <>
-                   <br></br>
-                   <br></br>
-                   <br></br>
-                   <br></br>
-    <div class="container-fluid">
-              <div class="card shadow mb-4" id="gtincreatefullcard"> 
-                  <div class="card-header py-3" id="gtincreatecardhead">
-                      <div className='row'>
-                          <div className='col-10' id="gtincreatehead">
-                          {headwidget}
-                          </div>
-                      </div>
-                     
-                  </div>
+    <><br/><br/><br/><br/><br/><br/><br/>
 
-                  <div class="card-body">  
-                  <br></br>
-   
-    
-    {/* <div id="locationhead">
-    {headwidget}
-    </div>
-    <br></br> */}
-    
-    <Box id="gtincreatebox"
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
+ 
+
+    <Box
+    component="form"
+    sx={{
+      '& .MuiTextField-root': { m: 4, width: '25' },
+    }}
+    noValidate
+    autoComplete="off"
     >
-      <br></br>
-      <div>
-          {warningmessage}
-         <div id="gtincreateselectbox">
-         {gtinfield}
+     
+    <div style={{backgroundColor:"#AAF0D1"}} >
+    <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">  Add Gtin Data</font></h4></center></h4>            
+    {gtinfield}
          
-         </div>
-         <br></br>
-        
-         {availablefield}
-         
-
-          {minimumfield}
-          {renewalfield}
-            
-          <div id="gtincreatebutton">
-
-        
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-            </button>
-           
-            
-
-            
-          </div>
-
-          <div >
-          
-          <br></br>
-          
-        <div className="col-1">
-            
-        </div>
-          
+    {availablefield}
+    {headwidget}
+    <br/>
+    {minimumfield}
+    {renewalfield}
+    
+    
+    
+     
+    
+    
+    <div className="row">
+      <div className="col-4">
+     
       </div>
-
-      <div>
+      <div className="col-4">
+      <button
+                  type="submit"
+                  className="btn btn-primary"
+                  onClick={handleSubmit} >
+                    Save data
+                </button>
+      </div>
+      <div className="col-4">
+      </div>
+     
+    
+    </div>
       
-
-    </div>              
- 
-
-  </div>
-  <div>
-      
-</div>
-      
-    </Box> 
-    <hr></hr>    
-                  </div>
-              </div>
-          </div>   
-
- 
-    </>
+     
+    </div>
+    
+    </Box>
+</>
   )
 }
 

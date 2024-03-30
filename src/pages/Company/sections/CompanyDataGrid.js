@@ -41,7 +41,7 @@ const CompanyDataGrid=(props)=> {
                   
     function handleDelete(id) {
         axios
-            .delete(`http://127.0.0.1:8000/master/company/delete/${id}`,
+            .delete(window.url+`/master/company/delete/${id}`,
                           
           )
           .then(() => {
@@ -112,7 +112,7 @@ const CompanyDataGrid=(props)=> {
                                           }
                                         },
                                     },
-                      {
+                    {
                         field: 'delete',
                         headerName: <strong>Delete</strong>,
                         headerClassName: "MuiDataGrid-columnHeaders",
@@ -146,10 +146,11 @@ const CompanyDataGrid=(props)=> {
                                         )
                                     if (confirmBox === true) {
                                           axios
-                                            .delete(`http://localhost:8000/master/company/delete/${thisRow.id}`,
+                                          .delete(window.url+`/master/company/trash/${thisRow.id}`,
                                           {
                                                 data: { 
-                                                  "Name" : thisRow.name,
+                                                  "id":thisRow.id,
+                                                  "company_name" : thisRow.company_name,
                                                   "email" : thisRow.email,
                                                   "userRole" : thisRow.userRole,
                                                   "loggedInUsername": window.localStorage.getItem('loggedInUsername'),
@@ -335,12 +336,13 @@ const CompanyDataGrid=(props)=> {
     let tempArrayFunction = []; 
     rowDatas.map(rowData => {
                         //alert(rowData.id);
+                        if(rowData.companyflag===false){
         tempArrayFunction.push( 
           {'id':rowData.id, 'company_name':rowData.company_name,'address':rowData.address,'zip':rowData.zip,
             'state':rowData.state,'gln':rowData.gln,
             'created_by':rowData.created_by},
           );
-                  
+        }       
         })
 
         setSelectedDIV_state(<div>
@@ -367,7 +369,7 @@ const CompanyDataGrid=(props)=> {
   function getData() {
                       //alert("anu");
         axios
-            .get("http://127.0.0.1:8000/master/company/",
+            .get(window.url+"/master/company/",
                           
                 )
                   .then((res) => {
@@ -379,7 +381,7 @@ const CompanyDataGrid=(props)=> {
                   
   function handleDelete(id) {
     axios
-    .delete(`http://localhost:8000/master/company/delete/${id}`,    
+    .delete(window.url+`/master/company/delete/${id}`,    
     )
     .then(() => {
       getData();
@@ -430,7 +432,7 @@ const CompanyDataGrid=(props)=> {
  <Box component="main" sx={{ flexGrow: 3, p: 9 }}>
  <div class="container" id="company">
                      
-      <div style={{ height: 700, width: '110%'}}>
+      <div style={{ height: 700, width: '450%'}}>
         <h5>COMPANYS</h5>
         <button align='right'
         

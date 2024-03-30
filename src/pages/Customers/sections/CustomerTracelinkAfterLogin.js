@@ -13,12 +13,12 @@ import Loading from '../../../components/Common/Loading';
 import CustomerTracelinkEdit from './CustomerTracelinkEdit';
 function CustomerTracelinkAfterLogin() {
 
-                    const [selectedDIV_state,setSelectedDIV_state]=useState(<Loading/>);
-                    const notAuthorizedSection = <div class="container-fluid">
-                    <div class="card shadow mb-4"> 
-                        <div class="card-body">  
+        const [selectedDIV_state,setSelectedDIV_state]=useState(<Loading/>);
+        const notAuthorizedSection = <div class="container-fluid">
+            <div class="card shadow mb-4"> 
+                <div class="card-body">  
                           
-                          <div class="text-primary text-center">
+                    <div class="text-primary text-center">
                             <img src='/img/forbidden.jpg'/>
                           </div>
                         </div>
@@ -27,7 +27,7 @@ function CustomerTracelinkAfterLogin() {
                 function checkAuthorization()
                 {
                     axios
-                    .get("http://localhost:8000/accounts/userrolePermissionsRead")
+                    .get(window.url+"/accounts/userrolePermissionsRead")
                     .then((res)=>{
                         res.data.forEach(element=>{
                             if(element['activity_name'] === 'customer') {
@@ -57,14 +57,14 @@ function CustomerTracelinkAfterLogin() {
                         });
                     });
                 }
-                useEffect(()=>{
+        useEffect(()=>{
                 checkAuthorization();
-                },[]);
+            },[]);
                               
   return (
-                    <div id="wrapper">
-                    <Box sx={{ display: 'flex' }}>
-                      <br></br>
+            <div id="wrapper">
+                <Box sx={{ display: 'flex' }}>
+                    <br></br>
             {/* <Navbar />  */}
             <Sidebar/>
             <Box component="main" sx={{ flexGrow: 1, p: 1}}>

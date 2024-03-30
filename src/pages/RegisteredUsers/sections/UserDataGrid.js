@@ -7,6 +7,7 @@ import axios from "axios";
 import Sidebar from '../../../components/Sidnav/Sidebar';
 import { Box,useTheme  } from "@mui/material";
 import { tokens } from "../../../theme";
+import Tooltip from '@mui/material/Tooltip';
 const UserDataGrid = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -27,7 +28,7 @@ const UserDataGrid = (props) => {
     { field: 'id', headerName: 'ID',  flex : 1,align:'left', headerAlign:'left', headerClassName: "MuiDataGrid-columnHeaders",hide:true },
     { field: 'employeeid', headerName: 'Employee ID',  flex : 1,align:'left', headerAlign:'left', headerClassName: "MuiDataGrid-columnHeaders", },
     { field: 'name', headerName: 'Name',  flex : 1, align:'left', headerAlign:'left', headerClassName: "MuiDataGrid-columnHeaders", },
-    { field: 'name', headerName: 'Name',  flex : 1, align:'left', headerAlign:'left', headerClassName: "MuiDataGrid-columnHeaders", },
+    // { field: 'name', headerName: 'Name',  flex : 1, align:'left', headerAlign:'left', headerClassName: "MuiDataGrid-columnHeaders", },
     { field: 'email', hide:true ,headerName: 'Email', flex : 1,  align:'left', headerAlign:'left', headerClassName: "MuiDataGrid-columnHeaders", },
     { field: 'date_birth', headerName: 'Date of Birth',  flex : 1, align:'left', headerAlign:'left', headerClassName: "MuiDataGrid-columnHeaders", },
     { field: 'userRole', headerName: 'User Role', flex : 1,  align:'left', headerAlign:'left' ,headerClassName: "MuiDataGrid-columnHeaders", },
@@ -110,7 +111,7 @@ const UserDataGrid = (props) => {
           )
           if (confirmBox === true) {
             axios
-            .delete(`http://localhost:8000/accounts/delete/${thisRow.id}`,
+            .delete(window.url+`/accounts/register/trash/${thisRow.id}`,
             {
               data: { 
                 "Name" : thisRow.name,
@@ -130,9 +131,11 @@ const UserDataGrid = (props) => {
         };
   
         if(props.deleteButtonStatus === "enabled") {
-          return <button
+        
+          return   <button
             className="btn btn-danger" 
             onClick={onClick}><MdIcons.MdDelete size={23}/></button>;
+            
         }
         else if(props.deleteButtonStatus === "disabled") {
           return <button
@@ -153,9 +156,11 @@ const UserDataGrid = (props) => {
     let tempArrayFunction = [];
     rowDatas.map(rowData => {
       //alert(rowData.id);
+      if(rowData.registerflag===false){
 
       tempArrayFunction.push({'slno':slno++,'id':rowData.id,'employeeid':rowData.employeeid,'name':rowData.Name, 'email':rowData.email, 'date_birth':rowData.date_birth, 'userRole':rowData.userRole, 
       'address':rowData.address});
+      }
 
       /*
       setUserDataRows( userDataRows => [
@@ -244,7 +249,7 @@ const UserDataGrid = (props) => {
  {
   // alert("hi")
     axios
-    .get("http://127.0.0.1:8000/accounts/register/")
+    .get(window.url+"/accounts/register/")
     .then((res)=>{
       // alert("hi")
         createRows(res.data);
@@ -285,7 +290,7 @@ const UserDataGrid = (props) => {
       <>
         <br></br>
             
-              <Box sx={{ display: 'flex' }}> 
+              <Box sx={{ display: 'flex' }} id="big-screen"> 
           
              <Sidebar/>
           

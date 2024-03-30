@@ -256,7 +256,7 @@ const StatusCheckAllxml=(event)=>{
       <div className="col-4"></div>
   
   <div className="col-4" id="colmiddle">
-  <h3>Data Export to Xml</h3>
+  <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Data Export To Xml</font></h4></center></h4>            
     <hr></hr>
   <h5>Shipping Files</h5>
   <br></br>

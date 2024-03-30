@@ -68,7 +68,7 @@ function CompanyDataEdit() {
 
                       
     axios
-    .get("http://localhost:8000/master/company/"+comEditID+"/",                     
+    .get(window.url+"/master/company/"+comEditID+"/",                     
     )
     .then((res)=>{
                       
@@ -103,22 +103,24 @@ function CompanyDataEdit() {
                    
   if(operation === 'edit') {
     var headwidget=
-    <Box
-        component="form"
-        sx={{
-          width: 500,
-          maxWidth: '100%',
-          }}
-        noValidate
-        autoComplete="off"
-  ><Controls.Input 
+  //   <Box
+  //       component="form"
+  //       sx={{
+  //         width: 500,
+  //         maxWidth: '100%',
+  //         }}
+  //       noValidate
+  //       autoComplete="off"
+  // >
+    <Controls.Input 
     disabled
     // fullWidth
     
     id="outlined-Company Prefix"
-    label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                      Edit Company Data</font> </h4></pre></h4>}
+    value={loggedInUsername}
+    // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                      Edit Company Data</font> </h4></pre></h4>}
     />
- </Box>
+//  </Box>
   var comnameFieldWidget = 
                             // <input
                             //     type="text"
@@ -191,13 +193,13 @@ function CompanyDataEdit() {
                           // /> 
 
                           <TextField
-                          required
-                          id="outlined-Gln"
-                          label="Gln"
-                          value = {gln}
-                          onChange={(e) => setGln(e.target.value)}
+                            required
+                            id="outlined-Gln"
+                            label="Gln"
+                            value = {gln}
+                            onChange={(e) => setGln(e.target.value)}
                 
-                      />
+                          />
                     
                     
     var createdbyFieldWidget =
@@ -363,7 +365,7 @@ function CompanyDataEdit() {
                     //       }
             if(operation === 'edit') {
             axios
-              .put(`http://127.0.0.1:8000/master/company/update/${comEditID}`, 
+              .put(window.url+`/master/company/update/${comEditID}`, 
                               
                 {
                   "company_name":company_name,  
@@ -378,7 +380,8 @@ function CompanyDataEdit() {
                   "loggedInUsername":loggedInUsername,
 
                   "loggedInUserrole":loggedInUserrole,
-                  "loggedInemployeeid":loggedInemployeeid
+                  "loggedInemployeeid":loggedInemployeeid,
+                  "uniqueid":comEditID,
                 },
                               
                 )
@@ -396,84 +399,64 @@ function CompanyDataEdit() {
                            
                     
                     
-  <br></br>
-    <div class="container-fluid">
-        <div class="card shadow mb-4" id="customerfullcard"> 
-            <div class="card-header py-3" id="customercardhead">
-                <div className='row'>
-                    <div className='col-10' id="customerhead">
-                        {headwidget}
-                    </div>
-                </div>
-                                                      
-            </div>
+   
+                           <br/><br/><br/><br/><br/>
 
-            <div class="card-body">  
-            <br></br>
-            <br></br>
+{warningmessage}        
+        
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 4, width: '25' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Edit Company Details </font></h4></center></h4>            
+          {comnameFieldWidget}
+
+{addressFieldWidget}
+
+{zipFieldWidget}
+
     
-    {/* <div id="locationhead">
-    {headwidget}
-    </div>
-    <br></br> */}
     
-          <Box id="customerbox"
-            component="form"
-            sx={{
-              '& .MuiTextField-root': { m: 2, width: '25ch' },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <br></br>
-            <div>
-                {warningmessage}
-              
-                {comnameFieldWidget}
+           
+          
+          <br/>
+          {stateFieldWidget}
 
-                {addressFieldWidget}
+           
+{glnFieldWidget}
 
-                {zipFieldWidget}
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                            
-                  </button>
-                <div>
-
-                {stateFieldWidget}
-
-                
-                {glnFieldWidget}
-
-                {createdbyFieldWidget}
-
-                  
-                </div>
-
-                <div >
-              
-                {countryFieldWidget}
-                {cityFieldWidget}
-              
-                
+{headwidget}<br/>
+{countryFieldWidget}
+          {cityFieldWidget}
+        
+          <div className="row">
+            <div className="col-4">
+           
             </div>
-
-            <div>
+            <div className="col-4">
+            <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button>
+            </div>
+            <div className="col-4">
+            </div>
+           
+          
+          </div>
             
-
-          </div>              
-      
-
-        </div>
-        <div>
-            
-      </div>
-            
-          </Box> 
-            <hr></hr>    
-        </div>
-      </div>
-    </div>   
+           
+          </div>
+         
+        </Box>  
                         
       </>
     );

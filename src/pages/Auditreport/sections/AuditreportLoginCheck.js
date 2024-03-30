@@ -7,11 +7,11 @@ import axios from "axios";
 import AuditReportRead from './AuditReportRead';
 
 function AuditreportLoginCheck() {
-                    const loadingSection = <div class="container-fluid">
-                    <div class="card shadow mb-4"> 
-                        <div class="card-body">  
-                          <div class="px-3 py-5 text-primary text-center">
-                            <div class="spinner-border" role="status">
+    const loadingSection = <div class="container-fluid">
+            <div class="card shadow mb-4"> 
+                <div class="card-body">  
+                    <div class="px-3 py-5 text-primary text-center">
+                        <div class="spinner-border" role="status">
                               <span class="sr-only">Loading...</span>
                             </div>
                           </div>
@@ -19,10 +19,10 @@ function AuditreportLoginCheck() {
                     </div>
                 </div>
           
-              const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
+      const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
                 
-              const notAuthorizedSection = <div class="container-fluid">
-                        <div class="card shadow mb-4"> 
+      const notAuthorizedSection = <div class="container-fluid">
+                <div class="card shadow mb-4"> 
                             <div class="card-body">  
                               
                               <div class="text-primary text-center">
@@ -35,7 +35,7 @@ function AuditreportLoginCheck() {
               function checkAuthorization() 
               {
                 axios
-                .get("http://localhost:8000/accounts/userrolePermissionsRead")
+                .get(window.url+"/accounts/userrolePermissionsRead")
                 .then((res) => {
                   var authorized = false;
                   //  alert("haiii")

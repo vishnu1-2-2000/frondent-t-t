@@ -25,7 +25,7 @@ function CompanyPropertyAfterLogin() {
   function checkAuthorization()
       {
         axios
-          .get("http://localhost:8000/accounts/userrolePermissionsRead")
+          .get(window.url+"/accounts/userrolePermissionsRead")
             .then((res)=>{
                 res.data.forEach(element=>{
                     if(element['activity_name'] === 'company') {
@@ -56,7 +56,7 @@ function CompanyPropertyAfterLogin() {
               });
           }
     useEffect(()=>{
-              checkAuthorization();
+        checkAuthorization();
           },[]);
                 
   return(

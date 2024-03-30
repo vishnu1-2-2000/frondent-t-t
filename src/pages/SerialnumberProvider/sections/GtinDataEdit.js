@@ -20,6 +20,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
 function GtinDataEdit() {
 
 const[gtin,setGtin]=useState("");
@@ -49,6 +50,8 @@ const MenuProps = {
 }; 
 let gtinoptions=[]
 var v=""
+var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
 // function getGtinforeignData(){
 //     axios
 //     .get("http://127.0.0.1:8000/master/product/")
@@ -63,7 +66,7 @@ var v=""
 
 function getEditData(){
 axios
-.get("http://localhost:8000//master/gtin/"+uniqueID)
+.get(window.url+"/master/gtin/"+uniqueID)
 .then((res)=>{
     // alert(res.data[0].snnumbers)
 //     gtinoptions.map((temp)=>{
@@ -83,7 +86,7 @@ axios
 
 function getGtinforeignData(gtinparams){
     axios
-    .get("http://127.0.0.1:8000//master/product/")
+    .get(window.url+"/master/product/")
     .then((res)=>{
     res.data.map(data =>{
     gtinoptions.push({value:data.id,label:data.gtin_number})
@@ -95,7 +98,7 @@ setGtin(gtinoptions)
 
 function getGtinselectedData(gtinparams){
     axios
-    .get("http://127.0.0.1:8000//master/product/")
+    .get(window.url+"/master/product/")
     .then((res)=>{
     res.data.map(data =>{
         if(data.id==gtinparams){
@@ -130,25 +133,26 @@ const getGtin = event =>{
 
 if(operation=="edit"){
     var headwidget=
-    <Box
-      sx={{
-        width: 500,
-        maxWidth: '100%',
+    // <Box
+    //   sx={{
+    //     width: 500,
+    //     maxWidth: '100%',
                   
                   
-        }}
-      >
+    //     }}
+    //   >
       <Controls.Input 
                   disabled
-                  fullWidth
+                  // fullWidth
             
                   id="outlined-Company Prefix"
+                  value={loggedInUsername}
                   // label={<Typography>Customer  Create</Typography>}
-                  label={<span ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">    Edit Gtin Data </font></h4></pre></span>}
+                  // label={<span ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">    Edit Gtin Data </font></h4></pre></span>}
                 
 
       />
-    </Box>
+    // </Box>
   
 //var gtinfield= <Select className="s" onChange={getGtin} options={gtin}  /> 
 var gtinfield=
@@ -216,7 +220,7 @@ const handleSubmit =(e)=>{
     // alert(gtinlabel)
           axios
          
-          .put(`http://127.0.0.1:8000/master/gtin/update/${uniqueID}`,
+          .put(window.url+`/master/gtin/update/${uniqueID}`,
           {
                     "gtin":gtin,
                     "available_quantity":availablequantity,
@@ -231,94 +235,56 @@ const handleSubmit =(e)=>{
   return (
                     <>
                    
-                   <br></br>
-                   <br></br>
-                   <br></br>
-                   <br></br>
-    <div class="container-fluid">
-              <div class="card shadow mb-4" id="gtincreatefullcard"> 
-                  <div class="card-header py-3" id="gtincreatecardhead">
-                      <div className='row'>
-                          <div className='col-10' id="gtincreatehead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
-                  <button className="btn btn-info">Gtin Could Not Be Edit</button>                        
-                  <div class="card-body">  
-                  
-   
-                  
-    {/* <div id="locationhead">
-    {headwidget}
-    </div>
-    <br></br> */}
-    
-    <Box id="gtincreatebox"
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <br></br>
-      
-      <div>
-             
-        
-         {gtinfield}
-         
-        
-        
-         {availablefield}
-         
-<div>
-{minimumfield}
-          {renewalfield}
-</div>
-          
-            
-          <div id="gtineditbutton">
+                   <br/><br/><br/><br/><br/><br/><br/>
 
-        
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-            </button>
-           
-            
-
-            
-          </div>
-
-          <div >
-          
-          <br></br>
-          
-        <div className="col-1">
-            
-        </div>
-          
-      </div>
-
-      <div>
-      
-
-    </div>              
  
 
+<Box
+component="form"
+sx={{
+  '& .MuiTextField-root': { m: 4, width: '25' },
+}}
+noValidate
+autoComplete="off"
+>
+ 
+<div style={{backgroundColor:"#AAF0D1"}} >
+<h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">  Edit Gtin Data</font></h4></center></h4>            
+{gtinfield}
+     
+{availablefield}
+{headwidget}
+<br/>
+{minimumfield}
+{renewalfield}
+
+
+
+ 
+
+
+<div className="row">
+  <div className="col-4">
+ 
   </div>
-  <div>
-      
+  <div className="col-4">
+  <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={handleSubmit} >
+                Save data
+            </button>
+  </div>
+  <div className="col-4">
+  </div>
+ 
+
 </div>
-      
-    </Box> 
-    <hr></hr>    
-                  </div>
-              </div>
-          </div>   
+  
+ 
+</div>
+
+</Box>
                    </>
   )
 }

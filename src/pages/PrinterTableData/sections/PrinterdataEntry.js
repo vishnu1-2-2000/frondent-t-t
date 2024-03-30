@@ -23,29 +23,36 @@ import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import * as  FcDownload from "react-icons/fc";
+import Tooltip from '@mui/material/Tooltip';
+
 function PrinterdataEntry() {
 
   const[id,setId]=useState("");
- const[processordernumber,setProcessOrderNumber]=useState([]);
- const[gtin,setGtin] =useState("");
- const[gtinvalue,setGtinvalue]=useState("");
- const[gtinlabel,setGtinlabel]=useState("");
- const[expiration_date,setExp] =useState("");
- const[lot,setLot]=useState("");
- const[numbers,setNumbers]=useState("");
- const[po,setpo]=useState("");
- const[polabel,setPolabel]=useState("");
- const[type,setType]=useState("");
- const[hrf,setHrf]=useState("");
- const[hrf1,setHrf1]=useState("");
- const[hrf1value,setHrf1value]=useState("")
- const[warningmessage,setWaringmessage]=useState("");
- const[processno,setProcessno]=useState("");
-const { operation } = useParams();
-const { uniqueID } = useParams();
+  const[processordernumber,setProcessOrderNumber]=useState([]);
+  const[gtin,setGtin] =useState("");
+  const[gtinvalue,setGtinvalue]=useState("");
+  const[gtinlabel,setGtinlabel]=useState("");
+  const[expiration_date,setExp] =useState("");
+  const[lot,setLot]=useState("");
+  const[numbers,setNumbers]=useState("");
+  const[po,setpo]=useState("");
+  const[polabel,setPolabel]=useState("");
+  const[type,setType]=useState("");
+  const[hrf,setHrf]=useState("");
+  const[hrf1,setHrf1]=useState("");
+  const[hrf1value,setHrf1value]=useState("")
+
+  const[ponumber,setPonumber]=useState("");
+
+  const[line,setLine]=useState("");
+  const[warningmessage,setWaringmessage]=useState("");
+  const[processno,setProcessno]=useState("");
+  const { operation } = useParams();
+  const { uniqueID } = useParams();
 
 const navigate=useNavigate();
-
+var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')  
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;   
 const MenuProps = {
@@ -65,7 +72,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
  
  function getProductionorder() {
   axios
-  .get("http://127.0.0.1:8000/master/productionorder/")
+  .get(window.url+"/master/productionorder/")
   
   .then((res) => {
     // let batchNumberOptionsInitial = "";
@@ -99,15 +106,15 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
 //   });
 // }
 
-
 function getData(){
-                    
+  //  alert(po)                 
   axios
-  .get("http://127.0.0.1:8000/master/productionorder/"+po+"/")
+  .get(window.url+"/master/productionorderidinprintertable/"+ponumber+"/")
   .then((res2)=>{
+    
   // var jsonobject=JSON.parse(res2.data[0].hrf)
                   
-  //  alert(res2.data[0].expiration_date)
+   alert(res2.data[0].expiration_date)
   //                 setHrf1(jsonobject.hrf1);
   //                 setHrf1value(jsonobject.hrf1value)
 
@@ -116,95 +123,105 @@ function getData(){
       setHrf(res2.data[0].hrf)
       setType(res2.data[0].type)
       setGtin(res2.data[0].gtin_number)
+      setLine(res2.data[0].line)
 
   }) 
   warningDIV =  <div className="alert alert-success pt-4" role="alert">
-<h5>Production order fetched from Productionorder table successfully</h5>
-</div>
+  <h5>Production Order Fetched  Successfully</h5>
+  </div>
 
-setWaringmessage(warningDIV);               
-}
-useEffect(()=>{
-   
- 
-  // getGtin();
-  getProductionorder();
+    setWaringmessage(warningDIV);               
+        }
+    useEffect(()=>{
+      // getGtin();
+      
+        getProductionorder();
                      
-  },[])
+      },[])
 
-  const productionorderevent=event =>{
+  // const productionorderevent=event =>{
+  //   setProcessno(event.value);
+  //   setpo(event.value);
+  //   setPolabel(event.label);
+  // }
+  const setPonumber1=event =>{
+alert(event.target.value)
     setProcessno(event.target.value);
-    setpo(event.target.value);
-    setPolabel(event.target.label);
+    setpo(event.value);
+    setPolabel(event.label);
   }
 
   
   var headwidget=
-    <Box
-        component="form"
-        sx={{
-          width: 500,
-          maxWidth: '100%',
-          
-          
-        }}
-        noValidate
-        autoComplete="off"
-  ><Controls.Input 
+    <Controls.Input 
     disabled
     // fullWidth
-    
+    value={loggedInUsername}
           id="outlined-Company Prefix"
-          label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                                   Create Printer Data </font></h4></pre></h4>}
+          //label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                                   Create Printer Data </font></h4></pre></h4>}
          
    
  />
- </Box>
+ 
    var powidget=  
-    // <Select className="s" onChange={getmanlocation} options={manufactureLocationOptionsNew} /> 
-    <Box sx={{  }}>
+   <TextField required
+            label="Enter Production Order"
+            id="outline-Enter Production Order"
 
-                          <FormControl >
-                          <InputLabel id="demo-simple-select-label">Production Order</InputLabel>
-                          <NativeSelect 
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          input={<OutlinedInput label="Production Order" />}
-                          MenuProps={MenuProps}
-                          style={{width:'220px'}}
-                          label="Production Order"
-                          onChange={ productionorderevent}
-                          ><option>Select Production Order</option> 
-                          {processordernumber.map((data) => (
+            onChange={(e) => setPonumber(e.target.value)}
+    /> 
+    //  <Select className="s" onChange={productionorderevent} options={processordernumber} /> 
+    // <Box sx={{  }}>
+
+    //     <FormControl >
+    //       <InputLabel id="demo-simple-select-label">Production Order</InputLabel>
+    //         <NativeSelect 
+    //           labelId="demo-simple-select-label"
+    //           id="demo-simple-select"
+    //           input={<OutlinedInput label="Production Order" />}
+    //           MenuProps={MenuProps}
+    //           style={{width:'220px'}}
+    //           label="Production Order"
+    //           onChange={ productionorderevent}
+    //           ><option>Select Production Order</option> 
+    //           {processordernumber.map((data) => (
                 
                 
-                          <option key={data.label} value={data.value}>
+    //           <option key={data.label} value={data.value}>
                 
-                          {data.label}
+    //               {data.label}
                 
-                          </option>
+    //           </option>
                 
-                          ))}
-                          </NativeSelect>
-                          </FormControl>
-                          </Box>
-var fetchwidget=  <button className="btn btn-info"
+    //       ))}
+    //     </NativeSelect>
+    //   </FormControl>
+    // </Box>
+
+  var fetchwidget=  <button className="btn btn-info"
     onClick={() => getData()}>
     <FcDownload.FcDownload size={20} />
-</button> 
-    var expwidget=
+  </button> 
+
+  var expwidget=
               <TextField required
                   label="Expiration Date"
                   id="outline-Experi"
                   value={expiration_date}
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   onChange={(e) => setExp(e.target.value)}
               /> 
                         // var hjwidget=<label className="form-label">Batch Number</label> 
-      var lotwidget=
+  var lotwidget=
               <TextField required
               label="Lot Number"
               id="outline-Lot Number"
               value={lot}
+              InputProps={{
+                readOnly: true,
+              }}
               onChange={(e) => setLot(e.target.value)}
           /> 
                     
@@ -213,68 +230,137 @@ var fetchwidget=  <button className="btn btn-info"
                 label="Gtin"
                 id="outline-gtin"
                 value={gtin}
+                InputProps={{
+                  readOnly: true,
+                }}
                 onChange={(e) => setGtin(e.target.value)}
             /> 
 
-var typewidget = 
+  var typewidget = 
             <TextField required
             label="Type"
             id="outline-type"
             value={type}
+            InputProps={{
+              readOnly: true,
+            }}
             onChange={(e) => setType(e.target.value)}
            /> 
         
-var serialnowidget = <input 
-                    type="text"
-                    className="form-control"
-                    value={numbers}
-                    onChange={(e) => setNumbers(e.target.value)}
-/>
- 
- const handleSubmit=(e)=>{
-  e.preventDefault(); 
-  //alert(po)
-  if(operation === 'new') {
-      alert(processno)
-  axios
+  var serialnowidget = <input 
+                        type="text"
+                        className="form-control"
+                        value={numbers}
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        onChange={(e) => setNumbers(e.target.value)}
+                      />
+
+  // var linewidget = <input 
+  //                     type="text"
+  //                     className="form-control"
+  //                     value={line}
+  //                     onChange={(e) => setLine(e.target.value)}
+                      
+  //                   />                                            
+  var linewidget =  <TextField required
+                        label="IpAddress"
+                        id="outline-ipaddress"
+                        value={line}
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        onChange={(e) => setLine(e.target.value)}
+                      />  
+    const handleSubmit=(e)=>{
+          e.preventDefault(); 
+  //         var testPassed = "false";
+
+  //         if(type== "type5" || type== "type1"){
+  //           {
+  //             if()
+  //           }
+  //         testPassed = "true";
+      
+  //         }
+  //         else {
+  //         warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+  //           <h5>Input process order number</h5>
+      
+          
+  //         </div>
+  //         setWaringmessage(warningDIV)
+  //         testPassed = "false";
+  //         }
+  // //alert(po)
+          if(operation === 'new') {
+  //           if(type== "type5" || type== "type1")
+  //           {
+
+  //           }
+      alert(ponumber)
+          axios
   
-  .post("http://127.0.0.1:8000/master/printer/",
+              .post(window.url+"/master/printer/",
   
-  {
-              "processordernumber":po,
+            {
+              "processordernumber":ponumber,
               "lot":lot,
               "gtin":gtin,
               "expiration_date" :expiration_date,
               "numbers":"numbers" ,   
-              "type" :type 
-  })
+              "type" :type,
+              "ip_address":line,
+            
+
+            })
   
-  .then((res2) => {
-      //alert("hi")
-      //alert(res2.data.lot);
-      if(res2.data.processordernumber == "printerdata table with this processordernumber already exists."){
-          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+      .then((res2) => {
+      // alert(res2.data)
+      if (res2.data === 400){
+       
+        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+        <h5>Please Add HRF In The ProductionOrder.This Type Is Allocated To HRF</h5>
+      </div>
+
+        setWaringmessage(warningDIV) 
+
+      }
+          else if(res2.data.processordernumber == "printerdata table with this processordernumber already exists."){
+                  warningDIV =  <div className="alert alert-danger pt-4" role="alert">
                             <h5>Process order already downloaded, try another process order</h5>
                           </div>
   
-        setWaringmessage(warningDIV)                         
+            setWaringmessage(warningDIV)                         
         }
   
-      else if(res2.data.gtin == "printerdata table with this gtin already exists."){
-          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+          else if(res2.data.gtin == "printerdata table with this gtin already exists."){
+              warningDIV =  <div className="alert alert-danger pt-4" role="alert">
                             <h5>Gtin Already Downloaded Try Another Gtin</h5>
                           </div>
   
-        setWaringmessage(warningDIV)                         
+          setWaringmessage(warningDIV)                         
         }
+        else if(res2.data === 500){
+          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                        <h5>No Serialnumbers Available For Printing.Please Download Serial Numbers.</h5>
+                      </div>
+
+      setWaringmessage(warningDIV)                         
+    }
+
+  else{
+    navigate("/productionorder");
+  }
   
-  
-        else{
-        navigate("/productionorder");
-        }
+      
+           
+    
       });
+     
   
-   }
+    }
   
   }
   
@@ -282,102 +368,88 @@ var serialnowidget = <input
                
   return (
     <>
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
-<div class="container-fluid">
-<div class="card shadow mb-4" id="printerfullcard"> 
-   <div class="card-header py-3" id="printercardhead">
-       <div className='row'>
-           <div className='col-10' id="printerhead">
-           {headwidget}
-           </div>
-       </div>
-      
-   </div>
-   <br></br>
-   <Link to="/printerpool">
-                      &nbsp; &nbsp;  <button className="btn btn-primary">Show Data</button>
-                    </Link>
-   <div class="card-body">  
+                      
+                      <br/>        <br/>        
+           {warningmessage} 
+          
+
+           <div class="container" style={{display:"flexbox"}}>  
+           
+  <div className="row">
+   
+  <div className="col-4"></div>
+            <div className="col-4"><br/>
+            <h4 ><h4 style={{color:"black"}}><font face="times new roman" size="6">Printer Data Entry </font></h4></h4><br/>                 
+             {powidget}&nbsp;&nbsp;&nbsp;
+             {fetchwidget} 
+              </div>
+            {/* <div className="col-2"><br/> 
+            
+              
+            </div>
+            <div className="col-2"><br/>  */}
+          
+              
+            {/* </div> */}
+            </div>
   
+   <Link to="/printerpool">
+           &nbsp; &nbsp;  <button className="btn btn-info">Show Data</button>
+    </Link>
+    <br/> <br/> 
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 4, width: '25' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+     
+       
+      <div style={{backgroundColor:"#AAF0D1",alignContent:"flex-end"}} >
+     
+      &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{gtinwidget}&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{expwidget}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{lotwidget}
+    
+    <br/>
+    &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{typewidget}&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{linewidget}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{headwidget}
 
 
-{/* <div id="locationhead">
-{headwidget}
-</div>
-<br></br> */}
-
-                <div id="gtincreatebox"
-                component="form"
-                sx={{
-                '& .MuiTextField-root': { m: 2, width: '25ch' },
-                }}
-                noValidate
-                autoComplete="off"
-                >
-                <br></br>
-                <div>
-                {warningmessage}
-                <div id="gtincreateselectbox">
-                {powidget}
-
-                </div>
-                <br></br>
-                <div id="fetchbutton">
-                {fetchwidget}
-                </div>
-                <br></br>
-                <br></br> &nbsp;&nbsp;&nbsp;
-
-
-                {gtinwidget}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
-                {expwidget} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {lotwidget}
-
-                <div id="printbutton">
-
-
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                    
-                </button>
-
-
-
-
-
-                </div>
-
-                <div >
-
-                <br></br>
-
-                <div  id="printype">
-                {typewidget}
-                </div>
-
-                </div>
-
-                <div>
-
-
-                </div>              
-
-
-                </div>
-                <div>
-
-                </div>
-
-                </div> 
-                <hr></hr>    
-                </div>
-                </div>
-                </div>  
-                </> 
+       
+      
+      
+      <div className="row">
+        <div className="col-4">
+       
+        </div>
+        <div className="col-4">
+          <center>
+          <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button>
+          </center>
+        
+        </div>
+        <div className="col-4">
+        </div>
+       
+       
+      
+      </div>
+        
+       
+      </div>
+     
+    </Box>
+    
+    
+    </div>
+    </> 
   )
 }
 
 export default PrinterdataEntry
+

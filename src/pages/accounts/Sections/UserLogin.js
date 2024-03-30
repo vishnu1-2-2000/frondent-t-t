@@ -115,7 +115,7 @@ const UserLogin = () => {
     
 
       axios
-      .post('http://192.168.200.131:8000/accounts/logInController', 
+      .post(window.url+'/accounts/logInController', 
       {
         "username": username,    
         "password": password, 

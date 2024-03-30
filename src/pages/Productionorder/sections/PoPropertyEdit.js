@@ -16,51 +16,52 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Tooltip from '@mui/material/Tooltip';
 function PoPropertyEdit() {
 
-const [id, setId] = useState(0);
-const [genericname,setGenericname]= useState("");
-const [composition,setComposition]= useState("");
-const [usage,setUsage]= useState("");
-const [remark,setRemark]= useState("");
-const [productimage,setProductImage]= useState("");
-const [scheduled ,setScheduled ] = useState("2017-5-2");
-const [productionOrderEditID, setProductionOrderEditID] = useState();
+  const [id, setId] = useState(0);
+  const [genericname,setGenericname]= useState("");
+  const [composition,setComposition]= useState("");
+  const [usage,setUsage]= useState("");
+  const [remark,setRemark]= useState("");
+  const [productimage,setProductImage]= useState("");
+  const [scheduled ,setScheduled ] = useState();
+  const [productionOrderEditID, setProductionOrderEditID] = useState();
                     ///   For navigate function
-const navigate = useNavigate();
-var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+  const navigate = useNavigate();
+  var loggedInUsername=window.localStorage.getItem('loggedInUsername')
 
-var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')               
+  var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')               
                     ////    for receiving the parameters from URL
-const { uniqueID } = useParams();
-                    var username = window.localStorage.getItem('username')
-                    var password = window.localStorage.getItem('password')
-                    var currentUserrole = window.localStorage.getItem('userrole')
+    const { uniqueID } = useParams();
+    var username = window.localStorage.getItem('username')
+    var password = window.localStorage.getItem('password')
+    var currentUserrole = window.localStorage.getItem('userrole')
                     ////  Fetch data from local storage
                   
-                    const ITEM_HEIGHT = 48;
-                    const ITEM_PADDING_TOP = 8;   
-                    const MenuProps = {
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;   
+    const MenuProps = {
                       PaperProps: {
                         style: {
                           maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
                           width: 550,
                         },
                       },
-                    };                    
+                };                    
                   
-useEffect(() => {
+    useEffect(() => {
                       //setScheduled("2017-06-01");
                       //alert(window.localStorage.getItem("productionOrderEditID"));
         getProductOrderPropertyEditRequestData();       
-}, []);
+  }, []);
                         
-function getProductOrderPropertyEditRequestData() {
+  function getProductOrderPropertyEditRequestData() {
                       //var productionOrderEditID = window.localStorage.getItem("productionOrderEditID");
                       //alert(uniqueID);
                   
     axios
-       .get("http://127.0.0.1:8000/master/poproperty/"+uniqueID+"/",
+       .get(window.url+"/master/poproperty/"+uniqueID+"/",
                      
                     )
                     .then((res2) => {
@@ -74,35 +75,26 @@ function getProductOrderPropertyEditRequestData() {
                         //   setScheduled("2011-11-11");
                         // }
                         // else {
-setScheduled(res2.data[0].scheduled); 
-                        // }
-setGenericname(res2.data[0].generic_name);
-setComposition(res2.data[0].composition);
-setUsage(res2.data[0].usage);
-setRemark(res2.data[0].remark);
-  });
-    }
+      setScheduled(res2.data[0].scheduled); 
+                            // }
+      setGenericname(res2.data[0].generic_name);
+      setComposition(res2.data[0].composition);
+      setUsage(res2.data[0].usage);
+      setRemark(res2.data[0].remark);
+    });
+  }
     var headwidget=
-    <Box
-    component="form"
-    sx={{
-      width: 500,
-      maxWidth: '100%',
-      
-      
-    }}
-      noValidate
-      autoComplete="off"
-  ><Controls.Input 
-    disabled
-    fullWidth
-    
-    id="outlined-Company Prefix"
-    label={<h4 ><pre><h4 style={{color:"white"}}>  <font face="times new roman" size="6">      Enter Productionorder  Property </font></h4></pre></h4>}
-  />
-  </Box>
+     <Controls.Input 
+        disabled
+        // fullWidth
+        
+        id="outlined-Company Prefix"
+        value={loggedInUsername}
+        // label={<h4 ><pre><h4 style={{color:"white"}}>  <font face="times new roman" size="6">      Enter Productionorder  Property </font></h4></pre></h4>}
+      />
+ 
 
-var genericnameWidget =
+  var genericnameWidget =
                   // <input
                   //   type="text"
                   //   className="form-control"
@@ -110,11 +102,11 @@ var genericnameWidget =
                   //   onChange={(e) => setGenericname(e.target.value)}
                   //     />
                     <TextField required
-                      label="GenricName"
-                      id="outline-genericname"
-                      value={genericname}
-                      onChange={(e) => setGenericname(e.target.value)}
-                      />        
+                        label="GenricName"
+                        id="outline-genericname"
+                        value={genericname}
+                        onChange={(e) => setGenericname(e.target.value)}
+                    />        
                       
 var compositionWidget =
                   // <input
@@ -124,10 +116,10 @@ var compositionWidget =
                   //   onChange={(e) => setComposition(e.target.value)}
                   //   />
                     <TextField required
-                    label="Composition"
-                    id="outline-composition"
-                    value={composition}
-                    onChange={(e) => setComposition(e.target.value)}
+                      label="Composition"
+                      id="outline-composition"
+                      value={composition}
+                      onChange={(e) => setComposition(e.target.value)}
                     />   
 var scheduledWidget =
                 // <input
@@ -137,13 +129,16 @@ var scheduledWidget =
                 //     onChange={(e) => setScheduled(e.target.value)}
                 //     />
 
-                <TextField required
+                  <TextField required
                     label="Scheduled"
-                  
+                    type="date"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
                     id="outline-scheduled"
                     value={scheduled}
                     onChange={(e) => setScheduled(e.target.value)}
-                    />   
+                  />   
 var usageWidget =
                   // <input
                   //   type="text"
@@ -152,10 +147,10 @@ var usageWidget =
                   //   onChange={(e) => setUsage(e.target.value)}
                   //   />
                     <TextField required
-                    label="Usage"
-                    id="outline-usage"
-                    value={usage}
-                    onChange={(e) => setUsage(e.target.value)}
+                      label="Usage"
+                      id="outline-usage"
+                      value={usage}
+                      onChange={(e) => setUsage(e.target.value)}
                     />  
 var remarkWidget = 
                   // <input
@@ -166,10 +161,10 @@ var remarkWidget =
                   //   />
 
                     <TextField required
-                    label="Remark"
-                    id="outline-remark"
-                    value={remark}
-                    onChange={(e) => setRemark(e.target.value)}
+                      label="Remark"
+                      id="outline-remark"
+                      value={remark}
+                      onChange={(e) => setRemark(e.target.value)}
                     />  
 var productimageWidget =  
                   // <input
@@ -179,10 +174,10 @@ var productimageWidget =
                   //   onChange={(e) => setProductImage(e.target.value)}
                   //   />
                     <TextField required
-                    label="Product Image"
-                    id="outline-productimage"
-                    value={productimage}
-                    onChange={(e) => setProductImage(e.target.value)}
+                        label="Product Image"
+                        id="outline-productimage"
+                        value={productimage}
+                        onChange={(e) => setProductImage(e.target.value)}
                     />  
                       
 const handleSubmit = (e) => {
@@ -191,12 +186,12 @@ const handleSubmit = (e) => {
                           //  alert(productionOrderEditID);
                     e.preventDefault();
                     console.log("clicked");
-                    if(scheduled == "Invalid date") {
-                    setScheduled("2017-06-01");
-                          }
+                    // if(scheduled == "Invalid date") {
+                    // setScheduled("2017-06-01");
+                    //       }
                           // alert(productionOrderEditID);
                     axios
-                          .put('http://127.0.0.1:8000/master/poproperty/update/'+uniqueID, 
+                          .put(window.url+'/master/poproperty/update/'+uniqueID, 
                           {
                             "generic_name":genericname, 
                             "composition":composition, 
@@ -206,7 +201,8 @@ const handleSubmit = (e) => {
                             "product_image": productimage,
                             "loggedInUsername":loggedInUsername,
 
-                            "loggedInUserrole":loggedInUserrole, 
+                            "loggedInUserrole":loggedInUserrole,
+                            "uniqueid" :uniqueID
                             
                           
                           
@@ -222,61 +218,64 @@ const handleSubmit = (e) => {
                       }             
 return (
   <>                                    
-  <br></br>
-  <br></br>
-   
-   <div class="container-fluid">
-             <div class="card shadow mb-4" id="customerfullcard"> 
-                 <div class="card-header py-3" id="customercardhead">
-                     <div className='row'>
-                         <div className='col-10' id="locationhead">
-                         {headwidget}
-                         </div>
-                     </div>
-                                                     
-                 </div>
-
-                 <div class="card-body">  
-                 <br></br>
-   
-  <Box 
-        component="form"
-        sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-  >
-
-     <div className="container" id="locationpropertybox" >
-        <div className="row">
-           <div className="col-4">
-           {genericnameWidget}
+       <br/>        <br/>        <br/>   <br/> 
+           {/* {warningmessage}         */}
+        
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 4, width: '25' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+       
+      <div style={{backgroundColor:"#AAF0D1"}} >
+      <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Enter Productionorder  Properties</font></h4></center></h4>            
+        
+      {genericnameWidget}
            {compositionWidget}
                 
-             
-           </div>
-           <div className="col-4">
+       
            {scheduledWidget}
            {usageWidget}
-           </div>
-           <div className="col-2">
+           <br/>
+          
            {remarkWidget}
            {productimageWidget}
-           </div>
-           <div className="col-4" id="locationpropertybutton" >
-          
-              <button  onClick={handleSubmit}><MdOutlineSave size={38}/>                                                
-              </button>
-           </div>
+
+
+       
+      
+        {headwidget}
+      <div className="row">
+        <div className="col-4">
+       
         </div>
-     </div>
- </Box>
- </div>
-             </div>
-         </div>   
-   <hr></hr>  
-            
+        <div className="col-4">
+        <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button>
+        </div>
+        <div className="col-4">
+        </div>
+        {/* <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button> */}
+       
+      
+      </div>
+        
+       
+      </div>
+     
+    </Box>
 </>
          )
 }

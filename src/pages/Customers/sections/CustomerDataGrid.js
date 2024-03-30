@@ -11,27 +11,31 @@ import { tokens } from "../../../theme";
 import * as  MdIcons from "react-icons/md";
 import { FaLink } from 'react-icons/fa';
 
+import {AiFillFile} from 'react-icons/ai'
+
+
 const CustomerDataGrid=(props)=>{
-              const theme = useTheme();
-              const colors = tokens(theme.palette.mode);
-                    const [data, setData] = useState([]);
-                    const [tabledark, setTableDark] = useState("");
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const [data, setData] = useState([]);
+  const [tabledark, setTableDark] = useState("");
                   
-                    const [userDataRows, setUserDataRows] = useState([]);
-                    const [selectedDIV_state, setSelectedDIV_state] = useState("");
-                    ///   For navigate function
-                    const navigate = useNavigate();
+  const [userDataRows, setUserDataRows] = useState([]);
+  const [selectedDIV_state, setSelectedDIV_state] = useState("");
+  ///   For navigate function
+  const navigate = useNavigate();
                   
-                    function logout() {
+  function logout() {
                       window.localStorage.removeItem("username");
                       window.localStorage.removeItem("password");
                   
                       navigate("/account/login");
                     }
                   
-                    var username = window.localStorage.getItem('username')
-                    var password = window.localStorage.getItem('password')
-                    var currentUserrole = window.localStorage.getItem('userrole')
+    var username = window.localStorage.getItem('username')
+    var password = window.localStorage.getItem('password')
+    var currentUserrole = window.localStorage.getItem('userrole')
                     //alert(window.localStorage.getItem('password'));
                   
                   
@@ -52,17 +56,17 @@ const CustomerDataGrid=(props)=>{
                     //     });
                     // }
                   
-                    const setToLocalStorage = (id,name,company_prefix,company_gln,address,zip, created_by) => {
-                      localStorage.setItem("id", id);
-                      localStorage.setItem("name", name);
-                      localStorage.setItem("company_prefix", company_prefix);
-                      localStorage.setItem("company_gln", company_gln);
-                      localStorage.setItem("address", address);
-                      localStorage.setItem("zip", zip);
-                      localStorage.setItem("created_by", created_by);
-                    };
+    const setToLocalStorage = (id,name,company_prefix,company_gln,address,zip, created_by) => {
+          localStorage.setItem("id", id);
+          localStorage.setItem("name", name);
+          localStorage.setItem("company_prefix", company_prefix);
+          localStorage.setItem("company_gln", company_gln);
+          localStorage.setItem("address", address);
+          localStorage.setItem("zip", zip);
+          localStorage.setItem("created_by", created_by);
+    };
                   
-                    let userDataColumns = [
+    let userDataColumns = [
                       { field: 'id', headerName: 'Id', width: 100,headerClassName: "MuiDataGrid-columnHeaders", },
                       { field: 'name', headerName: 'Name', width: 120,headerClassName: "MuiDataGrid-columnHeaders", },
                       { field: 'country', headerName: 'Country', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
@@ -111,7 +115,7 @@ const CustomerDataGrid=(props)=>{
                             //return alert(JSON.stringify(thisRow, null, 4));
                           };
                     
-                          const api2: GridApi = params.api;
+          const api2: GridApi = params.api;
           const thisRow2: Record<string, GridCellValue> = {};
   
           api2
@@ -172,10 +176,11 @@ const CustomerDataGrid=(props)=>{
                                         )
               if (confirmBox === true) {
                     axios
-                    .delete(`http://localhost:8000/master/customer/delete/${thisRow.id}`,
+                    .delete(window.url+`/master/customer/trash/${thisRow.id}`,
                     {
                     data: { 
-                      "Name" : thisRow.name,
+                      "id":thisRow.id,
+                      "name" : thisRow.name,
                     "email" : thisRow.email,
                     "userRole" : thisRow.userRole,
                     "loggedInUsername": window.localStorage.getItem('loggedInUsername'),
@@ -192,14 +197,14 @@ const CustomerDataGrid=(props)=>{
                                             
                                   
            };
-    const api2: GridApi = params.api;
-    const thisRow2: Record<string, GridCellValue> = {};
-          api2
-          .getAllColumns()
-          .filter((c)=>c.field!=='__check__'&&!!c)
-          .forEach(
-            (c)=>(thisRow2[c.field]=params.getValue(params.id,c.field)),
-          );
+          const api2: GridApi = params.api;
+          const thisRow2: Record<string, GridCellValue> = {};
+            api2
+              .getAllColumns()
+                .filter((c)=>c.field!=='__check__'&&!!c)
+                  .forEach(
+                  (c)=>(thisRow2[c.field]=params.getValue(params.id,c.field)),
+              );
   
         if(props.deleteButtonStatus === "enabled" ) {
           return <button
@@ -214,6 +219,66 @@ const CustomerDataGrid=(props)=>{
         }
                         },
                       },
+
+
+                      {
+                        field: 'Properties',
+                        headerName: 'Properties',
+                        headerClassName: "MuiDataGrid-columnHeaders",
+                        sortable: false,
+                        renderCell: (params) => {
+                          const onClick = (e) => {
+                            e.stopPropagation(); // don't select this row after clicking
+                      
+                            const api: GridApi = params.api;
+                            const thisRow: Record<string, GridCellValue> = {};
+                      
+                            api
+                              .getAllColumns()
+                              .filter((c) => c.field !== '__check__' && !!c)
+                              .forEach(
+                                (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
+                              );
+                            //alert(thisRow.id);
+                      
+                            // window.localStorage.setItem("productionOrderEditID", thisRow.id);
+                      
+                            // navigate("/po/pocreate/edit");
+                            navigate("/customer/properties/"+thisRow.id);
+                      
+                           
+                          };
+                      
+                          const api2: GridApi = params.api;
+                          const thisRow2: Record<string, GridCellValue> = {};
+                      
+                          api2
+                            .getAllColumns()
+                            .filter((c) => c.field !== '__check__' && !!c)
+                            .forEach(
+                              (c) => (thisRow2[c.field] = params.getValue(params.id, c.field)),
+                            );
+                      
+                            
+                              if(props.editButtonStatus === "enabled" ) {
+                                return <button
+                                  className="btn btn-info" 
+                                 
+                                  onClick={onClick}>   <AiFillFile size={23}/> </button>;
+                              }
+                              else if(props.editButtonStatus === "disabled") {
+                                return <button
+                                  className="btn btn-info" 
+                                  disabled = "true"
+                                  onClick={onClick}><AiFillFile size={23}/></button>;
+                              }
+                      
+                          //alert(currentUserrole);
+                      
+                      
+                          
+                        },
+                      },          
 
                       {
                         field: 'Tracelink Settings',
@@ -258,7 +323,7 @@ const CustomerDataGrid=(props)=>{
                                 return <button
                                   className="btn btn-primary" 
                                  
-                                  onClick={onClick}>   <FaLink size={23}/> </button>;
+                                  onClick={onClick}><FaLink size={23}/> </button>;
                               }
                               else if(props.editButtonStatus === "disabled") {
                                 return <button
@@ -276,7 +341,7 @@ const CustomerDataGrid=(props)=>{
                     ];  
                   
                   
-                    function createRows(rowDatas) {
+    function createRows(rowDatas) {
                       //alert(rowDatas.length);
                   
                       let editButton = <button></button>;
@@ -284,6 +349,7 @@ const CustomerDataGrid=(props)=>{
                       let tempstatus
                   
                       rowDatas.map(rowData => {
+                        if(rowData.customerflag==false){
                         //alert(rowData.id);
                        if(rowData.status==true){
                         tempstatus="Confirmed"
@@ -295,9 +361,9 @@ const CustomerDataGrid=(props)=>{
                         'address':rowData.address,'zip':rowData.zip,
                         'created_by':rowData.created_by,'group':rowData.group,'status':tempstatus},)  
                         
-                  
+                       }
                       })
-                      setSelectedDIV_state(<div>
+                        setSelectedDIV_state(<div>
                          {/* <div class=""  > 
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Customers</h6>                         
@@ -316,21 +382,13 @@ const CustomerDataGrid=(props)=>{
                     // </div>
                     )
 
-                    }
+                }
                   
-                    function getData() {
+    function getData() {
                       //alert("anu");
                       axios
-                        .get("http://127.0.0.1:8000/master/customer/",
-                          {
-                            // auth: {
-                            //   username: username,
-                            //   password: password
-                            // }
-                          },
-                          {
-                            'param': 'anu' 
-                          }
+                        .get(window.url+"/master/customer/",
+                          
                         )
                         .then((res) => {
                           //alert(res.data.length);
@@ -339,9 +397,9 @@ const CustomerDataGrid=(props)=>{
                         });
                     }
                   
-                    function handleDelete(id) {
+    function handleDelete(id) {
                       axios
-                        .delete(`http://localhost:8000/master/customer/delete/${id}`,
+                        .delete(window.url+`/master/customer/delete/${id}`,
                           {
                             // auth: {
                             //   username: username,
@@ -354,8 +412,8 @@ const CustomerDataGrid=(props)=>{
                         });
                     }
                   
-                    const navigateToCreatePage = () => {
-                      navigate("/customer/cuscreate/new/new");
+  const navigateToCreatePage = () => {
+                    navigate("/customer/cuscreate/new/new");
                     };
                   
                     useEffect(() => {
@@ -369,7 +427,7 @@ const CustomerDataGrid=(props)=>{
                       //alert("anu");
                     }, []);
                     
-                    function CustomToolbar() {
+    function CustomToolbar() {
                       return (
                         <GridToolbarContainer>
                           <GridToolbarColumnsButton />
@@ -378,11 +436,11 @@ const CustomerDataGrid=(props)=>{
                           <GridToolbarExport />
                         </GridToolbarContainer>
                       );
-                    }  
+                }  
                   
-                    return (
-                      <>
-                      <br></br>
+  return (
+            <>
+              <br></br>
               <br></br>
               <Box sx={{ display: 'flex' }}> 
           
@@ -445,14 +503,14 @@ const CustomerDataGrid=(props)=>{
     >
       
      {selectedDIV_state}
-      </Box>
-  </Box>
-                        </div>
-                        </div>
                   </Box>
-                  </Box>
-                      </>
-                    );
+                </Box>
+              </div>
+            </div>
+        </Box>
+    </Box>
+</>
+  );
 }
 
 export default CustomerDataGrid

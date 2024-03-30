@@ -37,34 +37,32 @@ const[eventLocation,setEventLocation]=useState("");
 const[itemAttribute,setItemattribute]=useState("");
 const[reasonDescription,setReasondescription]=useState("");
 
-                    
+const[destroyednumbrs,setDestroyednumbers]=useState("")
+
+var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')                  
                     
                     
 const { processnumber } = useParams();
+
 const [data, setData] = useState([]);
 const navigate = useNavigate();
                     
 var processno= processnumber
+
+
+
                     
 var headwidget=
-<Box
-component="form"
-sx={{
-  width: 500,
-  maxWidth: '100%',
-  
-  
-}}
-  noValidate
-  autoComplete="off"
-><Controls.Input 
-disabled
-fullWidth
 
+    <Controls.Input 
+disabled
+// fullWidth
+value={loggedInUsername}
 id="outlined-Company Prefix"
-label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                 Enter Destroyed  Data</font> </h4></pre></h4>}
+//label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                 Enter Destroyed  Data</font> </h4></pre></h4>}
 />
-</Box>
+
 
                     
 var filesendernumberFieldWidget = 
@@ -124,7 +122,9 @@ var filedateFieldWidget =
                                         type="date"
                                         label="File date"
                                         id="outline-File date"
-                      
+                                        InputLabelProps={{
+                                            shrink: true,
+                                         }}
                                         onChange={(e) => setFiledata(e.target.value)}
                                     />  
                                             
@@ -139,7 +139,9 @@ var filetimeFieldWidget =
                                         label="File Time"
                                         type="time"
                                         id="outline-File Time"
-                      
+                                        InputLabelProps={{
+                                            shrink: true,
+                                         }}
                                         onChange={(e) => setFiletime(e.target.value)}
                                     />  
 
@@ -171,7 +173,9 @@ var eventdatetimeFieldWidget =
                                         label="Event Date Time"
                                         
                                         id="outline-Serialnumbers"
-                      
+                                        InputLabelProps={{
+                                            shrink: true,
+                                         }}
                                         onChange={(e) => setEventdatetime(e.target.value)}
                                     />  
                     
@@ -187,7 +191,9 @@ var eventTimeZoneOffsetFieldWidget =
                                         label="EventTimeZoneOffset"
                                         type="time"
                                         id="outline-Serialnumbers"
-                      
+                                        InputLabelProps={{
+                                            shrink: true,
+                                         }}
                                         onChange={(e) => setEventTimeZoneOffset(e.target.value)}
                                     />  
                     
@@ -282,7 +288,7 @@ var reasondescriptionFieldWidget =
                     
                                         const handleSubmit= (e)=>{
                                                             e.preventDefault();
-                                                            // alert(serialnumbers)
+                                                           
                     
                                                             // axios
                                                             // .get("http://127.0.0.1:8000/master/downloadcodes/"+processno+"/",
@@ -336,101 +342,73 @@ var reasondescriptionFieldWidget =
                                                         
                       return (
                         <>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        <br></br>
-                        
-                        <div className="container">
-                         <Box sx={{ display: 'flex' }}>
-                                                     
-                                    <Sidebar/>
-                        
-                    
-                    <br></br>
-                    <div class="container-fluid" >
-                    <div class="card shadow mb-4" id="customerfullcard"> 
-                    <div class="card-header py-3" id="customercardhead">
-                    <div className='row'>
-                       <div className='col-10' id="customerhead">
-                       {headwidget}
-                       </div>
-                    </div>
-                                                   
-                    </div>
-                    
-                    <div class="card-body">  
-                  
-                    <br></br>
-                    
-                    {/* <div id="locationhead">
-                    {headwidget}
-                    </div>
-                    <br></br> */}
-                    
-                    <Box id="customerbox"
-                    component="form"
-                    sx={{
-                    '& .MuiTextField-root': { m: 2, width: '25ch' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                    >
-                    
-                    <br></br>
-                    <div>
-                    {filesendernumberFieldWidget}
+                        <br/>        <br/>        <br/>   <br/><br/><br/> <br/><br/>
+           {/* {warningmessage}         */}
+           <Box sx={{ display: 'flex' }}>
+           <Sidebar/>   
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 4, width: '25' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+       
+      <div style={{backgroundColor:"#AAF0D1"}} >
+      <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Enter Destroy  Data </font></h4></center></h4>            
+        
+      {filesendernumberFieldWidget}
                     
                     {filereceivernumberFieldWidget}
                     
                     {filecontrolnumberFieldWidget}
-                    
-                    <div id="shipmentxmlbutton">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                   
-                    </button>
-                    </div>
-                    <br></br>
-                   
-                    <div>
-                    
                     {filedateFieldWidget}
+
+       
+      
+        <br/>
+       
                     {filetimeFieldWidget}
                     
                     
                     {eventdatetimeFieldWidget}
-                    
-                    
-                    
-                    </div>
-                    
-                    <div >
                     {eventTimeZoneOffsetFieldWidget}
                     {packagingLevelFieldWidget}
+                    <br/>
+                  
                     {eventLocationFieldWidget}
-                    
-                    
-                    </div>
-                    
-                    <div>
-                    
                     {reasondescriptionFieldWidget}
-                    </div>              
-                    
-                    
-                    </div>
-                    <div>
-                    
-                    </div>
-                    
-                    </Box> 
-                    <hr></hr>    
-                    </div>
-                    </div>
-                    </div>  
-                    </Box> 
-                    </div>
+{headwidget}
+      <div className="row">
+        <div className="col-4">
+       
+        </div>
+        <div className="col-4">
+        <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button>
+        </div>
+        <div className="col-4">
+        </div>
+        {/* <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button> */}
+       
+      
+      </div>
+        
+       
+      </div>
+     
+    </Box>
+    </Box> 
                      </>
                         
                       )

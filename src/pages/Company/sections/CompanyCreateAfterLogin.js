@@ -19,7 +19,8 @@ function CompanyCreateAfterLogin() {
                   
     const [selectedDIV_state, setSelectedDIV_state] = useState(<Loading/>);
                   
-    const notAuthorizedSection = <div class="container-fluid">
+    const notAuthorizedSection = <div class="container-fluid" id="regimage">
+     
       <div class="card shadow mb-4"> 
           <div class="card-body">  
             <div class="text-primary text-center">
@@ -32,7 +33,7 @@ function CompanyCreateAfterLogin() {
                   
   function checkAuthorization() {
     axios
-      .get("http://localhost:8000/accounts/userrolePermissionsRead")
+      .get(window.url+"/accounts/userrolePermissionsRead")
         .then((res) => {
           var authorized = false;
                         // alert("haiii")

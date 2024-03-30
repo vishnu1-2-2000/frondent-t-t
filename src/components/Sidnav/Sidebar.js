@@ -23,7 +23,7 @@ import {SiMediamarkt} from 'react-icons/si';
 import {GiMedicines} from 'react-icons/gi';
 import axios from "axios";
 import {FaUserLock} from 'react-icons/fa';
-
+import { BsTrashFill } from "react-icons/bs";
 
 
 import {FaHistory} from 'react-icons/fa';
@@ -133,7 +133,7 @@ function logout() {
 
   axios
 
-  .post('http://127.0.0.1:8000/accounts/logoutController',
+  .post(window.url+'/accounts/logoutController',
 
   {
 
@@ -317,6 +317,27 @@ function logout() {
                    <FaUserLock size={30}/>
                 </ListItemIcon>
                 <ListItemText primary="SnProvider" sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem  disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/trash")}}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                   <BsTrashFill size={30}/>
+                </ListItemIcon>
+                <ListItemText primary="Restore Data" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
 

@@ -17,7 +17,9 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
 
+import Autocomplete from '@mui/material/Autocomplete';
 function ProductDataEdit() {
 
   var warningDiv= <div className="alert alert-success pt-4" role="alert">
@@ -38,16 +40,38 @@ function ProductDataEdit() {
 
     const[cusnamelabel,setCusnameLabel] =useState("");
     const[cusnamevalue,setCusnameValue]=useState("")   
-    
+    const [testStatusChecked, setTestStatusChecked] = useState(false);
 
-      const getLocation=event=>{
-        setCustomerid(event.target.value)
-    // setSelectCustomerName(event.label)
-    setCusnameLabel(event.label)
-    setCusnameValue(event.target.value)
-    // alert(event.target.value)
-    //  alert(event.label)
-}
+    //   const getLocation=event=>{
+    //     setCustomerid(event.target.value)
+    // // setSelectCustomerName(event.label)
+    //   setCusnameLabel(event.label)
+    //   setCusnameValue(event.target.value)
+    // // alert(event.target.value)
+    // //  alert(event.label)
+    // }
+
+    const getLocation = (event, value) => {
+      setCusnameLabel(value)
+      setCusnameValue(value)
+     
+      axios
+    .get(window.url+"/master/customername/"+value+"/",
+   
+  )
+  .then((res) => {
+   
+  
+    setCustomerid(res.data[0].id);
+    
+   
+  
+  });
+      
+  
+      
+      
+  }
   // const getLocation=event=>{
   //   setCustomerid(event.value)
   //   // setSelectCustomerName(event.label)
@@ -84,7 +108,7 @@ function ProductDataEdit() {
       var productEditID= uniqueID;
   
       axios
-      .get("http://localhost:8000/master/product/"+productEditID+"/",
+      .get(window.url+"/master/product/"+productEditID+"/",
      
       )
       .then((res)=>{
@@ -95,27 +119,28 @@ function ProductDataEdit() {
         setName(res.data[0].name);
         setCustomerid(res.data[0].customer_id);
         selectedCustomername(res.data[0].customer_id);
-        setStatus(res.data[0].status);
+        setTestStatusChecked(res.data[0].status);
+  
       })
     }
     
     function getCustomerId(cuslocfunparam) {
       //alert("anu");
       axios
-        .get("http://127.0.0.1:8000/master/customer/",
+        .get(window.url+"/master/customer/",
           
-        )
-        .then((res) => {
+      )
+      .then((res) => {
          
           // let batchNumberOptionsInitial = "";
-          res.data.map(data => {
-            if(data.status==true){
+        res.data.map(data => {
+          if(data.status==true){
               // alert("anu");
               // optionsname.push({ label:data.name })
-              optionsNew.push({ value:data.id,label:data.name});
+            optionsNew.push({ value:data.id,label:data.name});
               // temparray.push({ value: data.id,label:data.name});
               
-             }
+          }
             // alert(demolist)
             // if(data.id==cuslocfunparam ){
             //           setCuslocLabel(data.name);
@@ -138,130 +163,125 @@ function ProductDataEdit() {
             ...base,
             height: 55,
             minHeight: 55,
-            width:223
-            
-            
+            width:223  
           })
-    };
+      };
     function selectedCustomername(cusnamefunparam) {
       //alert("anu");
-        axios
-        .get("http://127.0.0.1:8000/master/customer/",
+      axios
+      .get(window.url+"/master/customer/",
     
-        )
-        .then((res) => {
+      )
+      .then((res) => {
           // let batchNumberOptionsInitial = "";
-          res.data.map(data => {
-              if(data.id==cusnamefunparam){
-                setCusnameLabel(data.name);
-                setCusnameValue(data.id);
-              }
+        res.data.map(data => {
+          if(data.id==cusnamefunparam){
+            setCusnameLabel(data.name);
+            setCusnameValue(data.id);
+          }
                 
     
-            });    
-        });
-      }
+        });    
+      });
+    }
   
   
     useEffect(() => {
       if(operation=="edit"){
         getProductEditRequestData();
       }
-      
-     
+
       getCustomerId();
     }, []);
     if(operation === 'edit') {
       var headwidget=
-      <Box
-      component="form"
-      sx={{
-        width: 500,
-        maxWidth: '100%',
-        
-        
-      }}
-      noValidate
-      autoComplete="off"
-    ><Controls.Input 
+      <Controls.Input 
       disabled
-      fullWidth
+      // fullWidth
       
-            id="outlined-Company Prefix"
-            label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                         Edit Product Data </font></h4></pre></h4>}
-           
-     
+      id="outlined-Company Prefix"
+     // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                         Edit Product Data </font></h4></pre></h4>}
+  value={loggedInUsername}
    />
-   </Box>
-   var gtinFieldWidget = <TextField required
-   label="Gtin"
-   id="outline-gtin"
-    value={gtin_number}
-    onChange={(e) => setGtin(e.target.value)}
-  /> 
+    
+  var gtinFieldWidget = <TextField required
+                            label="Gtin"
+                            id="outline-gtin"
+                            value={gtin_number}
+                            onChange={(e) => setGtin(e.target.value)}
+                          /> 
 //   var fetchwidget=<button className="btn btn-primary"
 //   onClick={() => getProductNumberData()}>
 //   <AiIcons.AiOutlineCloudDownload size={35}/>
 // </button>
-var nameWidget = <TextField required
-      id="outline-name"
-      onChange={(e) => setName(e.target.value)}
-      value={name}
-      label="Name"
-    />
+  var nameWidget = <TextField required
+                    id="outline-name"
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                    label="Name"
+                  />
      
   var custnameFieldWidget = 
-  
-    
- <Box >
- <FormControl sx={{ m: 1,width: 220, minWidth: 150 }} >
- <InputLabel id="demo-simple-select-label">Customer Name</InputLabel>
-   <NativeSelect
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    input={<OutlinedInput label="Customer Name" />}
-    MenuProps={MenuProps}
-    value={cusnamevalue}
-    label={cusnamelabel}
-   
-    label="Customer Name"
-    onChange={getLocation}
-  >
-    {customerLocationOptionsNew.map((data) => (
- 
- 
-  <option key={data.label} value={data.value}>
-   
-  {data.label}
-  
-  </option>
-  
-))}
-  </NativeSelect>
-</FormControl>
-</Box> 
+          //       <Box>
+          //         <FormControl sx={{ m: 1,width: 220, minWidth: 150 }} >
+          //           <InputLabel id="demo-simple-select-label">Customer Name</InputLabel>
+          //             <NativeSelect
+          //               labelId="demo-simple-select-label"
+          //               id="demo-simple-select"
+          //               input={<OutlinedInput label="Customer Name" />}
+          //               MenuProps={MenuProps}
+          //               value={cusnamevalue}
+          //               label={cusnamelabel}
+                        
+          //               label="Customer Name"
+          //               onChange={getLocation}
+          //             >
+          //           {customerLocationOptionsNew.map((data) => (
+                      
+                      
+          //           <option key={data.label} value={data.value}>
+                        
+          //             {data.label}
+                    
+          //           </option>
+                    
+          //         ))}
+          //     </NativeSelect>
+          //   </FormControl>
+          // </Box> 
   
           
             // <Select className="s" onChange={getLocation} options={customerLocationOptionsNew}  value={{value:cusnamevalue,label:cusnamelabel}} /> 
             
+
+            <Autocomplete
+            disablePortal
+
+            id="combo-box-demo"
+            value={cusnamelabel}
+            options={customerLocationOptionsNew}
+            onInputChange={getLocation}
+            sx={{ width: 200 }}
+            renderInput={(params) => <TextField {...params}  label="Select Customer" />}
+            /> 
             
        
-  var imnFieldWidget = <TextField required
-            id="outline-imn"
-            label="Imn" 
-            value={imn}
-            onChange={(e) => setImn(e.target.value)}
-           
-          /> 
+  var imnFieldWidget =<TextField required
+                        id="outline-imn"
+                        label="Imn" 
+                        value={imn}
+                        onChange={(e) => setImn(e.target.value)}
+                        
+                      /> 
 
-  var createdbyFieldWidget = <TextField required
-                 id="outline-createdby"
-                  label="Created by"
-                  value={created_by}
-                disabled
-  
-                  value={loggedInUsername}
-                />
+  var createdbyFieldWidget =<TextField required
+                              id="outline-createdby"
+                              label="Created by"
+                              value={created_by}
+                              disabled
+                
+                              value={loggedInUsername}
+                            />
   var statuswidget= <input type="checkbox" checked={status} onChange={e => setStatus(e.target.checked)}/>
 // var createdbyFieldWidget =<input
 //                             type="text"
@@ -285,14 +305,10 @@ const handleSubmit = (e) => {
           //alert(address);
   // var productEditID=uniqueID;
   var productEditID=uniqueID;
-
-
   var testpassed="false";
-
   if(gtin_number!=""){
     testpassed="true"
   }
-
   else{
     warningDiv =<div className="alert alert-danger pt-4" role="alert">
     <h5>Input Gtin number</h5>
@@ -300,7 +316,6 @@ const handleSubmit = (e) => {
     setWarningmessage(warningDiv)
             // alert(warningmessage)
     testpassed="false"
-
     }
     if(testpassed == "true") {
       if (name!=""){
@@ -360,124 +375,97 @@ const handleSubmit = (e) => {
                       //  alert(loggedInUsername)
                       //  alert(loggedInUserrole)
 
-                      axios
-                        .put(`http://localhost:8000//master/product/update/${productEditID}`, 
+        axios
+        .put(window.url+`/master/product/update/${productEditID}`, 
                         
-                        {"name":name,
-                        "customer_id":customer_id,
-                        "gtin_number":gtin_number,    
-                        "imn":imn,
-                        "created_by":loggedInUsername,
-                        "status":status,
-                        "loggedInUsername":loggedInUsername,
+          {
+            "name":name,
+            "customer_id":customer_id,
+            "gtin_number":gtin_number,    
+            "imn":imn,
+            "created_by":loggedInUsername,
+            "status":testStatusChecked,
+            "loggedInUsername":loggedInUsername,
 
-                          "loggedInUserrole":loggedInUserrole
+            "loggedInUserrole":loggedInUserrole,
+            "uniqueid":productEditID
                         
         
-                        },
+          },
                         
-                        )
-                        .then(() => {
-                          navigate("/product");
-                        });
-                    }
-                  }
+          )
+          .then(() => {
+            navigate("/product");
+          });
+        }
+      }
     };
   return (
     <>
 
-                
-    <br></br>
-    <br></br>
-    <br></br>
-        <div class="container-fluid">
-                  <div class="card shadow mb-4" id="customerfullcard"> 
-                      <div class="card-header py-3" id="customercardhead">
-                          <div className='row'>
-                              <div className='col-10' id="customerhead">
-                              {headwidget}
-                              </div>
-                          </div>
-                                                          
-                      </div>
-    
-                      <div class="card-body">  
-                      <br></br>
-        <br></br>
+<br/><br/><br/><br/><br/>
+
+{warningmessage}        
         
-        {/* <div id="locationhead">
-        {headwidget}
-        </div>
-        <br></br> */}
-        
-        <Box id="customerbox"
+        <Box
           component="form"
           sx={{
-            '& .MuiTextField-root': { m: 2, width: '25ch' },
+            '& .MuiTextField-root': { m: 4, width: '25' },
           }}
           noValidate
           autoComplete="off"
         >
-          <br></br>
-          <div>
-              {warningmessage}
-             {nameWidget}
-              {imnFieldWidget}
-    
-            {gtinFieldWidget}
-    
-            
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                          
-                </button>
-              <div>
-              {createdbyFieldWidget}
-              <div id="producteditselectbox">
-              {custnameFieldWidget}
-              </div>
-             
-    <div id="productstatus">
-    {/* {statuswidget} */}
-    <FormControlLabel  control={<Checkbox 
-      
-      checked={status}
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Edit Product Details </font></h4></center></h4>            
+          {nameWidget}  
+          {imnFieldWidget}
+          {gtinFieldWidget}
+        
 
-      onChange={e => setStatus(e.target.checked)}
+    
+    
+           
+          
+          <br/>
+        
+
+
+{headwidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<FormControlLabel  control={<Checkbox 
+      
+      checked={testStatusChecked}
+      style={{marginTop:10}}
+      onChange={e => setTestStatusChecked(e.target.checked)}
       sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }}
       label="Gilad Gray"
-    />} label="Status" />
-    </div>
-            
-    
-                
-              </div>
-    
-              <div >
-             
-              
-            
-              
+    />} label="Status" /> 
+
+  {custnameFieldWidget}
+
+          <div className="row">
+            <div className="col-4">
+           
+            </div>
+            <div className="col-4">
+            <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button>
+            </div>
+            <div className="col-4">
+            </div>
+           
+          
           </div>
-    
-          <div>
-          
-    
-        </div>              
-     
-    
-      </div>
-      <div>
-          
-    </div>
-          
-        </Box> 
-        <hr></hr>    
-                      </div>
-                  </div>
-              </div>  
-    
-        </>
+            
+           
+          </div>
+         
+        </Box>
+    </>
   )
 }
 

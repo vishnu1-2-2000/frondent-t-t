@@ -9,7 +9,11 @@ import axios from "axios";
 import Sidebar from '../../../components/Sidnav/Sidebar';
 import { RiInsertRowTop } from 'react-icons/ri';
 import { MdDownloadForOffline } from 'react-icons/md';
- const PoDataGrid = (props) => {
+import { SiAddthis } from 'react-icons/si';
+import { MdOutlineAssignmentReturn } from "react-icons/md";
+import { MdKeyboardReturn } from "react-icons/md";
+import { BsFillSendFill } from "react-icons/bs";
+  const PoDataGrid = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [data, setData] = useState([]);
@@ -32,31 +36,104 @@ import { MdDownloadForOffline } from 'react-icons/md';
   var index=1;
   let userDataColumns = [
     {field:'index',headerName:'Index',width:12,headerClassName: "MuiDataGrid-columnHeaders",},
-    { field: 'id', headerName: 'Id', width: 88,headerClassName: "MuiDataGrid-columnHeaders",  },
-    { field: 'process_order_number', headerName: 'Process Order Number ',width: 168,headerClassName: "MuiDataGrid-columnHeaders", },
+    { field: 'id', headerName: 'Id', hide:true, width: 88,headerClassName: "MuiDataGrid-columnHeaders",  },
+    { field: 'process_order_number', headerName: 'Po Number ',minWidth: 160, headerClassName: "MuiDataGrid-columnHeaders", },
 
-    { field: 'batch_number', headerName: 'Batch Number ', width: 160,headerClassName: "MuiDataGrid-columnHeaders",  },
+    { field: 'batch_number', headerName: 'Batch Number ', width: 180,headerClassName: "MuiDataGrid-columnHeaders",  },
 
-    { field: 'manufacturing_location', headerName: 'Manufacturing Location ', width: 160,headerClassName: "MuiDataGrid-columnHeaders",  },
-    { field: 'product_conn', headerName: 'Product Name', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
+    // { field: 'manufacturing_location', headerName: 'Manufacturing Location', minWidth: 150, flex:1,headerClassName: "MuiDataGrid-columnHeaders",  },
+    // { field: 'product_conn', headerName: 'Product Name', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
 /*{
     { field: 'Production_line_id', headerName: 'Productionline id ', width: 170 },
 
 */
-    {field: 'gtin_number', headerName: 'Gtin', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
-    { field: 'regulation', headerName: 'Regulation', width: 150,headerClassName: "MuiDataGrid-columnHeaders",},
-    { field: 'production_date', headerName: 'Production Date', width: 150,headerClassName: "MuiDataGrid-columnHeaders",  },
-    { field: 'produced', headerName: 'produced', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
-    { field: 'requested', headerName: 'requested', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
-    { field: 'created_by', headerName: 'created by', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
-    { field: 'line', headerName: 'Line', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
-    { field: 'type', headerName: 'Type', width: 150,headerClassName: "MuiDataGrid-columnHeaders",},
-    { field: 'status', headerName: 'Status', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
+    // {field: 'gtin_number', headerName: 'Gtin', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
+    // { field: 'regulation', headerName: 'Regulation', width: 150,headerClassName: "MuiDataGrid-columnHeaders",},
+    // { field: 'production_date', headerName: 'Production Date', width: 150,headerClassName: "MuiDataGrid-columnHeaders",  },
+    // { field: 'produced', headerName: 'produced', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
+    // { field: 'requested', headerName: 'requested', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
+    // { field: 'created_by', headerName: 'created by', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
+    // { field: 'line', headerName: 'Line', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
+    // { field: 'type', headerName: 'Type', width: 150,headerClassName: "MuiDataGrid-columnHeaders",},
+    { field: 'status', headerName: 'Status', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
     
 /*
     { field: 'packaging_Version', headerName: 'packaging Version', width: 170 },
     { field: 'expiration_date', headerName: 'Expiration Date', width: 170 },
 */
+
+{
+  field: 'view',
+  headerName: 'View',
+  headerClassName: "MuiDataGrid-columnHeaders",
+  sortable: false,
+  renderCell: (params) => {
+    const onClick = (e) => {
+      e.stopPropagation(); // don't select this row after clicking
+
+      const api: GridApi = params.api;
+      const thisRow: Record<string, GridCellValue> = {};
+
+      api
+        .getAllColumns()
+        .filter((c) => c.field !== '__check__' && !!c)
+        .forEach(
+          (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
+        );
+      //alert(thisRow.id);
+
+      // window.localStorage.setItem("productionOrderEditID", thisRow.id);
+
+      // navigate("/po/pocreate/edit");
+      navigate("/productionorderview/edit/"+thisRow.id);
+
+     
+    };
+
+    const api2: GridApi = params.api;
+    const thisRow2: Record<string, GridCellValue> = {};
+
+    api2
+      .getAllColumns()
+      .filter((c) => c.field !== '__check__' && !!c)
+      .forEach(
+        (c) => (thisRow2[c.field] = params.getValue(params.id, c.field)),
+      );
+
+      //if(currentUserrole == 'admin') {
+        // if(props.propertyButtonStatus === "enabled"&& thisRow2.status=='Draft' ) {
+        //   return <button
+        //     className="btn btn-dark" 
+           
+        //     onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
+        // }
+        // else if(props.propertyButtonStatus === "disabled" || thisRow2.status=='Closed'|| thisRow2.status=='Inproduction') {
+        //   return <button
+        //     className="btn btn-dark" 
+        //     disabled = "true"
+        //     onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
+        // }
+        if(props.viewButtonStatus === "enabled") {
+          return <button
+            className="btn btn-info" 
+           
+            onClick={onClick}><RiInsertRowTop size={23}/></button>;
+        }
+        else if(props.viewButtonStatus === "disabled") {
+          return <button
+            className="btn btn-info" 
+            disabled = "true"
+            onClick={onClick}><RiInsertRowTop size={23}/></button>;
+        }
+
+    //alert(currentUserrole);
+
+
+    
+  },
+},
+
+
               
     {
       field: 'edit',
@@ -141,10 +218,10 @@ import { MdDownloadForOffline } from 'react-icons/md';
           )
           if (confirmBox === true) {
             axios
-            .delete(`http://localhost:8000/master/productionorder/delete/${thisRow.id}`,
+            .delete(window.url+`/master/productionorder/trash/${thisRow.id}`,
             {
               data: { 
-                "Name" : thisRow.name,
+                "process_order_number" : thisRow.process_order_number,
                 "email" : thisRow.email,
                 "userRole" : thisRow.userRole,
                 "loggedInUsername": window.localStorage.getItem('loggedInUsername'),
@@ -239,13 +316,13 @@ import { MdDownloadForOffline } from 'react-icons/md';
               return <button
                 className="btn btn-dark" 
               
-                onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
+                onClick={onClick}><SiAddthis size={23}/></button>;
             }
             else if(props.editButtonStatus === "disabled"|| thisRow2.status=='Closed'|| thisRow2.status=='Inproduction') {
               return <button
                 className="btn btn-dark" 
                 disabled = "true"
-                onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
+                onClick={onClick}><SiAddthis size={23}/></button>;
             }
 
         //alert(currentUserrole)
@@ -375,13 +452,13 @@ import { MdDownloadForOffline } from 'react-icons/md';
             //     disabled = "true"
             //     onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
             // }
-            if(props.editButtonStatus === "enabled"&& thisRow2.status=='Draft' ) {
+            if(props.editButtonStatus === "enabled"&& thisRow2.status=='Closed' ) {
               return <button
                 className="btn btn-dark" 
                
                 onClick={onClick}><MdDownloadForOffline size={23}/></button>;
             }
-            else if(props.editButtonStatus === "disabled"|| thisRow2.status=='Closed'|| thisRow2.status=='Inproduction') {
+            else if(props.editButtonStatus === "disabled"|| thisRow2.status=='Draft'|| thisRow2.status=='Inproduction') {
               return <button
                 className="btn btn-dark" 
                 disabled = "true"
@@ -393,6 +470,123 @@ import { MdDownloadForOffline } from 'react-icons/md';
     
         
       },
+    },
+
+    {
+
+      field: 'balanced serialnumber',
+
+      headerName: 'Balanced Serialnumber',
+      headerClassName: "MuiDataGrid-columnHeaders",
+
+      sortable: false,
+
+      renderCell: (params) => {
+
+      const onClick = (e) => {
+
+        e.stopPropagation(); // don't select this row after clicking
+
+
+
+        const api: GridApi = params.api;
+
+        const thisRow: Record<string, GridCellValue> = {};
+
+
+
+        api
+
+          .getAllColumns()
+
+          .filter((c) => c.field !== '__check__' && !!c)
+
+          .forEach(
+
+            (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
+
+          );
+
+        //alert(thisRow.id);
+
+        let serial=[];
+
+
+        axios
+  
+        .post(window.url+"/master/returnslno/",
+
+      {
+        
+        "gtin":thisRow.gtin_number,
+        
+        "id":thisRow.id 
+
+      })
+        .then((res) => {
+            //alert(res.data[0].gtin);
+         
+            // var parsedserialno=JSON.parse(res.data[0].serialno)
+            // parsedserialno.map((element)=>{
+            //   serial.push(res.data[0].gtin+element+"\n");
+            //   //alert(res.data[0].gtin+element);            
+            // });
+
+          })
+        // window.localStorage.setItem("productionOrderIDforShippingOrder", thisRow.id);
+
+        // // window.localStorage.setItem("productionid", thisRow.product_conn);
+
+        // navigate("/shippingorder/shippocreate/new/"+thisRow.id+"/"+thisRow.gtin_number);
+
+
+
+
+        //return alert(JSON.stringify(thisRow, null, 4));
+
+      };
+      const api2: GridApi = params.api;
+
+      const thisRow2: Record<string, GridCellValue> = {};
+
+
+
+      api2
+
+        .getAllColumns()
+
+        .filter((c) => c.field !== '__check__' && !!c)
+
+        .forEach(
+
+          (c) => (thisRow2[c.field] = params.getValue(params.id, c.field)),
+
+        );
+
+      //alert(currentUserrole);
+
+
+
+
+
+      if(props.sendtoshipButtonStatus === "enabled" && thisRow2.status=='Closed') {
+
+      return <button
+
+        className="btn btn-success"
+
+        onClick={onClick}><MdKeyboardReturn  size={23}/></button>;
+
+      }
+      else if(props.sendtoshipButtonStatus === "disabled"|| thisRow2.status=='Draft'|| thisRow2.status=='Inproduction' || thisRow2.status=='Running') {
+        return <button
+        className="btn btn-success"
+          disabled = "true"
+          // style={{backgroundColor:"Aqua"}}
+          onClick={onClick}><MdKeyboardReturn size={23}/></button>;
+      }
+    },
+
     },
 
 
@@ -476,20 +670,19 @@ import { MdDownloadForOffline } from 'react-icons/md';
       return <button
 
         className="btn btn-primary"
-
-        onClick={onClick}><i class="fa-sharp fa-solid fa-paper-plane"></i></button>;
+       
+        onClick={onClick}><BsFillSendFill  size={23}/></button>;
 
       }
 
-
-
-
-
-
-
-
-
-      },
+      else if(props.sendtoshipButtonStatus === "disabled"|| thisRow2.status=='Draft'|| thisRow2.status=='Inproduction' || thisRow2.status=='Running') {
+        return <button
+        className="btn btn-primary"
+          disabled = "true"
+          
+          onClick={onClick}><BsFillSendFill size={23}/></button>;
+      }
+    },
 
     },
 
@@ -500,8 +693,9 @@ import { MdDownloadForOffline } from 'react-icons/md';
   function createRows(rowDatas) {
     //alert(rowDatas.length);
     rowDatas.map(rowData => {
+      if(rowData.prodcutionorderflag===false){
       axios
-      .get("http://localhost:8000/productionline/manufacturinglocation/"+rowData.manufacturing_location,
+      .get(window.url+"/productionline/manufacturinglocation/"+rowData.manufacturing_location,
         {
           // auth: {
           //   username: username,
@@ -517,7 +711,7 @@ import { MdDownloadForOffline } from 'react-icons/md';
         //setProductionLineSystemName(res.data[0].system_name);
 
         axios
-        .get("http://127.0.0.1:8000/master/product/"+rowData.product_conn,
+        .get(window.url+"/master/product/"+rowData.product_conn,
           {
             // auth: {
             //   username: username,
@@ -535,7 +729,7 @@ import { MdDownloadForOffline } from 'react-icons/md';
           //alert(res2.data[0].name);
           setUserDataRows(userDataRows => [
             ...userDataRows,
-            {'index':index++,
+            { 'index':index++,
               'id':rowData.id, 
               'process_order_number':rowData.process_order_number,
               'batch_number':rowData.batch_number,
@@ -561,23 +755,15 @@ import { MdDownloadForOffline } from 'react-icons/md';
         });
 
       });
-
+    }
     })
   }
   // 'production_date':rowData.production_date,'produced':rowData.produced,'requested':rowData.requested,
   function getData() {
     //alert("anu");
       axios
-      .get("http://127.0.0.1:8000/master/productionorder/",
-        {
-          // auth: {
-          //   username: username,
-          //   password: password
-          // }
-        },
-        {
-          'param': 'anu' 
-        }
+      .get(window.url+"/master/productionorder/",
+        
       )
       .then((res) => {
         //alert(res.data.length);
@@ -588,7 +774,7 @@ import { MdDownloadForOffline } from 'react-icons/md';
 
   function handleDelete(id) {
     axios
-      .delete(`http://localhost:8000/master/productionorder/delete/${id}`,
+      .delete(window.url+`/master/productionorder/delete/${id}`,
         {
           // auth: {
           //   username: username,
@@ -642,7 +828,7 @@ useEffect(() => {
   return (
     <>
 
-    <Box sx={{ display: 'flex' }}> 
+    <Box sx={{ display: 'flex' }} id="big-screen"> 
 
       <Sidebar/>
 
@@ -652,7 +838,7 @@ useEffect(() => {
         <div class="container" id="po">
           <div class="row">
       {/* <div class="col-2">
-
+ 
 <Sidebar currentPage="Podatagrid"/>
 </div> */}
             <div class="col-10">
@@ -678,13 +864,13 @@ useEffect(() => {
   onClick={navigateToPropertiesPage} 
   className="btn btn-success">Properties</button> */}
 
-<button align='right'
+  <button align='right'
      
      onClick={navigateToPrinterdataPage} 
      className="btn btn-success">PrinterPool</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
   
-              <button align='right'
+            <button align='right'
      
                 onClick={navigateToIdentifierPage} 
                 className="btn btn-success">Identifiers</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -42,245 +42,223 @@ let userDataColumns =[
                     {field:'type',headerName:'Printing Type',width:160,headerClassName: "MuiDataGrid-columnHeaders",},
                     
                     
-{
-                    field: 'edit',
-                    headerName: 'Edit',
-                    width:200,
-                    headerClassName: "MuiDataGrid-columnHeaders",
-                    sortable: false,
-                    renderCell: (params) => {
-                      const onClick = (e) => {
-                        e.stopPropagation(); // don't select this row after clicking
-                
-                        const api: GridApi = params.api;
-                        const thisRow: Record<string, GridCellValue> = {};
-                
-                        api
-                          .getAllColumns()
-                          .filter((c) => c.field !== '__check__' && !!c)
-                          .forEach(
-                            (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
-                          );
-                        //alert(thisRow.name);
-                        // window.localStorage.setItem("shippoEditID",thisRow.id);
-              
-                        navigate("/printerpool/edit/"+ thisRow.id)
-                
-                        // setToLocalStorage(
-                        //   thisRow.id,
-                        //   thisRow.shipping_order_name,
-                        //   thisRow.source_location,
-                        //   thisRow.destination_location,
-                        //   thisRow.created_by,
-                        //   thisRow.subject_name,
-                        //   thisRow.shipping_date,
-                        //   thisRow.batch_for_export
-                        // );
-                
-                        //return alert(JSON.stringify(thisRow, null, 4));
-                      };
-                
-                      const api2: GridApi = params.api;
-      const thisRow2: Record<string, GridCellValue> = {};
-
-      api2
-        .getAllColumns()
-        .filter((c) => c.field !== '__check__' && !!c)
-        .forEach(
-          (c) => (thisRow2[c.field] = params.getValue(params.id, c.field)),
-        );
-
-    //alert(currentUserrole);
-
-    if(props.editButtonStatus === "enabled" ) {
-      return <button
-        className="btn btn-success" 
-       
-        onClick={onClick}><MdIcons.MdCreate size={23}/></button>;
-    }
-    else if(props.editButtonStatus === "disabled") {
-      return <button
-        className="btn btn-success" 
-        disabled = "true"
-        onClick={onClick}><MdIcons.MdCreate size={23}/></button>;
-    }
-       },
-       },
-
-  {                             
-      field: 'delete',
-      headerName: 'Delete',
-      headerClassName: "MuiDataGrid-columnHeaders",
-                                   
-          sortable: false,
-                renderCell: (params) => {
-                           const onClick = (e) => {
-                         e.stopPropagation(); // don't select this row after clicking
-                                
-                         const api: GridApi = params.api;
+                    {
+                      field: 'edit',
+                      headerName: 'Edit',
+                      width:200,
+                      headerClassName: "MuiDataGrid-columnHeaders",
+                      sortable: false,
+                      renderCell: (params) => {
+                        const onClick = (e) => {
+                          e.stopPropagation(); // don't select this row after clicking
+                  
+                          const api: GridApi = params.api;
                           const thisRow: Record<string, GridCellValue> = {};
-                                    api
-                .getAllColumns()
-                .filter((c)=>c.field!=='__check__'&&!!c)
-                .forEach(
-                       (c)=>(thisRow[c.field]=params.getValue(params.id,c.field)),
-                );
-                              
-                                      //   api
-                                      //     .getAllColumns()
-                                      //     .filter((c) => c.field !== '__check__' && !!c)
-                                      //     .forEach(
-                                      //       (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
-                                      //     );
-                                        //alert(thisRow.id);
-                                  
-                                        //return alert(JSON.stringify(thisRow, null, 4));
-                              
-                const confirmBox = window.confirm(
-                                    "Do you really want to delete this user?"
-                                    )
-          if (confirmBox === true) {
-                axios
-                .delete(`http://127.0.0.1:8000/master/printer/delete/${thisRow.id}`,
-                {
-//                 data: { 
+                  
+                          api
+                            .getAllColumns()
+                            .filter((c) => c.field !== '__check__' && !!c)
+                            .forEach(
+                              (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
+                            );
+                          //alert(thisRow.name);
+                          // window.localStorage.setItem("shippoEditID",thisRow.id);
                 
-//                 "loggedInUsername": window.localStorage.getItem('loggedInUsername'),
-//                 "loggedInUserrole": window.localStorage.getItem('loggedInUserrole')
-//                 }
-                })
-                .then(() => {
-                getData();
-                //alert("anju");
-                //navigate("/account/read");
-                window.location.reload();
-                });
-                }
-                                        
-                              
-       };
-const api2: GridApi = params.api;
-const thisRow2: Record<string, GridCellValue> = {};
-      api2
-      .getAllColumns()
-      .filter((c)=>c.field!=='__check__'&&!!c)
-      .forEach(
-        (c)=>(thisRow2[c.field]=params.getValue(params.id,c.field)),
-      );
+                          navigate("/printerpool/edit/"+ thisRow.id)
+                  
+                          // setToLocalStorage(
+                          //   thisRow.id,
+                          //   thisRow.shipping_order_name,
+                          //   thisRow.source_location,
+                          //   thisRow.destination_location,
+                          //   thisRow.created_by,
+                          //   thisRow.subject_name,
+                          //   thisRow.shipping_date,
+                          //   thisRow.batch_for_export
+                          // );
+                  
+                          //return alert(JSON.stringify(thisRow, null, 4));
+                        };
+                  
+                        const api2: GridApi = params.api;
+                              const thisRow2: Record<string, GridCellValue> = {};
 
-    if(props.deleteButtonStatus === "enabled" ) {
-      return <button
-        className="btn btn-danger" 
-        onClick={onClick}><MdIcons.MdDelete size={23}/></button>;
-    }
-    else if(props.deleteButtonStatus === "disabled" ) {
-      return <button
-        className="btn btn-danger" 
-        disabled = "true"
-        onClick={onClick}><MdIcons.MdDelete size={23}/></button>;
-    }
+                              api2
+                                .getAllColumns()
+                                .filter((c) => c.field !== '__check__' && !!c)
+                                .forEach(
+                                  (c) => (thisRow2[c.field] = params.getValue(params.id, c.field)),
+                                );
+
+                            //alert(currentUserrole);
+
+                            if(props.editButtonStatus === "enabled" ) {
+                              return <button
+                                className="btn btn-success" 
+                              
+                                onClick={onClick}><MdIcons.MdCreate size={23}/></button>;
+                            }
+                            else if(props.editButtonStatus === "disabled") {
+                              return <button
+                                className="btn btn-success" 
+                                disabled = "true"
+                                onClick={onClick}><MdIcons.MdCreate size={23}/></button>;
+                            }
+                              },
+                    },
+
+                    {                             
+                      field: 'delete',
+                      headerName: 'Delete',
+                      headerClassName: "MuiDataGrid-columnHeaders",
+                                                  
+                          sortable: false,
+                                renderCell: (params) => {
+                                          const onClick = (e) => {
+                                        e.stopPropagation(); // don't select this row after clicking
+                                                
+                                        const api: GridApi = params.api;
+                                          const thisRow: Record<string, GridCellValue> = {};
+                                                    api
+                                .getAllColumns()
+                                .filter((c)=>c.field!=='__check__'&&!!c)
+                                .forEach(
+                                      (c)=>(thisRow[c.field]=params.getValue(params.id,c.field)),
+                                );
+                                              
+                                                      //   api
+                                                      //     .getAllColumns()
+                                                      //     .filter((c) => c.field !== '__check__' && !!c)
+                                                      //     .forEach(
+                                                      //       (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
+                                                      //     );
+                                                        //alert(thisRow.id);
+                                                  
+                                                        //return alert(JSON.stringify(thisRow, null, 4));
+                                              
+                          const confirmBox = window.confirm(
+                                              "Do you really want to delete this user?"
+                                            )
+                          if (confirmBox === true) {
+                                axios
+                                .delete(window.url+`/master/printer/delete/${thisRow.id}`,
+                                {
+                //                 data: { 
+                                
+                //                 "loggedInUsername": window.localStorage.getItem('loggedInUsername'),
+                //                 "loggedInUserrole": window.localStorage.getItem('loggedInUserrole')
+                //                 }
+                                })
+                                .then(() => {
+                                getData();
+                                //alert("anju");
+                                //navigate("/account/read");
+                                window.location.reload();
+                                });
+                                }
+                                                        
+                                              
+                      };
+                const api2: GridApi = params.api;
+                const thisRow2: Record<string, GridCellValue> = {};
+                      api2
+                      .getAllColumns()
+                      .filter((c)=>c.field!=='__check__'&&!!c)
+                      .forEach(
+                        (c)=>(thisRow2[c.field]=params.getValue(params.id,c.field)),
+                      );
+
+                    if(props.deleteButtonStatus === "enabled" ) {
+                      return <button
+                        className="btn btn-danger" 
+                        onClick={onClick}><MdIcons.MdDelete size={23}/></button>;
+                    }
+                    else if(props.deleteButtonStatus === "disabled" ) {
+                      return <button
+                        className="btn btn-danger" 
+                        disabled = "true"
+                        onClick={onClick}><MdIcons.MdDelete size={23}/></button>;
+                    }
                     },
                   },
-]
+                ]
 
-function createRows(rowDatas){
-                    rowDatas.map(rowData =>{
+  function createRows(rowDatas){
 
-                      
-                      axios
+    rowDatas.map(rowData =>{                
+      axios
                   
-                      .get("http://127.0.0.1:8000/master/productionorder/"+rowData.processordernumber,
+      .get(window.url+"/master/productionorder/"+rowData.processordernumber,
+      )
               
-                        {
+      .then((res2) => {
               
-                          
-              
-                        },
-              
-                        {
-              
-                          'param': 'anu'
-              
-                        }
-              
-                      )
-              
-                      .then((res2) => {
-              
-                    setUserDataRows(userDataRows =>[
-                                        ...userDataRows,
-                                        {
-                                            'id':rowData.id,
-                                            // 'processordernumber':rowData.processordernumber,
-                                            'processordernumber':res2.data[0].process_order_number,
-                                            'gtin':rowData.gtin,
-                                            'expiration_date':rowData.expiration_date,
-                                            'lot':rowData.lot,
-                                            'type':rowData.type,
+        setUserDataRows(userDataRows =>[
+          ...userDataRows,
+          {
+            'id':rowData.id,
+            'processordernumber':rowData.processordernumber,
+            // 'processordernumber':res2.data[0].process_order_number,
+            'gtin':rowData.gtin,
+            'expiration_date':rowData.expiration_date,
+            'lot':rowData.lot,
+            'type':rowData.type,
 
-                                        }
-                    ])                    
-                      })
+            }
+          ])                    
+          })
 
-                     })
+          })
                   
-}
-function getData() {
-                    //alert("anu");
-                    axios
-                      .get("http://127.0.0.1:8000/master/printer/",
-                        {
-                          // auth: {
-                          //   username: username,
-                          //   password: password
-                          // }
-                        },
-                        {
-                          'param': 'anu' 
-                        }
-                      )
-                      .then((res) => {
+      }
+
+  function getData() {
+        // alert("anu");
+        axios
+        .get(window.url+"/master/printer/",
+        )
+        .then((res) => {
                         //alert(res.data.length);
-                        setData(res.data);
-                        createRows(res.data);
-                      });
-                  }
+          setData(res.data);
+          createRows(res.data);
+        });
+      }
            
-                  useEffect(() => {
+      useEffect(() => {
                     //console.log('i fire once');
                     //  if(window.localStorage.getItem('username') && window.localStorage.getItem('password')) {
-                    getData();
+        getData();
                     //  }
                     //  else{
                     //   navigate("/");
                     //  }
                     //alert("anu");
-                  }, []);
-                  function handleDelete(id) {
-                    axios
-                      .delete(`http://127.0.0.1:8000/master/printer/delete/${id}`,
-                        {
+      }, []);
+      function handleDelete(id) {
+        axios
+        .delete(window.url+`/master/printer/delete/${id}`,
+        {
                           // auth: {
                           //   username: username,
                           //   password: password
                           // }
-                        }
-                      )
-                      .then(() => {
-                        getData();
-                      });
-                  }
+        }
+        )
+        .then(() => {
+          getData();
+        });
+      }
                   
-                  function CustomToolbar() {
-                    return (
-                      <GridToolbarContainer>
-                        <GridToolbarColumnsButton />
-                        <GridToolbarFilterButton />
-                        <GridToolbarDensitySelector />
-                        <GridToolbarExport />
-                      </GridToolbarContainer>
-                    );
-                  }  
+      function CustomToolbar() {
+              return (
+                          <GridToolbarContainer>
+                            <GridToolbarColumnsButton />
+                            <GridToolbarFilterButton />
+                            <GridToolbarDensitySelector />
+                            <GridToolbarExport />
+                          </GridToolbarContainer>
+                        );
+                      }  
   return (
     <>
       <br></br>

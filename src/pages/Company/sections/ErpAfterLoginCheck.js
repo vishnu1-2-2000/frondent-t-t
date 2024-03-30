@@ -24,7 +24,7 @@ function ErpAfterLoginCheck() {
     function checkAuthorization()
             {
                 axios
-                    .get("http://localhost:8000/accounts/userrolePermissionsRead")
+                    .get(window.url+"/accounts/userrolePermissionsRead")
                     .then((res)=>{
                                         //alert(res.data.activity_name)
                         res.data.forEach(element=>{

@@ -67,6 +67,8 @@ function ProviderDataEdit() {
   var username = window.localStorage.getItem('username')
   var password = window.localStorage.getItem('password')
   var currentUserrole = window.localStorage.getItem('userrole')
+  var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+  var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;   
   const MenuProps = {
@@ -81,7 +83,7 @@ function ProviderDataEdit() {
     if (extrafield === "tracelink"){
 
       axios
-      .get("http://localhost:8000//master/tracelink/",
+      .get(window.url+"/master/tracelink/",
       {
       //   auth: {
       //     username: username,
@@ -111,16 +113,12 @@ function ProviderDataEdit() {
         setSftphost(res.data[0].sftp_host);
         setSftpusername(res.data[0].sftp_username);
         setfilereceiver(res.data[0].file_receiver);
-        
-    
-  
-  
-      })
+        })
   
     }
     else if (extrafield === "sap"){
       axios
-      .get("http://127.0.0.1:8000/master/companyerp/")
+      .get(window.url+"/master/companyerp/")
       .then ((res)=>{
         setId(res.data[0].id);
         setErp(res.data[0].erp);
@@ -206,25 +204,18 @@ function ProviderDataEdit() {
     onClick={navigateToCreatePage} 
     className="btn btn-success">Gtin Pool</button>
     var headwidget=
-    <Box
-      sx={{
-        width: 500,
-        maxWidth: '100%',
-                  
-                  
-        }}
-      >
-      <Controls.Input 
-                  disabled
-                  fullWidth
-            
-                  id="outlined-Company Prefix"
+      
+      // <Controls.Input 
+      //             disabled
+      //             // fullWidth
+                    
+      //             id="outlined-Company Prefix"
                   // label={<Typography>Customer  Create</Typography>}
-                  label={<span ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                           Enter Tracelink Data </font></h4></pre></span>}
+                 <h4 style={{color:"black"}}><center><font face="times new roman" size="6"> Enter Tracelink Data</font></center> </h4>
                 
 
-      />
-    </Box>
+      // />
+   
 
     var titlelabel=<label >Title</label>
     var titlewidget= 
@@ -239,9 +230,10 @@ function ProviderDataEdit() {
                       id="outline-Title"
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
-                      /> 
-      var urllabel=<label >Url</label>
-      var urlwidget= 
+                  /> 
+
+  var urllabel=<label >Url</label>
+  var urlwidget= 
                   // <input type="text" 
                   //  className="form-control form-control-sm"
                   //  onChange={(e) => setUrl(e.target.value)}
@@ -253,9 +245,10 @@ function ProviderDataEdit() {
                       id="outline-Url"
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
-                      /> 
-        var usernamelabel=<label >Username</label>
-        var usernamewidget=
+                  /> 
+
+  var usernamelabel=<label >Username</label>
+  var usernamewidget=
                   // <input type="text" 
                   //  className="form-control form-control-sm"
                   //  value={tracelink_username}
@@ -267,9 +260,9 @@ function ProviderDataEdit() {
                       id="outline-Username"
                       value={tracelink_username}
                       onChange={(e) => setUsername(e.target.value)}
-                      /> 
-        var siteidlabel=<label >SiteId</label>
-        var siteidwidget =
+                    /> 
+  var siteidlabel=<label >SiteId</label>
+  var siteidwidget =
                 // <input type="text" 
                 //    className="form-control form-control-sm"
                 //    onChange={(e)=> setSiteid(e.target.value)}
@@ -280,9 +273,9 @@ function ProviderDataEdit() {
                       id="outline-SiteId"
                       value={siteid}
                       onChange={(e)=> setSiteid(e.target.value)}
-                      /> 
-          var sftpportlabel=<label >Sftpport</label>
-          var sftpportwidget =
+                    /> 
+  var sftpportlabel=<label >Sftpport</label>
+  var sftpportwidget =
             // <input type="text"      
             //        className="form-control form-control-sm"
             //        onChange={(e)=> setSftpport(e.target.value)}
@@ -293,9 +286,9 @@ function ProviderDataEdit() {
                       id="outline-Sftpport"
                       value={sftp_port}
                       onChange={(e)=> setSftpport(e.target.value)}
-                      /> 
-          var sftppasswordlabel=<label >Sftppassword</label>
-          var sftppasswordwidget =
+                    /> 
+  var sftppasswordlabel=<label >Sftppassword</label>
+  var sftppasswordwidget =
                 // <input type="password" 
                 //    className="form-control form-control-sm"
                 //    onChange={(e)=> setSftppassword(e.target.value)}
@@ -306,9 +299,9 @@ function ProviderDataEdit() {
                       id="outline-Sftppassword"
                       value={sftp_password}
                       onChange={(e)=> setSftppassword(e.target.value)}
-                      /> 
-            var filesenderlabel=<label >Filesender</label>
-            var filesenderwidget =
+                    /> 
+  var filesenderlabel=<label >Filesender</label>
+  var filesenderwidget =
                 // <input type="text" 
                 //    className="form-control form-control-sm"
                 //    onChange={(e)=> setFilesender(e.target.value)}
@@ -319,10 +312,10 @@ function ProviderDataEdit() {
                       id="outline-Filesender"
                       value={file_sender}
                       onChange={(e)=> setFilesender(e.target.value)}
-                      /> 
+                    /> 
 
-            var sendingsystemlabel=<label >SendingSystem</label>
-            var sendingsystemwidget =
+  var sendingsystemlabel=<label >SendingSystem</label>
+  var sendingsystemwidget =
                 // <input type="text" 
                 //    className="form-control form-control-sm"
                 //    onChange={(e)=> setsendingsystem(e.target.value)}
@@ -333,15 +326,15 @@ function ProviderDataEdit() {
                       id="outline-SendingSystem"
                       value={sending_system}
                       onChange={(e)=> setsendingsystem(e.target.value)}
-                      /> 
-                   var passwordlabel=<label >Password</label>   
+                    /> 
+  var passwordlabel=<label >Password</label>   
             
             
             
             
             
             
-                   var passwordwidget =
+  var passwordwidget =
                 // <input type="password" 
                 //    className="form-control form-control-sm"
                 //    onChange={(e)=> setPassword(e.target.value)}
@@ -352,10 +345,10 @@ function ProviderDataEdit() {
                       id="outline-Password"
                       value={tracelink_password}
                       onChange={(e)=> setPassword(e.target.value)}
-                      /> 
+                    /> 
 
-                   var sftphostlabel=<label >SftpHost</label>
-var sftphostwidget =
+  var sftphostlabel=<label >SftpHost</label>
+  var sftphostwidget =
               // <input type="text" 
               //      className="form-control form-control-sm"
               //      onChange={(e)=> setSftphost(e.target.value)}
@@ -366,28 +359,28 @@ var sftphostwidget =
                       id="outline-SftpHost"
                       value={sftp_host}
                       onChange={(e)=> setSftphost(e.target.value)}
-                      /> 
+                    /> 
 
 
 
-var sftpusernamelabel=<label >Sftpusername</label>
+  var sftpusernamelabel=<label >Sftpusername</label>
 
 
-var sftpusernamewidget =
+  var sftpusernamewidget =
                   // <input type="text" 
                   //  className="form-control form-control-sm"
                   //  onChange={(e)=> setSftpusername(e.target.value)}
                   //  value={sftp_username}
                   //  />
                    <TextField required
-                   label="Sftpusername"
-                   id="outline-Sftpusername"
-                   value={sftp_username}
-                   onChange={(e)=> setSftpusername(e.target.value)}
-                   /> 
-                   var filereceiverlabel=<label >File Receiver</label>
+                      label="Sftpusername"
+                      id="outline-Sftpusername"
+                      value={sftp_username}
+                      onChange={(e)=> setSftpusername(e.target.value)}
+                    /> 
+  var filereceiverlabel=<label >File Receiver</label>
 
-var filereceiverwidget =
+  var filereceiverwidget =
                 // <input type="text" 
                 //    className="form-control form-control-sm"
                 //    onChange={(e)=> setfilereceiver(e.target.value)}
@@ -395,58 +388,65 @@ var filereceiverwidget =
                 //    />
 
                    <TextField required
-                   label="File Receiver"
-                   id="outline-File Receiver"
-                   value={file_receiver}
-                   onChange={(e)=> setfilereceiver(e.target.value)}
-                   /> 
+                      label="File Receiver"
+                      id="outline-File Receiver"
+                      value={file_receiver}
+                      onChange={(e)=> setfilereceiver(e.target.value)}
+                    /> 
+  var createdby= <Controls.Input 
+                    disabled
+                    // fullWidth
+                  
+                    id="outlined-Company Prefix"
+                    value={loggedInUsername}
+                    />
 }
 
 else if(extrafield==="sap"&& operation==='edit'){
+  var createdby= <Controls.Input 
+  disabled
+  // fullWidth
+
+  id="outlined-Company Prefix"
+  value={loggedInUsername}
+  />
   var headwidget=
-  <Box
-                sx={{
-                width: 500,
-                maxWidth: '100%',
-                  
-                  
-                }}
-                >
-      <Controls.Input 
-                  disabled
-                  fullWidth
+
+      // <Controls.Input 
+      //             disabled
+      //             // fullWidth
             
-                  id="outlined-Company Prefix"
+      //             id="outlined-Company Prefix"
                   // label={<Typography>Customer  Create</Typography>}
-                  label={<span ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                                  Enter Erp Data</font> </h4></pre></span>}
+                  <h4 style={{color:"black"}}><center><font face="times new roman" size="6"> Enter Erp Data</font></center> </h4>
                 
 
-/>
-</Box>
+// />
+
   var erplabel=<label >Erp</label>
   var erpwidget =
-  // <select  class="form-select" aria-label="Default select example" onChange={(e) => setErp(e.target.value)} value={erp}>
-  //                     <option value="">Select</option>
-  //                     <option value="sap rpc">SAP Rpc</option>
-  //                     </select>
+  <select  class="form-select" aria-label="Default select example" onChange={(e) => setErp(e.target.value)} value={erp}>
+                      <option value="">Select</option>
+                      <option value="sap rpc">SAP Rpc</option>
+                      </select>
                       
-  <FormControl sx={{ m: 1, width: 225 }}>
-  <InputLabel id="demo-multiple-name-label">Erp</InputLabel>
-  <NativeSelect
-    labelId="demo-multiple-name-label"
-    id="demo-multiple-name"
-    multiple
-    value={erp}
-    onChange={(e) => setErp(e.target.value)}
-    input={<OutlinedInput label="Erp" />}
-    MenuProps={MenuProps}
-  >
-    <option aria-label="None" value="" />
-       <option value="">Select</option>
-     <option value="sap rpc">SAP Rpc</option>
-     </NativeSelect>
-</FormControl>
-    var sapclientlabel=<label >Sap Client</label>              
+//   <FormControl sx={{ m: 3, width: 200 }}>
+//   <InputLabel id="demo-multiple-name-label">Erp</InputLabel>
+//   <NativeSelect
+//     labelId="demo-multiple-name-label"
+//     id="demo-multiple-name"
+//     multiple
+//     value={erp}
+//     onChange={(e) => setErp(e.target.value)}
+//     input={<OutlinedInput label="Erp" />}
+//     MenuProps={MenuProps}
+//   >
+//     <option aria-label="None" value="" />
+//        <option value="">Select</option>
+//      <option value="sap rpc">SAP Rpc</option>
+//      </NativeSelect>
+// </FormControl>
+  var sapclientlabel=<label >Sap Client</label>              
   var sapclientFieldWidget = 
                   // <input
                   //     type="text"
@@ -455,10 +455,10 @@ else if(extrafield==="sap"&& operation==='edit'){
                   //     value={sap_client}
                   //     /> 
                       <TextField required
-                      label="Sap Client"
-                      id="outline-Sap Client"
-                      value={sap_client}
-                      onChange={(e) => setSapclient(e.target.value)}
+                        label="Sap Client"
+                        id="outline-Sap Client"
+                        value={sap_client}
+                        onChange={(e) => setSapclient(e.target.value)}
                       /> 
                       var sapdestinationlabel=<label >Sap Destination</label>
   var sapdestinationFieldWidget = 
@@ -469,10 +469,10 @@ else if(extrafield==="sap"&& operation==='edit'){
                   //     value={sap_destination}
                   //     /> 
                       <TextField required
-                      label="Sap Destination"
-                      id="outline-Sap Destination"
-                      value={sap_destination}
-                      onChange={(e) => setDestination(e.target.value)}
+                        label="Sap Destination"
+                        id="outline-Sap Destination"
+                        value={sap_destination}
+                        onChange={(e) => setDestination(e.target.value)}
                       /> 
                       var languagelabel=<label >Language</label>                 
   var langFieldWidget = 
@@ -483,12 +483,12 @@ else if(extrafield==="sap"&& operation==='edit'){
                   //     value={sap_language}
                   //     /> 
                       <TextField required
-                      label="Language"
-                      id="outline-Language"
-                      value={sap_language}
-                      onChange={(e) => setLanguage(e.target.value)}
+                        label="Language"
+                        id="outline-Language"
+                        value={sap_language}
+                        onChange={(e) => setLanguage(e.target.value)}
                       /> 
-                      var sappasswordlabel=<label >Sap Password</label>
+  var sappasswordlabel=<label >Sap Password</label>
   var passwordFieldWidget = 
                     // <input
                     //   type="text"
@@ -497,10 +497,10 @@ else if(extrafield==="sap"&& operation==='edit'){
                     //   value={sap_password}
                     //   /> 
                       <TextField required
-                      label="Sap Password"
-                      id="outline-Sap Password"
-                      value={sap_password}
-                      onChange={(e) => setSapPassword(e.target.value)}
+                          label="Sap Password"
+                          id="outline-Sap Password"
+                          value={sap_password}
+                          onChange={(e) => setSapPassword(e.target.value)}
                       /> 
                   
                   //   var producedFieldWidget = <input
@@ -518,12 +518,13 @@ var poolFieldWidget =
                     //   value={sap_pool_size}
                     //   />
                       <TextField required
-                      label=" Sap Pool Size"
-                      id="outline-Sap Password"
-                      value={sap_pool_size}
-                      onChange={(e) => setPoolsize(e.target.value)}
+                        label=" Sap Pool Size"
+                        id="outline-Sap Password"
+                        value={sap_pool_size}
+                        onChange={(e) => setPoolsize(e.target.value)}
                       /> 
-                    var serverlabel=<label >Server</label>
+  var serverlabel=<label >Server</label>
+                
   var serverFieldWidget = 
                 // <input
                 //       type="text"
@@ -533,12 +534,12 @@ var poolFieldWidget =
                 //       value={sap_server_host}
                 //       />
                       <TextField required
-                      label=" Sap Server Host"
-                      id="outline-Sap Password"
-                      value={sap_server_host}
-                      onChange={(e) => setServerhost(e.target.value)}
+                        label=" Sap Server Host"
+                        id="outline-Sap Password"
+                        value={sap_server_host}
+                        onChange={(e) => setServerhost(e.target.value)}
                       /> 
-                      var servicelabel=<label >Service</label>
+  var servicelabel=<label >Service</label>
   var serviceFieldWidget = 
                     // <input
                     //   type="text"
@@ -548,12 +549,12 @@ var poolFieldWidget =
                     //   value={sap_service}
                     //   />
                       <TextField required
-                      label="Service"
-                      id="outline-Service"
-                      value={sap_service}
-                      onChange={(e) => setSapservice(e.target.value)}
+                          label="Service"
+                          id="outline-Service"
+                          value={sap_service}
+                          onChange={(e) => setSapservice(e.target.value)}
                       /> 
-                      var systemidlabel=<label >System id</label>
+  var systemidlabel=<label >System id</label>
   var systemidFieldWidget = 
                       // <input
                       // type="text"
@@ -563,12 +564,12 @@ var poolFieldWidget =
                       // value={sap_system_id}
                       // />
                       <TextField required
-                      label="System Id"
-                      id="outline-Service"
-                      value={sap_system_id}
-                      onChange={(e) => setSapsystemid(e.target.value)}
+                          label="System Id"
+                          id="outline-Service"
+                          value={sap_system_id}
+                          onChange={(e) => setSapsystemid(e.target.value)}
                       /> 
-                      var systemnumberlabel=<label >System Number</label>
+  var systemnumberlabel=<label >System Number</label>
   var systemnumberFieldWidget = 
                     // <input
                     //   type="text"
@@ -578,12 +579,12 @@ var poolFieldWidget =
                     //   value={sap_sytem_number}
                     //   />
                       <TextField required
-                      label="System Number"
-                      id="outline-System Number"
-                      value={sap_sytem_number}
-                      onChange={(e) => setSystemnumber(e.target.value)}
+                          label="System Number"
+                          id="outline-System Number"
+                          value={sap_sytem_number}
+                          onChange={(e) => setSystemnumber(e.target.value)}
                       /> 
-                      var sapuserlabel=<label > SapUser</label>
+  var sapuserlabel=<label > SapUser</label>
   var userFieldWidget = 
                   // <input
                   //     type="text"
@@ -593,10 +594,10 @@ var poolFieldWidget =
                   //     value={sap_user}
                   //     />
                       <TextField required
-                      label="SapUser"
-                      id="outline-SapUser"
-                      value={sap_user}
-                      onChange={(e) => setUser(e.target.value)}
+                        label="SapUser"
+                        id="outline-SapUser"
+                        value={sap_user}
+                        onChange={(e) => setUser(e.target.value)}
                       /> 
 }
 
@@ -608,167 +609,139 @@ const handleSubmit = (e) => {
 if(extrafield === 'tracelink') {
 // alert(company_name)
   axios
-     .put(`http://localhost:8000//master/tracelink/update/1`, 
+     .put(window.url+`/master/tracelink/update/1`, 
                                         
-{
+              {
                   "title":title,  
-                   "url":url, 
-                   "tracelink_username":tracelink_username, 
-                   "siteid":siteid, 
-                   "sftp_port":sftp_port, 
-                   "sftp_password":sftp_password,   
-                   "file_sender":file_sender,
-                   "sending_system":sending_system,
-                   "tracelink_password":tracelink_password,
-                   "sftp_host":sftp_host,
-                   "sftp_username":sftp_username,
-                   "file_receiver":file_receiver,
+                  "url":url, 
+                  "tracelink_username":tracelink_username, 
+                  "siteid":siteid, 
+                  "sftp_port":sftp_port, 
+                  "sftp_password":sftp_password,   
+                  "file_sender":file_sender,
+                  "sending_system":sending_system,
+                  "tracelink_password":tracelink_password,
+                  "sftp_host":sftp_host,
+                  "sftp_username":sftp_username,
+                  "file_receiver":file_receiver,
                   
 
-                   },
-                   {
-                  //  auth: {
-                  //  username: username,
-                  //   password: password
-                  //   }
-                   }
-                   )
+                },
+                   
+                )
                    .then(() => {
                    navigate("/company");
                    });
                                    
-                   }
+            }
 
-                  else if(extrafield ==="sap") {
+            else if(extrafield ==="sap") {
 
-                    axios
-                                        .put('http://localhost:8000//master/erp/update/1', 
+                  axios
+                      .put(window.url+'/master/companyerp/update/1', 
                                           
-                                            {
-                                              "erp":erp,    
-                                              "sap_client":sap_client,
-                                              "sap_destination":sap_destination,
-                                              "sap_language":sap_language,
-                                      
-                                              
-                                              "sap_password":sap_password,
-                                              "sap_pool_size":sap_pool_size,
-                                              'sap_server_host':sap_server_host,
-                                             
-                                               "sap_service":sap_service,
-                                               'sap_system_id':sap_system_id,
-                                               'sap_sytem_number':sap_sytem_number,
-                                               'sap_user': sap_user
-                                               
-                                               
-                                            },
-                                            {
-                                              // auth: {
-                                              //   username: username,
-                                              //   password: password
-                                              // }
-                                            }
-                                            )
-                                            .then(() => {
-                                              navigate("/company/compropertydatagrid");
-                                            });
-                  }                
-}
+                          {
+                              "erp":erp,    
+                              "sap_client":sap_client,
+                              "sap_destination":sap_destination,
+                              "sap_language":sap_language,
+                              "sap_password":sap_password,
+                              "sap_pool_size":sap_pool_size,
+                              'sap_server_host':sap_server_host,
+                              "sap_service":sap_service,
+                              'sap_system_id':sap_system_id,
+                              'sap_sytem_number':sap_sytem_number,
+                              'sap_user': sap_user,
+                              "loggedInUsername":loggedInUsername,
+
+                              "loggedInUserrole":loggedInUserrole,
+                              "uniqueid":1,
+                          },
+                                           
+                          )
+                          .then(() => {
+                                        navigate("/company");
+                                      });
+              }                
+          }
 
 
                
  return (
   <>
-  <br></br>
-  <br></br>
-  <br></br>
-  <br></br>
-  
-  
- <div class="container-fluid">
-  
- &nbsp;
-           <div class="card shadow mb-4" id="customerfullcard"> 
-               <div class="card-header py-3" id="customercardhead">
-                   <div className='row'>
-                       <div className='col-10' id="customerhead">
-                       {headwidget}
-                       </div>
-                      
-                   </div>
-                                                   
-               </div>
-               <br></br>
-               <div>
-               &nbsp;&nbsp;&nbsp;&nbsp;{gtinbutton}
-               </div>
-
-              
-               <div class="card-body">  
-            
-             
-   
-   <Box 
-   component="form"
-   sx={{
-     '& .MuiTextField-root': { m: 2, width: '25ch' },
-   }}
-   noValidate
-   autoComplete="off"
- >
-<div className="container" id="customertracelinkbox" >
- <div className="row" >
-   <div className="col-4">
-   {titlewidget}
-   <br></br>
-   <div id="saperpbox">
-   {erpwidget}
-   </div>
-
-   {urlwidget}{sapclientFieldWidget}
-
-   {usernamewidget}{sapdestinationFieldWidget}
-
-   {siteidwidget} {langFieldWidget}
-
-   </div>
-   
-   <div className="col-4">
-   {sftpportwidget}{passwordFieldWidget}
-
-   { sftppasswordwidget}{poolFieldWidget}
-
-   {filesenderwidget}{serverFieldWidget}
-
-   {sendingsystemwidget}{serviceFieldWidget}
-   </div>
-
-   <div className="col-2">
-  
-   {passwordwidget}{systemidFieldWidget}
-   
-  
-   {sftphostwidget}{systemnumberFieldWidget}
-
-   {sftpusernamewidget}{userFieldWidget}
-
-   {filereceiverwidget}
-   </div>
-
-   <div className="col-2" id="sandtlinkbutton" >
-   <button  onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                   
-   </button>
-   </div>
+   <br/><br/><br/><br/><br/><br/>
 
 
- </div>
+     
+
+<Box
+component="form"
+sx={{
+  '& .MuiTextField-root': { m: 4, width: '25' },
+}}
+noValidate
+autoComplete="off"
+>
+ 
+<div style={{backgroundColor:"#AAF0D1"}} >
+<h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> {headwidget}</font></h4></center></h4>            
+{titlewidget}{sapclientFieldWidget}
+{urlwidget}{sapdestinationFieldWidget}
+
+        {usernamewidget}{langFieldWidget}
+
+        {siteidwidget} 
+        {serviceFieldWidget}
+
+
+
+ 
+
+<br/>
+{sftpportwidget}{passwordFieldWidget}
+
+{ sftppasswordwidget}{poolFieldWidget}
+
+{filesenderwidget}{serverFieldWidget}
+
+{sendingsystemwidget}{systemidFieldWidget}
+<br/>
+
+
+ 
+{passwordwidget}{systemnumberFieldWidget}
+      
+      
+      {sftphostwidget}{userFieldWidget}
+
+      {sftpusernamewidget}{createdby}
+
+      {filereceiverwidget}
+<br/>
+{erpwidget}
+
+<div className="row">
+  <div className="col-4">
+ 
+  </div>
+  <div className="col-4">
+  <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={handleSubmit} >
+                Save data
+            </button>
+  </div>
+  <div className="col-4">
+  </div>
+ 
+
 </div>
-</Box>
-<hr></hr>    
-               </div>
-           </div>
-       </div>   
+  
+ 
+</div>
+
+</Box>   
    </>    
  )
 }

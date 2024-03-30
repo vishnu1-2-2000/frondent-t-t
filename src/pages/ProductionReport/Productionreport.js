@@ -125,7 +125,7 @@ const Productionreport = () => {
  setBatchNumber(event.value); 
  //alert(event.value);
  axios
- .get("http://127.0.0.1:8000/reports/ProductionOrderReport/"+ event.value +"/",
+ .get(window.url+"/reports/ProductionOrderReport/"+ event.value +"/",
  
  )
  .then((res) => {
@@ -143,7 +143,7 @@ const Productionreport = () => {
   
 //  alert(batchNumberFunctionValue);
  axios
- .get("http://127.0.0.1:8000/reports/ProductionOrderReport/"+batchNumberFunctionValue +"/",
+ .get(window.url+"/reports/ProductionOrderReport/"+batchNumberFunctionValue +"/",
  
  )
  .then((res) => {
@@ -236,7 +236,7 @@ setPieChartData(
 
  function getBatchNumbers() {
  axios
- .get("http://127.0.0.1:8000/reports/ProductionOrderReport/",
+ .get(window.url+"/reports/ProductionOrderReport/",
  
  )
  .then((res) => {
@@ -356,360 +356,354 @@ setPieChartData(
 //    doc.save(`Reports.pdf`);
 //   }
 
+    return (
+        <>
+         
+         
+            <div class="container-fluid">
+                <div class="card shadow mb-4"> 
+                    <div class="card-header py-3">
+                        <div className='row'>
+                            <div className='col-10'>
+                              <h5 class="m-0 font-weight-bold text-primary">Production Report</h5>
+                            </div>
+                        </div>
+                                                      
+                    </div>
 
+                    <div class="card-body">  
+                      {/* {warningDIVstate}  */}
+                        <table class="table table-borderless productionOrderReportSearchTable" id="productionOrderReportSearchTableID">
+                            <tbody>
+                                <tr>
+                                    <td class="productionOrderReportSearchTD">Batch number</td>
+                                    <td class="productionOrderReportSearchTD">
+                                        <Select onChange={batchNumberChoseFunction} options={batchNumberOptionsNew} />
+                                    </td>
+                                    <td class="productionOrderReportSearchTD">PO number</td>
+                                    <td class="productionOrderReportSearchTD">
+                                        <input
+                                            type="text"
+                                            size="5"
+                                            value={productionOrderNumber}
+                                            className="form-control"
+                                        />
+                                        {/* <span class="productionOrderReportSearchBoxInvisble">
+                                            {productionOrderNumber}
+                                        </span> */}
+                                    </td>
+                                    <td class="productionOrderReportSearchTD">Date from</td>
+                                    <td class="productionOrderReportSearchTD">
+                                        <input
+                                        type="date"
+                                        className="form-control"
+                                        onChange={(e) => setDateFrom(e.target.value)}
+                                        />
 
- return (
- <>
- <Box sx={{ display: 'flex' }}> 
-        <Sidebar/>
-        <Box component="main" sx={{ flexGrow: 3, p: 7 }}>
-  {/* <Navbar/>  */}
+                                        {/* <span class="productionOrderReportSearchBoxInvisble">
+                                            {dateFrom}
+                                        </span> */}
+                                    </td>
+                                    <td class="productionOrderReportSearchTD">Date to</td>
+                                    <td class="productionOrderReportSearchTD">
+                                        <input
+                                        type="date"
+                                        className="form-control"
+                                        onChange={(e) => setDateTo(e.target.value)}
+                                        />
 
- <br/>
+                                        {/* <span class="productionOrderReportSearchBoxInvisble">
+                                            {dateTo}
+                                        </span> */}
 
- <div class="container">
- <div class="row">
- {/* <div class="col-2">
-  <Sidebar /> 
- </div> */}
- <div class="col-10">
-
- <div className="d-flex justify-content-between m-2">
- <h2>Production Report</h2>
- </div>
-
-
-<table class="table table-borderless productionOrderReportSearchTable" id="productionOrderReportSearchTableID">
- <tbody>
- <tr>
- <td class="productionOrderReportSearchTD">Batch number</td>
- <td class="productionOrderReportSearchTD">
- <Select onChange={batchNumberChoseFunction} options={batchNumberOptionsNew} />
- </td>
- <td class="productionOrderReportSearchTD">PO number</td>
- <td class="productionOrderReportSearchTD">
- <input
- type="text"
- size="5"
- value={productionOrderNumber}
- className="form-control"
- />
- <span class="productionOrderReportSearchBoxInvisble">
- {productionOrderNumber}
- </span>
- </td>
- <td class="productionOrderReportSearchTD">Date from</td>
- <td class="productionOrderReportSearchTD">
- <input
- type="date"
- className="form-control"
- onChange={(e) => setDateFrom(e.target.value)}
- />
-
- <span class="productionOrderReportSearchBoxInvisble">
- {dateFrom}
- </span>
- </td>
- <td class="productionOrderReportSearchTD">Date to</td>
- <td class="productionOrderReportSearchTD">
- <input
- type="date"
- className="form-control"
- onChange={(e) => setDateTo(e.target.value)}
- />
-
- <span class="productionOrderReportSearchBoxInvisble">
- {dateTo}
- </span>
-
- </td>
- </tr>
- <tr>
- <td class="productionOrderReportSearchTD">Packaging level name</td>
- <td class="productionOrderReportSearchTD">
- <input
- type="text"
- className="form-control"
- /> 
- </td>
- <td class="productionOrderReportSearchTD">Product name</td>
- <td class="productionOrderReportSearchTD">{productName}</td>
- <td class="productionOrderReportSearchTD">Expiry date</td>
- <td class="productionOrderReportSearchTD">
- <input
- type="date"
- className="form-control"
- />
- </td>
- <td class="productionOrderReportSearchTD">Status</td>
- <td class="productionOrderReportSearchTD">
-        <input
-        type="text"
-        className="form-control"
-        />
- </td>
- </tr>
- <tr>
- <td class="productionOrderReportSearchTD">Line name</td>
- <td class="productionOrderReportSearchTD">{lineName}</td>
- <td class="productionOrderReportSearchTD">System name</td>
- <td class="productionOrderReportSearchTD">{systemName}</td>
- </tr>
- </tbody>
-</table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="productionOrderReportSearchTD">Packaging level name</td>
+                                    <td class="productionOrderReportSearchTD">
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        /> 
+                                    </td>
+                                    <td class="productionOrderReportSearchTD">Product name</td>
+                                    <td class="productionOrderReportSearchTD">{productName}</td>
+                                    <td class="productionOrderReportSearchTD">Expiry date</td>
+                                    <td class="productionOrderReportSearchTD">
+                                        <input
+                                        type="date"
+                                        className="form-control"
+                                        />
+                                    </td>
+                                    <td class="productionOrderReportSearchTD">Status</td>
+                                    <td class="productionOrderReportSearchTD">
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="productionOrderReportSearchTD">Line name</td>
+                                    <td class="productionOrderReportSearchTD">{lineName}</td>
+                                    <td class="productionOrderReportSearchTD">System name</td>
+                                    <td class="productionOrderReportSearchTD">{systemName}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-8">
  
+                                </div>
+                                <div class="col-2">
+                                    <button
+                                    className="btn btn-success"
+                                    onClick={() => getBatchNumberTableData(batchNumber)}
+                                    ><i class="fa-solid fa-book"></i>&nbsp;
+                                    Get report
+                                    </button> 
+                                </div>
+                           
+                                {/* <div class="col-2">
+                                <button
+                                className="btn btn-success"
+                                onClick={() => exportReportsToprint()}
+                                >
+                                Print Page
+                                </button> 
+                                </div> */}
+
+                                <div class="col-2">
+                                    <button
+                                    className="btn btn-success"
+                                    onClick={() => exportReportsToPDF()}
+                                    ><i class="fa-solid fa-file-pdf"></i>&nbsp;
+                                    Export to PDF
+                                    </button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div id="content">
+        {/* <Header>      
+        </Header> */}
+                    <div class="container-fluid">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>
+                                            Table
+                                        </h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5>
+                                            Chart
+                                        </h5>
+                                    </div>
+                                </div>                     
+                            </div>
+                        
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="productionOrderReportResultTableDIVouter">
+                                                <div className="productionOrderReportResultTableDIV">
+                                                    <table class="productionOrderReportResultTable" id="productionOrderReportResultTableID">
+                                                        <tr>
+                                                        <th class="productionOrderReportResultTH">Name</th>
+                                                        <th class="productionOrderReportResultTH">Count</th>
+                                                        </tr>
+                                                        <tr>
+                                                        <td class="productionOrderReportResultTD">Accepted</td>
+                                                        <td class="productionOrderReportResultTD">{Accepted}</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                        <td class="productionOrderReportResultTD">Specimen</td>
+                                                        <td class="productionOrderReportResultTD">{Specimen}</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                        <td class="productionOrderReportResultTD">Damaged</td>
+                                                        <td class="productionOrderReportResultTD">{Damaged}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                        <td class="productionOrderReportResultTD">Sample</td>
+                                                        <td class="productionOrderReportResultTD">{Sample}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                        <td class="productionOrderReportResultTD">Challenged</td>
+                                                        <td class="productionOrderReportResultTD">{Challenged}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                        <td class="productionOrderReportResultTD">Teach</td>
+                                                        <td class="productionOrderReportResultTD">{Teach}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                        <td class="productionOrderReportResultTD">In process</td>
+                                                        <td class="productionOrderReportResultTD">{InProcess}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                        <td class="productionOrderReportResultTD">Rejected by camera</td>
+                                                        <td class="productionOrderReportResultTD">{RejectedByCamera}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                        <td class="productionOrderReportResultTD">Unused</td>
+                                                        <td class="productionOrderReportResultTD">{Unused}</td>
+                                                        </tr>
 
 
- <div class="container">
- <div class="row">
- <div class="col-8">
- 
- </div>
- <div class="col-2">
- <button
- className="btn btn-success"
- onClick={() => getBatchNumberTableData(batchNumber)}
- >
- Get report
- </button> 
- </div>
- {/* <div class="col-2">
- <button
- className="btn btn-success"
- onClick={() => exportReportsToprint()}
- >
-Print Page
- </button> 
- </div> */}
+                                                        {/* <tr>
+                                                            <td class="productionOrderReportResultTD">A</td>
+                                                            <td class="productionOrderReportResultTD">{A}</td>
+                                                            </tr>
 
- <div class="col-2">
- <button
- className="btn btn-success"
- onClick={() => exportReportsToPDF()}
- >
- Export to PDF
- </button> 
- </div>
- </div>
- </div>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">B</td>
+                                                            <td class="productionOrderReportResultTD">{B}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">C</td>
+                                                            <td class="productionOrderReportResultTD">{C}</td>
+                                                            </tr>
 
- <div class="container">
- <div class="row">
- <div class="col-6">
- <h5>
- Table
- </h5>
- </div>
- <div class="col-6">
- <h5>
- Chart
- </h5>
- </div>
- </div>
- </div>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">D</td>
+                                                            <td class="productionOrderReportResultTD">{D}</td>
+                                                            </tr>
 
- <br/>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">E</td>
+                                                            <td class="productionOrderReportResultTD">{E}</td>
+                                                            </tr>
 
- <div class="container">
- <div class="row">
- <div class="col-6">
- <div class="productionOrderReportResultTableDIVouter">
- <div className="productionOrderReportResultTableDIV">
- <table class="productionOrderReportResultTable" id="productionOrderReportResultTableID">
- <tr>
- <th class="productionOrderReportResultTH">Name</th>
- <th class="productionOrderReportResultTH">Count</th>
- </tr>
- <tr>
- <td class="productionOrderReportResultTD">Accepted</td>
- <td class="productionOrderReportResultTD">{Accepted}</td>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">F</td>
+                                                            <td class="productionOrderReportResultTD">{F}</td>
+                                                            </tr>
 
- </tr>
- <tr>
- <td class="productionOrderReportResultTD">Specimen</td>
- <td class="productionOrderReportResultTD">{Specimen}</td>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">G</td>
+                                                            <td class="productionOrderReportResultTD">{G}</td>
+                                                            </tr>
 
- </tr>
- <tr>
- <td class="productionOrderReportResultTD">Damaged</td>
- <td class="productionOrderReportResultTD">{Damaged}</td>
- </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">H</td>
+                                                            <td class="productionOrderReportResultTD">{H}</td>
+                                                            </tr>
 
- <tr>
- <td class="productionOrderReportResultTD">Sample</td>
- <td class="productionOrderReportResultTD">{Sample}</td>
- </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">I</td>
+                                                            <td class="productionOrderReportResultTD">{I}</td>
+                                                            </tr>
 
- <tr>
- <td class="productionOrderReportResultTD">Challenged</td>
- <td class="productionOrderReportResultTD">{Challenged}</td>
- </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">J</td>
+                                                            <td class="productionOrderReportResultTD">{J}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">K</td>
+                                                            <td class="productionOrderReportResultTD">{K}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">L</td>
+                                                            <td class="productionOrderReportResultTD">{L}</td>
+                                                            </tr>
 
- <tr>
- <td class="productionOrderReportResultTD">Teach</td>
- <td class="productionOrderReportResultTD">{Teach}</td>
- </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">M</td>
+                                                            <td class="productionOrderReportResultTD">{M}</td>
+                                                            </tr>
 
- <tr>
- <td class="productionOrderReportResultTD">In process</td>
- <td class="productionOrderReportResultTD">{InProcess}</td>
- </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">N</td>
+                                                            <td class="productionOrderReportResultTD">{N}</td>
+                                                            </tr>
 
- <tr>
- <td class="productionOrderReportResultTD">Rejected by camera</td>
- <td class="productionOrderReportResultTD">{RejectedByCamera}</td>
- </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">O</td>
+                                                            <td class="productionOrderReportResultTD">{O}</td>
+                                                            </tr>
 
- <tr>
- <td class="productionOrderReportResultTD">Unused</td>
- <td class="productionOrderReportResultTD">{Unused}</td>
- </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">P</td>
+                                                            <td class="productionOrderReportResultTD">{P}</td>
+                                                            </tr>
 
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">Q</td>
+                                                            <td class="productionOrderReportResultTD">{Q}</td>
+                                                            </tr>
 
- {/* <tr>
-    <td class="productionOrderReportResultTD">A</td>
-    <td class="productionOrderReportResultTD">{A}</td>
-    </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">R</td>
+                                                            <td class="productionOrderReportResultTD">{R}</td>
+                                                            </tr>
 
-    <tr>
-    <td class="productionOrderReportResultTD">B</td>
-    <td class="productionOrderReportResultTD">{B}</td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportResultTD">C</td>
-    <td class="productionOrderReportResultTD">{C}</td>
-    </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">S</td>
+                                                            <td class="productionOrderReportResultTD">{S}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">T</td>
+                                                            <td class="productionOrderReportResultTD">{T}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">U</td>
+                                                            <td class="productionOrderReportResultTD">{U}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">V</td>
+                                                            <td class="productionOrderReportResultTD">{V}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">W</td>
+                                                            <td class="productionOrderReportResultTD">{W}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">X</td>
+                                                            <td class="productionOrderReportResultTD">{X}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">Y</td>
+                                                            <td class="productionOrderReportResultTD">{Y}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td class="productionOrderReportResultTD">Z</td>
+                                                            <td class="productionOrderReportResultTD">{Z}</td>
+                                                        </tr> */}
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div className="custom-chart">
+                                            <HighchartsReact highcharts={Highcharts} options={pieChartOptions} /> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <tr>
-    <td class="productionOrderReportResultTD">D</td>
-    <td class="productionOrderReportResultTD">{D}</td>
-    </tr>
+                      
+        </>
+    )
+}
 
-    <tr>
-    <td class="productionOrderReportResultTD">E</td>
-    <td class="productionOrderReportResultTD">{E}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">F</td>
-    <td class="productionOrderReportResultTD">{F}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">G</td>
-    <td class="productionOrderReportResultTD">{G}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">H</td>
-    <td class="productionOrderReportResultTD">{H}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">I</td>
-    <td class="productionOrderReportResultTD">{I}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">J</td>
-    <td class="productionOrderReportResultTD">{J}</td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportResultTD">K</td>
-    <td class="productionOrderReportResultTD">{K}</td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportResultTD">L</td>
-    <td class="productionOrderReportResultTD">{L}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">M</td>
-    <td class="productionOrderReportResultTD">{M}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">N</td>
-    <td class="productionOrderReportResultTD">{N}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">O</td>
-    <td class="productionOrderReportResultTD">{O}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">P</td>
-    <td class="productionOrderReportResultTD">{P}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">Q</td>
-    <td class="productionOrderReportResultTD">{Q}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">R</td>
-    <td class="productionOrderReportResultTD">{R}</td>
-    </tr>
-
-    <tr>
-    <td class="productionOrderReportResultTD">S</td>
-    <td class="productionOrderReportResultTD">{S}</td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportResultTD">T</td>
-    <td class="productionOrderReportResultTD">{T}</td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportResultTD">U</td>
-    <td class="productionOrderReportResultTD">{U}</td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportResultTD">V</td>
-    <td class="productionOrderReportResultTD">{V}</td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportResultTD">W</td>
-    <td class="productionOrderReportResultTD">{W}</td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportResultTD">X</td>
-    <td class="productionOrderReportResultTD">{X}</td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportResultTD">Y</td>
-    <td class="productionOrderReportResultTD">{Y}</td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportResultTD">Z</td>
-    <td class="productionOrderReportResultTD">{Z}</td>
-     </tr> */}
- </table>
- </div>
- </div>
- </div>
- <div class="col-6">
- <div className="custom-chart">
- <HighchartsReact highcharts={Highcharts} options={pieChartOptions} />
- </div>
- </div>
- </div>
- </div>
-
-
-
- </div>
- </div>
- </div>
-
-
-
-</Box>
-</Box>
-
- </>
- );
-};
-
-export default Productionreport;
+export default  Productionreport

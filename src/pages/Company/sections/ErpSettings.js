@@ -46,7 +46,7 @@ function ErpSettings() {
 
     function getErpdataEdit(){
       axios
-      .get("http://127.0.0.1:8000/master/companyerp/"+uniqueID+"/",
+      .get(window.url+"/master/companyerp/"+uniqueID+"/",
       )
       
       .then((res)=>{
@@ -118,24 +118,26 @@ function ErpSettings() {
   };
                     // if(operation === 'new') {
   var headwidget=
-                  <Box
-                    component="form"
-                        sx={{
-                            width: 500,
-                            maxWidth: '100%',
-                            }}
-                        noValidate
-                        autoComplete="off"
-                    ><Controls.Input 
+                  // <Box
+                  //   component="form"
+                  //       sx={{
+                  //           width: 500,
+                  //           maxWidth: '100%',
+                  //           }}
+                  //       noValidate
+                  //       autoComplete="off"
+                  //   >
+                      <Controls.Input 
                         disabled
                       // fullWidth
                       
                           id="outlined-Company Prefix"
-                          label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                Enter Company Erp Details</font> </h4></pre></h4>}
+                          value={loggedInUsername}
+                          // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                Enter Company Erp Details</font> </h4></pre></h4>}
                            
                      
                    />
-                   </Box>
+                  //  </Box>
                       
     var erpwidget   =
   //   <FormControl sx={{ m: 1 }} variant="standard" >
@@ -156,12 +158,12 @@ function ErpSettings() {
   //   </div>
   // </FormControl>  
 
-  <FormControl sx={{ m: 1, width: 220 }}>
+  <FormControl sx={{ m: 2, width: 220, }}>
     <InputLabel id="demo-multiple-name-label">Erp</InputLabel>
       <NativeSelect
       labelId="demo-multiple-name-label"
       id="demo-multiple-name"
-      multiple
+      // multiple
       value={erp}
       onChange={(e) => setErp(e.target.value)}
       input={<OutlinedInput label="Erp" />}
@@ -183,7 +185,7 @@ function ErpSettings() {
                                         label="Sap Client"
                                         onChange={(e) => setSapclient(e.target.value)}
                                         value={sap_client}
-                                        /> 
+                              /> 
     var sapdestinationFieldWidget = <TextField
 
                                         required
@@ -191,14 +193,14 @@ function ErpSettings() {
                                         label="Sap Destination"
                                         onChange={(e) => setDestination(e.target.value)}
                                         value={sap_destination}
-                                        /> 
+                                    /> 
                                         
     var langFieldWidget = <TextField  required
                                         id="outlined-saplanguage"
                                         label="Sap Language"
                                         onChange={(e) => setLanguage(e.target.value)}
                                         value={sap_language}
-                                        /> 
+                          /> 
     var passwordFieldWidget = <TextField required
                                   id="outlined-sappassword"
                                   label="Sap Password"
@@ -223,7 +225,7 @@ function ErpSettings() {
                                       </InputAdornment>
                                     )
                                   }}
-                                        /> 
+                            /> 
                                     
                                     //   var producedFieldWidget = <input
                                     //   type="text"
@@ -237,39 +239,39 @@ function ErpSettings() {
                                         label="Sap poolsize"
                                         onChange={(e) => setPoolsize(e.target.value)}
                                         value={sap_pool_size}
-                                        />
+                          />
       var serverFieldWidget = <TextField required
                                         label="Sap Serverhost"
                                         id="outlined-serverhost"
                                         onChange={(e) => setServerhost(e.target.value)}
                                         value={sap_server_host}
-                                        />
+                              />
       var serviceFieldWidget = <TextField
                                         required
                                         label="Sap Service"
                                         id="outlined-sapservice"
                                         onChange={(e) => setSapservice(e.target.value)}
                                         value={sap_service}
-                                        />
+                                />
       var systemidFieldWidget = <TextField required
                                         id="outlined-sapsystemid"
                                         label="Sap SystemId"
                                         onChange={(e) => setSapsystemid(e.target.value)}
                                         value={sap_system_id}
-                                        />
+                                />
                                     
       var systemnumberFieldWidget = <TextField required
                                         id="outlined-sapsystemnumber"
                                         label="Sap SystemNumber"
                                         onChange={(e) => setSystemnumber(e.target.value)}
                                         value={sap_sytem_number}
-                                        />
+                                    />
       var userFieldWidget = <TextField required
                                         id="outlined-sapuser"
                                         label="Sap User"
                                         onChange={(e) => setUser(e.target.value)}
                                         value={sap_user}
-                                        />
+                            />
                     // }
                     
     const handleSubmit = (e) => {
@@ -280,7 +282,7 @@ function ErpSettings() {
                     //  alert(sap_service);
                                         // if(operation === 'new') {
                         axios
-                            .put(`http://127.0.0.1:8000/master/companyerp/update/${uniqueID}`, 
+                            .put(window.url+`/master/companyerp/update/${uniqueID}`, 
                                           
                                 {
                                   "erp":erp,    
@@ -299,7 +301,8 @@ function ErpSettings() {
                                   'sap_user': sap_user,
                                   "loggedInUsername":loggedInUsername,
 
-                                  "loggedInUserrole":loggedInUserrole
+                                  "loggedInUserrole":loggedInUserrole,
+                                  "uniqueid":uniqueID,
                                                
                                                
                               },
@@ -312,99 +315,72 @@ function ErpSettings() {
   return (
             <>
 
-<br></br>
-    <div class="container-fluid">
-              <div class="card shadow mb-4" id="companyerpfullcard"> 
-                  <div class="card-header py-3" id="customercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="companyerphead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
+<br/><br/><br/><br/><br/>
 
-                  <div class="card-body">  
-                  <br></br>
-    <br></br>
-    
-    
-    <Box id="customerbox"
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <br></br>
-      {/* <div id= "companyerp">
-         {erpwidget}
+      
+        
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 4, width: '25' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add Company ERP Settings </font></h4></center></h4>            
+          {erpwidget}
 
-         
-         </div> */}
-      <div>
-          {/* {warningmessage} */}
-         
-         
-         {/* <span id ="companyerp">{erpwidget}</span> */}
-         {sapclientFieldWidget}
+          {sapclientFieldWidget}
 
           {sapdestinationFieldWidget}
-          {langFieldWidget}
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-            </button>
-          <div>
 
-          {passwordFieldWidget}
+          {langFieldWidget}
+        
+           
+          
+          <br/>
+          
 
            
           {poolFieldWidget}
 
-          {serverFieldWidget}
-        
+{headwidget}
+{serverFieldWidget}
+{userFieldWidget}
+<br/>
+{serviceFieldWidget}
+{systemidFieldWidget}
+{systemnumberFieldWidget}
+{passwordFieldWidget}
 
-            
+        
+          <div className="row">
+            <div className="col-4">
+           
+            </div>
+            <div className="col-4">
+            <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button>
+            </div>
+            <div className="col-4">
+            </div>
+           
+          
           </div>
-
-          <div >
+            
+           
+          </div>
          
-          {systemidFieldWidget}
-          {systemnumberFieldWidget}
-          {userFieldWidget}
-         
+        </Box>
 
-      <div id= "companyerp">
-         {erpwidget}
-         
 
-         
-         </div>
-         <div id="companyservice">
-         {serviceFieldWidget}
-         </div>
-         
-        
-      </div>
 
-      <div>
-      
-
-    </div>              
- 
-
-  </div>
-  <div>
-      
-</div>
-      
-    </Box> 
-    <hr></hr>    
-                  </div>
-              </div>
-          </div>  
 
 
 

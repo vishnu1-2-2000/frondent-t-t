@@ -17,13 +17,13 @@ var processno= processnumber
   useEffect(() => {
 
                     axios
-   .post("http://127.0.0.1:8000/master/downloadcodes/",
-   {
+   .post(window.url+"/master/downloadcodes/",
+        {
             
                     "gtin":gtinno,
                     "process_order_number":processno,
                     "serialnumberwithgtin":{
-                                        "5855": "56566"
+                                      "5855": "56566"
                                     }
                    
                     // "password":pass
@@ -34,7 +34,7 @@ var processno= processnumber
       
     });
                                       
-                                      }, []);
+      }, []);
                                                           
 
   return (

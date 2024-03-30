@@ -113,7 +113,7 @@ function UserAuditReport() {
                                         
                                         //     alert(startdate)
                                             axios
-                                              .post('http://localhost:8000/accounts/userAuditReportdate/', 
+                                              .post(window.url+'/accounts/userAuditReportdate/', 
                                              
                                               {
                                                             "datefrom":startdate,  
@@ -135,9 +135,9 @@ function UserAuditReport() {
                                           }
 
                                           function getData() {
-                                                            alert("anu");
+                                                            // alert("anu");
                                                     axios
-                                                        .get("http://localhost:8000/accounts/userAuditReportdate/",
+                                                        .get(window.url+"/accounts/userAuditReportdate/",
                                                                 
                                                               )
                                                               .then((res) => {

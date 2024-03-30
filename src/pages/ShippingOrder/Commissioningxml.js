@@ -39,7 +39,8 @@ const[productionLineId,setProductionLineId]=useState("");
 const[internalmaterialcode,setInternalmaterialcode]=useState("");
 const[lotnumber,setLotnumber]=useState("");
 const[expirationdate,setExpirationdate]=useState("");
-
+var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
 
 
 const { processnumber } = useParams();
@@ -50,24 +51,15 @@ const navigate = useNavigate();
 var processno= processnumber
 
 var headwidget=
-<Box
-component="form"
-sx={{
-  width: 500,
-  maxWidth: '100%',
-  
-  
-}}
-  noValidate
-  autoComplete="off"
-><Controls.Input 
-disabled
-fullWidth
 
+  <Controls.Input 
+disabled
+// fullWidth
+value={loggedInUsername}
 id="outlined-Company Prefix"
-label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">        Enter Commissioning  Data</font> </h4></pre></h4>}
+//label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">        Enter Commissioning  Data</font> </h4></pre></h4>}
 />
-</Box>
+
 var filesendernumberFieldWidget = 
                     // <input
                     // type="text"
@@ -252,7 +244,7 @@ var expirationdateFieldWidget = <input
            {
             axios
                       
-                    .get("http://127.0.0.1:8000/master/shippo/"+uniqueID+"/",
+                    .get(window.url+"/master/shippo/"+uniqueID+"/",
                      
                     )
                     .then((res) => {
@@ -268,7 +260,7 @@ var expirationdateFieldWidget = <input
                     });
 
                     axios
-                        .get("http://127.0.0.1:8000//master/company/")
+                        .get(window.url+"/master/company/")
                         .then((res) => {
                             
                             
@@ -278,7 +270,7 @@ var expirationdateFieldWidget = <input
                         });
 
                         axios
-                                        .get("http://127.0.0.1:8000//master/downloadcodes/"+processno+"/",
+                                        .get(window.url+"/master/downloadcodes/"+processno+"/",
                                          
                                         )
                                         .then((res) => {
@@ -307,7 +299,7 @@ var expirationdateFieldWidget = <input
                                   
                                        
                                      axios
-                                     .post("http://127.0.0.1:8000//master/commissioningxmldata/",
+                                     .post(window.url+"/master/commissioningxmldata/",
                                      {
                                        "id":id,
                                        "filesendernumber":filesendernumber,
@@ -341,97 +333,62 @@ var expirationdateFieldWidget = <input
   return (
                   
     <>
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
-    
-    <div className="container">
-     <Box sx={{ display: 'flex' }}>
-                                 
-                <Sidebar/>
-    
-
-<br></br>
-<div class="container-fluid" >
-<div class="card shadow mb-4" id="commissioningxmlfullcard"> 
-<div class="card-header py-3" id="customercardhead">
-<div className='row'>
-   <div className='col-10' id="customerhead">
-   {headwidget}
-   </div>
-</div>
-                               
-</div>
-
-<div class="card-body">  
-<br></br>
-<br></br>
-
-{/* <div id="locationhead">
-{headwidget}
-</div>
-<br></br> */}
-
-<Box id="customerbox"
-component="form"
-sx={{
-'& .MuiTextField-root': { m: 2, width: '25ch' },
-}}
-noValidate
-autoComplete="off"
->
-
-<br></br>
-<div>
-{filecontrolnumberFieldWidget}
+   <br/>        <br/>        <br/>   <br/><br/><br/> <br/><br/>
+           {/* {warningmessage}         */}
+           <Box sx={{ display: 'flex' }}>
+           <Sidebar/>   
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 4, width: '25' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+       
+      <div style={{backgroundColor:"#AAF0D1"}} >
+      <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Enter Commissioning  Data </font></h4></center></h4>            
+        
+      {filecontrolnumberFieldWidget}
 {eventdatetimeFieldWidget}
 {eventTimeZoneOffsetFieldWidget}
 
-<div id="shipmentxmlbutton">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                               
-</button>
-</div>
-<br></br>
-<br></br>
-<div>
 
-{packagingLevelFieldWidget}
+       
+      
+        <br/>
+        {packagingLevelFieldWidget}
 {eventLocationFieldWidget}
-
-
-
-
-
-
-</div>
-
-<div >
-
-
-
-</div>
-
-<div>
-
-
-</div>              
-
-
-</div>
-<div>
-
-</div>
-
-</Box> 
-<hr></hr>    
-</div>
-</div>
-</div>  
-</Box> 
-</div>
+{headwidget}
+      <div className="row">
+        <div className="col-4">
+       
+        </div>
+        <div className="col-4">
+        <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button>
+        </div>
+        <div className="col-4">
+        </div>
+        {/* <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button> */}
+       
+      
+      </div>
+        
+       
+      </div>
+     
+    </Box>
+    </Box> 
  </>
   )
 }

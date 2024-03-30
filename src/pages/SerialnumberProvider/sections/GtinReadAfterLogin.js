@@ -10,7 +10,8 @@ import Box from '@mui/material/Box';
 import Sidebar from "../../../components/Sidnav/Sidebar";
 import NotAuthorizedSection from '../../../components/Common/NotAuthorizedSection';
 function GtinReadAfterLogin() {
-                    const loadingSection = <div class="container-fluid">
+
+  const loadingSection = <div class="container-fluid">
                     <div class="card shadow mb-4"> 
                         <div class="card-body">  
                           <div class="px-3 py-5 text-primary text-center">
@@ -22,23 +23,22 @@ function GtinReadAfterLogin() {
                     </div>
                 </div>
           
-              const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
+  const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
                 
-              const notAuthorizedSection = <div class="container-fluid"id="notauthgtin">
-                        <div class="card shadow mb-4"> 
-                            <div class="card-body">  
-                              
-                              <div class="text-primary text-center">
-                                <img src='/img/forbidden.jpg'/>
+  const notAuthorizedSection = <div class="container-fluid" id="gtinpermision">
+            <div class="card shadow mb-4"> 
+                  <div class="card-body">  
+                      <div class="text-primary text-center">
+                            <img src='/img/forbidden.jpg'/>
                               </div>
                             </div>
                         </div>
                     </div>
           
-              function checkAuthorization() 
-              {
-                axios
-                .get("http://localhost:8000//accounts/userrolePermissionsRead")
+  function checkAuthorization() 
+      {
+          axios
+                .get(window.url+"/accounts/userrolePermissionsRead")
                 .then((res) => {
                   var authorized = false;
                   //  alert("haiii")
@@ -116,19 +116,20 @@ function GtinReadAfterLogin() {
                     }
                 })
                 
-                  });
-              }
+              });
+          }
           
               
               
           
-              useEffect(() => {     
-                checkAuthorization();
+      useEffect(() => {  
+
+            checkAuthorization();
                 
-              }, []);
+          }, []);
              
-              return (
-                  <div id="wrapper">
+    return (
+              <div id="wrapper">
                    
                          
                    <Box sx={{ display: 'flex' }}>
@@ -143,7 +144,7 @@ function GtinReadAfterLogin() {
               </div>
             </Box>
                      
-              </div>
+          </div>
             )
 }
 

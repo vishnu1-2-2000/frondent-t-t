@@ -11,10 +11,10 @@ import Loading from '../../../components/Common/Loading';
 import GtinDataEdit from './GtinDataEdit';
 import GtinDataEntry from './GtinDataEntry';
 function GtinCreateAfterLogin() {
-                    const { operation } = useParams();
-                    const { uniqueID } = useParams();
+      const { operation } = useParams();
+      const { uniqueID } = useParams();
                   
-                    const loadingSection = <div class="container-fluid" id="regimage">
+      const loadingSection = <div class="container-fluid" id="regimage">
                         <div class="card shadow mb-4"> 
                             <div class="card-body">  
                               <div class="px-3 py-5 text-primary text-center">
@@ -27,16 +27,16 @@ function GtinCreateAfterLogin() {
                       </div> 
                     
                   
-                    const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
+      const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
                   
-                    const notAuthorizedSection = <div class="container-fluid" id="notauhorized">
+      const notAuthorizedSection = <div class="container-fluid" id="notauhorized">
                             <br></br>
                             <br></br>
                             <br></br>
                             <br></br>
                             <br></br>
                             <br></br>
-                      <div class="card shadow mb-4"> 
+      <div class="card shadow mb-4"> 
                       
                           <div class="card-body">  
                           
@@ -51,7 +51,7 @@ function GtinCreateAfterLogin() {
                   
                     function checkAuthorization() {
                       axios
-                      .get("http://localhost:8000//accounts/userrolePermissionsRead")
+                      .get(window.url+"/accounts/userrolePermissionsRead")
                       .then((res) => {
                         var authorized = false;
                         // alert("haiii")

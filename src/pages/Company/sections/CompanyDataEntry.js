@@ -65,7 +65,7 @@ function CompanyDataEntry() {
     var comEditID= uniqueID;
                       
     axios
-      .get("http://localhost:8000/master/company/"+comEditID+"/",
+      .get(window.url+"/master/company/"+comEditID+"/",
                           
       )
       .then((res)=>{
@@ -106,26 +106,28 @@ function CompanyDataEntry() {
                     
   if(operation === 'new') {
     var headwidget=
-      <Box
-          component="form"
-          sx={{
-            width: 500,
-            maxWidth: '100%',
+      // <Box
+      //     component="form"
+      //     sx={{
+      //       width: 500,
+      //       maxWidth: '100%',
             
             
-          }}
-      noValidate
-      autoComplete="off"
-      ><Controls.Input 
+      //     }}
+      // noValidate
+      // autoComplete="off"
+      // >
+        <Controls.Input 
       disabled
     // fullWidth
     
       id="outlined-Company Prefix"
-      label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                   Enter Company Data </font></h4></pre></h4>}
+      value={loggedInUsername}
+      // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                   Enter Company Data </font></h4></pre></h4>}
          
    
       />
-    </Box>
+    // </Box>
   var comnameFieldWidget = 
                         // <input
                         //       type="text"
@@ -166,7 +168,7 @@ function CompanyDataEntry() {
                             label="Zip"
                             onChange={(e) => setZip(e.target.value)}
                   
-                      />
+                        />
   var stateFieldWidget = 
                     //     <input
                     //         type="text"
@@ -179,7 +181,7 @@ function CompanyDataEntry() {
                       label="State"
                       onChange={(e) => setState(e.target.value)}
           
-                  />
+                    />
                     
   var glnFieldWidget = 
                     //      <input
@@ -193,7 +195,7 @@ function CompanyDataEntry() {
                           label="Gln"
                           onChange={(e) => setGln(e.target.value)}
                 
-                      />
+                    />
                     
   var createdbyFieldWidget = 
                         // <input
@@ -219,8 +221,7 @@ function CompanyDataEntry() {
                       //       onChange={(e) => setCity(e.target.value)}
                       //     />
 
-                          <TextField
-                                   
+                          <TextField       
                             id="outlined-city"
                             label="City"
                             onChange={(e) => setCity(e.target.value)}
@@ -232,14 +233,11 @@ function CompanyDataEntry() {
                         //   aria-describedby="emailHelp"
                         //   onChange={(e) => setCountry(e.target.value)}
                         // />
-                        <TextField
-                                  
+                        <TextField       
                           id="outlined-country"
                           label="Country"
                           onChange={(e) => setCountry(e.target.value)}
-                      />
-                    
-                          
+                      />                       
     }
                     //   else if(operation === 'edit') {
                     //     var headwidget=<h3>Update</h3>
@@ -503,6 +501,33 @@ function CompanyDataEntry() {
                       }
                     }
                     
+                    if(testPassed == "true") {
+                      if(country != "") {
+                            testPassed = "true";
+                      }
+                    else {
+                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                            <h5>Input Country</h5>
+                          </div>
+                          
+                            setWarningDIVstate(warningDIV);
+                              testPassed = "false";
+                            }
+                          }
+                          if(testPassed == "true") {
+                            if(city != "") {
+                                  testPassed = "true";
+                            }
+                          else {
+                                warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                  <h5>Input City</h5>
+                                </div>
+                                
+                                  setWarningDIVstate(warningDIV);
+                                    testPassed = "false";
+                                  }
+                                }
+                                      
                         // if(testPassed == "true") {
                         //   if(created_by!= "") {
                         //     testPassed = "true";
@@ -529,7 +554,7 @@ function CompanyDataEntry() {
             if(operation === 'new') {
                             // alert(company_name)
                 axios
-                  .post('http://localhost:8000/master/company/', 
+                  .post(window.url+'/master/company/', 
                              
                     {
                       "company_name":company_name,  
@@ -636,81 +661,63 @@ function CompanyDataEntry() {
                     
                     
                       
-    <br></br>
-    <div class="container-fluid" >
-              <div class="card shadow mb-4" id="customerfullcard"> 
-                  <div class="card-header py-3" id="customercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="customerhead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
+                    <br/><br/><br/>
 
-    <div class="card-body">  
-                <br></br>
-                <br></br>
-    
-    
-    
-    <Box id="customerbox"
-        component="form"
-        sx={{
-          '& .MuiTextField-root': { m: 2, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-      <br></br>
-      <div>
-          {warningmessage}
-         
+{warningmessage}        
+        
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 4, width: '25' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add Company Details </font></h4></center></h4>            
           {comnameFieldWidget}
 
-          {addressFieldWidget}
+{addressFieldWidget}
 
-          {zipFieldWidget}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-            </button>
-          <div>
+{zipFieldWidget}
 
+    
+    
+           
+          
+          <br/>
           {stateFieldWidget}
 
            
-          {glnFieldWidget}
+{glnFieldWidget}
 
-          {createdbyFieldWidget}
-
-            
-          </div>
-
-          <div >
-         
-          {countryFieldWidget}
+{headwidget}<br/>
+{countryFieldWidget}
           {cityFieldWidget}
         
+          <div className="row">
+            <div className="col-4">
+           
+            </div>
+            <div className="col-4">
+            <center><button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button></center>
+            </div>
+            <div className="col-4">
+            </div>
+           
           
-      </div>
-
-      <div>
-      
-
-    </div>              
- 
-
-  </div>
-  <div>
-      
-</div>
-      
-    </Box> 
-    <hr></hr>    
-      </div>
-        </div>
-      </div>   
+          </div>
+            
+           
+          </div>
+         
+        </Box>  
       </>
     );
 }

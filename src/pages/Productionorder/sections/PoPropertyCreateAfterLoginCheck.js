@@ -26,7 +26,7 @@ const PoPropertyCreateAfterLoginCheck=()=>{
 function checkAuthorization()
 {
     axios
-    .get("http://localhost:8000/accounts/userrolePermissionsRead")
+    .get(window.url+"/accounts/userrolePermissionsRead")
     .then((res)=>{
         res.data.forEach(element=>{
             if(element['activity_name'] === 'productionorder') {
@@ -56,9 +56,9 @@ function checkAuthorization()
         });
     });
 }
-useEffect(()=>{
-checkAuthorization();
-},[]);
+        useEffect(()=>{
+            checkAuthorization();
+        },[]);
 
 return(
     <div id="wrapper">

@@ -2,6 +2,16 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
+import { Box, Button, TextField } from "@mui/material";
+import MenuItem from '@mui/material/MenuItem';
+import {MdOutlineSave } from 'react-icons/md';
+import { Grid, Typography, } from '@material-ui/core';
+import { useForm,Form } from "../../../components/useForm";
+import Controls from "../../../components/Controls";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Statusselect from "../../../components/Statusselect";
+import Tooltip from '@mui/material/Tooltip';
 
 function CustomerPropertyEdit() {
 
@@ -43,45 +53,141 @@ function getCustomerpropertyEditdata(){
                                         getCustomerpropertyEditdata();                 
                                      },[])  
                                      
-var headwidget=<h3> Customer Properties</h3>
+                                     var headwidget=
+    
+                                  //    <Box 
+                                    
+                                  //        component="form"
+                                  //        sx={{
+                                  //          width: 500,
+                                  //          maxWidth: '100%',
+                                           
+                                           
+                                  //        }}
+                                  //    noValidate
+                                  //    autoComplete="off"
+                                     
+                                  //  >
+                             
+                                   <Controls.Input 
+                                           disabled
+                                          //  fullWidth
+                                           id="outlined-Company Prefix"
+                                           value={loggedInUsername}
+                                           // label={<Typography>Customer  Create</Typography>}
+                                          //  label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                  Create Customer Property</font> </h4></pre></h4>}
+                                         
+                            
+                             />
+                             
+                          
+                         
 
-var glnwidget=<input type="text"
-                    className="form-control"
-                    onChange={(e) => setGln(e.target.value)}
+var glnwidget=
+   // <input type="text"
+   //                  className="form-control"
+   //                  onChange={(e) => setGln(e.target.value)}
+   //                  value={gln}
+   //                  />
+            <TextField
+                    required
+                    label="Gln"
+                    name="Gln"
                     value={gln}
+                    onChange={(e) => setGln(e.target.value)}
+                    />
+     
+                    
+     
+  
+   
+                    
+                    
+var gs1companywidget=
+            // <input type="text"
+            //         className="form-control"
+            //         onChange={(e) => setGs1_company_prefix(e.target.value)}
+            //         value={gs1_company_prefix}
+            //         /> 
+
+                    <TextField
+                        required
+                        label="Gs1 company Prefix"
+                        name="Gs1_company_prefix"
+                        value={gs1_company_prefix}
+                        onChange={(e) => setGs1_company_prefix(e.target.value)}
+                        />
+        
+                        
+     
+                     
+   
+                    
+var landmarkwidget=
+               // <input type="text"
+               //      className="form-control"
+               //      onChange={(e) => setLandmark(e.target.value)}
+               //      value={landmark}
+               //      />
+
+                    <TextField
+                              required
+                              label="landmark"
+                              name="landmark"
+                              value={landmark}
+                              onChange={(e) => setLandmark(e.target.value)}
+               
+                              />
+var lookupidwidget=
+                  // <input type="text"
+                  //   className="form-control"
+                  //   onChange={(e) => setLookupid(e.target.value)}
+                  //   value={tobussinesspartylookupid}
+                  //   />
+                    
+                    <TextField
+                          required
+                          label="To Bussiness Party Lookupid"
+                          name="tobussinesspartyLookupid"
+                          value={tobussinesspartylookupid}
+                          onChange={(e) => setLookupid(e.target.value)}
                     />
                     
+var filerecivercompanywidget=
+                  // <input type="text"
+                  //   className="form-control"
+                  //   onChange={(e) => setReceiver(e.target.value)}
+                  //   value={tracelinkfile_receiver}
+
+                  //   />   
                     
-var gs1companywidget=<input type="text"
-                    className="form-control"
-                    onChange={(e) => setGs1_company_prefix(e.target.value)}
-                    value={gs1_company_prefix}
-                    /> 
-                    
-var landmarkwidget=<input type="text"
-                    className="form-control"
-                    onChange={(e) => setLandmark(e.target.value)}
-                    value={landmark}
+                    <TextField
+                        required
+        
+                        label="Tracelink File Receiver"
+                        name="tracelinkfile_receiver"
+                        value={tracelinkfile_receiver}
+                        onChange={(e) => setReceiver(e.target.value)}
+
                     />
-var lookupidwidget=<input type="text"
-                    className="form-control"
-                    onChange={(e) => setLookupid(e.target.value)}
-                    value={tobussinesspartylookupid}
-                    /> 
                     
-var filerecivercompanywidget=<input type="text"
-                    className="form-control"
-                    onChange={(e) => setReceiver(e.target.value)}
-                    value={tracelinkfile_receiver}
+var sglnextensionwidget=
+                  // <input type="text"
+                  //   className="form-control"
+                  //   onChange={(e) => setSgln_Extension(e.target.value)}
+                  //   value={sgln_extension}
 
-                    />    
+                  //   />  
                     
-var sglnextensionwidget=<input type="text"
-                    className="form-control"
-                    onChange={(e) => setSgln_Extension(e.target.value)}
-                    value={sgln_extension}
+                    <TextField
+                        required
+        
+                        label="Sgln Extension"
+                        name="sgln_extension"
+                        value={sgln_extension}
+                        onChange={(e) => setSgln_Extension(e.target.value)}
 
-                    />                        
+                    />
 
 const handleSubmit = (e) => {
                     e.preventDefault();
@@ -108,7 +214,8 @@ const handleSubmit = (e) => {
           "tobusinessparylookupid":tobussinesspartylookupid,
           "sgln_extension":sgln_extension,
           "loggedInUsername":loggedInUsername,
-            "loggedInUserrole":loggedInUserrole
+          "loggedInUserrole":loggedInUserrole,
+          "uniqueid":uniqueID,
           
            
         },
@@ -122,87 +229,63 @@ const handleSubmit = (e) => {
   return (
                     <>
 
-                                       
-                    <br/>
-                             <div className="d-flex justify-content-between m-2">
-                                       <h2>Customer Properties </h2>
-                                       <Link to="/customerlocation">
-                                       <button className="btn btn-primary">Show Data</button>
-                                        </Link>
-                                      </div>
-                                                      
-                   <div class="container">
-                        <div class="row">
-                                        {/* <div class="col-2">
-                                        <Sidebar />
-                                       </div> */}
-                              <div class="col-12">
-                                                      
-                                       <div className="d-flex justify-content-between m-2">
-                                                           
-                                       </div>
-                                                         
-                                                      
-                                                      
-                   <table class="table table-borderless productionOrderReportSearchTable" id="productionOrderReportSearchTableID">
-                        <tbody>
-                             <tr>
-                          <td class="productionOrderReportSearchTD">  Gln </td>
-                               <td class="productionOrderReportSearchTD">
-                               {glnwidget}
-                          </td>
-                   
-                          <td class="productionOrderReportSearchTD"> Gs1 Company Prefix</td>
-                         <td class="productionOrderReportSearchTD">
-                            {gs1companywidget}             
-                            </td>
-                           </tr>
-                                                      
-                                                      
-                     
-                    <tr>
-                    <td class="productionOrderReportSearchTD">Landmark</td>
-                   <td class="productionOrderReportSearchTD">
-                      {landmarkwidget}
-                   </td>
-                   
-                   <td class="productionOrderReportSearchTD"> Sgln Extension</td>
-                    <td class="productionOrderReportSearchTD">
-                    {sglnextensionwidget}
-                    </td>
-                   </tr>
+<br/><br/><br/><br/><br/>
 
-                   <tr>
-                    <td class="productionOrderReportSearchTD">To Businessparty Lookupid</td>
-                   <td class="productionOrderReportSearchTD">
-                      {lookupidwidget}
-                   </td>
+{/* {warningmessage}         */}
+        
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 4, width: '25' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add Customer Property </font></h4></center></h4>            
+          {glnwidget} 
+          {gs1companywidget}       
+          {landmarkwidget}
+          
+
+          {sglnextensionwidget}
+    
+    
+           
+          
+          <br/>
+       
+
+           
+{lookupidwidget}
+
+{filerecivercompanywidget}
+
+{headwidget}
+          <div className="row">
+            <div className="col-4">
+           
+            </div>
+            <div className="col-4">
+            <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button>
+            </div>
+            <div className="col-4">
+            </div>
+           
+          
+          </div>
+            
+           
+          </div>
+         
+        </Box>        
                    
-                   <td class="productionOrderReportSearchTD"> Tracelink FileReceiver</td>
-                    <td class="productionOrderReportSearchTD">
-                    {filerecivercompanywidget}
-                    </td>
-                   </tr>
-                                       
-                                                      
-                   
-                                                     
-                   
-                                                     
-                    <tr>
-                   <td class="productionOrderReportSearchTD">
-                                                     
-                                
-                      <button className="btn btn-primary" onClick={handleSubmit} >Save</button>
-                                               
-                   </td>
-                   </tr>
-                   </tbody>
-                   </table>
-                                                      
-                   </div>
-                        </div>
-                       </div>
                                 
                    </>
   )

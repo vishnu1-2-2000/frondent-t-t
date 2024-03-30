@@ -32,7 +32,7 @@ function LocationReadAfterLogin() {
               function checkAuthorization() 
               {
                 axios
-                .get("http://192.168.200.131:8000/accounts/userrolePermissionsRead")
+                .get(window.url+"/accounts/userrolePermissionsRead")
                 .then((res) => {
                   var authorized = false;
                    

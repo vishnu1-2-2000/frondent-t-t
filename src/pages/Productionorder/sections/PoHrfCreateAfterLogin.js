@@ -10,8 +10,8 @@ import Box from '@mui/material/Box';
 import Loading from '../../../components/Common/Loading';
 import PoHrfEdit from './PoHrfEdit';
 function PoHrfCreateAfterLogin() {
-                    const [selectedDIV_state,setSelectedDIV_state]=useState(<Loading/>);
-                    const notAuthorizedSection = <div class="container-fluid">
+    const [selectedDIV_state,setSelectedDIV_state]=useState(<Loading/>);
+    const notAuthorizedSection = <div class="container-fluid">
                     <div class="card shadow mb-4"> 
                         <div class="card-body">  
                           
@@ -21,10 +21,10 @@ function PoHrfCreateAfterLogin() {
                         </div>
                     </div>
                   </div>
-                function checkAuthorization()
-                {
-                    axios
-                    .get("http://127.0.0.1:8000/accounts/userrolePermissionsRead")
+    function checkAuthorization()
+        {
+            axios
+                .get(window.url+"/accounts/userrolePermissionsRead")
                     .then((res)=>{
                         res.data.forEach(element=>{
                             if(element['activity_name'] === 'productionorder') {
@@ -54,16 +54,17 @@ function PoHrfCreateAfterLogin() {
                         });
                     });
                 }
-                useEffect(()=>{
-                checkAuthorization();
-                },[]);
+
+    useEffect(()=>{
+            checkAuthorization();
+        },[]);
                 
-                return(
-                    <div id="wrapper">
-                          <Box sx={{ display: 'flex' }}>
-                            <br></br>
+    return(
+        <div id="wrapper">
+            <Box sx={{ display: 'flex' }}>
+                <br></br>
                   {/* <Navbar />  */}
-                  <Sidebar/>
+                <Sidebar/>
                   <Box component="main" sx={{ flexGrow: 1, p: 1}}>
                         {/* <SideBar > */}
                 
@@ -75,11 +76,11 @@ function PoHrfCreateAfterLogin() {
                             
                         </div>
                         {/* </SideBar> */}
-                        </Box>
-                        </Box>
+                    </Box>
+                </Box>
                        
-                    </div>
-                )
+            </div>
+    )
 }
 
 export default PoHrfCreateAfterLogin

@@ -14,7 +14,7 @@ const Login = () => {
     //  alert(window.localStorage.getItem('loggedInUsername'));
     if(window.localStorage.getItem('loggedInUsername')) {
       axios
-      .post('http://192.168.200.131:8000/accounts/userAuthVerify', 
+      .post(window.url+'/accounts/userAuthVerify', 
       {
         "username": window.localStorage.getItem('loggedInUsername'),    
         "password": window.localStorage.getItem('loggedInUserPassword'), 

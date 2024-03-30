@@ -48,7 +48,7 @@ const handleSubmit= (e) =>{
   //alert(data)
   axios
   
-  .post("http://localhost:8000//master/pool/",
+  .post(window.url+"/master/pool/",
   {
     "serialnumberjson":formData,
     

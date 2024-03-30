@@ -61,7 +61,7 @@ function AuditReportRead() {
 
  const navigate = useNavigate();
  const theme = useTheme();
-const colors = tokens(theme.palette.mode);
+ const colors = tokens(theme.palette.mode);
  const [data, setData] = useState([]);
  const [data2, setData2] = useState([]);
  const [data3, setData3] = useState([]);
@@ -70,7 +70,7 @@ const colors = tokens(theme.palette.mode);
 
  const[datefunction,setDatefun]=useState("");
  const[exportpdf,setExportpdf]=useState("");
-const[headwidget,setHeadwidget]=useState("");
+ const[headwidget,setHeadwidget]=useState("");
  const conponentPDF= useRef();
  const doc = new jsPDF()
  autoTable(doc, { html: '#my-table' })
@@ -165,14 +165,14 @@ rowDatas.map(rowData => {
 
   function CustomToolbar() {
       return (
-<GridToolbarExport
-  printOptions={{
-    hideFooter: true,
-    hideToolbar: true,
-  }}
-/>
+      <GridToolbarExport
+        printOptions={{
+          hideFooter: true,
+          hideToolbar: true,
+        }}
+      />
       )
-}
+  }
  //getRowHeight={() => 'auto'} 
   setSelectedDIV_state(<div>
    
@@ -202,8 +202,8 @@ rowDatas.map(rowData => {
   // alert(rowDatas.length);
  
 
-let tempArrayFunction = []; 
-rowDatas.map(rowData => {
+  let tempArrayFunction = []; 
+  rowDatas.map(rowData => {
   //   alert(rowData.id);
     tempArrayFunction.push( 
       {'id':rowData.id,'modelname':rowData.modelname, 'operationdone':rowData.operationdone,
@@ -255,7 +255,8 @@ rowDatas.map(rowData => {
   setSelectedDIV_state(<div>
 
     <div style={{ height: 500, width: '110%'}}  >
-        <DataGrid rows={tempArrayFunction}  columns={userDataColumns2} pageSize={10}   
+        <DataGrid rows={tempArrayFunction}  columns={userDataColumns2} pageSize={10} 
+        
         slots={{ toolbar: GridToolbar }}
         slotProps={{
           toolbar: {
@@ -313,7 +314,7 @@ rowDatas.map(rowData => {
       
       //     alert(startdate)
           axios
-            .post('http://localhost:8000/reports/ProductionOrderReportdate/', 
+            .post(window.url+'/reports/ProductionOrderReportdate/', 
            
             {
                           "datefrom":startdate,  
@@ -335,8 +336,8 @@ rowDatas.map(rowData => {
         }
         function getData() {
           // alert("anu");
-  axios
-      .get("http://localhost:8000/accounts/userAuditReportdate/",
+      axios
+      .post(window.url+"/accounts/userAuditReportdate/",
       {
         "datefrom":startdate,  
         "dateto":enddate,
@@ -360,7 +361,7 @@ rowDatas.map(rowData => {
           
           //     alert(startdate)
               axios
-                .post('http://localhost:8000/master/ShippoauditReportdate/', 
+                .post(window.url+'/master/ShippoauditReportdate/', 
                
                 {
                               "datefrom":startdate,  
@@ -382,71 +383,33 @@ rowDatas.map(rowData => {
             }
     
 
- var userheadwidget=
-    <Box
-        component="form"
-        sx={{
-          width: 500,
-          maxWidth: '100%',
+var userheadwidget=
+//     <Box
+//         component="form"
+//         sx={{
+//           width: 500,
+//           maxWidth: '100%',
           
           
-        }}
-        noValidate
-        autoComplete="off"
-  ><Controls.Input 
-    disabled
-    // fullWidth
+//         }}
+//         noValidate
+//         autoComplete="off"
+//   ><Controls.Input 
+//     disabled
+//     // fullWidth
     
-          id="outlined-Company Prefix"
-  label={<h4 ><pre>   <h4 style={{color:"white"}}><font face="times new roman" size="6"> {headwidget} </font></h4></pre></h4>}
+//           id="outlined-Company Prefix"
+ <h4 style={{color:"black"}}><font face="times new roman" size="6"> {headwidget} </font></h4>
          
    
- />
- </Box>
+//  />
+//  </Box>
 
 var productionheadwidget=
-<Box
-    component="form"
-    sx={{
-      width: 500,
-      maxWidth: '90%',
-      
-      
-    }}
-    noValidate
-    autoComplete="off"
-><Controls.Input 
-disabled
-// fullWidth
-
-      id="outlined-Company Prefix"
-      label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                {headwidget} </font></h4></pre></h4>}
-     
-
-/>
-</Box>
+<center><h4 style={{color:"black"}}><font face="times new roman" size="6"> {headwidget} </font></h4></center>
 
 var shippingheadwidget=
-    <Box
-        component="form"
-        sx={{
-          width: 500,
-          maxWidth: '100%',
-          
-          
-        }}
-        noValidate
-        autoComplete="off"
-  ><Controls.Input 
-    disabled
-    // fullWidth
-    
-          id="outlined-Company Prefix"
-          label={<h4 ><pre><h4 style={{color:"white"}}>{headwidget} </h4></pre></h4>}
-         
-   
- />
- </Box>
+  <center> <h4 style={{color:"black"}}><font face="times new roman" size="6"> {headwidget} </font></h4></center>
     var dateFieldWidget = 
                             // <input
                             //     type="text"
@@ -576,12 +539,12 @@ var shippingheadwidget=
         </div>  
     
         <br></br>
-        <div class="container-fluid" >
-          <div class="card shadow mb-4" id="productionreportfullcard"> 
-            <div class="card-header py-3" id="customercardhead">
+        <div class="container-fluid"  >
+          <div class="card shadow mb-4" > 
+            <div class="card-header py-3" >
               <div className='row'>
-                <div className='col-10' id="customerhead">
-                  {productionheadwidget}
+                <div className='col-10'>
+                {productionheadwidget}  
                 </div>
 
               </div>

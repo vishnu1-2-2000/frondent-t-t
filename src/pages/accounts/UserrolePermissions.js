@@ -112,6 +112,55 @@ const UserrolePermissions = () => {
     const [Shippingreport_update_checked_state, setShippingreport_update_checked_state] = useState(false);
     const [Shippingreport_delete_checked_state, setShippingreport_delete_checked_state] = useState(false);
 
+
+    const [Productionreport_read_checked_state, setProductionreport_read_checked_state] = useState(false);
+    const [Productionreport_create_checked_state, setProductionreport_create_checked_state] = useState(false);
+    const [Productionreport_update_checked_state, setProductionreport_update_checked_state] = useState(false);
+    const [Productionreport_delete_checked_state, setProductionreport_delete_checked_state] = useState(false);
+
+
+    const [Applicationserver_Changepassword_read_checked_state, setApplicationserver_Changepassword_read_checked_state] = useState(false);
+    const [Applicationserver_Changepassword_create_checked_state, setApplicationserver_Changepassword_create_checked_state] = useState(false);
+    const [Applicationserver_Changepassword_update_checked_state, setApplicationserver_Changepassword_update_checked_state] = useState(false);
+    const [Applicationserver_Changepassword_delete_checked_state, setApplicationserver_Changepassword_delete_checked_state] = useState(false);
+
+    const [Inspectiondashboard_read_checked_state, setInspectiondashboard_read_checked_state] = useState(false);
+
+    const [Rework_read_checked_state,setRework_read_checked_state] = useState(false);
+    const [Rework_create_checked_state,setRework_create_checked_state] = useState(false);
+    const [Rework_delete_checked_state,setRework_delete_checked_state] = useState(false);
+
+    const [Applicationserver_History_read_checked_state, setApplicationserver_History_read_checked_state] = useState(false);
+    const [Applicationserver_History_delete_checked_state, setApplicationserver_History_delete_checked_state] = useState(false);
+
+    const [Applicationserver_Backup_read_checked_state, setApplicationserver_Backup_read_checked_state] = useState(false);
+    const [Applicationserver_Backup_create_checked_state,setApplicationserver_Backup_create_checked_state] = useState(false);
+    const [Applicationserver_Backup_update_checked_state,setApplicationserver_Backup_update_checked_state] = useState(false);
+    const [Applicationserver_Backup_delete_checked_state, setApplicationserver_Backup_delete_checked_state] = useState(false);
+
+    const [Manualupload_read_checked_state, setManualupload_read_checked_state] = useState(false);
+    const [Manualupload_create_checked_state,setManualupload_create_checked_state] = useState(false);
+    const [Manualupload_update_checked_state,setManualupload_update_checked_state] = useState(false);
+    const [Manualupload_delete_checked_state, setManualupload_delete_checked_state] = useState(false);
+
+    const [Applicationserver_Report_read_checked_state, setApplicationserver_Report_read_checked_state] = useState(false);
+
+    const [Printerjobs_read_checked_state, setPrinterjobs_read_checked_state] = useState(false);
+    const [Printerjobs_create_checked_state,setPrinterjobs_create_checked_state] = useState(false);
+    const [Printerjobs_update_checked_state,setPrinterjobs_update_checked_state] = useState(false);
+    const [Printerjobs_delete_checked_state, setPrinterjobs_delete_checked_state] = useState(false);
+
+    const [Scannerjobs_read_checked_state, setScannerjobs_read_checked_state] = useState(false);
+
+    const [Sapdata_read_checked_state, setSapdata_read_checked_state] = useState(false);
+    const [Sapdata_create_checked_state,setSapdata_create_checked_state] = useState(false);
+    const [Sapdata_update_checked_state,setSapdata_update_checked_state] = useState(false);
+    const [Sapdata_delete_checked_state, setSapdata_delete_checked_state] = useState(false);
+
+
+    const [Trash_read_checked_state, setTrash_read_checked_state] = useState(false);
+    const [Trash_delete_checked_state, setTrash_delete_checked_state] = useState(false);
+
     const [Registeredusers_read, setRegisteredusers_read] = useState("");
     const [saveButtonText_state, setSaveButtonText_state] = useState("Save the data");
     const [saveButtonMode_state, setSaveButtonMode_state] = useState(false);
@@ -136,7 +185,7 @@ const UserrolePermissions = () => {
         }
         setSaveButtonText_state("Saving Data");
         setSaveButtonMode_state(true);
-        axios.post('http://192.168.200.131:8000/accounts/userPermissionEdit/', { 
+        axios.post(window.url+'/accounts/userPermissionEdit/', { 
             
             userrole : userrole_state,
             Registeredusers_read:Registeredusers_read_checked_state===true ? "Checked" : "Unchecked",
@@ -234,8 +283,55 @@ const UserrolePermissions = () => {
             Shippingreport_create:   Shippingreport_create_checked_state === true ? "Checked" : "Unchecked",
             Shippingreport_update:   Shippingreport_update_checked_state === true ? "Checked" : "Unchecked",
             Shippingreport_delete:   Shippingreport_delete_checked_state === true ? "Checked" : "Unchecked",
+
+
+            Productionreport_read:     Productionreport_read_checked_state === true ? "Checked" : "Unchecked",
+            Productionreport_create:   Productionreport_create_checked_state === true ? "Checked" : "Unchecked",
+            Productionreport_update:   Productionreport_update_checked_state === true ? "Checked" : "Unchecked",
+            Productionreport_delete:   Productionreport_delete_checked_state === true ? "Checked" : "Unchecked",
+            
+            Applicationserver_Changepassword_read:     Applicationserver_Changepassword_read_checked_state === true ? "Checked" : "Unchecked",
+            Applicationserver_Changepassword_create:   Applicationserver_Changepassword_create_checked_state === true ? "Checked" : "Unchecked",
+            Applicationserver_Changepassword_update:   Applicationserver_Changepassword_update_checked_state === true ? "Checked" : "Unchecked",
+            Applicationserver_Changepassword_delete:   Applicationserver_Changepassword_delete_checked_state === true ? "Checked" : "Unchecked",
+
+
+            Inspectiondashboard_read:Inspectiondashboard_read_checked_state=== true ? "Checked" : "Unchecked",
+
+            Rework_read: Rework_read_checked_state === true ? "Checked" : "Unchecked",
+            Rework_create: Rework_create_checked_state === true ? "Checked" : "Unchecked",
+            Rework_delete:Rework_delete_checked_state === true ? "Checked" : "Unchecked",
+
+            Applicationserver_History_read:Applicationserver_History_read_checked_state=== true ? "Checked" : "Unchecked",
+            Applicationserver_History_delete:Applicationserver_History_delete_checked_state=== true ? "Checked" : "Unchecked",
+
+            Applicationserver_Backup_read:Applicationserver_Backup_read_checked_state=== true ? "Checked" : "Unchecked",
+            Applicationserver_Backup_create:Applicationserver_Backup_create_checked_state=== true ? "Checked" : "Unchecked",
+            Applicationserver_Backup_update:Applicationserver_Backup_update_checked_state=== true ? "Checked" : "Unchecked",
+            Applicationserver_Backup_delete:Applicationserver_Backup_delete_checked_state=== true ? "Checked" : "Unchecked",
+
+            Manualupload_read:Manualupload_read_checked_state=== true ? "Checked" : "Unchecked",
+            Manualupload_create:Manualupload_create_checked_state=== true ? "Checked" : "Unchecked",
+            Manualupload_update:Manualupload_update_checked_state=== true ? "Checked" : "Unchecked",
+            Manualupload_delete:Manualupload_delete_checked_state=== true ? "Checked" : "Unchecked",
+
+            Applicationserver_reports_read:Applicationserver_Report_read_checked_state=== true ? "Checked" : "Unchecked",
+
+            Printerjobs_read: Printerjobs_read_checked_state=== true ? "Checked" : "Unchecked",
+            Printerjobs_create: Printerjobs_create_checked_state=== true ? "Checked" : "Unchecked",
+            Printerjobs_update:Printerjobs_update_checked_state=== true ? "Checked" : "Unchecked",
+            Printerjobs_delete:Printerjobs_delete_checked_state=== true ? "Checked" : "Unchecked",
+
+            Scannerjobs_read:Scannerjobs_read_checked_state=== true ? "Checked" : "Unchecked",
+
+            Sapdata_read:Sapdata_read_checked_state===true ? "Checked" : "Unchecked",
+            Sapdata_create: Sapdata_create_checked_state === true ? "Checked" : "Unchecked",
+            Sapdata_update: Sapdata_update_checked_state === true ? "Checked" : "Unchecked",
+            Sapdata_delete: Sapdata_delete_checked_state === true ? "Checked" : "Unchecked",
             
 
+            Trash_read: Trash_read_checked_state === true ? "Checked" : "Unchecked",
+            Trash_delete: Trash_delete_checked_state === true ? "Checked" : "Unchecked",
         
 
         })
@@ -252,7 +348,7 @@ const UserrolePermissions = () => {
         //alert(event.target.value)
         setUserRoleState(event.target.value); 
         axios
-         .get("http://192.168.200.131:8000/accounts/userrolePermissionsRead",
+         .get(window.url+"/accounts/userrolePermissionsRead",
           {
             // auth: {
             //   username: username,
@@ -897,22 +993,375 @@ const UserrolePermissions = () => {
 
 
 
+                else if(data['activity_name'] ==='productionreport')
+                //alert(data.activity_name)
+                //alert(data.admin["READ"])
+                {
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ? setProductionreport_read_checked_state(true): setProductionreport_read_checked_state(false);
+                        data.admin['CREATE']==="Checked"? setProductionreport_create_checked_state(true): setProductionreport_create_checked_state(false);
+                        data.admin['UPDATE']==="Checked"? setProductionreport_update_checked_state(true): setProductionreport_update_checked_state(false);
+                        data.admin['DELETE']==="Checked"? setProductionreport_delete_checked_state(true): setProductionreport_delete_checked_state(false);
+                    }
+                     else if(event.target.value==="supervisor")
+                    
+                    {
+                        //alert(data.admin['CREATE'])
+                        data.supervisor['READ']==="Checked" ? setProductionreport_read_checked_state(true): setProductionreport_read_checked_state(false);
+                        data.supervisor['CREATE']==="Checked"? setProductionreport_create_checked_state(true): setProductionreport_create_checked_state(false);
+                        data.supervisor['UPDATE']==="Checked"? setProductionreport_update_checked_state(true): setProductionreport_update_checked_state(false);
+                        data.supervisor['DELETE']==="Checked"? setProductionreport_delete_checked_state(true): setProductionreport_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==="Checked" ?  setProductionreport_read_checked_state(true): setProductionreport_read_checked_state(false);
+                        data.masterdata['CREATE']==="Checked"? setProductionreport_create_checked_state(true): setProductionreport_create_checked_state(false);
+                        data.masterdata['UPDATE']==="Checked"? setProductionreport_update_checked_state(true): setProductionreport_update_checked_state(false);
+                        data.masterdata['DELETE']==="Checked"? setProductionreport_delete_checked_state(true): setProductionreport_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==="Checked" ?  setProductionreport_read_checked_state(true): setProductionreport_read_checked_state(false);
+                        data.operator['CREATE']==="Checked"? setProductionreport_create_checked_state(true): setProductionreport_create_checked_state(false);
+                        data.operator['UPDATE']==="Checked"? setProductionreport_update_checked_state(true): setProductionreport_update_checked_state(false);
+                        data.operator['DELETE']==="Checked"? setProductionreport_delete_checked_state(true): setProductionreport_delete_checked_state(false);
+                    }
+
+                }
+
+
+                else if(data['activity_name'] ==='applicationchangepassword')
+                // alert(data.activity_name)
+                //alert(data.admin["READ"])
+                {
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ? setApplicationserver_Changepassword_read_checked_state(true):setApplicationserver_Changepassword_read_checked_state(false);
+                        data.admin['CREATE']==="Checked"?setApplicationserver_Changepassword_create_checked_state(true):setApplicationserver_Changepassword_create_checked_state(false);
+                        data.admin['UPDATE']==="Checked"?setApplicationserver_Changepassword_update_checked_state(true):setApplicationserver_Changepassword_update_checked_state(false);
+                        data.admin['DELETE']==="Checked"?setApplicationserver_Changepassword_delete_checked_state(true):setApplicationserver_Changepassword_delete_checked_state(false);
+                    }
+                     else if(event.target.value==="supervisor")
+                    {
+                        //alert(data.admin['CREATE'])
+                        data.supervisor['READ']==="Checked" ? setApplicationserver_Changepassword_read_checked_state(true):setApplicationserver_Changepassword_read_checked_state(false);
+                        data.supervisor['CREATE']==="Checked"?setApplicationserver_Changepassword_create_checked_state(true):setApplicationserver_Changepassword_create_checked_state(false);
+                        data.supervisor['UPDATE']==="Checked"?setApplicationserver_Changepassword_update_checked_state(true):setApplicationserver_Changepassword_update_checked_state(false);
+                        data.supervisor['DELETE']==="Checked"?setApplicationserver_Changepassword_delete_checked_state(true):setApplicationserver_Changepassword_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==="Checked" ? setApplicationserver_Changepassword_read_checked_state(true):setApplicationserver_Changepassword_read_checked_state(false);
+                        data.masterdata['CREATE']==="Checked"?setApplicationserver_Changepassword_create_checked_state(true):setApplicationserver_Changepassword_create_checked_state(false);
+                        data.masterdata['UPDATE']==="Checked"?setApplicationserver_Changepassword_update_checked_state(true):setApplicationserver_Changepassword_update_checked_state(false);
+                        data.masterdata['DELETE']==="Checked"?setApplicationserver_Changepassword_delete_checked_state(true):setApplicationserver_Changepassword_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==="Checked" ? setApplicationserver_Changepassword_read_checked_state(true):setApplicationserver_Changepassword_read_checked_state(false);
+                        data.operator['CREATE']==="Checked"?setApplicationserver_Changepassword_create_checked_state(true):setApplicationserver_Changepassword_create_checked_state(false);
+                        data.operator['UPDATE']==="Checked"?setApplicationserver_Changepassword_update_checked_state(true):setApplicationserver_Changepassword_update_checked_state(false);
+                        data.operator['DELETE']==="Checked"?setApplicationserver_Changepassword_delete_checked_state(true):setApplicationserver_Changepassword_delete_checked_state(false);
+                    }
+                }
+
+                else if(data['activity_name']==='inspectiondashboard')
+                {
+                    // alert("haii")
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ? setInspectiondashboard_read_checked_state(true):setInspectiondashboard_read_checked_state(false);
+                        
+                    }
+                    else if(event.target.value==="supervisor")
+                    {
+                        data.supervisor['READ']==="Checked" ?setInspectiondashboard_read_checked_state(true):setInspectiondashboard_read_checked_state(false);
+                    }  
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==='Checked' ?setInspectiondashboard_read_checked_state(true):setInspectiondashboard_read_checked_state(false);
+                        
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==='Checked'? setInspectiondashboard_read_checked_state(true):setInspectiondashboard_read_checked_state(false);
+                        
+                    }
+                }
+
+                else if(data['activity_name']==='rework')
+                {
+                    // alert("haii")
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ? setRework_read_checked_state(true):setRework_read_checked_state(false);
+                        data.admin['CREATE']==="Checked"?setRework_create_checked_state(true):setRework_create_checked_state(false);
+                        data.admin['DELETE']==="Checked"?setRework_delete_checked_state(true):setRework_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="supervisor")
+                    {
+                        data.supervisor['CREATE']==="Checked" ?setRework_create_checked_state(true):setRework_create_checked_state(false);
+                        data.supervisor['READ']==="Checked" ?setRework_read_checked_state(true):setRework_read_checked_state(false);  
+                        data.supervisor['DELETE']==='Checked' ?setRework_delete_checked_state(true):setRework_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==='Checked' ?setRework_read_checked_state(true):setRework_read_checked_state(false);
+                        data.masterdata['CREATE']==='Checked' ?setRework_create_checked_state(true):setRework_create_checked_state(false);
+                        data.masterdata['DELETE']==='Checked' ?setRework_delete_checked_state(true):setRework_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==='Checked'? setRework_read_checked_state(true):setRework_read_checked_state(false);
+                        data.operator['CREATE']==='Checked'? setRework_create_checked_state(true):setRework_create_checked_state(false);
+                        data.operator['DELETE']==='Checked'? setRework_delete_checked_state(true):setRework_delete_checked_state(false);
+                    }
+                }
+                else if(data['activity_name']==='applicationserverhistory')
+                {
+                    //  alert(data.admin['DELETE'])
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ? setApplicationserver_History_read_checked_state(true):setApplicationserver_History_read_checked_state(false);
+                        data.admin['DELETE']==="Checked" ? setApplicationserver_History_delete_checked_state(true):setApplicationserver_History_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="supervisor")
+                    {
+                        data.supervisor['READ']==="Checked" ?setApplicationserver_History_read_checked_state(true):setApplicationserver_History_read_checked_state(false);
+                        data.supervisor['DELETE']==="Checked" ? setApplicationserver_History_delete_checked_state(true):setApplicationserver_History_delete_checked_state(false);
+                    }  
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==='Checked' ?setApplicationserver_History_read_checked_state(true):setApplicationserver_History_read_checked_state(false);
+                        data.masterdata['DELETE']==="Checked" ? setApplicationserver_History_delete_checked_state(true):setApplicationserver_History_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==='Checked'? setApplicationserver_History_read_checked_state(true):setApplicationserver_History_read_checked_state(false);
+                        data.operator['DELETE']==="Checked" ?setApplicationserver_History_delete_checked_state(true):setApplicationserver_History_delete_checked_state(false);
+                    }
+                }
+
+                else if(data['activity_name']==='applicationserverbackup')
+                {
+                    // alert("haii")
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ?setApplicationserver_Backup_read_checked_state(true):setApplicationserver_Backup_read_checked_state(false);
+                        data.admin['CREATE']==="Checked"?setApplicationserver_Backup_create_checked_state(true):setApplicationserver_Backup_create_checked_state(false);
+                        data.admin['UPDATE']==="Checked"?setApplicationserver_Backup_update_checked_state(true):setApplicationserver_Backup_update_checked_state(false);
+                        data.admin['DELETE']==="Checked"?setApplicationserver_Backup_delete_checked_state(true):setApplicationserver_Backup_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="supervisor")
+                    {
+                        data.supervisor['CREATE']==="Checked" ?setApplicationserver_Backup_read_checked_state(true):setApplicationserver_Backup_read_checked_state(false);
+                        data.supervisor['READ']==="Checked" ?setApplicationserver_Backup_create_checked_state(true):setApplicationserver_Backup_create_checked_state(false);
+                        data.supervisor['DELETE']==="Checked" ?setApplicationserver_Backup_update_checked_state(true):setApplicationserver_Backup_update_checked_state(false);
+                        data.supervisor['UPDATE']==="Checked" ?setApplicationserver_Backup_delete_checked_state(true):setApplicationserver_Backup_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==='Checked' ?setApplicationserver_Backup_read_checked_state(true):setApplicationserver_Backup_read_checked_state(false);
+                        data.masterdata['CREATE']==='Checked' ?setApplicationserver_Backup_create_checked_state(true):setApplicationserver_Backup_create_checked_state(false);
+                        data.masterdata['UPDATE']==='Checked' ?setApplicationserver_Backup_update_checked_state(true):setApplicationserver_Backup_update_checked_state(false);
+                        data.masterdata['DELETE']==='Checked' ?setApplicationserver_Backup_delete_checked_state(true):setApplicationserver_Backup_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==='Checked'? setApplicationserver_Backup_read_checked_state(true):setApplicationserver_Backup_read_checked_state(false);
+                        data.operator['CREATE']==='Checked'? setApplicationserver_Backup_create_checked_state(true):setApplicationserver_Backup_create_checked_state(false);
+                        data.operator['UPDATE']==='Checked'? setApplicationserver_Backup_update_checked_state(true):setApplicationserver_Backup_update_checked_state(false);
+                        data.operator['DELETE']==='Checked'? setApplicationserver_Backup_delete_checked_state(true):setApplicationserver_Backup_delete_checked_state(false);
+                    }
+                }
 
 
 
 
+                            
+                else if(data['activity_name']==='manualupload')
+                {
+                    // alert("haii")
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ?setManualupload_read_checked_state(true):setManualupload_read_checked_state(false);
+                        data.admin['CREATE']==="Checked"?setManualupload_create_checked_state(true):setManualupload_create_checked_state(false);
+                        data.admin['UPDATE']==="Checked"?setManualupload_update_checked_state(true):setManualupload_update_checked_state(false);
+                        data.admin['DELETE']==="Checked"?setManualupload_delete_checked_state(true):setManualupload_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="supervisor")
+                    {
+                        data.supervisor['CREATE']==="Checked" ?setManualupload_read_checked_state(true):setManualupload_read_checked_state(false);
+                        data.supervisor['READ']==="Checked" ?setManualupload_create_checked_state(true):setManualupload_create_checked_state(false);
+                        data.supervisor['DELETE']==="Checked" ?setManualupload_update_checked_state(true):setManualupload_update_checked_state(false);
+                        data.supervisor['UPDATE']==="Checked" ?setManualupload_delete_checked_state(true):setManualupload_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==='Checked' ?setManualupload_read_checked_state(true):setManualupload_read_checked_state(false);
+                        data.masterdata['CREATE']==='Checked' ?setManualupload_create_checked_state(true):setManualupload_create_checked_state(false);
+                        data.masterdata['UPDATE']==='Checked' ?setManualupload_update_checked_state(true):setManualupload_update_checked_state(false);
+                        data.masterdata['DELETE']==='Checked' ?setManualupload_delete_checked_state(true):setManualupload_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==='Checked'? setManualupload_read_checked_state(true):setManualupload_read_checked_state(false);
+                        data.operator['CREATE']==='Checked'? setManualupload_create_checked_state(true):setManualupload_create_checked_state(false);
+                        data.operator['UPDATE']==='Checked'? setManualupload_update_checked_state(true):setManualupload_update_checked_state(false);
+                        data.operator['DELETE']==='Checked'? setManualupload_delete_checked_state(true):setManualupload_delete_checked_state(false);
+                    }
+                }
 
+                else if(data['activity_name']==='applicationserverreport')
+                {
+                    // alert("haii")
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ? setApplicationserver_Report_read_checked_state(true):setApplicationserver_Report_read_checked_state(false);
+                        
+                    }
+                    else if(event.target.value==="supervisor")
+                    {
+                        data.supervisor['READ']==="Checked" ?setApplicationserver_Report_read_checked_state(true):setApplicationserver_Report_read_checked_state(false);
+                    }  
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==='Checked' ?setApplicationserver_Report_read_checked_state(true):setApplicationserver_Report_read_checked_state(false);
+                        
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==='Checked'? setApplicationserver_Report_read_checked_state(true):setApplicationserver_Report_read_checked_state(false);
+                        
+                    }
+                }
 
+                else if(data['activity_name']==='printerjobs')
+                {
+                    // alert("haii")
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ?setPrinterjobs_read_checked_state(true):setPrinterjobs_read_checked_state(false);
+                        data.admin['CREATE']==="Checked"?setPrinterjobs_create_checked_state(true):setPrinterjobs_create_checked_state(false);
+                        data.admin['UPDATE']==="Checked"?setPrinterjobs_update_checked_state(true):setPrinterjobs_update_checked_state(false);
+                        data.admin['DELETE']==="Checked"?setPrinterjobs_delete_checked_state(true):setPrinterjobs_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="supervisor")
+                    {
+                        data.supervisor['CREATE']==="Checked" ?setPrinterjobs_read_checked_state(true):setPrinterjobs_read_checked_state(false);
+                        data.supervisor['READ']==="Checked" ?setPrinterjobs_create_checked_state(true):setPrinterjobs_create_checked_state(false);
+                        data.supervisor['DELETE']==="Checked" ?setPrinterjobs_update_checked_state(true):setPrinterjobs_update_checked_state(false);
+                        data.supervisor['UPDATE']==="Checked" ?setPrinterjobs_delete_checked_state(true):setPrinterjobs_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==='Checked' ?setPrinterjobs_read_checked_state(true):setPrinterjobs_read_checked_state(false);
+                        data.masterdata['CREATE']==='Checked' ?setPrinterjobs_create_checked_state(true):setPrinterjobs_create_checked_state(false);
+                        data.masterdata['UPDATE']==='Checked' ?setPrinterjobs_update_checked_state(true):setPrinterjobs_update_checked_state(false);
+                        data.masterdata['DELETE']==='Checked' ?setPrinterjobs_delete_checked_state(true):setPrinterjobs_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==='Checked'? setPrinterjobs_read_checked_state(true):setPrinterjobs_read_checked_state(false);
+                        data.operator['CREATE']==='Checked'? setPrinterjobs_create_checked_state(true):setPrinterjobs_create_checked_state(false);
+                        data.operator['UPDATE']==='Checked'? setPrinterjobs_update_checked_state(true):setPrinterjobs_update_checked_state(false);
+                        data.operator['DELETE']==='Checked'? setPrinterjobs_delete_checked_state(true):setPrinterjobs_delete_checked_state(false);
+                    }
+                }
+                else if(data['activity_name']==='scannerjobs')
+                {
+                    // alert("haii")
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ? setScannerjobs_read_checked_state(true):setScannerjobs_read_checked_state(false);
+                        
+                    }
+                    else if(event.target.value==="supervisor")
+                    {
+                        data.supervisor['READ']==="Checked" ?setScannerjobs_read_checked_state(true):setScannerjobs_read_checked_state(false);
+                    }  
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==='Checked' ?setScannerjobs_read_checked_state(true):setScannerjobs_read_checked_state(false);
+                        
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==='Checked'? setScannerjobs_read_checked_state(true):setScannerjobs_read_checked_state(false);
+                        
+                    }
+                }
 
-            
+                else if(data['activity_name'] ==='sapdata')
+                //alert(data.activity_name)
+                //alert(data.admin["READ"])
+                {
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ? setSapdata_read_checked_state(true):setSapdata_read_checked_state(false);
+                        data.admin['CREATE']==="Checked"?setSapdata_create_checked_state(true):setSapdata_create_checked_state(false);
+                        data.admin['UPDATE']==="Checked"?setSapdata_update_checked_state(true):setSapdata_update_checked_state(false);
+                        data.admin['DELETE']==="Checked"?setSapdata_delete_checked_state(true):setSapdata_delete_checked_state(false);
+                    }
+                     else if(event.target.value==="supervisor")
+                    
+                    {
+                        //alert(data.admin['CREATE'])
+                        data.supervisor['READ']==="Checked" ?setSapdata_read_checked_state(true):setSapdata_read_checked_state(false);
+                        data.supervisor['CREATE']==="Checked"?setSapdata_create_checked_state(true):setSapdata_create_checked_state(false);
+                        data.supervisor['UPDATE']==="Checked"?setSapdata_update_checked_state(true):setSapdata_update_checked_state(false);
+                        data.supervisor['DELETE']==="Checked"?setSapdata_delete_checked_state(true):setSapdata_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==="Checked" ? setSapdata_read_checked_state(true):setSapdata_read_checked_state(false);
+                        data.masterdata['CREATE']==="Checked"?setSapdata_create_checked_state(true):setSapdata_create_checked_state(false);
+                        data.masterdata['UPDATE']==="Checked"?setSapdata_update_checked_state(true):setSapdata_update_checked_state(false);
+                        data.masterdata['DELETE']==="Checked"?setSapdata_delete_checked_state(true):setSapdata_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==="Checked" ? setSapdata_read_checked_state(true):setSapdata_read_checked_state(false);
+                        data.operator['CREATE']==="Checked"?setSapdata_create_checked_state(true):setSapdata_create_checked_state(false);
+                        data.operator['UPDATE']==="Checked"?setSapdata_update_checked_state(true):setSapdata_update_checked_state(false);
+                        data.operator['DELETE']==="Checked"?setSapdata_delete_checked_state(true):setSapdata_delete_checked_state(false);
+                    }
+                }
               
-          });
+
+                else if(data['activity_name']==='trash')
+                {
+                    //  alert(data.admin['DELETE'])
+                    if(event.target.value==="admin")
+                    {
+                        data.admin['READ']==="Checked" ? setTrash_read_checked_state(true):setTrash_read_checked_state(false);
+                        data.admin['DELETE']==="Checked" ? setTrash_delete_checked_state(true):setTrash_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="supervisor")
+                    {
+                        data.supervisor['READ']==="Checked" ?setTrash_read_checked_state(true):setTrash_read_checked_state(false);
+                        data.supervisor['DELETE']==="Checked" ? setTrash_delete_checked_state(true):setTrash_delete_checked_state(false);
+                    }  
+                    else if(event.target.value==="masterdata")
+                    {
+                        data.masterdata['READ']==='Checked' ?setTrash_read_checked_state(true):setTrash_read_checked_state(false);
+                        data.masterdata['DELETE']==="Checked" ? setTrash_delete_checked_state(true):setTrash_delete_checked_state(false);
+                    }
+                    else if(event.target.value==="operator")
+                    {
+                        data.operator['READ']==='Checked'? setTrash_read_checked_state(true):setTrash_read_checked_state(false);
+                        data.operator['DELETE']==="Checked" ? setTrash_delete_checked_state(true):setTrash_delete_checked_state(false);
+                    }
+                }
+
+            });
                     
       
-          });
-      }
-      
-    /*
+        });
+    }
+
+     /*
     function userrolePermissionsRead() {
         axios.get("http://127.0.0.1:8000/accounts/userrolePermissionsRead")
         .then((res) => {
@@ -925,6 +1374,21 @@ const UserrolePermissions = () => {
          //getPermissions();
     }, []);
 
+
+
+
+
+
+
+
+
+
+
+            
+              
+          
+      
+   
     
 
     return(
@@ -935,9 +1399,9 @@ const UserrolePermissions = () => {
         <Box sx={{ display: 'flex' }}> 
         {/* <Sidebar/>   */}
 
-<div id="permission">
+        <div id="permission">
                    
-<Box component="main" sx={{ flexGrow: 3, p: 7 }}>
+            <Box component="main" sx={{ flexGrow: 3, p: 7 }}>
       
      
 
@@ -956,7 +1420,7 @@ const UserrolePermissions = () => {
 
                     <div class="card shadow mb-4" id="userrole">
                         <div class="card-header py-3">
-                             <h6 class="m-0 font-weight-bold text-primary">Userrole Permissions</h6>                         
+                             <h6 class="m-0 font-weight-bold text">Userrole Permissions</h6>                         
                         </div>
 
 
@@ -1364,6 +1828,24 @@ const UserrolePermissions = () => {
                                                 
                                                 </tr>
 
+                                                <tr>
+                                            <td>Restore Data</td>
+                                            <td><input type="checkbox"
+                                                    name="Trash_read"
+                                                   checked={Trash_read_checked_state}
+                                                   onChange={()=>setTrash_read_checked_state(!Trash_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                           <td></td>
+                                           <td></td>
+                                           <td><input type="checkbox"
+                                                    name="Trash_delete"
+                                                   checked={Trash_delete_checked_state}
+                                                   onChange={()=>setTrash_delete_checked_state(!Trash_delete_checked_state)}>
+                                                </input></td>
+                                           
+                                        </tr>
+
 
                                                 <tr>
                                                     <td>Gtinpool</td>
@@ -1458,6 +1940,214 @@ const UserrolePermissions = () => {
                                             onChange={() => setShippingreport_delete_checked_state(!Shippingreport_delete_checked_state)}></input></td>
                                         
                                         </tr>
+
+
+                                        <tr>
+                                            <td>Production Report</td>
+                                            <td><input type="checkbox" 
+                                                    name="Productionreport_read" 
+                                                   checked={Productionreport_read_checked_state} onChange={()=>setProductionreport_read_checked_state(!Productionreport_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                            <td><input type="checkbox" 
+                                                    name="Productionreport_create"
+                                                    checked = {Productionreport_create_checked_state}
+                                                    onChange={() => setProductionreport_create_checked_state(!Productionreport_create_checked_state)}>
+                                                </input></td>
+
+                                             <td><input type="checkbox" name="Productionreport_update"
+                                             checked = {Productionreport_update_checked_state}
+                                             onChange={() => setProductionreport_update_checked_state(!Productionreport_update_checked_state)}
+                                            ></input></td>
+                                            <td><input type="checkbox" name="Productionreport_delete" 
+                                            checked = {Productionreport_delete_checked_state}
+                                            onChange={() => setProductionreport_delete_checked_state(!Productionreport_delete_checked_state)}></input></td>
+                                        
+                                        </tr>
+                                        <tr>
+                                            <td>Application Server ChangePassword</td>
+                                            <td><input type="checkbox" 
+                                                    name="Applicationserver_Changepassword_read" 
+                                                   checked={Applicationserver_Changepassword_read_checked_state} onChange={()=>setApplicationserver_Changepassword_read_checked_state(!Applicationserver_Changepassword_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                            <td><input type="checkbox" 
+                                                    name="Applicationserver_Changepassword_create"
+                                                    checked = {Applicationserver_Changepassword_create_checked_state}
+                                                    onChange={() => setApplicationserver_Changepassword_create_checked_state(!Applicationserver_Changepassword_create_checked_state)}>
+                                                </input></td>
+
+                                             <td><input type="checkbox" name="Applicationserver_Changepassword_update"
+                                             checked = {Applicationserver_Changepassword_update_checked_state}
+                                             onChange={() => setApplicationserver_Changepassword_update_checked_state(!Applicationserver_Changepassword_update_checked_state)}
+                                            ></input></td>
+                                            <td><input type="checkbox" name="Applicationserver_Changepassword_delete" 
+                                            checked = {Applicationserver_Changepassword_delete_checked_state}
+                                            onChange={() => setApplicationserver_Changepassword_delete_checked_state(!Applicationserver_Changepassword_delete_checked_state)}></input></td>
+                                        
+                                        </tr>
+
+                                        <tr>
+                                            <td>Inspection Dashboard</td>
+                                            <td><input type="checkbox" 
+                                                    name="Inspectiondashboard_read" 
+                                                   checked={Inspectiondashboard_read_checked_state} 
+                                                   onChange={()=>setInspectiondashboard_read_checked_state(!Inspectiondashboard_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                           
+                                        </tr>
+                                        <tr>
+                                            <td>Rework</td>
+                                            <td><input type="checkbox" 
+                                                    name="Rework_read" 
+                                                   checked={Rework_read_checked_state} 
+                                                   onChange={()=>setRework_read_checked_state(!Rework_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                            <td><input type="checkbox" 
+                                                    name="Rework_create"
+                                                    checked = {Rework_create_checked_state}
+                                                    onChange={() => setRework_create_checked_state(!Rework_create_checked_state)}>
+                                                </input></td>
+                                             <td></td>
+                                            <td><input type="checkbox" name="Rework_delete" 
+                                            checked = {Rework_delete_checked_state}
+                                            onChange={() => setRework_delete_checked_state(!Rework_delete_checked_state)}></input></td>
+                                        
+                                        </tr>
+                                        <tr>
+                                            <td>Application Server History</td>
+                                            <td><input type="checkbox" 
+                                                    name="Applicationserver_History_read" 
+                                                   checked={Applicationserver_History_read_checked_state} 
+                                                   onChange={()=>setApplicationserver_History_read_checked_state(!Applicationserver_History_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                           <td></td>
+                                           <td></td>
+                                           <td><input type="checkbox" 
+                                                    name="Applicationserver_History_delete" 
+                                                   checked={Applicationserver_History_delete_checked_state} 
+                                                   onChange={()=>setApplicationserver_History_delete_checked_state(!Applicationserver_History_delete_checked_state)}>
+                                                </input></td>
+                                            
+                                        </tr>
+
+                                        <tr>
+                                            <td>Application Server Backup</td>
+                                            <td><input type="checkbox" 
+                                                    name="Applicationserver_Backup_read" 
+                                                   checked={Applicationserver_Backup_read_checked_state} 
+                                                   onChange={()=>setApplicationserver_Backup_read_checked_state(!Applicationserver_Backup_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                            <td><input type="checkbox" 
+                                                    name="Applicationserver_Backup_create"
+                                                    checked = {Applicationserver_Backup_create_checked_state}
+                                                    onChange={() => setApplicationserver_Backup_create_checked_state(!Applicationserver_Backup_create_checked_state)}>
+                                                </input></td>
+                                             <td><input type="checkbox" name="Applicationserver_Backup_update"
+                                             checked = {Applicationserver_Backup_update_checked_state}
+                                             onChange={() => setApplicationserver_Backup_update_checked_state(!Applicationserver_Backup_update_checked_state)}
+                                            ></input></td>
+                                            <td><input type="checkbox" name="Applicationserver_Backup_delete" 
+                                            checked = {Applicationserver_Backup_delete_checked_state}
+                                            onChange={() =>setApplicationserver_Backup_delete_checked_state(!Applicationserver_Backup_delete_checked_state)}></input></td>
+                                        
+                                        </tr>
+                                        <tr>
+                                            <td>Manual Upload</td>
+                                            <td><input type="checkbox" 
+                                                    name="Manualupload_read" 
+                                                   checked={Manualupload_read_checked_state} 
+                                                   onChange={()=>setManualupload_read_checked_state(!Manualupload_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                            <td><input type="checkbox" 
+                                                    name="Manualupload_create"
+                                                    checked = {Manualupload_create_checked_state}
+                                                    onChange={() =>setManualupload_create_checked_state(!Manualupload_create_checked_state)}>
+                                                </input></td>
+                                             <td><input type="checkbox" name="Manualupload_update"
+                                             checked = {Manualupload_update_checked_state}
+                                             onChange={() => setManualupload_update_checked_state(!Manualupload_update_checked_state)}
+                                            ></input></td>
+                                            <td><input type="checkbox" name="Manualupload_delete" 
+                                            checked = {Manualupload_delete_checked_state}
+                                            onChange={() =>setManualupload_delete_checked_state(!Manualupload_delete_checked_state)}></input></td>
+                                        
+                                        </tr>
+
+                                        <tr>
+                                            <td>Applicationserver Report</td>
+                                            <td><input type="checkbox" 
+                                                    name="Applicationserver_reports_read" 
+                                                   checked={Applicationserver_Report_read_checked_state} 
+                                                   onChange={()=> setApplicationserver_Report_read_checked_state(!Applicationserver_Report_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                           
+                                        </tr>
+                                        <tr>
+                                            <td>Printer Jobs</td>
+                                            <td><input type="checkbox" 
+                                                    name="Printerjobs_read" 
+                                                   checked={Printerjobs_read_checked_state} 
+                                                   onChange={()=>setPrinterjobs_read_checked_state(!Printerjobs_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                            <td><input type="checkbox" 
+                                                    name="Printerjobs_create"
+                                                    checked = {Printerjobs_create_checked_state}
+                                                    onChange={() => setPrinterjobs_create_checked_state(!Printerjobs_create_checked_state)}>
+                                                </input></td>
+                                             <td><input type="checkbox" name="Printerjobs_update"
+                                             checked = {Printerjobs_update_checked_state}
+                                             onChange={() => setPrinterjobs_update_checked_state(!Printerjobs_update_checked_state)}
+                                            ></input></td>
+                                            <td><input type="checkbox" name="Printerjobs_delete" 
+                                            checked = {Printerjobs_delete_checked_state}
+                                            onChange={() => setPrinterjobs_delete_checked_state(!Printerjobs_delete_checked_state)}></input></td>
+                                        
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Scanner Jobs</td>
+                                            <td><input type="checkbox" 
+                                                    name="Scannerjobs_read" 
+                                                   checked={Scannerjobs_read_checked_state} 
+                                                   onChange={()=>setScannerjobs_read_checked_state(!Scannerjobs_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                           
+                                        </tr>
+
+                                        <tr>
+                                            <td>Sap Database</td>
+                                            <td><input type="checkbox" 
+                                                    name="Sapdata_read" 
+                                                   checked={Sapdata_read_checked_state} onChange={()=>setSapdata_read_checked_state(!Sapdata_read_checked_state)}>
+                                                </input>
+                                            </td>
+                                            <td><input type="checkbox" 
+                                                    name="Sapdata_create"
+                                                    checked = {Sapdata_create_checked_state}
+                                                    onChange={() => setSapdata_create_checked_state(!Sapdata_create_checked_state)}>
+                                                </input></td>
+                                             <td><input type="checkbox" name="Sapdata_update"
+                                             checked = {Sapdata_update_checked_state}
+                                             onChange={() => setSapdata_update_checked_state(!Sapdata_update_checked_state)}
+                                            ></input></td>
+                                            <td><input type="checkbox" name="Sapdata_delete" 
+                                            checked = {Sapdata_delete_checked_state}
+                                            onChange={() => setSapdata_delete_checked_state(!Sapdata_delete_checked_state)}></input></td>
+                                        
+                                        </tr>
+
+
+
+                                        
 
                                         <tr>
                                             <td>Send Productionorder to production</td>

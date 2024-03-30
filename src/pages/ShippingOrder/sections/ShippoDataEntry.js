@@ -20,6 +20,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
 function ShippoDataEntry() {
   
     var warningDIV= <div className="alert alert-success pt-4" role="alert">
@@ -98,7 +99,7 @@ function ShippoDataEntry() {
                         
                         //alert(productionOrderEditID);
                       axios
-                        .get("http://127.0.0.1:8000/master/shippo/"+shippoEditID+"/",
+                        .get(window.url+"/master/shippo/"+shippoEditID+"/",
                           
                         )
                         .then((res) => {
@@ -156,7 +157,7 @@ function ShippoDataEntry() {
                       // }
       function getSourcelocation() {
                         axios
-                          .get("http://localhost:8000/master/locations/",
+                          .get(window.url+"/master/locations/",
                           
                           )
                           .then((res) => {
@@ -175,7 +176,7 @@ function ShippoDataEntry() {
                   
             function getDestlocations() {
                         axios
-                          .get("http://localhost:8000/master/locations/",
+                          .get(window.url+"/master/locations/",
                           
                           )
                           .then((res) => {
@@ -215,7 +216,7 @@ function ShippoDataEntry() {
                       // }
             function getSubject() {
                         axios
-                          .get("http://localhost:8000/master/customer/",
+                          .get(window.url+"/master/customer/",
                           
                           )
                           .then((res) => {
@@ -253,25 +254,25 @@ function ShippoDataEntry() {
                       
       const getDestinationLocationoption = event => {
                         // alert(event.value)
-                  setDestinationLoc(event.target.value); 
+                  setDestinationLoc(event.value); 
                         // setCustomername(event.label); 
                         //  window.localStorage.setItem(option) 
-                        setDestinationlabel(event.target.label);
-                        setDestinationvalue(event.target.value);   
+                        setDestinationlabel(event.label);
+                        setDestinationvalue(event.value);   
                   }
       const getSourcelocationasoptions = event => {
                         //alert(event.value)
                         // setSourceLoc(event.value);
-                    setSourcelocation(event.target.value);
-                    setSourcelocationlabel(event.target.label);
-                    setSourcelocationvalue(event.target.value) 
+                    setSourcelocation(event.value);
+                    setSourcelocationlabel(event.label);
+                    setSourcelocationvalue(event.value) 
                         // setCustomername(event.label); 
                         //  window.localStorage.setItem(option)    
                   }
       const getSubjectasoptions = event => {
                         //alert(event.value)
                         // setSubName(event.value); 
-                      setSubjectname(event.target.value); 
+                      setSubjectname(event.value); 
                         // setCustomername(event.label); 
                         //  window.localStorage.setItem(option)    
                     }
@@ -284,24 +285,16 @@ function ShippoDataEntry() {
                   
           if(operation === 'new') {
             var headwidget=
-            <Box
-            component="form"
-            sx={{
-              width: 500,
-              maxWidth: '100%',
-              
-              
-            }}
-              noValidate
-              autoComplete="off"
-          ><Controls.Input 
+          
+     <Controls.Input 
             disabled
-            fullWidth
+            // fullWidth
             
             id="outlined-Company Prefix"
-            label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">            Enter Shipping Order  Data </font></h4></pre></h4>}
+            value={loggedInUsername}
+            // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">            Enter Shipping Order  Data </font></h4></pre></h4>}
           />
-          </Box>
+         
 var nameFieldWidget = 
                     // <input
                     //   type="text"
@@ -324,64 +317,64 @@ var nameFieldWidget =
                           // <Select  className="s" onChange={getSourcelocationsoption} options={Sorlocation} /> 
 
                           var sourcelocationwidget= 
-                          // <Select  className="s" options={sourcelocoptions} onChange={getSourcelocationasoptions}/>
-                          <Box sx={{  }}>
+                          <Select  className="s" options={sourcelocoptions} onChange={getSourcelocationasoptions}/>
+                          // <Box sx={{  }}>
 
-                          <FormControl >
-                          <InputLabel id="demo-simple-select-label">Source Location</InputLabel>
-                          <NativeSelect 
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          input={<OutlinedInput label="Source Location" />}
-                          MenuProps={MenuProps}
-                          style={{width:'220px'}}
-                          label="Source Location"
-                          onChange={getSourcelocationasoptions}
-                          ><option>Select Source Location</option> 
-                          {sourcelocoptions.map((data) => (
+                          // <FormControl >
+                          // <InputLabel id="demo-simple-select-label">Source Location</InputLabel>
+                          // <NativeSelect 
+                          // labelId="demo-simple-select-label"
+                          // id="demo-simple-select"
+                          // input={<OutlinedInput label="Source Location" />}
+                          // MenuProps={MenuProps}
+                          // style={{width:'220px'}}
+                          // label="Source Location"
+                          // onChange={getSourcelocationasoptions}
+                          // ><option>Select Source Location</option> 
+                          // {sourcelocoptions.map((data) => (
                 
                 
-                          <option key={data.label} value={data.value}>
+                          // <option key={data.label} value={data.value}>
                 
-                          {data.label}
+                          // {data.label}
                 
-                          </option>
+                          // </option>
                 
-                          ))}
-                          </NativeSelect>
-                          </FormControl>
-                          </Box>
+                          // ))}
+                          // </NativeSelect>
+                          // </FormControl>
+                          // </Box>
                           
 
                           var destinationFieldWidget = 
-                          // <Select className="s" onChange={getDestinationLocationoption} options={deslocation} /> 
+                          <Select className="s" onChange={getDestinationLocationoption} options={deslocation} /> 
                             
-                          <Box sx={{  }}>
+                          // <Box sx={{  }}>
 
-                          <FormControl >
-                          <InputLabel id="demo-simple-select-label">Destination Location</InputLabel>
-                          <NativeSelect 
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          input={<OutlinedInput label="Destination Location" />}
-                          MenuProps={MenuProps}
-                          style={{width:'220px'}}
-                          label="Destination Location"
-                          onChange={getDestinationLocationoption}
-                          ><option>Select Destination Location</option> 
-                          {deslocation.map((data) => (
+                          // <FormControl >
+                          // <InputLabel id="demo-simple-select-label">Destination Location</InputLabel>
+                          // <NativeSelect 
+                          // labelId="demo-simple-select-label"
+                          // id="demo-simple-select"
+                          // input={<OutlinedInput label="Destination Location" />}
+                          // MenuProps={MenuProps}
+                          // style={{width:'220px'}}
+                          // label="Destination Location"
+                          // onChange={getDestinationLocationoption}
+                          // ><option>Select Destination Location</option> 
+                          // {deslocation.map((data) => (
                 
                 
-                          <option key={data.label} value={data.value}>
+                          // <option key={data.label} value={data.value}>
                 
-                          {data.label}
+                          // {data.label}
                 
-                          </option>
+                          // </option>
                 
-                          ))}
-                          </NativeSelect>
-                          </FormControl>
-                          </Box>
+                          // ))}
+                          // </NativeSelect>
+                          // </FormControl>
+                          // </Box>
                   
                         var createdbyFieldWidget = 
                         // <input
@@ -410,40 +403,43 @@ var nameFieldWidget =
                                   label="Shipping Date"
                                   id="outline-ShippingDate"
                                   type="date"
+                                  InputLabelProps={{
+                                    shrink: true,
+                                 }}
                                   onChange={(e) => setShipingDate(e.target.value)}
                                   />
                             // var subjectnameFieldWidget = 
                             // <Select className="s" onChange={getSubjectnamelocationsoption} options={subname} /> 
                             // 
                             var subjectwidget=
-                            // <Select  className="s" options={subjectoptions} onChange={getSubjectasoptions}/>
+                            <Select  className="s" options={subjectoptions} onChange={getSubjectasoptions}/>
 
-                            <Box sx={{  }}>
+                            // <Box sx={{  }}>
 
-                            <FormControl >
-                            <InputLabel id="demo-simple-select-label">Subject</InputLabel>
-                            <NativeSelect 
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            input={<OutlinedInput label="subject" />}
-                            MenuProps={MenuProps}
-                            style={{width:'220px'}}
-                            label="subject"
-                            onChange={getSubjectasoptions}
-                            ><option>Select Subject</option> 
-                            {subjectoptions.map((data) => (
+                            // <FormControl>
+                            // <InputLabel id="demo-simple-select-label">Subject</InputLabel>
+                            // <NativeSelect 
+                            // labelId="demo-simple-select-label"
+                            // id="demo-simple-select"
+                            // input={<OutlinedInput label="subject" />}
+                            // MenuProps={MenuProps}
+                            // style={{width:'220px'}}
+                            // label="subject"
+                            // onChange={getSubjectasoptions}
+                            // ><option>Select Subject</option> 
+                            // {subjectoptions.map((data) => (
                   
                   
-                            <option key={data.label} value={data.value}>
+                            // <option key={data.label} value={data.value}>
                   
-                            {data.label}
+                            // {data.label}
                   
-                            </option>
+                            // </option>
                   
-                            ))}
-                            </NativeSelect>
-                            </FormControl>
-                            </Box>
+                            // ))}
+                            // </NativeSelect>
+                            // </FormControl>
+                            // </Box>
                             var exportFieldWidget = 
                             // <input
                             //   type="text"
@@ -453,60 +449,58 @@ var nameFieldWidget =
                             // />
 
                             <TextField required
-                                  label="Export"
-                                  id="outline-Export"
+                              label="Export"
+                              id="outline-Export"
 
-                                  onChange={(e) => setExport(e.target.value)}
-                                  />
+                              onChange={(e) => setExport(e.target.value)}
+                            />
 
-                        var shipingtimeFieldWidget = 
+    var shipingtimeFieldWidget = 
                         // <input
                         //           type="time"
                         //           className="form-control form-control-sm"
                         //           aria-describedby="emailHelp"
                         //           onChange={(e) =>setTime(e.target.value)}
                         //         />   
-                                <TextField required
-                                label="Shipping Time"
-                                type="time"
-                                id="outline-time"
+                            <TextField required
+                              label="Shipping Time"
+                              type="time"
+                              id="outline-time"
+                              InputLabelProps={{
+                                shrink: true,
+                             }}
+                              onChange={(e) =>setTime(e.target.value)}
+                              />     
+                  
+    // var statusOptionsWidget= 
+                        
 
-                                onChange={(e) =>setTime(e.target.value)}
-                                />     
-                  
-                            var statusOptionsWidget= 
-                          //    <Select onChange={statusOptionsChangeFunction} 
-                          //                                 options={statusOptionsState}
-                          //                                 value={{label:statusOptionsSelected, value:statusOptionsSelected}}  
-                          //                                 className="s"
-                          // />
+    //                       <Box sx={{  }}>
 
-                          <Box sx={{  }}>
-
-                            <FormControl >
-                            <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                            <NativeSelect 
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            input={<OutlinedInput label="status" />}
-                            MenuProps={MenuProps}
-                            style={{width:'220px'}}
-                            label="subject"
-                            onChange={statusOptionsChangeFunction}
-                            ><option>Select Status</option> 
-                            {statusOptionsState.map((data) => (
+    //                         <FormControl >
+    //                         <InputLabel id="demo-simple-select-label">Status</InputLabel>
+    //                         <NativeSelect 
+    //                         labelId="demo-simple-select-label"
+    //                         id="demo-simple-select"
+    //                         input={<OutlinedInput label="status" />}
+    //                         MenuProps={MenuProps}
+    //                         style={{width:'220px'}}
+    //                         label="subject"
+    //                         onChange={statusOptionsChangeFunction}
+    //                         ><option>Select Status</option> 
+    //                         {statusOptionsState.map((data) => (
                   
                   
-                            <option key={data.label} value={data.value}>
+    //                         <option key={data.label} value={data.value}>
                   
-                            {data.label}
+    //                         {data.label}
                   
-                            </option>
+    //                         </option>
                   
-                            ))}
-                            </NativeSelect>
-                            </FormControl>
-                            </Box>
+    //                         ))}
+    //                         </NativeSelect>
+    //                         </FormControl>
+    //                         </Box>
                       }
                   
                       // else if(operation === 'edit') {
@@ -574,32 +568,32 @@ var nameFieldWidget =
                             
                           
                       //     }
-          const handleSubmit = (e) => {
-                      var shippoEditID = uniqueID;
-                            e.preventDefault();
+        const handleSubmit = (e) => {
+              var shippoEditID = uniqueID;
+                  e.preventDefault();
                             // alert(shippoEditID); 
                         // alert(2)
                             //alert(address);
-                            var testPassed = "false";
-                            if(shipping_order_name!=""){
-                              testPassed="true"
+              var testPassed = "false";
+                  if(shipping_order_name!=""){
+                        testPassed="true"
                         
-                            }
-                            else {
-                              warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                                  <h5>Input shipping_order_name</h5>
-                                </div>
+                    }
+                  else {
+                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                              <h5>Input shipping order name</h5>
+                          </div>
                         
-                              setWarningmessage(warningDIV);
-                              testPassed = "false";
-                            }
+                            setWarningmessage(warningDIV);
+                            testPassed = "false";
+                        }
                             if(testPassed == "true"){
                               if(source_location!=""){
                                 testPassed ="true"
                               }
                               else{
                                 warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                                  <h5>source_location</h5>
+                                  <h5>Input source location</h5>
                                 </div>
                               setWarningmessage(warningDIV);
                               testPassed = "false";
@@ -611,31 +605,20 @@ var nameFieldWidget =
                               }
                               else{
                                 warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                                  <h5>Input  destination_location</h5>
+                                  <h5>Input  destination location</h5>
                                 </div>
                               setWarningmessage(warningDIV);
                               testPassed = "false";
                               }
                             }
-                            if(testPassed == "true"){
-                              if(created_by!=""){
-                                testPassed="true"
-                              }
-                              else{
-                                warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                                  <h5>Input  created_by</h5>
-                                </div>
-                              setWarningmessage(warningDIV);
-                              testPassed = "false";
-                              }
-                            }
+                           
                             if(testPassed == "true"){
                               if(subject_name!=""){
                                 testPassed="true"
                               }
                               else{
                                 warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                                  <h5>Input  subject_name</h5>
+                                  <h5>Input  subject name</h5>
                                 </div>
                               setWarningmessage(warningDIV);
                               testPassed = "false"; 
@@ -647,38 +630,39 @@ var nameFieldWidget =
                               }
                               else{
                                 warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                                  <h5>Input  shipping_date</h5>
+                                  <h5>Input  shipping date</h5>
                                 </div>
                               setWarningmessage(warningDIV);
                               testPassed = "false";
                               }
                             }
                             if(testPassed == "true"){
-                              if(shipping_date!=""){
+                              if(time!=""){
                                 testPassed="true"
                               }
                               else{
                                 warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                                  <h5>Input  shipping_date</h5>
+                                  <h5>Input shipping time</h5>
                                 </div>
                               setWarningmessage(warningDIV);
                               testPassed = "false";
                               }
                             }
+                           
                             if(testPassed == "true"){
                               if(batch_for_export!=""){
                                 testPassed="true"
                               }
                               else{
                                 warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                                  <h5>Input  batch_for_export</h5>
+                                  <h5>Input  batch for export</h5>
                                 </div>
                               setWarningmessage(warningDIV);
                               testPassed = "false"; 
                               }
                             }
                             // if(testPassed == "true"){
-                            //   if(status!=""){
+                            //   if(statusOptionsSelected!=""){
                             //     testPassed="true"
                             //   }
                             //   else{
@@ -706,8 +690,9 @@ var nameFieldWidget =
                             //   }
                             // }
                         
-                          if(testPassed =="true"){
-                            if(operation === 'new') {
+    if(testPassed =="true"){
+      if(operation === 'new') 
+        {
                               // alert(shipping_order_name)
                               // alert(source_location)
                               // alert(destination_location)
@@ -715,34 +700,34 @@ var nameFieldWidget =
                               // alert(subject_name)
                               // alert(shipping_date)
                               // alert(batch_for_export)
-                              // alert(statusOptionsSelected)
-                                    axios
-                                      .post('http://127.0.0.1:8000/master/shippo/', 
-                                      {
-                                        "shipping_order_name":shipping_order_name, 
+                          // alert(statusOptionsSelected)
+          axios
+          .post(window.url+'/master/shippo/', 
+          {
+            "shipping_order_name":shipping_order_name, 
                                         // 'source_location':source_location,
-                                        "source_location":source_location,   
-                                        'destination_location':destination_location,   
-                                        "created_by":created_by,
+            "source_location":source_location,   
+            'destination_location':destination_location,   
+            "created_by":loggedInUsername,
                                         // "subject_name":subname,
-                                        "subject_name":subject_name,
-                                        "shipping_date":shipping_date,
-                                        "batch_for_export":batch_for_export,
-                                        'status':statusOptionsSelected,
-                                        "shipping_time":time,
-                                        "loggedInUsername":loggedInUsername,
+            "subject_name":subject_name,
+            "shipping_date":shipping_date,
+            
+            "batch_for_export":batch_for_export,
+            'status':"Shipping",
+            "shipping_time":time,
+            "loggedInUsername":loggedInUsername,
 
-                                        "loggedInUserrole":loggedInUserrole,
-                                        "process_order_number":uniqueID,
-                                        "process_no_original":processnumber
-                                      },
-                                    
-                                     
-                                      )
-                                      .then(() => {
-                                        navigate("/shippingorder");
-                                      });
-                                  }
+            "loggedInUserrole":loggedInUserrole,
+            "process_order_number":uniqueID,
+            "process_no_original":processnumber
+
+          },
+        )
+        .then(() => {
+          navigate("/shippingorder");
+        });
+      }
                                   // else if(operation === 'edit') {
                                   //   // alert(subname)
                                   //   axios
@@ -778,111 +763,111 @@ var nameFieldWidget =
                                   // }
                           }
                         }
-                          var editSaveButtonDisabled = 
-                        <button disabled="true" className="btn btn-primary" onClick={handleSubmit}>Save</button>
+    var editSaveButtonDisabled = 
+                          <button disabled="true" className="btn btn-primary" onClick={handleSubmit}>Save</button>
                   
-                    var editSaveButtonEnabled = 
+    var editSaveButtonEnabled = 
                         <button className="btn btn-primary" onClick={handleSubmit}>Save</button>
                   
-                    var editSaveButton = "";
+    var editSaveButton = "";
         return (
-          <>
-                       
-          <br></br>
-<br></br>
-<br></br>
-<div class="container-fluid">
-     <div class="card shadow mb-4" id="customerfullcard"> 
-         <div class="card-header py-3" id="customercardhead">
-             <div className='row'>
-                 <div className='col-10' id="customerhead">
-                 {headwidget}
-                 </div>
-             </div>
-                                             
-         </div>
-
-         <div class="card-body">  
-         <br></br>
-<br></br>
-
-{/* <div id="locationhead">
-{headwidget}
-</div>
-<br></br> */}
-
-<Box id="customerbox"
-component="form"
-sx={{
-'& .MuiTextField-root': { m: 2, width: '25ch' },
-}}
-noValidate
-autoComplete="off"
->
-<br></br>
-<div id="shippingwarningdiv">
-{warningmessage}
-</div>
-<div>
- 
- {nameFieldWidget}
- 
-
- 
- </div>
- <div id="shippingsourceloc">
- {sourcelocationwidget}
- </div>
- <div id="shippingdestloc">
- {destinationFieldWidget}
- </div>
-
-<div id="shippingbutton">
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                             
-   </button>
-  </div>
-  <br></br>
- <div>
- {createdbyFieldWidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- {exportFieldWidget}
- <div id="subjectselectbox">
- {subjectwidget}
- </div>
- 
-</div>
-<div >
-{shipinddateFieldWidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;
-{shipingtimeFieldWidget}
-
-</div>
-<div id="statusselectbox">
-{statusOptionsWidget}
-</div>
-<br></br>
-<br></br>
+          <>   <br/><br/><br/>
 
 
-   
- 
+{warningmessage}     
+        
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 4, width: '25' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Enter Shipping Order  Data </font></h4></center></h4>            
+          {nameFieldWidget}
+          {exportFieldWidget}
 
- 
+         
+          {headwidget}
+<br/>
+  
+          {shipinddateFieldWidget }
+          {shipingtimeFieldWidget}
+         
+
+    
+    
+           
+       
+
+
+    
+          {/* {statusOptionsWidget} */}
+
+         
+           
+          </div>
+         
+        </Box>  
+
+
+         <br/>
+
+
+    <table class="table table-borderless productionOrderReportSearchTable" style={{backgroundColor:"#AAF0D1"}}>
+                            <tbody>
+                             
+                              <tr>
+                                <td class="productionOrderReportSearchTD">Source location</td>
+                                <td class="productionOrderReportSearchTD">
+                                  {sourcelocationwidget}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="productionOrderReportSearchTD">Destination location</td>
+                                <td class="productionOrderReportSearchTD">
+                                  {destinationFieldWidget}
+                                </td>
+                              </tr>
+                  
+                            
+                              <tr>
+                                <td class="productionOrderReportSearchTD">Subject name</td>
+                                <td class="productionOrderReportSearchTD">
+                                  {subjectwidget}
+                                </td>
+                              </tr>
+                           
+                            
+                             
+                              
+                            <tr></tr>
+                            
+                          </tbody>
+                        </table> 
 
 
 
+                     <div className="row">
+                      <div className="col-4">
 
-
-</Box> 
-<hr></hr>    
-         </div>
-     </div>
- </div>  
+                      </div>
+                      <div className="col-4">
+                     <center><button
+                                  type="submit"
+                                  className="btn btn-primary"   
+                                  onClick={handleSubmit}
+                                >
+                                  Submit
+                                </button></center> 
+                        </div>
+                        <div className="col-4">
+                        
+                        </div>
+                     </div>  
 
 </>
                     );

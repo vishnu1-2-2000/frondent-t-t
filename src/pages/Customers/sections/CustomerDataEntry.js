@@ -13,11 +13,12 @@ import Checkbox from '@mui/material/Checkbox';
 import Statusselect from "../../../components/Statusselect";
 import Select from "react-select";
 import Skeleton from '@mui/material/Skeleton';
+import Tooltip from '@mui/material/Tooltip';
 // import { SidebarData } from "../../components/SidebarData";
 import { DataGrid, GridToolbar, GridApi, GridCellValue, GridToolbarContainer, GridToolbarColumnsButton, 
-  GridToolbarFilterButton, GridToolbarDensitySelector, GridToolbarExport } from '@material-ui/data-grid';
-function CustomerDataEntry() {
-    var warningDIV = <div className="alert alert-success pt-4" role="alert">
+        GridToolbarFilterButton, GridToolbarDensitySelector, GridToolbarExport } from '@material-ui/data-grid';
+  function CustomerDataEntry() {
+      var warningDIV = <div className="alert alert-success pt-4" role="alert">
           <h5>Input all the values</h5>
                  </div>  
 
@@ -34,11 +35,8 @@ function CustomerDataEntry() {
     const [group,setGroup]=useState("");
     const[status,setStatus]=useState("");
     const [testStatusChecked, setTestStatusChecked] = useState(false);
-
-
     const[warningmessage,setWarningmessage]=useState("");
-
-
+    const[st,setSt]=useState("");
     ///   For navigate function
     const navigate = useNavigate();
     const {uniqueID}=useParams();
@@ -48,12 +46,10 @@ function CustomerDataEntry() {
     var username = window.localStorage.getItem('username')
     var password = window.localStorage.getItem('password')
     var currentUserrole = window.localStorage.getItem('userrole')
-
     var loggedInUsername=window.localStorage.getItem('loggedInUsername')
-
     var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
       ////  Fetch data from local storage
-    const[st,setSt]=useState("");
+    
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const currencies = [
     {
@@ -124,80 +120,76 @@ function CustomerDataEntry() {
   if(operation === 'new') {
     var headwidget=
     
-            <Box 
+      // <Box 
            
-                component="form"
-                sx={{
-                  width: 500,
-                  maxWidth: '100%',
+      //   component="form"
+      // //   sx={{
+      // //   width: 500,
+      // //   maxWidth: '100%',
                   
                   
-                }}
-            noValidate
-            autoComplete="off"
+      // // }}
+      //   noValidate
+      //   autoComplete="off"
             
-          >
+      // >
     
-          <Controls.Input 
-                  disabled
-                  fullWidth
-                  id="outlined-Company Prefix"
+      <Controls.Input 
+        disabled
+        // fullWidth
+        id="outlined-Company Prefix"
+        value={loggedInUsername}
                   // label={<Typography>Customer  Create</Typography>}
-                  label={<h4 ><pre><h4 style={{color:"white"}}>         Create New Customer </h4></pre></h4>}
-                
-   
+        // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                  Create New Customer</font> </h4></pre></h4>}
+              
     />
     
- </Box>
+//  </Box>
 
     var nameFieldWidget = 
-                    <TextField
-                    required
+          <TextField
+            required
+            
+            label="Name"
+            name="name"
+                          
+            onChange={(e) => setName(e.target.value)}
      
-                    label="Name"
-                    name="name"
-                  
-                    onChange={(e) => setName(e.target.value)}
-     
-   />
+          />
    
   var countryFieldWidget = <TextField
-        required
-       id="outlined-country"
-       label="Country"
-       onChange={(e) => setCountry(e.target.value)}
-       
-     />
-    var stateFieldWidget = <TextField
-      required
-      id="outlined-state"
-      label="State"
-      // type="password"
-      // autoComplete="current-password"
-      onChange={(e) => setState(e.target.value)}
-    />
-    var cityFieldWidget = <TextField
-    required
-   id="outlined-CITY"
-   label="City"
-   onChange={(e) => setCity(e.target.value)}
-   
- />
+                              required
+                              id="outlined-country"
+                              label="Country"
+                              onChange={(e) => setCountry(e.target.value)}
+                            />
+  var stateFieldWidget = <TextField
+                            required
+                            id="outlined-state"
+                            label="State"
+                              // type="password"
+                              // autoComplete="current-password"
+                            onChange={(e) => setState(e.target.value)}
+                          />
+  var cityFieldWidget = <TextField
+                            required
+                            id="outlined-CITY"
+                            label="City"
+                            onChange={(e) => setCity(e.target.value)}
+                          />
   var addressFieldWidget = <TextField
-        required
-        id="outlined-Address"
-        label="Address"
-        onChange={(e) => setAddress(e.target.value)}
-   
-    />
+                              required
+                              id="outlined-Address"
+                              label="Address"
+                              onChange={(e) => setAddress(e.target.value)}
+                            />
   var zipFieldWidget = <TextField
-      required
-      id="outlined-Zip"
-      label="Zip"
-      type="number"
-      onChange={(e) => setZip(e.target.value)}
-  
-    />
+                          required
+                          id="outlined-Zip"
+                          label="Zip"
+                          type="number"
+                          onChange={(e) => setZip(e.target.value)}
+                        />
 
 //   var groupfield= <TextField
 //         id="outlined-select-currency"
@@ -216,8 +208,19 @@ function CustomerDataEntry() {
 //       ))}
 
 // </TextField>
+const customStyles = {
+  control: base => ({
+    ...base,
+    height: 55,
+    minHeight: 55,
+    width:100,
+    marginLeft:10
+    
+    
+  })
+};
 
-var groupfield=<select  class="form-select" id="customerselectbox" aria-label="group" onChange={(e) => setGroup(e.target.value)} value={group}>
+var groupfield=<select  class="form-select" id="customerselectbox"   aria-label="group" onChange={(e) => setGroup(e.target.value)} value={group}>
       <option value="">Select Group</option>
       <option value="CMO">CMO</option>
       <option value="CPO">CPO</option>
@@ -230,105 +233,101 @@ var groupfield=<select  class="form-select" id="customerselectbox" aria-label="g
       <option value="Warehouse">Warehouse</option>
       <option value="Wholesaler">Wholesaler</option>
 
-</select>
+  </select>
 
 
 
   var createdbyFieldWidget = <TextField id="outlined-Createdby"
-                    required 
-                    label="Createdby"
-                    onChange={(e) => setCreatedby(e.target.value)}
+                                required 
+                                label="Createdby"
+                                onChange={(e) => setCreatedby(e.target.value)}
 
-  />
+                              />
   
-  var statusfield=   <Grid item xs={12}><Controls.Input
-      id="outlined-select-Status"
-      select
-      label="Status"
-      defaultValue="EUR"
-      helperText="Please select Customer Status"
-      onChange={(e) =>setStatus(e.target.value)} value={status}
->
+  var statusfield=<Grid item xs={12}><Controls.Input
+                    id="outlined-select-Status"
+                    select
+                    label="Status"
+                    defaultValue="EUR"
+                    helperText="Please select Customer Status"
+                    onChange={(e) =>setStatus(e.target.value)} value={status}
+                  >
   
-{customerstatusfield.map((option1) => (
-  <MenuItem key={option1.value} value={option1.value}>
-    {option1.label}
-  </MenuItem>
-))}
+                    {customerstatusfield.map((option1) => (
+                      <MenuItem key={option1.value} value={option1.value}>
+                        {option1.label}
+                      </MenuItem>
+                    ))}
+                    </Controls.Input>
+                  </Grid>
 
-
-
-</Controls.Input>
-</Grid>
-
-
-
-      
-  }
+    }
 
 
 
   
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("clicked");
+      e.preventDefault();
+      console.log("clicked");
 
-    var customerEditID= uniqueID;
+      var customerEditID= uniqueID;
     //alert(address);
-    var testPassed = "false";
-    if(name!=""){
+      var testPassed = "false";
+      if(name!=""){
+        testPassed="true"
+
+      }
+      else {
+        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+          <h5>Input  Name</h5>
+        </div>
+
+        setWarningmessage(warningDIV);
+        testPassed = "false";
+      }
+
+    if(testPassed=="true"){
+      if(country!=""){
+        testPassed="true"
+  
+      }
+      else {
+        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+            <h5>Input  Country</h5>
+          </div>
+  
+        setWarningmessage(warningDIV);
+        testPassed = "false";
+      }
+    }
+    if(testPassed=="true"){
+    if(state!=""){
       testPassed="true"
 
     }
     else {
       warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-          <h5>Input  Name</h5>
+          <h5>Input  State</h5>
         </div>
 
       setWarningmessage(warningDIV);
       testPassed = "false";
     }
+  }
+  if(testPassed=="true"){
+    if(city!=""){
+      testPassed="true"
 
-    // var testPassed = "false";
-    // if(country!=""){
-    //   testPassed="true"
+    }
+    else {
+      warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+          <h5>Input  City</h5>
+        </div>
 
-    // }
-    // else {
-    //   warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-    //       <h5>Input  Country</h5>
-    //     </div>
-
-    //   setWarningmessage(warningDIV);
-    //   testPassed = "false";
-    // }
-    // var testPassed = "false";
-    // if(state!=""){
-    //   testPassed="true"
-
-    // }
-    // else {
-    //   warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-    //       <h5>Input  State</h5>
-    //     </div>
-
-    //   setWarningmessage(warningDIV);
-    //   testPassed = "false";
-    // }
-    // var testPassed = "false";
-    // if(city!=""){
-    //   testPassed="true"
-
-    // }
-    // else {
-    //   warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-    //       <h5>Input  City</h5>
-    //     </div>
-
-    //   setWarningmessage(warningDIV);
-    //   testPassed = "false";
-    // }
-
+      setWarningmessage(warningDIV);
+      testPassed = "false";
+    }
+  }
 
     // if(testPassed == "true"){
     //   if(company_prefix!=""){
@@ -387,20 +386,20 @@ var groupfield=<select  class="form-select" id="customerselectbox" aria-label="g
 
       } 
     }
-    if(testPassed == "true"){
-      if(created_by){
-        testPassed="true"
-      }
-      else{
-        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-          <h5>Input  Createdby</h5>
-        </div>
+    // if(testPassed == "true"){
+    //   if(created_by){
+    //     testPassed="true"
+    //   }
+    //   else{
+    //     warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+    //       <h5>Input  Createdby</h5>
+    //     </div>
 
-      setWarningmessage(warningDIV);
-      testPassed = "false";
+    //   setWarningmessage(warningDIV);
+    //   testPassed = "false";
 
-      } 
-    }
+    //   } 
+    // }
     if(testPassed =="true"){
     if(operation === 'new') {
       // alert( name)
@@ -415,7 +414,7 @@ var groupfield=<select  class="form-select" id="customerselectbox" aria-label="g
       // alert( loggedInUserrole)
 
       axios
-        .post('http://localhost:8000/master/customer/', 
+        .post(window.url+'/master/customer/', 
         {
           "name": name,  
           "country":country,
@@ -424,7 +423,7 @@ var groupfield=<select  class="form-select" id="customerselectbox" aria-label="g
           'address':address,
           'zip':zip , 
           'group':group,   
-          "created_by": created_by,
+          "created_by": loggedInUsername,
           "status":testStatusChecked,
           "loggedInUsername":loggedInUsername,
           "loggedInUserrole":loggedInUserrole
@@ -511,174 +510,69 @@ var groupfield=<select  class="form-select" id="customerselectbox" aria-label="g
 </div>
       
     </Box> */}
-    <br></br>
-    <div class="container-fluid">
-              <div class="card shadow mb-4" id="customerfullcard"> 
-                  <div class="card-header py-3" id="customercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="customerhead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
+    <br/><br/><br/><br/><br/>
 
-                  <div class="card-body">  
-                  <br></br>
-    <br></br>
-    
-    {/* <div id="locationhead">
-    {headwidget}
-    </div>
-    <br></br> */}
-    
-    <Box id="customerbox"
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <br></br>
-      <div>
-          {warningmessage}
-         
-          {nameFieldWidget}
-
-          {countryFieldWidget}
-
-          {stateFieldWidget}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-            </button>
-          <div>
-
-            {addressFieldWidget}
-
-           
-            {createdbyFieldWidget}
-
-            {zipFieldWidget}
-
-            
-          </div>
-
-          <div >
-          {groupfield}
-          
-          <br></br>
-          
-        <div className="col-1">
-            <FormControlLabel  control={<Checkbox 
-      
-              checked={testStatusChecked}
-
-              onChange={e => setTestStatusChecked(e.target.checked)}
-              sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }}
-              label="Gilad Gray"
-            />} label="Status" />
-        </div>
-       
-      </div>
-
-      <div id="customercity">
-      {cityFieldWidget}
-
-    </div>              
- 
-
-  </div>
-  <div>
-      
-</div>
-      
-    </Box> 
-    <hr></hr>    
-                  </div>
-              </div>
-          </div>   
-
-
-{/* <br></br>
-    <br></br>
-    <br></br>
-      <div className="d-flex justify-content-between m-2">
-        {/* <h2>Create</h2> */}
-        {/* {headwidget}
-        <Link to="/customer/cusdatagrid">
-          <button className="btn btn-primary">Show Data</button>
-        </Link>
-      </div>
-      {warningmessage}
-       <table class="table table-borderless productionOrderReportSearchTable" id="productionOrderReportSearchTableID">
-                      <tbody>
-        <tr>
+{warningmessage}        
         
-          <td class="productionOrderReportSearchTD">
-          {nameFieldWidget}
-          </td>
-
-          
-          <td class="productionOrderReportSearchTD">
-          {companyprefixFieldWidget}
-          </td>
-        </tr>
-        
-        <tr>
-       
-        <td class="productionOrderReportSearchTD">
-          {companyglnFieldWidget}
-          </td>
-
-          
-                      <td class="productionOrderReportSearchTD">
-          {addressFieldWidget}
-          </td>
-        </tr>
-        
-        <tr>
-       
-                      <td class="productionOrderReportSearchTD">
-          {zipFieldWidget}
-          </td>
-
-          
-                      <td class="productionOrderReportSearchTD">
-          {groupfield}
-          </td>
-        </tr>
-       
-
-        <tr>
-        
-                      <td class="productionOrderReportSearchTD">
-          {createdbyFieldWidget}
-          </td>
-
-          
-                      <td class="productionOrderReportSearchTD">
-                      {statusfield}
-                      </td>
-        </tr>
-
-     
-      <tr>
-      <td class="productionOrderReportSearchTD">
-        <button
-          type="submit"
-          className="btn btn-primary"
-          onClick={handleSubmit}
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 4, width: '25' },
+          }}
+          noValidate
+          autoComplete="off"
         >
-          Submit
-        </button>
-        </td>
-        </tr>
-      </tbody>
-      </table>
-     */}
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add Customer Details </font></h4></center></h4>            
+          {nameFieldWidget}  
+          {cityFieldWidget}
+          {countryFieldWidget}
+          {stateFieldWidget}
 
+    
+    
+           
+          
+          <br/>
+{addressFieldWidget}
+
+{zipFieldWidget}
+{headwidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<FormControlLabel  control={<Checkbox 
+      
+      checked={testStatusChecked}
+      style={{marginTop:10}}
+      onChange={e => setTestStatusChecked(e.target.checked)}
+      sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }}
+      label="Gilad Gray"
+    />} label="Status" /> 
+
+{groupfield}
+          <div className="row">
+            <div className="col-4">
+           
+            </div>
+            <div className="col-4">
+            <center><button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button></center>
+            </div>
+            <div className="col-4">
+            </div>
+           
+          
+          </div>
+            
+           
+          </div>
+         
+        </Box>
+     
     </>
   );
 }

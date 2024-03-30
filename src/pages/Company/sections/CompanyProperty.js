@@ -49,7 +49,7 @@ function CompanyProperty() {
                   
     function getCompanyEditRequestData() {
         axios
-            .get("http://localhost:8000/master/companyproperty/"+uniqueID+"/",
+            .get(window.url+"/master/companyproperty/"+uniqueID+"/",
                       
                 )
                   .then((res)=>{
@@ -75,22 +75,24 @@ function CompanyProperty() {
                 }, []);
                     // if(operation === 'new') {
   var headwidget=
-                  <Box
-                        component="form"
-                        sx={{
-                            width: 500,
-                            maxWidth: '100%',
-                            }}
-                          noValidate
-                          autoComplete="off"
-                    ><Controls.Input 
+                  // <Box
+                  //       component="form"
+                  //       sx={{
+                  //           width: 500,
+                  //           maxWidth: '100%',
+                  //           }}
+                  //         noValidate
+                  //         autoComplete="off"
+                  //   >
+                      <Controls.Input 
                       disabled
                       // fullWidth
                       
                           id="outlined-Company Prefix"
-                          label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">              Enter Company Properties </font></h4></pre></h4>}
+                          value={loggedInUsername}
+                          // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">              Enter Company Properties </font></h4></pre></h4>}
                            />
-                  </Box>
+                  // </Box>
                       
   var centralFieldWidget =<TextField
                             required
@@ -166,7 +168,7 @@ function CompanyProperty() {
 
                       
                     axios
-                        .put(`http://localhost:8000/master/companyproperty/update/${uniqueID}`, 
+                        .put(window.url+`/master/companyproperty/update/${uniqueID}`, 
                         
                           {
                             "central_repository_api_secret":central_repository_api_secret,    
@@ -180,7 +182,8 @@ function CompanyProperty() {
                             'tracelink_file_receiver':gln,
                             "loggedInUsername":loggedInUsername,
 
-                            "loggedInUserrole":loggedInUserrole   
+                            "loggedInUserrole":loggedInUserrole,
+                            "uniqueid":uniqueID   
                           },
                           
                           )
@@ -192,70 +195,64 @@ function CompanyProperty() {
                   
   return (
     <>
-      <br></br>
-      <br></br>
-      <div class="container-fluid" id="companyproperty">
-        <div class="card shadow mb-4" id="customerfullcard"> 
-          <div class="card-header py-3" id="customercardhead">
-            <div className='row'>
-              <div className='col-10' id="customerhead">
-                {headwidget}
-              </div>
-            </div>
-                                                      
-          </div>
+            
+            <br/><br/><br/><br/><br/>
 
-          <div class="card-body">  
-            <br></br>
-            <br></br>
+{warningmessage}        
+        
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 4, width: '25' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add Company Property </font></h4></center></h4>            
+          {centralFieldWidget}
+
+          {glnFieldWidget}
+
+          {gs1FieldWidget}
+
     
-    {/* <div id="locationhead">
-    {headwidget}
-    </div>
-    <br></br> */}
-      
-            <Box id="customerbox"
-              component="form"
-              sx={{
-                '& .MuiTextField-root': { m: 2, width: '25ch' },
-              }}
-              noValidate
-              autoComplete="off"
-            >
-            <br></br>
-              <div>
-                  {/* {warningmessage} */}
-                
-                {centralFieldWidget}
+    
+           
+          
+          <br/>
+          {landWidget}
 
-                {glnFieldWidget}
+           
+          {sglnFieldWidget}
 
-                {landWidget}
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                                
-                </button>
-                  <div>
-                    {gs1FieldWidget}
-                    {businessFieldWidget}
-                    {tracelinkFieldWidget}       
-                  </div>
-
-                  <div>
-                    {sglnFieldWidget}    
-                  </div>
-
-                <div>
-              </div>              
+{headwidget}<br/>
+{businessFieldWidget}
+{tracelinkFieldWidget}
+        
+          <div className="row">
+            <div className="col-4">
+           
             </div>
-          <div>
-      </div>        
-    </Box> 
-    <hr></hr>    
-  </div>
-  </div>
-</div>  
-
+            <div className="col-4">
+            <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button>
+            </div>
+            <div className="col-4">
+            </div>
+           
+          
+          </div>
+            
+           
+          </div>
+         
+        </Box>
 
 
 

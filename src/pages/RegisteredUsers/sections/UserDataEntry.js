@@ -24,6 +24,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 const UserDataEntry = (props) => {
 
     const [id, setId] = useState(0);
@@ -161,7 +162,7 @@ const UserDataEntry = (props) => {
   if(testPassed === "true") {
 
       axios
-          .post('http://127.0.0.1:8000/accounts/register/', 
+          .post(window.url+'/accounts/register/', 
           {
             "employeeid":employeeid,
             "Name": Name,    
@@ -200,46 +201,34 @@ const UserDataEntry = (props) => {
     }
 
     var headwidget=
-    
-    <Box 
-   
-        component="form"
-        sx={{
-          width: 500,
-          maxWidth: '100%',
-          
-          
-        }}
-    noValidate
-    autoComplete="off"
-    
-  >
+
 
 <Controls.Input 
           disabled
-          fullWidth
+          // fullWidth
           id="outlined-Company Prefix"
           // label={<Typography>Customer  Create</Typography>}
-          label={<h4 ><pre><h4 style={{color:"white"}}>  <font face="times new roman" size="6">           Register New User </font></h4></pre></h4>}
+          value={loggedInUsername}
+          // label={<h4 ><pre><h4 style={{color:"white"}}>  <font face="times new roman" size="6">           Register New User </font></h4></pre></h4>}
         
 
 />
 
-</Box>
 
-var employeeidFieldWidget = 
+
+    var employeeidFieldWidget = 
 //   <input
 //   type="text"
 //   className="form-control"
 //   onChange={(e) => setName(e.target.value)}
 // /> 
         <TextField
-          required
-          id="outline-EmployeeId"
-          type="number"
-          label="Employee Id"
-          color="secondary"
-          onChange={(e) => setEmployeeid(e.target.value)}
+            required
+            id="outline-EmployeeId"
+            type="number"
+            label="Employee Id"
+            // color="secondary"
+            onChange={(e) => setEmployeeid(e.target.value)}
           />
 
     var nameFieldWidget = 
@@ -249,11 +238,11 @@ var employeeidFieldWidget =
         //   onChange={(e) => setName(e.target.value)}
         // /> 
                 <TextField
-                  required
-                  id="outline-name"
-                  label="Name"
-                  color="secondary"
-                  onChange={(e) => setName(e.target.value)}
+                    required
+                    id="outline-name"
+                    label="Name"
+                    color="secondary"
+                    onChange={(e) => setName(e.target.value)}
                   />
 
     var emailFieldWidget = 
@@ -276,12 +265,12 @@ var employeeidFieldWidget =
 
      var Passwordwidget=
                     <TextField
-                    required
-                    type="password"
-                    id="outline-Password"
-                    label="Password"
-                    color="secondary"
-                    onChange={(e) => setPassword(e.target.value)}
+                      required
+                      type="password"
+                      id="outline-Password"
+                      label="Password"
+                      color="secondary"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
 
 
@@ -302,18 +291,18 @@ var employeeidFieldWidget =
                   color="secondary"
                   onChange={(e) => setDob(e.target.value)}
                   InputLabelProps={{
-                    shrink: true,
+                     shrink: true,
                   }}
                   />
 
-                  var userRoleWidget=<select  class="form-select" id="userselectbox" aria-label="group" onChange={(e) => setUserRole(e.target.value)} >
-                  <option value="">Select Role</option>
-        <option value="admin">Admin</option>
-        <option value="supervisor">Supervisor</option>
-        <option value="masterdata">Masterdata</option>
-        <option value="operator">Operator</option>
+      var userRoleWidget=<select  class="form-select" id="userselectbox" aria-label="group" onChange={(e) => setUserRole(e.target.value)} >
+                      <option value="">Select Role</option>
+                      <option value="admin">Admin</option>
+                      <option value="supervisor">Supervisor</option>
+                      <option value="masterdata">Masterdata</option>
+                      <option value="operator">Operator</option>
             
-            </select>
+                  </select>
 
     var addressWidget = 
       // <textarea onChange={(e) => setAddress(e.target.value)} className="form-control"></textarea>          
@@ -330,70 +319,65 @@ var employeeidFieldWidget =
                   />
     return(
       <>
-          <div class="container-fluid">
-              <div class="card shadow mb-4" id="fullcard"> 
-                  <div class="card-header py-3" id="usercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="userhead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
+          <br/><br/><br/>
 
-                  <div class="card-body">  
-                  <br></br>
-                  <br></br>
-    
-    {/* <div id="locationhead">
-    {headwidget}
-    </div>
-    <br></br> */}
-    
-    <Box 
-        component="form"
-        sx={{
-          '& .MuiTextField-root': { m: 2, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-    >
 
-  <div className="container" id="userbox" >
-      <div className="row" >
-        {warningDIVstate}
-          <div className="col-4">
+          {warningDIVstate}       
+        
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 4, width: '25' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Register New User</font></h4></center></h4>            
           {employeeidFieldWidget}
-            {nameFieldWidget}
+          {nameFieldWidget}
+          {emailFieldWidget}
+          {Passwordwidget}
 
-            {emailFieldWidget}
-        </div>
-      <div className="col-4">
-            {addressWidget}
+    
+    
+           
+          
+          <br/>
+          {addressWidget}
 
+         
+          {headwidget}
+          {DOBwidget}
+          <br/>
+
+
+           
             {userRoleWidget}
-      </div>
-      <div className="col-4">
-            {DOBwidget}
-            {Passwordwidget}
-      </div>
 
-      
-
-      <div className="col-2" id="userbutton" >
-      <button  onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-      </button>
-      </div>
-
-            <br></br>
-        </div>
-      </div>
-  </Box>
-    <hr></hr>    
-                  </div>
-              </div>
-          </div>            
+          <div className="row">
+            <div className="col-4">
+           
+            </div>
+            <div className="col-4">
+            <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button>
+            </div>
+            <div className="col-4">
+            </div>
+           
+          
+          </div>
+            
+           
+          </div>
+         
+        </Box>          
       </>
      
     )

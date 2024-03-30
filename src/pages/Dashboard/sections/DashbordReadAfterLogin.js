@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import axios from "axios";
 import DashboardDataGrid from './DashboardDataGrid';
+import Card from './Card';
 import Loading from '../../../components/Common/Loading';
 import Sidebar from '../../../components/Sidnav/Sidebar';
 import { Box,useTheme  } from "@mui/material";
@@ -21,9 +22,9 @@ function DashbordReadAfterLogin() {
                     </div>
                   </div>
 //                
-function checkAuthorization() {
-                    axios
-                    .get("http://localhost:8000//accounts/userrolePermissionsRead")
+  function checkAuthorization() {
+          axios
+              .get(window.url+"/accounts/userrolePermissionsRead")
                     .then((res) => {
                       var authorized = false;
                       // alert("haiii")
@@ -37,7 +38,7 @@ function checkAuthorization() {
                           if(window.localStorage.getItem('loggedInUserrole') === "admin") {
                             // alert(element.admin['READ']);
                          
-                           element.admin['READ']==="Checked" ? setSelectedDIV_state(<DashboardDataGrid/>) :setSelectedDIV_state(notAuthorizedSection);
+                           element.admin['READ']==="Checked" ? setSelectedDIV_state(<Card/>) :setSelectedDIV_state(notAuthorizedSection);
                        
                             
                            
@@ -45,7 +46,7 @@ function checkAuthorization() {
                           }
                           else if(window.localStorage.getItem('loggedInUserrole') === "operator") {
                            
-                              element.operator['READ']==="Checked" ? setSelectedDIV_state(<DashboardDataGrid/>) :setSelectedDIV_state(notAuthorizedSection);
+                              element.operator['READ']==="Checked" ? setSelectedDIV_state(<Card/>) :setSelectedDIV_state(notAuthorizedSection);
                           
                             
                               
@@ -53,14 +54,14 @@ function checkAuthorization() {
                           }
                           else if(window.localStorage.getItem('loggedInUserrole') === "supervisor") {
                           
-                             element.supervisor['READ']==="Checked" ? setSelectedDIV_state(<DashboardDataGrid/>) :setSelectedDIV_state(notAuthorizedSection);
+                             element.supervisor['READ']==="Checked" ? setSelectedDIV_state(<Card/>) :setSelectedDIV_state(notAuthorizedSection);
                           
                               
                                    
                           }
                           else if(window.localStorage.getItem('loggedInUserrole') === "masterdata") {
                            
-                               element.masterdata['READ']==="Checked"?setSelectedDIV_state(<DashboardDataGrid/>):setSelectedDIV_state(notAuthorizedSection);
+                               element.masterdata['READ']==="Checked"?setSelectedDIV_state(<Card/>):setSelectedDIV_state(notAuthorizedSection);
                             
                        
                            
@@ -72,7 +73,8 @@ function checkAuthorization() {
                     });
                   }
                 useEffect(()=>{
-                checkAuthorization();
+
+                  checkAuthorization();
                 },[]);
                 
                 return(

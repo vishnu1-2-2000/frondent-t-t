@@ -133,7 +133,7 @@ const[gtindata,setGtinData]=useState("");
                                                             )
                                   if (confirmBox === true) {
                                         axios
-                                        .delete(`http://127.0.0.1:8000/master/gtin/delete/${thisRow.id}`,
+                                        .delete(window.url+`/master/gtin/delete/${thisRow.id}`,
                                         {
                                         data: { 
                                           "Name" : thisRow.name,
@@ -152,7 +152,7 @@ const[gtindata,setGtinData]=useState("");
                                         }
                                                                 
                                                       
-                               };
+                        };
                         const api2: GridApi = params.api;
                         const thisRow2: Record<string, GridCellValue> = {};
                               api2
@@ -307,8 +307,8 @@ setSelectedDIV_state(<div class="container-fluid">
 
 function getData(){
  
-        axios
-        .get("http://localhost:8000/master/gtin/")
+    axios
+        .get(window.url+"/master/gtin/")
 
             .then((res)=>{
              
@@ -316,10 +316,8 @@ function getData(){
                   // alert(res2.data[0].gtin_number)
                  setData(res.data);
                   createRows(res.data)
-                } )  
-              
- 
-}
+        } )  
+      }
 
 const navigateToCreatePage =()=>{
   navigate("/gtin/new/new")
@@ -331,7 +329,7 @@ useEffect(()=>{
 
 function handleDelete(id) {
   axios
-    .delete(`http://localhost:8000//master/gtin/${id}`,
+    .delete(window.url+`/master/gtin/${id}`,
       {
         // auth: {
         //   username: username,
@@ -418,11 +416,11 @@ return (
                     },
                     }}
                   >
-                    <div id="prod1">
+                  <div id="prod1">
                     <button align=''
                         
                         onClick={navigateToCreatePage} 
-                                className="btn btn-success">Create</button>
+                            className="btn btn-success">Create</button>
                     </div>
  
               {selectedDIV_state}

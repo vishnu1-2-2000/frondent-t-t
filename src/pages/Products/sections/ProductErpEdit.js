@@ -9,7 +9,7 @@ import { Grid, } from '@material-ui/core';
 import { useForm,Form } from "../../../components/useForm";
 import Controls from "../../../components/Controls";
 import InputBase from '@mui/material/InputBase';
-
+import Tooltip from '@mui/material/Tooltip';
 function ProductErpEdit() {
   const [id, setId] = useState(0);
   const [finished_good_code, setFinished_good_code] = useState("");
@@ -31,7 +31,7 @@ var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
                                       
   function getCompanyEditRequestData() {
     axios
-    .get("http://127.0.0.1:8000/master/producterp/"+uniqueID+"/",)
+    .get(window.url+"/master/producterp/"+uniqueID+"/",)
     .then((res)=>{                              
       setId(res.data[0].id);                                 
       setFinished_good_code(res.data[0].finished_good_code);
@@ -47,26 +47,16 @@ var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
   }, []);
                     // if(operation === 'new') {
     var headwidget=
-                      <Box
-                      component="form"
-                      sx={{
-                        width: 500,
-                        maxWidth: '100%',
-                        
-                        
-                      }}
-                      noValidate
-                      autoComplete="off"
-                    ><Controls.Input 
+                 <Controls.Input 
                       disabled
-                      fullWidth
+              
                       
                             id="outlined-Company Prefix"
-                            label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">               Enter Product Erp Data</font> </h4></pre></h4>}
-                           
+                            // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">               Enter Product Erp Data</font> </h4></pre></h4>}
+                           value={loggedInUsername}
                      
-                   />
-                   </Box>
+                  />
+              
                     // var erpwidget =<select  class="form-select" aria-label="Default select example" onChange={(e) => setErp(e.target.value)} value={erp}>
                     //  <option value="">Select</option>
                     // <option value="sap rpc">SAP Rpc</option>
@@ -79,12 +69,12 @@ var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
   //   onChange={(e) => setFinished_good_code(e.target.value)}
   //   value={finished_good_code}
   // /> 
-  <TextField required
-   label="Finished Good Code"
-   id="outline-gtin"
-   value={finished_good_code}
-   onChange={(e) => setFinished_good_code(e.target.value)}
-  /> 
+                        <TextField required
+                            label="Finished Good Code"
+                            id="outline-gtin"
+                            value={finished_good_code}
+                            onChange={(e) => setFinished_good_code(e.target.value)}
+                        /> 
                     
   var serialnumFieldWidget = 
   // <input
@@ -93,12 +83,12 @@ var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
   //   onChange={(e) => setSerial_Num_Provider_name(e.target.value)}
   //   value={Serial_Num_Provider_name}
   // /> 
-  <TextField required
-   label="Serial Num Provider Name"
-   id="outline-gtin"
-   value={Serial_Num_Provider_name}
-   onChange={(e) => setSerial_Num_Provider_name(e.target.value)}
-  /> 
+                  <TextField required
+                    label="Serial Num Provider Name"
+                    id="outline-gtin"
+                    value={Serial_Num_Provider_name}
+                    onChange={(e) => setSerial_Num_Provider_name(e.target.value)}
+                  /> 
                                           
   var locationcodeFieldWidget = 
   // <input
@@ -107,12 +97,12 @@ var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
   //   onChange={(e) => setLocation_code(e.target.value)}
   //   value={location_code}
   // /> 
-  <TextField required
-   label="Location Code"
-   id="outline-gtin"
-   value={location_code}
-   onChange={(e) => setLocation_code(e.target.value)}
-  /> 
+                    <TextField required
+                      label="Location Code"
+                      id="outline-gtin"
+                      value={location_code}
+                      onChange={(e) => setLocation_code(e.target.value)}
+                    /> 
                     
   var regulationFieldWidget = 
   // <input
@@ -121,12 +111,12 @@ var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
   //   onChange={(e) => setRegulation(e.target.value)}
   //   value={regulation}
   // /> 
-  <TextField required
-   label="Regulation"
-   id="outline-gtin"
-   value={regulation}
-   onChange={(e) => setRegulation(e.target.value)}
-  />
+                    <TextField required
+                      label="Regulation"
+                      id="outline-gtin"
+                      value={regulation}
+                      onChange={(e) => setRegulation(e.target.value)}
+                    />
                                       
   var sscFieldWidget = 
   // <input
@@ -135,12 +125,12 @@ var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
   //   onChange={(e) => setSscc_prn(e.target.value)}
   //   value={sscc_prn}
   // /> 
-  <TextField required
-   label="Sscc Prn"
-   id="outline-gtin"
-   value={sscc_prn}
-   onChange={(e) => setSscc_prn(e.target.value)}
-  />
+                      <TextField required
+                        label="Sscc Prn"
+                        id="outline-gtin"
+                        value={sscc_prn}
+                        onChange={(e) => setSscc_prn(e.target.value)}
+                      />
                                       
   var itemrefFieldWidget = 
   // <input
@@ -150,12 +140,12 @@ var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
   //   onChange={(e) => setItem_reference(e.target.value)}
   //   value={item_reference}
   // />
-  <TextField required
-   label="Item Reference"
-   id="outline-gtin"
-   value={item_reference}
-   onChange={(e) => setItem_reference(e.target.value)}
-  />
+                        <TextField required
+                        label="Item Reference"
+                        id="outline-gtin"
+                        value={item_reference}
+                        onChange={(e) => setItem_reference(e.target.value)}
+                        />
                                          
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -165,27 +155,28 @@ var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
                                         // alert(sap_service);
                                           // if(operation === 'new') {
     axios
-    .put(`http://127.0.0.1:8000/master/producterp/update/${uniqueID}`, 
+    .put(window.url+`/master/producterp/update/${uniqueID}`, 
                                             
-    {
-      "finished_good_code":finished_good_code,    
-      "location_code":location_code,
-      "item_reference": item_reference,
-      "Serial_Num_Provider_name":Serial_Num_Provider_name,
-                                        
-                                                
-      "sscc_prn":sscc_prn,
-      "regulation":regulation,
-      "loggedInUsername":loggedInUsername,
+      {
+          "finished_good_code":finished_good_code,    
+          "location_code":location_code,
+          "item_reference": item_reference,
+          "Serial_Num_Provider_name":Serial_Num_Provider_name,
+                                            
+                                                    
+          "sscc_prn":sscc_prn,
+          "regulation":regulation,
+          "loggedInUsername":loggedInUsername,
 
-      "loggedInUserrole":loggedInUserrole
-                                                
-                                                 
-                                                 
-      },)
-    .then(() => {
-      navigate("/product");
-    });
+          "loggedInUserrole":loggedInUserrole,
+          "uniqueid":uniqueID
+                                                  
+                                                  
+                                                  
+        },)
+      .then(() => {
+        navigate("/product");
+      });
   }
                                        
                                       
@@ -193,84 +184,61 @@ var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
     <>
 
                 
-    <br></br>
-    <br></br>
-    
-        <div class="container-fluid">
-                  <div class="card shadow mb-4" id="customerfullcard"> 
-                      <div class="card-header py-3" id="customercardhead">
-                          <div className='row'>
-                              <div className='col-10' id="customerhead">
-                              {headwidget}
-                              </div>
-                          </div>
-                                                          
-                      </div>
-    
-                      <div class="card-body">  
-                      <br></br>
-        <br></br>
-        
-        {/* <div id="locationhead">
-        {headwidget}
-        </div>
-        <br></br> */}
-        
-        <Box id="producterpbox"
-          component="form"
-          sx={{
-            '& .MuiTextField-root': { m: 2, width: '25ch' },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <br></br>
-          <div>
-          {finishgoodcodeFieldWidget}
+<br/><br/><br/>
+
+
+  
+
+<Box
+component="form"
+sx={{
+  '& .MuiTextField-root': { m: 4, width: '25' },
+}}
+noValidate
+autoComplete="off"
+>
+ 
+<div style={{backgroundColor:"#AAF0D1"}} >
+<h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Enter Product Erp Data</font></h4></center></h4>            
+{finishgoodcodeFieldWidget}
           {serialnumFieldWidget}
           {locationcodeFieldWidget}
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                          
-                </button>
-          
-    
-            
-               
-              <div>
-              {itemrefFieldWidget}
+{headwidget}
+
+
+ 
+
+<br/>
+{itemrefFieldWidget}
               {sscFieldWidget}
-              {regulationFieldWidget}
-              
-            
-    
-                
-              </div>
-    
-              <div >
-             
-              
-            
-              
-          </div>
-    
-          <div>
-          
-    
-        </div>              
-     
-    
-      </div>
-      <div>
-          
-    </div>
-          <br></br>
-        </Box> 
-        <hr></hr>    
-                      </div>
-                  </div>
-              </div>  
-    
+              {regulationFieldWidget} 
+<br/>
+
+
+
+
+<div className="row">
+  <div className="col-4">
+ 
+  </div>
+  <div className="col-4">
+  <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={handleSubmit} >
+                Save data
+            </button>
+  </div>
+  <div className="col-4">
+  </div>
+ 
+
+</div>
+  
+ 
+</div>
+
+</Box> 
         </>
   );
 }

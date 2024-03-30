@@ -13,9 +13,9 @@ const[piedatagrid,setPiedataGrid]=useState("");
 let productionorderarray=[];
 let productarray=[];
 const pieChartOptions = {
-                    chart: {
+          chart: {
                     type: "pie"
-                    },
+                },
                     title: {
                     text: '',
                     },
@@ -45,19 +45,19 @@ setProductionorderlength(productionorderarray.length)
 
 function Productionorder(){
                     
-                    axios
-                    .get("http://localhost:8000//master/productionorder"
+            axios
+                .get(window.url+"/master/productionorder"
                    
                     )
                     .then((res) => {
-                                        var productionorderle=res.data.length;
-                                        res.data.map(data2 => {
+                                    var productionorderle=res.data.length;
+                                    res.data.map(data2 => {
 
                                                             //  alert(data2.length)
                                                             
                                                             
                                                             
-                                        productionorderarray.push({ value: data2.id });
+                                    productionorderarray.push({ value: data2.id });
                                                              //alert(productionorderarray.length)
                                                             //  setProductionorderlength(productionorderarray.length);
                                                             
@@ -68,7 +68,7 @@ function Productionorder(){
 
                     
                     axios
-                      .get("http://localhost:8000//master/product"
+                      .get(window.url+"/master/product"
                         
                       
                       )
@@ -88,8 +88,8 @@ function Productionorder(){
                    
                     });
                    
-setPiedataGrid(<Chart highcharts={Highcharts} options={pieChartOptions} /> )
-}                             
+  setPiedataGrid(<Chart highcharts={Highcharts} options={pieChartOptions} /> )
+  }                             
 
                          
                                       //alert("anu");
@@ -100,20 +100,20 @@ setPiedataGrid(<Chart highcharts={Highcharts} options={pieChartOptions} /> )
                                               
 
 
-                                      useEffect(() => {
+      useEffect(() => {
                                       
                                        
-                                     Productionorder();
+                        Productionorder();
                                   
                                       
                                         
                                         //alert("anu");
-                                      }, []);                            
+                      }, []);                            
 
 
   return (
     <div>
-     {piedatagrid}
+      {piedatagrid} 
     </div>
   )
 }

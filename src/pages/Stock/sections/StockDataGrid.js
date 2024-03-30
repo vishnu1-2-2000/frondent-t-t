@@ -39,7 +39,7 @@ const StockDataGrid=(props) =>{
                   
                     function handleDelete(id) {
                       axios
-                        .delete(`http://127.0.0.1:8000/master/stock/delete/${id}`,
+                        .delete(window.url+`/master/stock/delete/${id}`,
                           
                         )
                         .then(() => {
@@ -101,7 +101,7 @@ const StockDataGrid=(props) =>{
                   
                           axios
                   
-                          .get("http://127.0.0.1:8000/master/product/"+rowData.product_conn,
+                          .get(window.url+"/master/product/"+rowData.product_conn,
                   
                             
                   
@@ -160,7 +160,7 @@ const StockDataGrid=(props) =>{
                     function getData() {
                       //alert("anu");
                       axios
-                        .get("http://127.0.0.1:8000/master/stock/closed",
+                        .get(window.url+"/master/stock/closed",
                           
                         )
                         .then((res) => {
@@ -172,7 +172,7 @@ const StockDataGrid=(props) =>{
                   
                     function handleDelete(id) {
                       axios
-                        .delete(`http://127.0.0.1:8000/master/stock/delete/${id}`,
+                        .delete(window.url+`/master/stock/delete/${id}`,
                          
                         )
                         .then(() => {

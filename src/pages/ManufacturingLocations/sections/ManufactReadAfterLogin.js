@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import ManufactDataGrid from './ManufactDataGrid';
 function ManufactReadAfterLogin() {
-                    const loadingSection = <div class="container-fluid">
+  const loadingSection = <div class="container-fluid">
                     <div class="card shadow mb-4"> 
                         <div class="card-body">  
                           <div class="px-3 py-5 text-primary text-center">
@@ -16,23 +16,23 @@ function ManufactReadAfterLogin() {
                     </div>
                 </div>
           
-              const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
+  const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
                 
-              const notAuthorizedSection = <div class="container-fluid">
-                        <div class="card shadow mb-4"> 
-                            <div class="card-body">  
+  const notAuthorizedSection = <div class="container-fluid">
+                          <div class="card shadow mb-4"> 
+                                <div class="card-body">  
                               
-                              <div class="text-primary text-center">
+                                  <div class="text-primary text-center">
                                 <img src='/img/forbidden.jpg'/>
                               </div>
                             </div>
                         </div>
                     </div>
           
-              function checkAuthorization() 
-              {
+  function checkAuthorization() 
+          {
                 axios
-                .get("http://localhost:8000/accounts/userrolePermissionsRead")
+                .get(window.url+"/accounts/userrolePermissionsRead")
                 .then((res) => {
                   var authorized = false;
                   //  alert("haiii")
@@ -107,15 +107,15 @@ function ManufactReadAfterLogin() {
                     }
                 })
                 
-                  });
-              }
+            });
+          }
           
-              useEffect(() => {     
-                checkAuthorization();
-              }, []);
+    useEffect(() => {     
+              checkAuthorization();
+            }, []);
              
-              return (
-                  <div id="wrapper">
+    return (
+              <div id="wrapper">
                            
                       <div id="content-wrapper" class="d-flex flex-column">
                           <div id="content">

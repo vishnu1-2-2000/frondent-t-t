@@ -40,7 +40,7 @@ const ProductDataGrid= (props)=> {
                   
         function handleDelete(id) {
                       axios
-                        .delete(`http://localhost:8000/master/product/delete/${id}`,
+                        .delete(window.url+`/master/product/delete/${id}`,
                           
                         )
                         .then(() => {
@@ -51,7 +51,7 @@ const ProductDataGrid= (props)=> {
                     }
                     
 
-        const setToLocalStorage = (id,gtin_number,customer_id,imn,created_by,name) => {
+    const setToLocalStorage = (id,gtin_number,customer_id,imn,created_by,name) => {
                       localStorage.setItem("id", id);
                       localStorage.setItem("customer_id,",customer_id );
                       localStorage.setItem("gtin_number",gtin_number );
@@ -168,10 +168,11 @@ const ProductDataGrid= (props)=> {
                                                         )
                               if (confirmBox === true) {
                                     axios
-                                    .delete(`http://localhost:8000/master/product/delete/${thisRow.id}`,
+                                    .delete(window.url+`/master/product/trash/${thisRow.id}`,
                                     {
                                     data: { 
-                                      "Name" : thisRow.name,
+                                    "id":thisRow.id,
+                                    "name" : thisRow.name,
                                     "email" : thisRow.email,
                                     "userRole" : thisRow.userRole,
                                     "loggedInUsername": window.localStorage.getItem('loggedInUsername'),
@@ -211,25 +212,25 @@ const ProductDataGrid= (props)=> {
                                         },
                                       },
                 {
-                      field: 'properties',
-                      headerName: 'Properties',
-                      headerClassName: "MuiDataGrid-columnHeaders",
-                        sortable: false,
-                              renderCell: (params) => {
-                                const onClick = (e) => {
-                                    e.stopPropagation(); // don't select this row after clicking
+                  field: 'properties',
+                  headerName: 'Properties',
+                  headerClassName: "MuiDataGrid-columnHeaders",
+                  sortable: false,
+                  renderCell: (params) => {
+                          const onClick = (e) => {
+                          e.stopPropagation(); // don't select this row after clicking
                                     
-                                    const api: GridApi = params.api;
-                                    const thisRow: Record<string, GridCellValue> = {};
+                          const api: GridApi = params.api;
+                          const thisRow: Record<string, GridCellValue> = {};
                                     
-                                     api
-                                    .getAllColumns()
-                                     .filter((c) => c.field !== '__check__' && !!c)
-                                     .forEach(
-                                     (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
-                                              );
+                          api
+                          .getAllColumns()
+                          .filter((c) => c.field !== '__check__' && !!c)
+                          .forEach(
+                          (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
+                          );
                                             //alert(thisRow.name);
-                                     navigate("/product/properties/"+ thisRow.id)
+                          navigate("/product/properties/"+ thisRow.id)
                                     
                                             // setToLocalStorage(
                                             //   thisRow.id,
@@ -241,24 +242,24 @@ const ProductDataGrid= (props)=> {
                                             // );
                                     
                                             //return alert(JSON.stringify(thisRow, null, 4));
-                                     };
+                          };
                                     
                                           //alert(currentUserrole);
                                   
                                   
                         if(props.editButtonStatus === "enabled" ) {
-                                    return <button
-                                                className="btn btn-success" 
-                                                      onClick={onClick}><SiAddthis size={23}/></button>;
-                                              }
+                          return <button
+                                  className="btn btn-success" 
+                                  onClick={onClick}><SiAddthis size={23}/></button>;
+                                }
                             else if(props.editButtonStatus === "disabled" ) {
-                                        return <button
-                                                        className="btn btn-primary" 
-                                                        disabled = "true"
-                                                        onClick={onClick}><FcSettings size={23}/></button>;
-                                         }
-                                        },
-                                      },
+                                return <button
+                                  className="btn btn-primary" 
+                                  disabled = "true"
+                                  onClick={onClick}><FcSettings size={23}/></button>;
+                            }
+                        },
+                      },
                                   
                       {
                         field: 'erp settings',
@@ -367,11 +368,11 @@ const ProductDataGrid= (props)=> {
                    
                   
   function createRows(rowDatas) {
-                  
                       //  alert(customer_id);                
-    rowDatas.map(rowData => {           
+    rowDatas.map(rowData => {    
+      if(rowData.productflag===false){       
       axios          
-        .get("http://localhost:8000/master/customer/"+rowData.customer_id,
+        .get(window.url+"/master/customer/"+rowData.customer_id,
          )    
         .then((res2) => {
          // alert(res2.data[0].name);
@@ -398,33 +399,30 @@ const ProductDataGrid= (props)=> {
                                     // 'zip':rowData.zip,
                                     // 'state':rowData.state,
                   
-                                    // 'loc_gln':rowData.loc_gln
-                  
-                  
+                                    // 'loc_gln':rowData.loc_gln    
               'id':rowData.id,
               'gtin_number':rowData.gtin_number,
               'customer_id':res2.data[0].name,
               'imn':rowData.imn,
               'created_by':rowData.created_by,
-              'name':rowData.name,
-                  
+              'name':rowData.name,   
               'status':rowData.status
             },
                   
           ]);
                   
         });               
+      }         
+      })
                   
-    })
-                  
-  }
+    }
                     // {'id':rowData.id, 'gtin_number':rowData.gtin_number,'customer_id':rowData.customer_id,'imn':rowData.imn,
                     // 'created_by':rowData.created_by,'name':rowData.name},
                   
   function getData() {
                       //alert("anu");
     axios
-    .get("http://127.0.0.1:8000/master/product/",
+    .get(window.url+"/master/product/",
     )
     .then((res) => {
                           //alert(res.data.length);
@@ -435,7 +433,7 @@ const ProductDataGrid= (props)=> {
                   
   function handleDelete(id) {
     axios
-    .delete(`http://localhost:8000/master/product/delete/${id}`,
+    .delete(window.url+`/master/product/delete/${id}`,
      )
     .then(() => {
       getData();

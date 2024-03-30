@@ -40,7 +40,7 @@ const RegSystemDataGrid=(props)=> {
                   
   function handleDelete(id) {
     axios
-    .delete(`http://localhost:8000/productionline/registeredsystem/delete/${id}`,
+    .delete(window.url+`/productionline/registeredsystem/delete/${id}`,
     )
     .then(() => {
       alert("anu");
@@ -58,10 +58,10 @@ const RegSystemDataGrid=(props)=> {
                   
   let userDataColumns = [
     { field: 'id', headerName: 'Id', width: 150, headerClassName: "MuiDataGrid-columnHeaders", },
-    { field: 'manufacturinglocation_id', headerName: 'Manufacturing Location', width: 170, headerClassName: "MuiDataGrid-columnHeaders", },
+    { field: 'manufacturinglocation_id', headerName: 'Manufacturing Location', minWidth: 280,  headerClassName: "MuiDataGrid-columnHeaders",},
     { field: 'ip_address', headerName: 'Ip Address ', width: 170, headerClassName: "MuiDataGrid-columnHeaders", },
-    { field: 'system_name', headerName: 'System Name', width: 190, headerClassName: "MuiDataGrid-columnHeaders", },
-    { field: 'line', headerName: 'Line', width: 190, headerClassName: "MuiDataGrid-columnHeaders", },
+    { field: 'system_name', headerName: 'System Name',minWidth: 180,  headerClassName: "MuiDataGrid-columnHeaders",},
+    { field: 'line', headerName: 'Line', width: 170, headerClassName: "MuiDataGrid-columnHeaders", },
     {
       field: 'edit',
       width:200,
@@ -160,11 +160,13 @@ const RegSystemDataGrid=(props)=> {
           )
           if (confirmBox === true) {
             axios
-            .delete(`http://localhost:8000/productionline/registeredsystem/delete/${thisRow.id}`,
+            .delete(window.url+`/productionline/registeredsystem/trash/${thisRow.id}`,
               {
                 data: { 
+                  "id":thisRow.id,
                   "Name" : thisRow.name,
                   "email" : thisRow.email,
+                  "line" : thisRow.line,
                   "userRole" : thisRow.userRole,
                   "loggedInUsername": window.localStorage.getItem('loggedInUsername'),
                   "loggedInUserrole": window.localStorage.getItem('loggedInUserrole')
@@ -208,9 +210,10 @@ const RegSystemDataGrid=(props)=> {
     let editButton = <button></button>;  
                   
     rowDatas.map(rowData => {
+      if(rowData.productionlineflag===false){
       axios
 
-      .get("http://localhost:8000/productionline/manufacturinglocation/"+rowData.manufacturinglocation_id,
+      .get(window.url+"/productionline/manufacturinglocation/"+rowData.manufacturinglocation_id,
 
         {
 
@@ -235,6 +238,7 @@ const RegSystemDataGrid=(props)=> {
       'system_name':rowData.system_name,'line':rowData.line},
       ]);
     })
+  }
   })
 
   }
@@ -242,7 +246,7 @@ const RegSystemDataGrid=(props)=> {
   function getData() {
                       //alert("anu");
     axios
-    .get("http://localhost:8000/productionline/registeredsystem",
+    .get(window.url+"/productionline/registeredsystem",
     )
     .then((res) => {
                           //alert(res.data.length);
@@ -253,7 +257,7 @@ const RegSystemDataGrid=(props)=> {
                   
   function handleDelete(id) {
     axios
-    .delete(`http://localhost:8000/productionline/registeredsystem/delete/${id}`,
+    .delete(window.url+`/productionline/registeredsystem/delete/${id}`,
     )
     .then(() => {
       getData();
@@ -342,11 +346,13 @@ const RegSystemDataGrid=(props)=> {
                       }}
                     >
                       
-                      <DataGrid
-                        rows={userDataRows}
-                        columns={userDataColumns}
+                    <DataGrid
+                      rows={userDataRows}
+                      getRowHeight={() => 'auto'}
+                      columns={userDataColumns}
+                      // rowHeight={25}
                         components={{ Toolbar: GridToolbar}}
-                      />
+                    />
                     </Box>
                   </Box>
                 </div>

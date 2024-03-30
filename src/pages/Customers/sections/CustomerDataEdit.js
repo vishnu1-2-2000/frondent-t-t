@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { Link, useParams } from "react-router-dom";
 
 import Select from "react-select";
- import * as  AiIcons from "react-icons/ai";
+import * as  AiIcons from "react-icons/ai";
 import { Alert } from "bootstrap";
 import moment from "moment";
 import { Box, Button, TextField } from "@mui/material";
@@ -16,10 +16,10 @@ import Controls from "../../../components/Controls";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Statusselect from "../../../components/Statusselect";
-
+import Tooltip from '@mui/material/Tooltip';
 function CustomerDataEdit() {
-                    var warningDIV = <div className="alert alert-success pt-4" role="alert">
-                    <h5>Input all the values</h5>
+  var warningDIV = <div className="alert alert-success pt-4" role="alert">
+                  <h5>Input all the values</h5>
                  </div>  
 
   const [id, setId] = useState(0);
@@ -32,8 +32,8 @@ function CustomerDataEdit() {
   const [group,setGroup]=useState("");
   const[status,setStatus]=useState("");
   const[country,setCountry]=useState("");
-    const[state,setState]=useState("");
-    const[city,setCity]=useState("");
+  const[state,setState]=useState("");
+  const[city,setCity]=useState("");
   const [testStatusChecked, setTestStatusChecked] = useState(false);
 
   const[warningmessage,setWarningmessage]=useState("");
@@ -54,7 +54,7 @@ function CustomerDataEdit() {
     var customerEditID= uniqueID;
   
     axios
-      .get("http://localhost:8000/master/customer/"+customerEditID+"/",
+      .get(window.url+"/master/customer/"+customerEditID+"/",
       
       )
       .then((res)=>{
@@ -101,32 +101,33 @@ function CustomerDataEdit() {
    if(operation === 'edit') {
     var headwidget=
     
-    <Box 
+  //   <Box 
    
-        component="form"
-        sx={{
-          width: 800,
-          maxWidth: '200%',
+  //       component="form"
+  //       sx={{
+  //         width: 800,
+  //         maxWidth: '200%',
           
           
-        }}
-    noValidate
-    autoComplete="off"
+  //       }}
+  //   noValidate
+  //   autoComplete="off"
     
-  >
+  // >
 
 <Controls.Input 
           disabled
           // fullWidth
           id="outlined-Company Prefix"
+          value={loggedInUsername}
          
           // label={<Typography>Customer  Create</Typography>}
-          label={<h4 ><pre><h4 style={{color:"white"}}>       Edit Customer Details</h4></pre></h4>}
+          // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                    Edit Customer Details</font></h4></pre></h4>}
         
 
 />
 
-</Box>
+// </Box>
 
 var nameFieldWidget = 
             <TextField
@@ -344,21 +345,22 @@ var createdbyFieldWidget = <TextField id="outlined-Createdby"
      if(operation === 'edit') {
       // alert( name) 
       axios
-        .put(`http://localhost:8000/master/customer/update/${id}`,
+        .put(window.url+`/master/customer/update/${uniqueID}`,
         
         
         {
-          "name": name,  
+          "name":name,  
           "country":country,
           "state":state,
           "city":city,
           'address':address,
           'zip':zip , 
           'group':group,   
-          "created_by": created_by,
+          "created_by":created_by,
           "status":testStatusChecked,
           "loggedInUsername":loggedInUsername,
-          "loggedInUserrole":loggedInUserrole
+          "loggedInUserrole":loggedInUserrole,
+          "uniqueid":uniqueID
         },
         
         )
@@ -371,87 +373,68 @@ var createdbyFieldWidget = <TextField id="outlined-Createdby"
 
   return (
     <>
-    <br></br>
-      <div class="container-fluid">
-              <div class="card shadow mb-4" id="customerfullcard"> 
-                  <div class="card-header py-3" id="customercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="customerhead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
+     <br/><br/><br/><br/><br/>
 
-                  <div class="card-body">  
-                  <br></br>
-  
-     <Box id="customerbox"
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <br></br>
-      <div>
-          {warningmessage}
-         
-          {nameFieldWidget}
-
-          {countryFieldWidget}
-
-          {stateFieldWidget}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-            </button>
-          <div>
-
-            {addressFieldWidget}
-
+{warningmessage}        
+        
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 4, width: '25' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
            
-            {createdbyFieldWidget}
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Update Customer Details </font></h4></center></h4>            
+          {nameFieldWidget}  
+          {cityFieldWidget}
+          {countryFieldWidget}
+          {stateFieldWidget}
 
-            {zipFieldWidget}
-
-            
-          </div>
-
-          <div >
-          {groupfield}
-          <br></br>
+    
+    
+           
           
-        <div className="col-1">
-            <FormControlLabel  control={<Checkbox 
-        // {...label}
-              checked={testStatusChecked}
+          <br/>
+{addressFieldWidget}
 
-              onChange={e => setTestStatusChecked(e.target.checked)}
-              sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }}
-              label="Gilad Gray"
-            />} label="Status" />
-        </div>
-          
-      </div>
+{zipFieldWidget}
+{headwidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                      
- 
-
-  </div>
-  <div>
+<FormControlLabel  control={<Checkbox 
       
-</div>
-<div id="customercityedit">
-      {cityFieldWidget}
+      checked={testStatusChecked}
+      style={{marginTop:10}}
+      onChange={e => setTestStatusChecked(e.target.checked)}
+      sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }}
+      label="Gilad Gray"
+    />} label="Status" /> 
 
-    </div>  
-    </Box>
-    </div>
-              </div>
-          </div>   
-
+{groupfield}
+          <div className="row">
+            <div className="col-4">
+           
+            </div>
+            <div className="col-4">
+            <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button>
+            </div>
+            <div className="col-4">
+            </div>
+           
+          
+          </div>
+            
+           
+          </div>
+         
+        </Box>
     </>
   );
 }

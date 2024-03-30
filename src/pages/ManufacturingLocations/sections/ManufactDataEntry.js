@@ -18,18 +18,18 @@ import Checkbox from '@mui/material/Checkbox';
 import Statusselect from "../../../components/Statusselect";
 
 function ManufactDataEntry() {
-                    var warningDIV = <div className="alert alert-success pt-4" role="alert">
+    var warningDIV = <div className="alert alert-success pt-4" role="alert">
                     <h5>Input all the values</h5>
                  </div>  
 
-const [id, setId] = useState(0);
-const [name, setName] = useState("");
-const [gln_number, setGlnnumber] = useState("");
-const [address, setAddress] = useState("");
-const [created_by, setCreatedby] = useState("");
+  const [id, setId] = useState(0);
+  const [name, setName] = useState("");
+  const [gln_number, setGlnnumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [created_by, setCreatedby] = useState("");
 
-
-  const[warningmessage,setWarningmessage]=useState("");
+  const[alertmess,setAlertmess]=useState(alertmessage)  
+  const [warningmessage,setWarningmessage]=useState(warningDIV);
 
 
   ///   For navigate function
@@ -47,7 +47,7 @@ const [created_by, setCreatedby] = useState("");
   var loggedInUsername=window.localStorage.getItem('loggedInUsername')
 
   var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
-
+  var alertmessage= <Alert severity="success">This is a success alert — check it out!</Alert>          
 
 
   useEffect(() => {
@@ -59,8 +59,9 @@ const [created_by, setCreatedby] = useState("");
     <Box
         component="form"
         sx={{
-          width: 500,
-          maxWidth: '100%',
+          // width: 500,
+          // maxWidth: '100%',
+          // textAlign:"center"
           
           
         }}
@@ -68,45 +69,47 @@ const [created_by, setCreatedby] = useState("");
         autoComplete="off"
   ><Controls.Input 
     disabled
-    // fullWidth
-    
+    // style = {{width: 235,marginLeft:50,}}
+          // style = {{width: 235,marginLeft:270,marginTop:-70}}
           id="outlined-Company Prefix"
-          label={<h4 ><pre><h4 style={{color:"white"}}>Create Manufacturing Location </h4></pre></h4>}
+          value={loggedInUsername}
          
+           
+          
+          
    
  />
  </Box>
     
 
-    var nameFieldWidget = <TextField
-    required
-          id="outline-name"
-          label="Name"
-      
-          onChange={(e) => setName(e.target.value)}
-        /> 
-        var addressFieldWidget = <TextField
-        required id="outline-address"
-        label="Address"
-      
-        onChange={(e) => setAddress(e.target.value)}
-      /> 
-      var glnFieldWidget = <TextField required
-    id="outline-gln"
-    label="Gln"
-      onChange={(e) => setGlnnumber(e.target.value)}
-    /> 
+  var nameFieldWidget = <TextField
+                          required
+                          id="outline-name"
+                          label="Name"
+                          // style = {{width: 235,marginLeft:50,}}
+                          onChange={(e) => setName(e.target.value)}
+                      /> 
+  var addressFieldWidget = <TextField
+                              required id="outline-address"
+                              label="Address"
+                              // style = {{width: 235,marginLeft:50,}}
+                              onChange={(e) => setAddress(e.target.value)}
+                          /> 
+  var glnFieldWidget = <TextField required
+                          id="outline-gln"
+                          label="Gln"
+                          // style = {{width: 235,marginLeft:50,}}
+                          onChange={(e) => setGlnnumber(e.target.value)}
+                      /> 
    
   var createdbyFieldWidget = <TextField
-  id="outline-createdby"
-  label="Created by"
-  disabled
-value={loggedInUsername}
-/> 
-
-
-      
-  }
+                              id="outline-createdby"
+                              label="Created by"
+                              disabled
+                              style = {{width: 235,marginLeft:50,}}
+                              value={loggedInUsername}
+                            /> 
+}
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -123,7 +126,7 @@ value={loggedInUsername}
       warningDIV =  <div className="alert alert-danger pt-4" role="alert">
           <h5>Input Location name</h5>
         </div>
-
+      // warningDIV = <Alert severity="warning">This is a warning alert — Input Location Name!</Alert>
       setWarningmessage(warningDIV);
       testPassed = "false";
     }
@@ -161,22 +164,36 @@ value={loggedInUsername}
 
     if(testPassed =="true"){
     if(operation === 'new') {
-      alert(name)
-      alert(gln_number)
-      alert(address)
-      alert(loggedInUsername)
+      // alert(name)
+      // alert(gln_number)
+      // alert(address)
+      // alert(loggedInUsername)
       axios
-        .post('http://localhost:8000/productionline/manufacturinglocation/', 
+        .post(window.url+'/productionline/manufacturinglocation/', 
         {
-                    "name": name, 
-                    'gln_number':gln_number,
-                    'address':address,   
-                    "created_by": loggedInUsername,
+            "name": name, 
+            'gln_number':gln_number,
+            'address':address,   
+            "created_by":loggedInUsername,
+            
+            "loggedInUsername":loggedInUsername,
+            "loggedInUserrole":loggedInUserrole
+           
         },
         )
-        .then(() => {
-          navigate("/manufacturinglocation");
+        .then((res) => {
+          if(res.data===200){
+            // alert(res.data)
+                warningDIV=   "This is a success alert — Data Saved Successfully!"
+               setWarningmessage(warningDIV);
+           
+                
+              }
+          // navigate("/manufacturinglocation");
         });
+        // navigate("/manufacturinglocation");
+    
+  
         
     }
   }
@@ -185,142 +202,61 @@ value={loggedInUsername}
 
   return (
     <>
-    {/* <br></br>
-    <br></br>
-      
-      <div className="d-flex justify-content-between m-2">
-
-        {headwidget}
-        <Link to="/manufacturinglocation">
-          <button className="btn btn-primary">Show Data</button>
-        </Link>
-      </div>
-      {warningmessage}
-      <table class="table table-borderless productionOrderReportSearchTable" id="productionOrderReportSearchTableID">
-                      <tbody>
-                      <tr>
-                      <td class="productionOrderReportSearchTD">Gln Number</td>
-                      <td class="productionOrderReportSearchTD">
-                      {glnFieldWidget}
-                      </td>
-                      
-                      
-                      
-                      </tr>
-                      <tr>
-                      <td class="productionOrderReportSearchTD">Name</td>
-                      <td class="productionOrderReportSearchTD">
-                      {nameFieldWidget}
-                      </td>
-                      </tr>
-                      <tr>
-                      <td class="productionOrderReportSearchTD">Address</td>
-                      <td class="productionOrderReportSearchTD">
-                      {addressFieldWidget}
-                      </td>
-                      </tr>
-                      
-                      
-                      <tr>
-                      <td class="productionOrderReportSearchTD">Created by</td>
-                      <td class="productionOrderReportSearchTD">
-                      {createdbyFieldWidget}
-                      </td>
-                      </tr>
-                      
-                      <tr>
-                      <td class="productionOrderReportSearchTD">
-                       
-                      <button className="btn btn-primary" onClick={handleSubmit}>Save</button>
-                      </td>
-                      </tr>
-                      
-                      
-                      
-                      
-                      
-                      </tbody>
-                      </table> */}
-
-                            
-                      
-                    <br></br>
-    <div class="container-fluid">
-              <div class="card shadow mb-4" id="customerfullcard"> 
-                  <div class="card-header py-3" id="customercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="customerhead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
-
-                  <div class="card-body">  
-                  <br></br>
-    <br></br>
-    
-    {/* <div id="locationhead">
-    {headwidget}
-    </div>
-    <br></br> */}
-    
-    <Box id="customerbox"
+                           
+           <br/>        <br/>        <br/>   <br/> 
+           {warningmessage}        
+        
+    <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
+        '& .MuiTextField-root': { m: 4, width: '25' },
       }}
       noValidate
       autoComplete="off"
     >
-      <br></br>
-      <div>
-          {warningmessage}
-         
-          {nameFieldWidget}
-
-          {addressFieldWidget}
-
+       
+      <div style={{backgroundColor:"#AAF0D1"}} >
+      <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add Manufacturing Location </font></h4></center></h4>            
         
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-            </button>
-          <div>
-
-          {glnFieldWidget}
-
-           
-          {createdbyFieldWidget}
-
-
-            
-          </div>
-
-          <div >
-         
-          
+         {nameFieldWidget}
         
-          
+        {addressFieldWidget}
+       
+        {glnFieldWidget}
+
+
+       
+      
+        {headwidget}
+      <div className="row">
+        <div className="col-4">
+       
+        </div>
+        <div className="col-4">
+       <center> <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button></center>
+        </div>
+        <div className="col-4">
+        </div>
+        {/* <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button> */}
+       
+      
       </div>
-
-      <div>
-      
-
-    </div>              
- 
-
-  </div>
-  <div>
-      
-</div>
-      
-    </Box> 
-    <hr></hr>    
-                  </div>
-              </div>
-          </div>   
-    </>
+        
+       
+      </div>
+     
+    </Box>
+                        </>
   );
 }
 

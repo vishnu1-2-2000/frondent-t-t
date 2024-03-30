@@ -11,13 +11,14 @@ import Controls from "../../../components/Controls";
 import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
 import Select from "react-select";
-
+import Tooltip from '@mui/material/Tooltip';
 
 // import Select from '@mui/material/Select';
 import { FormControl, InputLabel} from '@material-ui/core';
-function LocationDataEntry() {
-var warningDIV = <div className="alert alert-success pt-4" role="alert">
-<h5>Input all the values</h5>
+
+  function LocationDataEntry() {
+    var warningDIV = <div className="alert alert-success pt-4" role="alert">
+    <h5>Input all the values</h5>
         </div>  
   const [id, setId] = useState(0);
   const [name, setName] = useState("");
@@ -25,6 +26,7 @@ var warningDIV = <div className="alert alert-success pt-4" role="alert">
   const [address, setAddress] = useState("");
   const [zip, setZip] = useState("");
   const [state, setState] = useState("");
+  const[city,setCity]=useState("");
   const [loc_gln, setLocgln] = useState("");
   const [created_by, setCreatedby] = useState("");
   const [cname,setCname] = useState([]);
@@ -73,7 +75,7 @@ const getLocation=event=>{
   function selectedCustomerlocation(cuslocfunparam) {
     // alert("anu");
     axios
-      .get("http://127.0.0.1:8000/master/customer/",
+      .get(window.url+"/master/customer/",
         
       )
       .then((res) => {
@@ -103,7 +105,7 @@ const getLocation=event=>{
     var locationEditID= uniqueID;
   
     axios
-      .get("http://localhost:8000/master/locations/"+locationEditID+"/",
+      .get(window.url+"/master/locations/"+locationEditID+"/",
       
       )
       .then((res)=>{
@@ -130,7 +132,7 @@ const getLocation=event=>{
   function getCustomerId(cuslocfunparam) {
     //alert("anu");
     axios
-      .get("http://127.0.0.1:8000/master/customer/",
+      .get(window.url+"/master/customer/",
         
       )
       .then((res) => {
@@ -166,7 +168,8 @@ const getLocation=event=>{
       ...base,
       height: 55,
       minHeight: 55,
-      width:223
+      width:230,
+      marginLeft:10
       
       
     })
@@ -192,22 +195,24 @@ const getLocation=event=>{
   }, []);
   if(operation === 'new') {
     var headwidget=
-    <Box
-    component="form"
-    sx={{
-      width: 500,
-      maxWidth: '100%',
-      
-      
-    }}
-    noValidate
-    autoComplete="off"
-  ><Controls.Input 
-    disabled
-    fullWidth
+                    <Box
+                    component="form"
+                    // sx={{
+                    //   width: 500,
+                    //   maxWidth: '100%',
+                      
+                      
+                    // }}
+                    noValidate
+                    autoComplete="off"
+          ><Controls.Input 
+            disabled
+            // fullWidth
     
           id="outlined-Company Prefix"
-          label={<h4 ><pre><h4 style={{color:"white"}}>   Enter Customer Location Data </h4></pre></h4>}
+          value={loggedInUsername}
+
+          // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">   Enter Customer Location Data </font></h4></pre></h4>}
          
    
  />
@@ -268,7 +273,7 @@ const getLocation=event=>{
                             label="Zip"
                             onChange={(e) => setZip(e.target.value)}
                             
-                          />
+                        />
     var stateFieldWidget = <TextField
                             required
                             id="outlined-State"
@@ -283,7 +288,14 @@ const getLocation=event=>{
                             label="Location Gln"
                             onChange={(e) => setLocgln(e.target.value)}
                             
-                            />
+                          />
+    var cityFieldWidget = <TextField
+                          required
+                          id="outlined-Location City"
+                          label="City"
+                          onChange={(e) => setCity(e.target.value)}
+                          
+                        />
 
 
     var createdbyFieldWidget = <TextField
@@ -364,6 +376,21 @@ const getLocation=event=>{
     }
 
     if(testPassed == "true"){
+      if(city!=""){
+        testPassed="true"
+      }
+      else{
+        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+          <h5>Input City</h5>
+        </div>
+
+      setWarningmessage(warningDIV);
+      testPassed = "false";
+
+      }
+    }
+
+    if(testPassed == "true"){
       if(zip!=""){
         testPassed="true"
       }
@@ -391,42 +418,37 @@ const getLocation=event=>{
 
       } 
     }
-    if(testPassed == "true"){
-      if(created_by){
-        testPassed="true"
-      }
-      else{
-        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-          <h5>Input  Createdby</h5>
-        </div>
+    // if(testPassed == "true"){
+    //   if(created_by){
+    //     testPassed="true"
+    //   }
+    //   else{
+    //     warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+    //       <h5>Input  Createdby</h5>
+    //     </div>
 
-      setWarningmessage(warningDIV);
-      testPassed = "false";
+    //   setWarningmessage(warningDIV);
+    //   testPassed = "false";
 
-      } 
-    }
+    //   } 
+    // }
     if(testPassed == "true"){
     if(operation === 'new') {
-    // alert(customer_id)
+    alert(customer_id)
       axios
-      
-
-        .post('http://localhost:8000/master/locations/', 
+        .post(window.url+'/master/locations/', 
         {
-         
           "name": name, 
           "customer_id":customer_id,
           "address":address,
           "zip":zip,
           "state":state,   
           "loc_gln":loc_gln,
-          "created_by": created_by,
+          "created_by":loggedInUsername,
+          "city":city,
           "loggedInUsername":loggedInUsername,
-          "loggedInUserrole":loggedInUserrole
-          
-        },
-      
-        
+          "loggedInUserrole":loggedInUserrole   
+        }, 
         )
         .then(() => {
           navigate("/customerlocation");
@@ -541,75 +563,63 @@ const getLocation=event=>{
    
     <br></br>
     <br></br>
-    
-    <div class="container-fluid">
-              <div class="card shadow mb-4" id="customerfullcard"> 
-                  <div class="card-header py-3" id="customercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="locationhead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
+    <br/><br/><br/><br/> 
 
-                  <div class="card-body">  
-                  <br></br>
-    
-    <Box 
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
+    {warningmessage}        
+ 
+<Box
+component="form"
+sx={{
+ '& .MuiTextField-root': { m: 4, width: '25' },
+}}
+noValidate
+autoComplete="off"
+>
 
-  <div className="container" id="locationbox" >
-    <div className="row" >
-    {warningmessage}
-      <div className="col-4">
-      {locnameFieldWidget}
+<div style={{backgroundColor:"#AAF0D1"}} >
+<h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add Customer Location Details </font></h4></center></h4>            
 
-      {zipFieldWidget}
+{locnameFieldWidget}
+ 
+{zipFieldWidget}
 
-      {locglnFieldWidget}
+{locglnFieldWidget}
+<br/>
 
-     
 
-      </div>
-      <div className="col-4">
-      {addressFieldWidget}
 
-      {createdbyFieldWidget}
 
-      
 
-      
-      </div>
+{/* {createdbyFieldWidget} */}
+{stateFieldWidget}
+{addressFieldWidget}
+{cityFieldWidget}
+{headwidget}
+    {custnameFieldWidget}
+    <br/> <br/>
+<div className="row">
+ <div className="col-4">
 
-      <div className="col-2">
-      
-      {stateFieldWidget}&nbsp;
-      {custnameFieldWidget}
-     
-      
-      </div>
+ </div>
+ <div className="col-4">
+ <button
+             type="submit"
+             className="btn btn-primary"
+             onClick={handleSubmit} >
+               Save data
+           </button>
+ </div>
+ <div className="col-4">
+ </div>
+ 
 
-      <div className="col-2" id="locationbutton" >
-      <button  onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-      </button>
-      </div>
 
-   
-    </div>
-  </div>
-  </Box>
-  </div>
-              </div>
-          </div>   
-    <hr></hr>                
+</div>
+ 
+
+</div>
+
+</Box>
     </>
   );
 }

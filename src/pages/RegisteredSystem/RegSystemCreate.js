@@ -13,19 +13,19 @@ function RegSystemCreate() {
       useEffect(() => {     
                           if(window.localStorage.getItem('loggedInUsername') != null) {
                                     setSelectedDIV(<RegSystemAfterLogin />);
-                            }
+                          }
                           else {
                                     navigate("/");
                                 }
                             }, []);
                                        
-            return (
-                                           <>
-                                            <Box sx={{ display: 'flex' }}>
-                                              {selectedDIV}
-                                              </Box>
-                                           </>
-                                      )
+    return (
+              <>
+                <Box sx={{ display: 'flex' }}>
+                    {selectedDIV}
+                </Box>
+              </>
+          )
 }
 
 export default RegSystemCreate

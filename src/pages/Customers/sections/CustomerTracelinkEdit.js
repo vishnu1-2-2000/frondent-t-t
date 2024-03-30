@@ -25,6 +25,8 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
 
+import Tooltip from '@mui/material/Tooltip';
+
 function CustomerTracelinkEdit() {
 
 const [id,setId]=useState();
@@ -42,14 +44,17 @@ const[sftp_username,setSftpusername]=useState();
 const[file_receiver,setfilereceiver]=useState();
 
 const [showPassword, setShowPassword] = React.useState(false);
+const [showPassword2, setShowPassword2] = React.useState(false);
 
 const navigate=useNavigate();
 
 const {uniqueID}=useParams();
+var loggedInUsername=window.localStorage.getItem('loggedInUsername')
 
+var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
 function getCustomerTracelinkdata(){
  
-      axios.get("http://127.0.0.1:8000/master/customertracelink/"+ uniqueID+"/"
+      axios.get(window.url+"/master/customertracelink/"+ uniqueID+"/"
       )
       .then((res)=>{
         // alert("hi")
@@ -75,28 +80,35 @@ const handleClickShowPassword = () => setShowPassword((show) => !show);
     event.preventDefault();
   };
 
+  const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
+
+  const handleMouseDownPassword2= (event) => {
+    event.preventDefault();
+  };
+
 
 var headwidget=
 
-      <Box
-                sx={{
-                width: 500,
-                maxWidth: '100%',
+      // <Box
+      //           sx={{
+      //           width: 500,
+      //           maxWidth: '100%',
                   
                   
-                }}
-                >
+      //           }}
+      //           >
       <Controls.Input 
                   disabled
-                  fullWidth
+                  // fullWidth
             
                   id="outlined-Company Prefix"
+                  value={loggedInUsername}
                   // label={<Typography>Customer  Create</Typography>}
-                  label={<span ><pre><h4 style={{color:"white"}}>   Enter Customer Tracelink Data </h4></pre></span>}
+                  // label={<span ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">            Enter Customer Tracelink Data </font></h4></pre></span>}
                 
 
 />
-</Box>
+// </Box>
 
 
 
@@ -105,7 +117,7 @@ var title_Widget =
                     required
      
                     label="Title"
-                    color="secondary"
+                  
                     value={title}
                     InputLabelProps={{
                       shrink: true,
@@ -302,7 +314,7 @@ var tracelinkpasswordwidget =
                       InputLabelProps={{
                               shrink: true,
                             }}
-                      type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+                      type={showPassword2 ? "text" : "password"} // <-- This is where the magic happens
                       value={tracelink_password}
                       onChange={(e)=> setTraclinkpassword(e.target.value)}
                       InputProps={{ // <-- This is where the toggle button is added.
@@ -310,10 +322,10 @@ var tracelinkpasswordwidget =
                           <InputAdornment position="end">
                             <IconButton
                               aria-label="toggle password visibility"
-                              onClick={handleClickShowPassword}
-                              onMouseDown={handleMouseDownPassword}
+                              onClick={handleClickShowPassword2}
+                              onMouseDown={handleMouseDownPassword2}
                             >
-                              {showPassword ? <Visibility /> : <VisibilityOff />}
+                              {showPassword2 ? <Visibility /> : <VisibilityOff />}
                             </IconButton>
                           </InputAdornment>
                         )
@@ -416,7 +428,7 @@ var sftpusernamewidget =
   const handleSubmit =(e) =>{
       e.preventDefault(); 
       
-      axios.put(`http://127.0.0.1:8000/master/customertracelink/update/${uniqueID}`,
+      axios.put(window.url+`/master/customertracelink/update/${uniqueID}`,
       {
 
           "id":id,
@@ -431,7 +443,10 @@ var sftpusernamewidget =
           "tracelink_password":tracelink_password,
           "sftp_host" :sftp_host,
           "sftp_username":sftp_username,
-           "file_receiver":file_receiver      
+          "file_receiver":file_receiver,
+           "loggedInUsername":loggedInUsername,
+           "loggedInUserrole":loggedInUserrole  , 
+           "uniqueid":uniqueID,   
       })
       .then(() => {
                     navigate("/customer");
@@ -441,78 +456,83 @@ var sftpusernamewidget =
 
   return (
       <>
-     <br></br>
-    <div class="container-fluid">
-              <div class="card shadow mb-4" id="customerfullcard"> 
-                  <div class="card-header py-3" id="customercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="customerhead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
+   <br/><br/><br/>
 
-                  <div class="card-body">  
-                  <br></br>
-    <br></br>
-      
-      <Box 
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-  <div className="container" id="customertracelinkbox" >
-    <div className="row" >
-      <div className="col-4">
-      {title_Widget}
+{/* {warningmessage}         */}
+        
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 4, width: '25' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add TraceLink Property </font></h4></center></h4>            
+          {title_Widget}
 
-      {url_widget}
+          {url_widget}
 
-      {tracelinkusernamewidget}
+          {tracelinkusernamewidget}
+          {siteidwidget}
+          <br/>
 
-      {tracelinkpasswordwidget}
+        
 
-      </div>
-      <div className="col-4">
-      {siteidwidget}
+    
+    
+           
+          
+        
+        
 
-      {sftpportwidget}
+        {sftpportwidget}
+        {sftphostwidget}
+        {sftpusernamewidget}
+       
+       {filesenderwidget}
+        <br/>
 
-      {sftphostwidget}
+        
 
-      {sftpusernamewidget}
-      </div>
+       
 
-      <div className="col-2">
-     
-      {sftppasswordwidget}
+{filereceiverwidget}
+{sending_systemwidget}
+{headwidget}
+<br/>
       
      
-      {filesenderwidget}
-
-      {filereceiverwidget}
-
-      {sending_systemwidget}
-      </div>
-
-      <div className="col-2" id="customertracelinkbutton" >
-      <button  onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-      </button>
-      </div>
-
    
-    </div>
-  </div>
-  </Box>
-  <hr></hr>    
-                  </div>
-              </div>
-          </div>   
+
+    
+      {tracelinkpasswordwidget}
+      {sftppasswordwidget}
+          <div className="row">
+            <div className="col-4">
+           
+            </div>
+            <div className="col-4">
+           <center> <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button></center>
+            </div>
+            <div className="col-4">
+            </div>
+           
+          
+          </div>
+            
+           
+          </div>
+         
+        </Box>        
+                  
       </>      
   )
 }

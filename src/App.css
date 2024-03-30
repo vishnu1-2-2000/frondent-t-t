@@ -400,6 +400,7 @@ margin-left: -79px;
  
   margin-left: -100px;
   
+  
   } 
 .customer{
     margin-left: -110px; 
@@ -486,10 +487,10 @@ margin-left: -79px;
 }
 #customerbox{
   border: 4px solid rgb(51, 74, 72); 
-  margin-left: 50px;
-  height: 380px;
-  width: 90%;
-  margin-right: 200px;
+   margin-left: 50px; 
+   height: 370px; 
+   width: 80%; 
+   margin-right: 200px; 
   
 }
 #customerhead{
@@ -525,14 +526,14 @@ margin-left: -79px;
  
 }
 #customercardhead{
-  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+  background: linear-gradient(90deg, rgba(11,29,21,1) 7%, rgba(17,18,18,1) 18%, rgba(10,10,10,1) 29%, rgba(5,5,5,1) 78%, rgba(10,37,28,1) 88%);
 }
 #customerfullcard{
   width: 100%;
 }
 #customerselectbox{
-  width: 23%;
-  margin-left: 16px;
+  width: 20%;
+  margin-left: 30px;
   height: 53px;
 }
 /* End of customer tracelink styling */
@@ -573,8 +574,8 @@ margin-left: -79px;
   
 }
 #userselectbox{
-  width: 66%;
-  margin-left: 16px;
+  width: 23%;
+  margin-left: 28px;
   height: 53px;
 }
 #userbox{
@@ -587,7 +588,7 @@ margin-left: -79px;
   margin-top: -247px;
 }
 #usercardhead{
-  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+  background: linear-gradient(90deg, rgba(11,29,21,1) 7%, rgba(17,18,18,1) 18%, rgba(10,10,10,1) 29%, rgba(5,5,5,1) 78%, rgba(10,37,28,1) 88%);
 }
 #companyproperty{
   margin-left:-10px;
@@ -651,7 +652,7 @@ width: 50%;
   font-style: oblique;
 }
 #productpropertycardhead{
-  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+  background: linear-gradient(90deg, rgba(11,29,21,1) 7%, rgba(17,18,18,1) 18%, rgba(10,10,10,1) 29%, rgba(5,5,5,1) 78%, rgba(10,37,28,1) 88%);
 }
 #producterpbox{
   margin-left: 107px;
@@ -665,7 +666,7 @@ width: 50%;
   width: 170%;
 }
 #producthrf2{
-  margin-left: 357px;
+  margin-left: 657px;
   margin-top: -57px;
 }
 #producthrf3{
@@ -690,7 +691,7 @@ width: 50%;
 }
 #historycard{
   margin-left: -100px;
-  width: 105%;
+  width: 120%;
 }
 #auditreportempoyeid{
   margin-left: 640px;
@@ -750,7 +751,7 @@ width: 50%;
 #productionordercardhead{
   margin-left: 1px;
   font-style: oblique;
-  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+  background: linear-gradient(90deg, rgba(11,29,21,1) 7%, rgba(17,18,18,1) 18%, rgba(10,10,10,1) 29%, rgba(5,5,5,1) 78%, rgba(10,37,28,1) 88%);
 }
 
 #productionorderbox{
@@ -865,7 +866,7 @@ width: 50%;
 #regstycardhead{
   margin-left: 1px;
   font-style: oblique;
-  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+  background: linear-gradient(90deg, rgba(11,29,21,1) 7%, rgba(17,18,18,1) 18%, rgba(10,10,10,1) 29%, rgba(5,5,5,1) 78%, rgba(10,37,28,1) 88%);
 }
 
 #regsystembox{
@@ -873,12 +874,31 @@ width: 50%;
   border: 4px solid rgb(51, 74, 72);
   width:89%;
 }
+
 #regstyhead{
   margin-left: 300px;
 }
 #regsymanufactbox{
+  margin-left: 350px;
+  margin-top: -97px;
+ 
+
+}
+#label {
+	position: absolute;
+	top: 354px;
+	left: 430px;
+	height: 20px;
+	width: 302px;
+	background-color: pink; 
+	/* border: 2px solid red; */
+	text-align: center;
+} 
+/* body { padding: 25px; } */
+
+#regsyeditmanufactbox{
   margin-left: 280px;
-  margin-top: -70px;
+  margin-top: -77px;
 }
 #saperpbox{
   margin-left: 13px;
@@ -907,7 +927,7 @@ width: 50%;
  
 }
 #gtincreatecardhead{
-  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+  background: linear-gradient(90deg, rgba(11,29,21,1) 7%, rgba(17,18,18,1) 18%, rgba(10,10,10,1) 29%, rgba(5,5,5,1) 78%, rgba(10,37,28,1) 88%);
 }
 #gtincreatefullcard{
   width: 100%;
@@ -942,11 +962,11 @@ width: 50%;
  
 }
 #printercardhead{
-  background: linear-gradient(90deg, rgba(81,114,114,1) 6%, rgba(34,41,41,1) 12%, rgba(4,4,4,1) 63%, rgba(26,42,52,1) 80%, rgba(58,99,99,1) 94%);
+  background: linear-gradient(90deg, rgba(11,29,21,1) 7%, rgba(17,18,18,1) 18%, rgba(10,10,10,1) 29%, rgba(5,5,5,1) 78%, rgba(10,37,28,1) 88%);
 }
 #printerfullcard{
   width: 80%;
-  height: 500px;
+  height: 560px;
   margin-left: 120px;
 }
 #printerselectbox{
@@ -954,6 +974,13 @@ width: 50%;
   margin-left: 16px;
   height: 53px;
 }
+#printline{
+  margin-top: -115px;
+  margin-left: 20px;
+}
+/* #hrf1po{
+  width: 160%;
+} */
 #fetchbutton{
   margin-left: 300px;
   margin-top: -70px;
@@ -1011,6 +1038,281 @@ margin-top: -150px;
 #shipreportpdf{
   margin-left: 660px;
 }
+
+#identifiers{
+  width: 40%;
+  margin-left: 200px;
+}
+#identifiersdata{
+  margin-left: 120px;
+}
+#identifierimage{
+  margin-left: 150px;
+}
+
+/* Not auth section styling */
+#rolpermission{
+  width: 50%;
+  margin-top: 140px;
+  margin-left: 300px;
+}
+#companypermission{
+margin-top: 200px;
+margin-left: 400px;
+}
+#usercreatepermissions{
+  margin-left: 280px;
+  margin-top: 100px;
+}
+#snprovidercreatepermission{
+  margin-left: 250px;
+  margin-top: 200px;
+}
+#gtinpermision{
+  width: 100%;
+  margin-top: 100px;
+  margin-left: 400px;
+}
+#notauthhistory{
+  margin-top: 100px;
+  margin-left: 400px;
+}
+#notauthprinterpool{
+  margin-top: 120px;
+  width: 60%;
+}
+
+/* HOME PAGE STYLING */
+#homepagebackground{
+  background: linear-gradient(90deg, rgba(11,29,21,1) 7%, rgba(17,18,18,1) 18%, rgba(10,10,10,1) 29%, rgba(5,5,5,1) 78%, rgba(10,37,28,1) 88%);
+}
+
+#load {
+  position:absolute;
+  width:600px;
+ /* height:36px;  */
+  left:50%;
+  top:40%;
+  margin-left:-300px;
+  overflow:visible;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  cursor:default;
+}
+
+#load div {
+  position:absolute;
+  width:30px;
+  /* height:90px; */
+  opacity:0;
+  font-family:Helvetica, Arial, sans-serif;
+  animation:move 5s linear infinite;
+  -o-animation:move 5s linear infinite;
+  -moz-animation:move 5s linear infinite;
+  -webkit-animation:move 5s linear infinite;
+  transform:rotate(180deg);
+  -o-transform:rotate(180deg);
+  -moz-transform:rotate(180deg);
+  -webkit-transform:rotate(180deg);
+  color:#35C4F0;
+   color:white;
+}
+
+ #load div:nth-child(1) {
+  animation-delay:0s;
+  -o-animation-delay:0s;
+  -moz-animation-delay:0s;
+  -webkit-animation-delay:0s;
+} 
+#load div:nth-child(2) {
+  animation-delay:0.2s;
+  -o-animation-delay:0.2s;
+  -moz-animation-delay:0.2s;
+  -webkit-animation-delay:0.2s;
+}
+#load div:nth-child(3) {
+  animation-delay:0.4s;
+  -o-animation-delay:0.4s;
+  -webkit-animation-delay:0.4s;
+  -webkit-animation-delay:0.4s;
+}
+#load div:nth-child(4) {
+  animation-delay:0.6s;
+  -o-animation-delay:0.6s;
+  -moz-animation-delay:0.6s;
+  -webkit-animation-delay:0.6s;
+}
+#load div:nth-child(5) {
+  animation-delay:0.8s;
+  -o-animation-delay:0.8s;
+  -moz-animation-delay:0.8s;
+  -webkit-animation-delay:0.8s;
+}
+#load div:nth-child(6) {
+  animation-delay:1s;
+  -o-animation-delay:1s;
+  -moz-animation-delay:1s;
+  -webkit-animation-delay:1s;
+}
+#load div:nth-child(7) {
+  animation-delay:1.2s;
+  -o-animation-delay:1.2s;
+  -moz-animation-delay:1.2s;
+  -webkit-animation-delay:1.2s;
+}
+#load div:nth-child(8) {
+  animation-delay:1.4s;
+  -o-animation-delay:1.4s;
+  -moz-animation-delay:1.4s;
+  -webkit-animation-delay:1.4s;
+}
+#load div:nth-child(9) {
+  animation-delay:1.6s;
+  -o-animation-delay:1.6s;
+  -moz-animation-delay:1.6s;
+  -webkit-animation-delay:1.6s;
+}
+#load div:nth-child(10) {
+  animation-delay:1.8s;
+  -o-animation-delay:1.8s;
+  -moz-animation-delay:1.8s;
+  -webkit-animation-delay:1.8s;
+}
+#load div:nth-child(11) {
+  animation-delay:2s;
+  -o-animation-delay:2s;
+  -moz-animation-delay:2s;
+  -webkit-animation-delay:2s;
+}
+#load div:nth-child(12) {
+  animation-delay:2.2s;
+  -o-animation-delay:2.2s;
+  -moz-animation-delay:2.2s;
+  -webkit-animation-delay:2.2s;
+}
+#load div:nth-child(13) {
+  animation-delay:2.4s;
+  -o-animation-delay:2.4s;
+  -moz-animation-delay:2.4s;
+  -webkit-animation-delay:2.4s;
+} 
+#load div:nth-child(14) {
+  animation-delay:2.4s;
+  -o-animation-delay:2.4s;
+  -moz-animation-delay:2.4s;
+  -webkit-animation-delay:2.4s;
+} 
+
+
+
+@keyframes move {
+  0% {
+    left:0;
+    opacity:0;
+  }
+  35% {
+    left: 41%; 
+    -moz-transform:rotate(0deg);
+    -webkit-transform:rotate(0deg);
+    -o-transform:rotate(0deg);
+    transform:rotate(0deg);
+    opacity:1;
+  }
+  65% {
+    left:59%; 
+    -moz-transform:rotate(0deg); 
+    -webkit-transform:rotate(0deg); 
+    -o-transform:rotate(0deg);
+    transform:rotate(0deg); 
+    opacity:1;
+  }
+  100% {
+    left:100%; 
+    -moz-transform:rotate(-180deg); 
+    -webkit-transform:rotate(-180deg); 
+    -o-transform:rotate(-180deg); 
+    transform:rotate(-180deg);
+    opacity:0;
+  }
+}
+
+@-moz-keyframes move {
+  0% {
+    left:0; 
+    opacity:0;
+  }
+  35% {
+    left:41%; 
+    -moz-transform:rotate(0deg); 
+    transform:rotate(0deg);
+    opacity:1;
+  }
+  65% {
+    left:59%; 
+    -moz-transform:rotate(0deg); 
+    transform:rotate(0deg);
+    opacity:1;
+  }
+  100% {
+    left:100%; 
+    -moz-transform:rotate(-180deg); 
+    transform:rotate(-180deg);
+    opacity:0;
+  }
+}
+
+@-webkit-keyframes move {
+  0% {
+    left:0; 
+    opacity:0;
+  }
+  35% {
+    left:41%; 
+    -webkit-transform:rotate(0deg); 
+    transform:rotate(0deg); 
+    opacity:1;
+  }
+  65% {
+    left:59%; 
+    -webkit-transform:rotate(0deg); 
+    transform:rotate(0deg); 
+    opacity:1;
+  }
+  100% {
+    left:100%;
+    -webkit-transform:rotate(-180deg); 
+    transform:rotate(-180deg); 
+    opacity:0;
+  }
+}
+
+@-o-keyframes move {
+  0% {
+    left:0; 
+    opacity:0;
+  }
+  35% {
+    left:41%; 
+    -o-transform:rotate(0deg); 
+    transform:rotate(0deg); 
+    opacity:1;
+  }
+  65% {
+    left:59%; 
+    -o-transform:rotate(0deg); 
+    transform:rotate(0deg); 
+    opacity:1;
+  }
+  100% {
+    left:100%; 
+    -o-transform:rotate(-180deg); 
+    transform:rotate(-180deg); 
+    opacity:0;
+  }
+}
+
 
 
 

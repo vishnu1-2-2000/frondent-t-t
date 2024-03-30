@@ -11,7 +11,8 @@ import Controls from "../../../components/Controls";
 import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
 import Select from "react-select";
-
+import InputLabel from '@mui/material/InputLabel';
+import Tooltip from '@mui/material/Tooltip';
 function LocationDataEdit() {
  
   var warningDIV = <div className="alert alert-success pt-4" role="alert">
@@ -26,6 +27,7 @@ function LocationDataEdit() {
     const [loc_gln, setLocgln] = useState("");
     const [created_by, setCreatedby] = useState("");
     const [cname,setCname] = useState([]);
+    const[city,setCity]=useState("");
     const [CustomerIdOptionsNew, setCustomerOptionsNew] = useState("");
     const[SelectCustomerName,setSelectCustomerName] =useState("")
     const[status,setStatus]=useState("");
@@ -59,7 +61,7 @@ function LocationDataEdit() {
 function selectedCustomerlocation(cuslocfunparam) {
 //alert("anu");
         axios
-            .get("http://127.0.0.1:8000/master/customer/",
+            .get(window.url+"/master/customer/",
       
                 )
                   .then((res) => {
@@ -79,14 +81,14 @@ function selectedCustomerlocation(cuslocfunparam) {
 
                   });
                   }
-let optionsname=[];
+  let optionsname=[];
 //  Fetch data from local storage
 
 
-function getCustomerId(cuslocfunparam) {
+  function getCustomerId(cuslocfunparam) {
   //alert("anu");
           axios
-          .get("http://127.0.0.1:8000/master/customer/",
+          .get(window.url+"/master/customer/",
           
           )
           .then((res) => {
@@ -112,12 +114,12 @@ function getCustomerId(cuslocfunparam) {
           });
           }
 
-function getLocationEditRequestData(){
+  function getLocationEditRequestData(){
 // alert(uniqueID)
-      var locationEditID= uniqueID;
+    var locationEditID= uniqueID;
 
       axios
-      .get("http://localhost:8000/master/locations/"+locationEditID+"/",
+      .get(window.url+"/master/locations/"+locationEditID+"/",
       
       )
       .then((res)=>{
@@ -130,6 +132,7 @@ function getLocationEditRequestData(){
       setLocgln(res.data[0].loc_gln);
       setAddress(res.data[0].address);
       setState(res.data[0].state);
+      setCity(res.data[0].city);
 
       setZip(res.data[0].zip);
       setCreatedby(res.data[0].created_by);
@@ -147,7 +150,9 @@ function getLocationEditRequestData(){
           ...base,
           height: 55,
           minHeight: 55,
-          width:225
+          width:230,
+          marginLeft:10
+          
           
         })
       };
@@ -171,7 +176,8 @@ function getLocationEditRequestData(){
 
       }, []);
 
- if(operation === 'edit') {
+      
+  if(operation === 'edit') {
 // var headwidget=<h3>Update</h3>
 
 // var locnameFieldWidget = <input
@@ -218,26 +224,27 @@ function getLocationEditRequestData(){
 //                             aria-describedby="emailHelp"
 //                             onChange={(e) => setCreatedby(e.target.value)}
 //                             />
-var headwidget=
-    <Box
-    component="form"
-    sx={{
-      width: 500,
-      maxWidth: '100%',
-      
-      
-    }}
-    noValidate
-    autoComplete="off"
-  ><Controls.Input 
-    disabled
-    fullWidth
+  var headwidget=
+                  <Box
+                  component="form"
+                  // sx={{
+                  //   width: 500,
+                  //   maxWidth: '100%',
+                    
+                    
+                  // }}
+                  noValidate
+                  autoComplete="off"
+                  ><Controls.Input 
+                    disabled
+                    // fullWidth
     
           id="outlined-Company Prefix"
-          label={<h4 ><pre><h4 style={{color:"white"}}>   Edit Customer Location Data </h4></pre></h4>}
+          value={loggedInUsername}
+          // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">   Edit Customer Location Data </font></h4></pre></h4>}
          
    
- />
+    />
  </Box>
 
     var locnameFieldWidget = <TextField
@@ -248,7 +255,7 @@ var headwidget=
                               onChange={(e) => setName(e.target.value)}
                             />
 
-        var hjwidget=<label className="form-label">Customer Name</label>
+    var hjwidget=<label className="form-label">Customer Name</label>
         // var custnameFieldWidget = <input
         // type="text"
         // className="form-control form-control-sm"
@@ -256,9 +263,10 @@ var headwidget=
       // /> 
     
    
-  var custnameFieldWidget = 
-
+    var custnameFieldWidget = 
+  
       <Select  className="s" onChange={getLocation} options={CustomerIdOptionsNew} placeholder="Custermer Name" id="locationselectbox" styles={customStyles} value={{value:cuslocvalue,label:cusloclabel}}  /> 
+      
 //     var custnameFieldWidget =  
 
 
@@ -328,6 +336,15 @@ var headwidget=
                               
                               />
 
+    var cityFieldWidget = <TextField
+                              required
+                              id="outlined-Location City"
+                              label="City"
+                              value={city}
+                              onChange={(e) => setCity(e.target.value)}
+                              
+                            />                            
+
 }
 
 
@@ -340,7 +357,7 @@ const handleSubmit = (e) => {
 
       // alert(2)
       //alert(address);
-var testPassed = "false";
+  var testPassed = "false";
         if(name!=""){
         testPassed="true"
 
@@ -424,26 +441,40 @@ var testPassed = "false";
 
         } 
         }
+        // if(testPassed == "true"){
+        // if(created_by){
+        // testPassed="true"
+        // }
+        // else{
+        // warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+        // <h5>Input  Createdby</h5>
+        // </div>
+
+        // setWarningmessage(warningDIV);
+        // testPassed = "false";
+
+        // } 
+        // }
         if(testPassed == "true"){
-        if(created_by){
-        testPassed="true"
-        }
-        else{
-        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-        <h5>Input  Createdby</h5>
-        </div>
-
-        setWarningmessage(warningDIV);
-        testPassed = "false";
-
-        } 
-        }
+          if(city){
+          testPassed="true"
+          }
+          else{
+          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+          <h5>Input  City</h5>
+          </div>
+  
+          setWarningmessage(warningDIV);
+          testPassed = "false";
+  
+          } 
+          }
     if(testPassed == "true"){
 
       if(operation === 'edit') {
         alert(customer_id)
         axios
-          .put(`http://localhost:8000/master/locations/update/${locationEditID}`, 
+          .put(window.url+`/master/locations/update/${locationEditID}`, 
 
 
         {
@@ -453,9 +484,11 @@ var testPassed = "false";
             "zip":zip,
             "state":state,   
             "loc_gln":loc_gln,
-            "created_by": created_by,
+            "city":city,
+            "created_by": loggedInUsername,
             "loggedInUsername":loggedInUsername,
-            "loggedInUserrole":loggedInUserrole
+            "loggedInUserrole":loggedInUserrole,
+            "uniqueid":locationEditID
         },
         
         )
@@ -470,164 +503,65 @@ return (
 <>
 
 
-        
-        {/* <br/>
-        <div className="d-flex justify-content-between m-2">
-              <h2>Create</h2>
-                    <Link to="/account/readDataGrid">
-              <button className="btn btn-primary">Show Data</button>
-                    </Link>
-    </div>
-    
-        <div class="container">
-            <div class="row">
-                
-                <div class="col-12">
-    
-                <div className="d-flex justify-content-between m-2">
-         
-        </div>
-        {warningmessage}
-    
-    
-    <table class="table table-borderless productionOrderReportSearchTable" id="productionOrderReportSearchTableID">
-    <tbody>
-    <tr>
-    <td class="productionOrderReportSearchTD">LOCATION</td>
-    <td class="productionOrderReportSearchTD">
-    {locnameFieldWidget}
-    </td>
-    </tr>
-    
-    
-    <tr>
-    <td class="productionOrderReportSearchTD">Customer name</td>
-    <td class="productionOrderReportSearchTD">
-    {custnameFieldWidget}
-    </td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportSearchTD">ADDRESS</td>
-    <td class="productionOrderReportSearchTD">
-    {addressFieldWidget}
-    </td>
-    </tr>
-    
-    <tr>
-    <td class="productionOrderReportSearchTD">zip</td>
-    <td class="productionOrderReportSearchTD">
-    {zipFieldWidget}
-    </td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportSearchTD">Location Gln</td>
-    <td class="productionOrderReportSearchTD">
-    {locglnFieldWidget}
-    </td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportSearchTD">State</td>
-    <td class="productionOrderReportSearchTD">
-    {stateFieldWidget}
-    </td>
-    </tr>
-    <tr>
-    <td class="productionOrderReportSearchTD">Created BY</td>
-    <td class="productionOrderReportSearchTD">
-    {createdbyFieldWidget}
-    </td>
-    </tr>
-   
-    
-    
-    
-    
-    
-    
-    <tr>
-    <td class="productionOrderReportSearchTD">
-    <button className="btn btn-primary" onClick={handleSubmit}>Save</button>
-
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    
-                </div>
-            </div>
-        </div> */}
-
 <br></br>
     <br></br>
+    <br/><br/><br/><br/> 
     
-    <div class="container-fluid">
-              <div class="card shadow mb-4" id="customerfullcard"> 
-                  <div class="card-header py-3" id="customercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="locationhead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
+    {warningmessage}        
+ 
+<Box
+component="form"
+sx={{
+ '& .MuiTextField-root': { m: 4, width: '25' },
+}}
+noValidate
+autoComplete="off"
+>
 
-                  <div class="card-body">  
-                  <br></br>
-    
-    <Box 
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
+<div style={{backgroundColor:"#AAF0D1"}} >
+<h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Edit Customer Location Data </font></h4></center></h4>            
 
-  <div className="container" id="locationbox" >
-    <div className="row" >
-    {warningmessage}
-      <div className="col-4">
-      {locnameFieldWidget}
+{locnameFieldWidget}
+ 
+{zipFieldWidget}
 
-      {zipFieldWidget}
+{locglnFieldWidget}
+<br/>
 
-      {locglnFieldWidget}
 
-     
 
-      </div>
-      <div className="col-4">
-      {addressFieldWidget}
 
-      {createdbyFieldWidget}
 
-      
+{/* {createdbyFieldWidget} */}
+{stateFieldWidget}
+{addressFieldWidget}
+{cityFieldWidget}
+{headwidget}
+    {custnameFieldWidget}
+    <br/> <br/>
+<div className="row">
+ <div className="col-4">
 
-      
-      </div>
+ </div>
+ <div className="col-4">
+ <button
+             type="submit"
+             className="btn btn-primary"
+             onClick={handleSubmit} >
+               Save data
+           </button>
+ </div>
+ <div className="col-4">
+ </div>
+ 
 
-      <div className="col-2">
-      
-      {stateFieldWidget}
-      {custnameFieldWidget}
-     
-      
-      </div>
 
-      <div className="col-2" id="locationbutton" >
-      <button  onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-      </button>
-      </div>
+</div>
+ 
 
-   
-    </div>
-  </div>
-  </Box>
-  </div>
-              </div>
-          </div>   
-    <hr></hr>      
+</div>
+
+</Box>
         
 </>
 );

@@ -24,14 +24,23 @@ function ProviderCreateAfterLogin() {
         </div>
       </div>
   </div>
-</div>      
+</div> 
 
+const notAuthorizedSection = <div class="container-fluid" id="snprovidercreatepermission">
+      <div class="card shadow mb-4"> 
+          <div class="card-body">  
+            <div class="text-primary text-center">
+              <img src='/img/forbidden.jpg'/>
+            </div>
+          </div>
+        </div>
+      </div>
 const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
 
 
 function checkAuthorization() {
   axios
-  .get("http://localhost:8000//accounts/userrolePermissionsRead")
+  .get(window.url+"/accounts/userrolePermissionsRead")
   .then((res) => {
     var authorized = false;
     // alert("haiii")
@@ -44,35 +53,35 @@ function checkAuthorization() {
         if(window.localStorage.getItem('loggedInUserrole') === "admin") {
       
           if(operation === "new") {
-            element.admin['CREATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEntry sendtoshipButtonStatus = "enabled"   />) : setSelectedDIV_state(<NotAuthorizedSection/>);
+            element.admin['CREATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEntry sendtoshipButtonStatus = "enabled"   />) : setSelectedDIV_state(notAuthorizedSection);
           }
           
           else if(operation === "edit") {
-            element.admin['UPDATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEdit/>) : setSelectedDIV_state(<NotAuthorizedSection/>);
+            element.admin['UPDATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEdit/>) : setSelectedDIV_state(notAuthorizedSection);
           }
         }
         else if(window.localStorage.getItem('loggedInUserrole') === "operator") {
           if(operation === "new") {
-            element.operator['CREATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEntry sendtoshipButtonStatus = "enabled"/>) :setSelectedDIV_state(<NotAuthorizedSection/>);      
+            element.operator['CREATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEntry sendtoshipButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);      
           }
           else if(operation === "edit") {
-            element.operator['UPDATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEdit/>) :setSelectedDIV_state(<NotAuthorizedSection/>);
+            element.operator['UPDATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEdit/>) :setSelectedDIV_state(notAuthorizedSection);
           }
         }
         else if(window.localStorage.getItem('loggedInUserrole') === "supervisor") {
           if(operation === "new") {
-            element.supervisor['CREATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEntry sendtoshipButtonStatus = "enabled"/>) :setSelectedDIV_state(<NotAuthorizedSection/>);      
+            element.supervisor['CREATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEntry sendtoshipButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);      
           }
           else if(operation === "edit") {
-            element.supervisor['UPDATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEdit/>) :setSelectedDIV_state(<NotAuthorizedSection/>);      
+            element.supervisor['UPDATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEdit/>) :setSelectedDIV_state(notAuthorizedSection);      
           }
         }
         else if(window.localStorage.getItem('loggedInUserrole') === "masterdata") {
           if(operation === "new") {
-            element.masterdata['CREATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEntry />) :setSelectedDIV_state(<NotAuthorizedSection/>);      
+            element.masterdata['CREATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEntry />) :setSelectedDIV_state(notAuthorizedSection);      
           }
           else if(operation === "edit") {
-            element.masterdata['UPDATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEdit/>) :setSelectedDIV_state(<NotAuthorizedSection/>);      
+            element.masterdata['UPDATE']==="Checked" ? setSelectedDIV_state(<ProviderDataEdit/>) :setSelectedDIV_state(notAuthorizedSection);      
           }
         }
 

@@ -69,7 +69,8 @@ const { process } = useParams();
 const {uniqueID}=useParams();
 const [data, setData] = useState([]);
 const navigate = useNavigate();
-
+var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
 var processno= process
 
 let optionsNew=[]  
@@ -78,24 +79,15 @@ let optionsNew=[]
 // if(operation === 'new') {
 
 var headwidget=
-<Box
-component="form"
-sx={{
-  width: 500,
-  maxWidth: '100%',
-  
-  
-}}
-  noValidate
-  autoComplete="off"
-><Controls.Input 
+<Controls.Input 
 disabled
-fullWidth
+// fullWidth
 
 id="outlined-Company Prefix"
-label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                 Enter Shippment  Data</font> </h4></pre></h4>}
+value={loggedInUsername}
+//label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                 Enter Shippment  Data</font> </h4></pre></h4>}
 />
-</Box>
+
 
 var filesendernumberFieldWidget = <input
                     type="text"
@@ -555,99 +547,71 @@ var  to_business_part_lookupid2FieldWidget = <input
 
   return (
     <>
-    <br></br>
-    <br></br>
-    <br></br>
-    <br></br>
-    
-    <div className="container">
-     <Box sx={{ display: 'flex' }}>
-                                 
-                <Sidebar/>
-    
-
-<br></br>
-<div class="container-fluid" >
-<div class="card shadow mb-4" id="customerfullcard"> 
-<div class="card-header py-3" id="customercardhead">
-<div className='row'>
-   <div className='col-10' id="customerhead">
-   {headwidget}
-   </div>
-</div>
-                               
-</div>
-
-<div class="card-body">  
-<br></br>
-<br></br>
-
-{/* <div id="locationhead">
-{headwidget}
-</div>
-<br></br> */}
-
-<Box id="customerbox"
-component="form"
-sx={{
-'& .MuiTextField-root': { m: 2, width: '25ch' },
-}}
-noValidate
-autoComplete="off"
->
-
-<br></br>
-<div>
-{filecontrolnumberFieldWidget}
+<br/>        <br/>        <br/>   <br/><br/><br/> <br/><br/>
+           {/* {warningmessage}         */}
+           <Box sx={{ display: 'flex' }}>
+           <Sidebar/>   
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 4, width: '25' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+       
+      <div style={{backgroundColor:"#AAF0D1"}} >
+      <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">  Enter Shippment  Data</font></h4></center></h4>            
+        
+      {filecontrolnumberFieldWidget}
 
 {delivery_completeflagFieldWidget}
 
-{transactiondateFieldWidget}
-
-<div id="shipmentxmlbutton">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                               
-</button>
-</div>
-<br></br>
-<br></br>
-<div>
-
+{transactiondateFieldWidget}<br/>
 {salesdistribution_typeFieldWidget}
-{transactiontimeFieldWidget}
+
+       
+      
+      
+       
+        {transactiontimeFieldWidget}
 
 
-{shipfrom_countrycodeFieldWidget}
-
-
-
-</div>
-
-<div >
+{shipfrom_countrycodeFieldWidget}<br/>
 {shipto_countrycodeWidget}
+{headwidget}
+               
+                  
 
-
-</div>
-
-<div>
-
-
-</div>              
-
-
-</div>
-<div>
-
-</div>
-
-</Box> 
-<hr></hr>    
-</div>
-</div>
-</div>  
-</Box> 
-</div>
+      <div className="row">
+        <div className="col-4">
+       
+        </div>
+        <div className="col-4">
+        <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button>
+        </div>
+        <div className="col-4">
+        </div>
+        {/* <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button> */}
+       
+      
+      </div>
+        
+       
+      </div>
+     
+    </Box>
+    </Box> 
  </>
     
   )

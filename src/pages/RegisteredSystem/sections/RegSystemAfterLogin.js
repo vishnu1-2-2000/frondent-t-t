@@ -37,7 +37,7 @@ function RegSystemAfterLogin() {
                   
   function checkAuthorization() {
     axios
-    .get("http://localhost:8000/accounts/userrolePermissionsRead")
+    .get(window.url+"/accounts/userrolePermissionsRead")
     .then((res) => {
       var authorized = false;
       res.data.forEach(element=>{

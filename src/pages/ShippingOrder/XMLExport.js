@@ -56,7 +56,7 @@ export default function XMLExport() {
   function getData(){
   alert("successfully Get Data")
     axios
-    .get("http://127.0.0.1:8000/master/shippoint/"+processordernumber+"/",
+    .get(window.url+"/master/shippoint/"+processordernumber+"/",
    
     )
     .then((res) => {

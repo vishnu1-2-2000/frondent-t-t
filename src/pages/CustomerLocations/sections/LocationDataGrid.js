@@ -39,13 +39,13 @@ const LocationDataGrid = (props) => {
                   
   function handleDelete(id) {
       axios
-          .delete(`http://192.168.200.131:8000/master/locations/delete/${id}`,
+          .delete(window.url+`/master/locations/delete/${id}`,
                           
                 )
                   .then(() => {
                           //getData();
                           // alert("anu");
-                          navigate("/customerlocation/cuslocdatagrid");
+                          navigate("/customerlocation");
                         });
                     }
                   
@@ -157,10 +157,11 @@ const LocationDataGrid = (props) => {
                                                         )
                               if (confirmBox === true) {
                                     axios
-                                    .delete(`http://192.168.200.131:8000/master/locations/delete/${thisRow.id}`,
+                                    .delete(window.url+`/master/locations/trash/${thisRow.id}`,
                                     {
                                     data: { 
-                                      "Name" : thisRow.name,
+                                      "id":thisRow.id,
+                                      "name" : thisRow.name,
                                     "email" : thisRow.email,
                                     "userRole" : thisRow.userRole,
                                     "loggedInUsername": window.localStorage.getItem('loggedInUsername'),
@@ -269,11 +270,11 @@ function createRows(rowDatas) {
                   
                        rowDatas.map(rowData => {
                   
-                     
+                        if(rowData.locationflag===false){
                   
                           axios
                   
-                          .get("http://192.168.200.131:8000/master/customer/"+rowData.customer_id,
+                          .get(window.url+"/master/customer/"+rowData.customer_id,
                   
                             {
                   
@@ -337,7 +338,7 @@ function createRows(rowDatas) {
                               },
                   
                             ]);
-                  
+                          
                           });
                   
                   
@@ -345,14 +346,14 @@ function createRows(rowDatas) {
                    
                   
                   
-                  
+                        }
                        })
                   
                     }
 function getData() {
                       //alert("anu");
                       axios
-                        .get("http://192.168.200.131:8000/master/locations/",
+                        .get(window.url+"/master/locations/",
                           {
                             // auth: {
                             //   username: username,
@@ -372,7 +373,7 @@ function getData() {
                   
                     function handleDelete(id) {
                       axios
-                        .delete(`http://192.168.200.131:8000/master/locations/delete/${id}`,
+                        .delete(window.url+`/master/locations/delete/${id}`,
                           {
                             // auth: {
                             //   username: username,

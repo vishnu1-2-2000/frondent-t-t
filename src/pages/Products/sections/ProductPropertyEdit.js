@@ -12,32 +12,33 @@ import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
 
 function ProductPropertyEdit() {
-                    const [id, setId] = useState(0);
-                    const [GS1_company_prefix ,setGS1companyprefix ] = useState("");
-                    const [AT_PZN, setATPZN] = useState("");
-                    const [BE_ABP_CODE ,setBEABPCODE] = useState("");
-                    const [BR_An_visa_Registration_Number,setBRAnvisaRegistrationNumber] = useState("");
-                    const [CA_DN, setCADN] = useState("");
-                    const [CH_Swillme_dic,setCHSwillmedic] =useState("");
-                    const[CN_Subtype_Code ,setCNSubtypeCode ] =useState("");
-                    const[ DE_PPN,setDEPPN]=useState("");
-                    const[ DE_PZN,setDEPZN]=useState("");
-                    const[Dosage,setDosage]=useState("");
-                    const[EAN_13,setEAN13]=useState("");
-                    const [Form_type,setFormtype]=useState("");
-                    const [ Generic_Name, setGenericName] = useState("");
-                    const [ GR_EOF_CODE , setGREOFCODE ] = useState("");
-                    const [HR_Croatia_National_Code  ,setHRCroatiaNationalCode ] = useState("");
-                    const [IN_Product_Code,setINProductCode] = useState("");
-                    const [IT_Bollino, setITBollino] = useState("");
-                    const [KR_KFDA_Code ,setKRKFDACode ] =useState("");
-                    const[License_Number,setLicenseNumber] =useState("");
-                    const[ Manufacturing_Date,setManufacturingDate]=useState("2017-06-01");
-                    const[ NL_KLMP,setNLKLMP]=useState("");
-                    const[NRD_Nordic_VNR_Drug_Code,setNRDNordicVNRDrugCode]=useState("");
-                    const[Packet_type,setPackettype]=useState("");
-                    const [Revision_Number,setRevisionNumber]=useState("");
-                    const [  PT_Aim_Number, setPTAimNumber] = useState("");
+
+      const [id, setId] = useState(0);
+      const [GS1_company_prefix ,setGS1companyprefix ] = useState("");
+      const [AT_PZN, setATPZN] = useState("");
+      const [BE_ABP_CODE ,setBEABPCODE] = useState("");
+      const [BR_An_visa_Registration_Number,setBRAnvisaRegistrationNumber] = useState("");
+      const [CA_DN, setCADN] = useState("");
+      const [CH_Swillme_dic,setCHSwillmedic] =useState("");
+      const[CN_Subtype_Code ,setCNSubtypeCode ] =useState("");
+      const[ DE_PPN,setDEPPN]=useState("");
+      const[ DE_PZN,setDEPZN]=useState("");
+      const[Dosage,setDosage]=useState("");
+      const[EAN_13,setEAN13]=useState("");
+      const [Form_type,setFormtype]=useState("");
+      const [ Generic_Name, setGenericName] = useState("");
+      const [ GR_EOF_CODE , setGREOFCODE ] = useState("");
+      const [HR_Croatia_National_Code  ,setHRCroatiaNationalCode ] = useState("");
+      const [IN_Product_Code,setINProductCode] = useState("");
+      const [IT_Bollino, setITBollino] = useState("");
+      const [KR_KFDA_Code ,setKRKFDACode ] =useState("");
+      const[License_Number,setLicenseNumber] =useState("");
+      const[ Manufacturing_Date,setManufacturingDate]=useState("2017-06-01");
+      const[ NL_KLMP,setNLKLMP]=useState("");
+      const[NRD_Nordic_VNR_Drug_Code,setNRDNordicVNRDrugCode]=useState("");
+      const[Packet_type,setPackettype]=useState("");
+      const [Revision_Number,setRevisionNumber]=useState("");
+      const [  PT_Aim_Number, setPTAimNumber] = useState("");
                     
                   
                   
@@ -46,23 +47,23 @@ function ProductPropertyEdit() {
                   
                     
                    
-                    ///   For navigate function
-                    const navigate = useNavigate();
+            ///   For navigate function
+  const navigate = useNavigate();
                   
-                    ////    for receiving the parameters from URL
-                    const { operation } = useParams();
+            ////    for receiving the parameters from URL
+  const { operation } = useParams();
                   
-                    const {uniqueID} =useParams();
-                    var username = window.localStorage.getItem('username')
-                    var password = window.localStorage.getItem('password')
-                    var currentUserrole = window.localStorage.getItem('userrole')
+  const {uniqueID} =useParams();
+    var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+
+    var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
                   
                   
-                    function getPrpoertyEditData(){
-                      axios
-                      .get("http://localhost:8000/master/productproperty/"+uniqueID+"/",
+    function getPrpoertyEditData(){
+            axios
+                .get(window.url+"/master/productproperty/"+uniqueID+"/",
                       
-                      )
+                    )
                       .then((res)=>{
                   
                         setId(res.data[0].id);
@@ -105,10 +106,10 @@ function ProductPropertyEdit() {
                   
                       
                     } 
-                    useEffect(() => {
+  useEffect(() => {
                       
-                      getPrpoertyEditData(); 
-                    }, []);
+                  getPrpoertyEditData(); 
+                }, []);
                     
                     
                     // if(operation === 'new') {
@@ -117,27 +118,17 @@ function ProductPropertyEdit() {
                       //    <option value="admin">Select</option>
                       //    <option value="admin">SAP Rpc</option>
                       //    </select>
-                      var headwidget=
-                      <Box
-                      component="form"
-                      sx={{
-                        width: 500,
-                        maxWidth: '100%',
-                        
-                        
-                      }}
-                      noValidate
-                      autoComplete="off"
-                    ><Controls.Input 
+      var headwidget=
+                      <Controls.Input 
                       disabled
-                      fullWidth
+                     
                       
                             id="outlined-Company Prefix"
-                            label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">        Enter Product Property Data </font></h4></pre></h4>}
-                           
+                            // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">        Enter Product Property Data </font></h4></pre></h4>}
+                           value={loggedInUsername}
                      
                    />
-                   </Box>
+                  
                       var gs1FieldWidget = 
                       // <input
                       //       type="text"
@@ -151,46 +142,46 @@ function ProductPropertyEdit() {
                                     label="GS1 Company Prefix"
                                     value={GS1_company_prefix}
                                   />
-                      var atpFieldWidget = 
+      var atpFieldWidget = 
                       // <input
                       //     type="text"
                       //     className="form-control form-control-sm"
                       //     onChange={(e) => setATPZN(e.target.value)}
                       //     value={AT_PZN}
                       //   /> 
-                        <TextField required
+                            <TextField required
                                     id="outline-name"
                                     onChange={(e) => setATPZN(e.target.value)}
                                     label="AT PZN"
                                     value={AT_PZN}
-                                  />
+                            />
                       
-                        var beFieldWidget = 
+      var beFieldWidget = 
                         // <input
                         //   type="text"
                         //   className="form-control form-control-sm"
                         //   onChange={(e) => setBEABPCODE(e.target.value)}
                         //   value={BE_ABP_CODE}
                         // /> 
-                        <TextField required
+                            <TextField required
                                     id="outline-name"
                                     onChange={(e) => setBEABPCODE(e.target.value)}
                                     label="BE ABP CODE"
                                     value={BE_ABP_CODE}
-                                  />
-                        var brFieldWidget = 
+                            />
+      var brFieldWidget = 
                       //   <input
                       //   type="text"
                       //   className="form-control form-control-sm"
                       //   onChange={(e) => setBRAnvisaRegistrationNumber(e.target.value)}
                       //   value={BR_An_visa_Registration_Number}
                       // />
-                      <TextField required
+                          <TextField required
                                     id="outline-name"
                                     onChange={(e) => setBRAnvisaRegistrationNumber(e.target.value)}
                                     label="BR AN VISA REGISTRATION NUMBER"
                                     value={BR_An_visa_Registration_Number}
-                                  /> 
+                          /> 
                   
                   //   var producedFieldWidget = <input
                   //   type="text"
@@ -198,7 +189,7 @@ function ProductPropertyEdit() {
                   //   onChange={(e) => setProduced(e.target.value)}
                   // /> 
                   
-                      var caFieldWidget = 
+      var caFieldWidget = 
                       // <input
                       //       type="text"
                       //       className="form-control"
@@ -206,13 +197,13 @@ function ProductPropertyEdit() {
                       //       onChange={(e) => setCADN(e.target.value)}
                       //      value={CA_DN}
                       //     />
-                          <TextField required
+                              <TextField required
                                     id="outline-name"
                                     onChange={(e) => setCADN(e.target.value)}
                                     label="CA DN"
                                     value={CA_DN}
-                                  />
-                          var chFieldWidget = 
+                              />
+      var chFieldWidget = 
                         //   <input
                         //   type="text"
                         //   className="form-control"
@@ -221,12 +212,12 @@ function ProductPropertyEdit() {
                         //   value={CH_Swillme_dic}
                         // />
                         <TextField required
-                        id="outline-name"
-                        onChange={(e) => setCHSwillmedic(e.target.value)}
-                        label="CH SWILLME DIC"
-                        value={CH_Swillme_dic}
-                      />
-                        var cnFieldWidget = 
+                            id="outline-name"
+                            onChange={(e) => setCHSwillmedic(e.target.value)}
+                            label="CH SWILLME DIC"
+                            value={CH_Swillme_dic}
+                        />
+      var cnFieldWidget = 
                         // <input
                         //   type="text"
                         //   className="form-control"
@@ -235,12 +226,12 @@ function ProductPropertyEdit() {
                         //   value={CN_Subtype_Code}
                         // />
                         <TextField required
-                        id="outline-name"
-                        onChange={(e) => setCNSubtypeCode(e.target.value)}
-                        label="CN Subtype Code"
-                        value={CN_Subtype_Code}
-                      />
-                        var deppnFieldWidget = 
+                            id="outline-name"
+                            onChange={(e) => setCNSubtypeCode(e.target.value)}
+                            label="CN Subtype Code"
+                            value={CN_Subtype_Code}
+                        />
+      var deppnFieldWidget = 
                         // <input
                         //   type="text"
                         //   className="form-control"
@@ -249,12 +240,12 @@ function ProductPropertyEdit() {
                         //   value={DE_PPN}
                         // />
                         <TextField required
-                        id="outline-name"
-                        onChange={(e) => setDEPPN(e.target.value)}
-                        label="DE PPN"
-                        value={DE_PPN}
-                      />
-                        var depznFieldWidget = 
+                              id="outline-name"
+                              onChange={(e) => setDEPPN(e.target.value)}
+                              label="DE PPN"
+                              value={DE_PPN}
+                        />
+      var depznFieldWidget = 
                         // <input
                         //   type="text"
                         //   className="form-control"
@@ -263,12 +254,12 @@ function ProductPropertyEdit() {
                         //   value={DE_PZN}
                         // />
                         <TextField required
-                        id="outline-name"
-                        onChange={(e) => setDEPZN(e.target.value)}
-                        label="DE PZN"
-                        value={DE_PZN}
-                      />
-                        var dosageFieldWidget = 
+                            id="outline-name"
+                            onChange={(e) => setDEPZN(e.target.value)}
+                            label="DE PZN"
+                            value={DE_PZN}
+                        />
+      var dosageFieldWidget = 
                       //   <input
                       //   type="text"
                       //   className="form-control"
@@ -282,7 +273,7 @@ function ProductPropertyEdit() {
                         label="Dosage"
                         value={Dosage}
                       />
-                      var ean13FieldWidget =
+      var ean13FieldWidget =
                     //    <input
                     //   type="text"
                     //   className="form-control"
@@ -295,8 +286,8 @@ function ProductPropertyEdit() {
                         onChange={(e) => setEAN13(e.target.value)}
                         label="EAN 13"
                         value={EAN_13}  
-                      />
-                    var formFieldWidget = 
+                    />
+      var formFieldWidget = 
                   //   <input
                   //   type="text"
                   //   className="form-control"
@@ -305,12 +296,12 @@ function ProductPropertyEdit() {
                   //   value={Form_type}
                   // />
                   <TextField required
-                  id="outline-name"
-                  onChange={(e) => setFormtype(e.target.value)}
-                  label="Form Type"
-                  value={Form_type}
+                    id="outline-name"
+                    onChange={(e) => setFormtype(e.target.value)}
+                    label="Form Type"
+                    value={Form_type}
                 />
-                   var genericFieldWidget = 
+      var genericFieldWidget = 
                   //  <input
                   //  type="text"
                   //  className="form-control"
@@ -319,12 +310,12 @@ function ProductPropertyEdit() {
                   //  value={Generic_Name}
                   // />
                   <TextField required
-                  id="outline-name"
-                  onChange={(e) => setGenericName(e.target.value)}
-                  label="Generic Name"
-                  value={Generic_Name}
-                />
-                   var grFieldWidget = 
+                      id="outline-name"
+                      onChange={(e) => setGenericName(e.target.value)}
+                      label="Generic Name"
+                      value={Generic_Name}
+                  />
+      var grFieldWidget = 
                   //  <input
                   //  type="text"
                   //  className="form-control"
@@ -333,12 +324,12 @@ function ProductPropertyEdit() {
                   //  value={GR_EOF_CODE}
                   // />
                   <TextField required
-                  id="outline-name"
-                  onChange={(e) => setGREOFCODE(e.target.value)}
-                  label="GR EOF CODE"
-                  value={GR_EOF_CODE}
-                />
-                   var hrFieldWidget = 
+                      id="outline-name"
+                      onChange={(e) => setGREOFCODE(e.target.value)}
+                      label="GR EOF CODE"
+                      value={GR_EOF_CODE}
+                  />
+      var hrFieldWidget = 
                   //  <input
                   //  type="text"
                   //  className="form-control"
@@ -347,12 +338,12 @@ function ProductPropertyEdit() {
                   //  value={HR_Croatia_National_Code}
                   // />
                   <TextField required
-                  id="outline-name"
-                  onChange={(e) => setHRCroatiaNationalCode(e.target.value)}
-                  label="HR Croatia National Code"
-                  value={HR_Croatia_National_Code}
-                />
-                   var inFieldWidget = 
+                      id="outline-name"
+                      onChange={(e) => setHRCroatiaNationalCode(e.target.value)}
+                      label="HR Croatia National Code"
+                      value={HR_Croatia_National_Code}
+                  />
+      var inFieldWidget = 
                   //  <input
                   //  type="text"
                   //  className="form-control"
@@ -361,12 +352,12 @@ function ProductPropertyEdit() {
                   //  value={IN_Product_Code}
                   // />
                   <TextField required
-                  id="outline-name"
-                  onChange={(e) => setINProductCode(e.target.value)}
-                  label="IN Product Code"
-                  value={IN_Product_Code}
-                />
-                   var itFieldWidget = 
+                      id="outline-name"
+                      onChange={(e) => setINProductCode(e.target.value)}
+                      label="IN Product Code"
+                      value={IN_Product_Code}
+                  />
+      var itFieldWidget = 
                   //  <input
                   //  type="text"
                   //  className="form-control"
@@ -375,12 +366,12 @@ function ProductPropertyEdit() {
                   //  value={IT_Bollino}
                   // />
                   <TextField required
-                  id="outline-name"
-                  onChange={(e) => setITBollino(e.target.value)}
-                  label="IT_Bollino"
-                  value={IT_Bollino}
-                />
-                   var krFieldWidget = 
+                      id="outline-name"
+                      onChange={(e) => setITBollino(e.target.value)}
+                      label="IT_Bollino"
+                      value={IT_Bollino}
+                  />
+      var krFieldWidget = 
                   //  <input
                   //  type="text"
                   //  className="form-control"
@@ -389,12 +380,12 @@ function ProductPropertyEdit() {
                   //  value={KR_KFDA_Code}
                   // />
                   <TextField required
-                  id="outline-name"
-                  onChange={(e) => setKRKFDACode(e.target.value)}
-                  label="KR KFDA Code"
-                  value={KR_KFDA_Code}
-                />
-                   var licencenumberFieldWidget = 
+                      id="outline-name"
+                      onChange={(e) => setKRKFDACode(e.target.value)}
+                      label="KR KFDA Code"
+                      value={KR_KFDA_Code}
+                  />
+      var licencenumberFieldWidget = 
                   //  <input
                   //  type="text"
                   //  className="form-control"
@@ -403,12 +394,12 @@ function ProductPropertyEdit() {
                   //  value={License_Number}
                   // />
                   <TextField required
-                  id="outline-name"
-                  onChange={(e) => setLicenseNumber(e.target.value)}
-                  label="License Number"
-                  value={License_Number}
-                />
-                   var manufacturingdateFieldWidget = 
+                      id="outline-name"
+                      onChange={(e) => setLicenseNumber(e.target.value)}
+                      label="License Number"
+                      value={License_Number}
+                  />
+      var manufacturingdateFieldWidget = 
                   //  <input
                   //  type="date"
                   //  className="form-control"
@@ -417,17 +408,17 @@ function ProductPropertyEdit() {
                   //  value={Manufacturing_Date}
                   // />
                   <TextField required
-                  id="outline-name"
-                 type="date"
-                  onChange={(e) => setManufacturingDate(e.target.value)}
-                  label="Manufacturing Date"
-                  InputLabelProps={{
-                    shrink: true,
+                      id="outline-name"
+                      type="date"
+                      onChange={(e) => setManufacturingDate(e.target.value)}
+                      label="Manufacturing Date"
+                      InputLabelProps={{
+                        shrink: true,
                   }}
 
                   value={Manufacturing_Date}
                 />
-                   var nlFieldWidget =
+    var nlFieldWidget =
                   //   <input
                   //  type="text"
                   //  className="form-control"
@@ -436,13 +427,13 @@ function ProductPropertyEdit() {
                   //  value={NL_KLMP}
                   // />
                   <TextField required
-                  id="outline-name"
-                  date
-                  onChange={(e) => setNLKLMP(e.target.value)}
-                  label="NL KLMP"
-                  value={NL_KLMP}
-                />
-                   var nrdFieldWidget = 
+                    id="outline-name"
+                    date
+                    onChange={(e) => setNLKLMP(e.target.value)}
+                    label="NL KLMP"
+                    value={NL_KLMP}
+                  />
+    var nrdFieldWidget = 
                   //  <input
                   //  type="text"
                   //  className="form-control"
@@ -451,13 +442,13 @@ function ProductPropertyEdit() {
                   //  value={NRD_Nordic_VNR_Drug_Code}
                   // />
                   <TextField required
-                  id="outline-name"
-                  date
-                  onChange={(e) => setNRDNordicVNRDrugCode(e.target.value)}
-                  label="NRD Nordic VNR Drug Code"
-                  value={NRD_Nordic_VNR_Drug_Code}
-                />
-                   var packettypeFieldWidget = 
+                      id="outline-name"
+                      date
+                      onChange={(e) => setNRDNordicVNRDrugCode(e.target.value)}
+                      label="NRD Nordic VNR Drug Code"
+                      value={NRD_Nordic_VNR_Drug_Code}
+                  />
+    var packettypeFieldWidget = 
                   //  <input
                   //  type="text"
                   //  className="form-control"
@@ -466,13 +457,13 @@ function ProductPropertyEdit() {
                   //  value={Packet_type}
                   // />
                   <TextField required
-                  id="outline-name"
-                  date
-                  onChange={(e) => setPackettype(e.target.value)}
-                  label="Packet Type"
-                  value={Packet_type}
-                />
-                   var revisionnumberFieldWidget = 
+                    id="outline-name"
+                    date
+                    onChange={(e) => setPackettype(e.target.value)}
+                    label="Packet Type"
+                    value={Packet_type}
+                  />
+    var revisionnumberFieldWidget = 
                   //  <input
                   //  type="text"
                   //  className="form-control"
@@ -481,13 +472,13 @@ function ProductPropertyEdit() {
                   //  VALUE={Revision_Number}
                   // />
                   <TextField required
-                  id="outline-name"
-                  date
-                  onChange={(e) => setRevisionNumber(e.target.value)}
-                  label="Revision_Number"
-                  value={Revision_Number}
-                />
-                  var ptFieldWidget = 
+                      id="outline-name"
+                      date
+                      onChange={(e) => setRevisionNumber(e.target.value)}
+                      label="Revision_Number"
+                      value={Revision_Number}
+                  />
+    var ptFieldWidget = 
                   // <input
                   // type="text"
                   // className="form-control"
@@ -496,12 +487,12 @@ function ProductPropertyEdit() {
                   // value={PT_Aim_Number}
                   // />
                   <TextField required
-                  id="outline-name"
-                  date
-                  onChange={(e) => setPTAimNumber(e.target.value)}
-                  label="PT Aim Number"
-                  value={PT_Aim_Number}
-                />
+                    id="outline-name"
+                    date
+                    onChange={(e) => setPTAimNumber(e.target.value)}
+                    label="PT Aim Number"
+                    value={PT_Aim_Number}
+                  />
                           
                         
                     // }
@@ -569,7 +560,7 @@ function ProductPropertyEdit() {
                       
                       // if(operation === 'new') {
                         axios
-                        .put(`http://127.0.0.1:8000/master/productproperty/update/${uniqueID}`, 
+                        .put(window.url+`/master/productproperty/update/${uniqueID}`, 
                           //  alert(AT_PZN),
                           {
                             "GS1_company_prefix":GS1_company_prefix,    
@@ -600,19 +591,15 @@ function ProductPropertyEdit() {
                             "Packet_type": Packet_type,
                             'Revision_Number': Revision_Number,
                             "PT_Aim_Number": PT_Aim_Number,
-                         
-                             
-                  
-                           
-                             
-                  
-                             
-                             
+                            "loggedInUsername":loggedInUsername,
+                            "loggedInUserrole":loggedInUserrole,
+
+                            "uniqueid":uniqueID,
                           },
                           
                           )
                           .then(() => {
-                            navigate("/product/productpropertydatagrid");
+                            navigate("/product");
                           });
                         }
                     //   // }
@@ -643,107 +630,84 @@ function ProductPropertyEdit() {
                     //   }
                     // };
                   
-                    return (
-                      <>
-                      <br></br>
-                      <br></br>
-                      
-                          <div class="container-fluid">
-                                    <div class="card shadow mb-4" id="productpropertyfullcard"> 
-                                        <div class="card-header py-3" id="productpropertycardhead">
-                                            <div className='row'>
-                                                <div className='col-10' id="productpropertyhead">
-                                                {headwidget}
-                                                </div>
-                                            </div>
-                                                                            
-                                        </div>
-                      
-                                        <div class="card-body">  
-                                        
-                          
-                          
-                          {/* <div id="locationhead">
-                          {headwidget}
-                          </div>
-                          <br></br> */}
-                          
-                          <Box id="productpropertybox"
-                            component="form"
-                            sx={{
-                              '& .MuiTextField-root': { m: 2, width: '25ch' },
-                            }}
-                            noValidate
-                            autoComplete="off"
-                          >
-                            <br></br>
-                            <div>
-                            {gs1FieldWidget}
+  return (
+            <>
+               <br/><br/><br/><br/><br/>
+
+{/* {warningmessage}         */}
+        
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 4, width: '25' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add Product Property </font></h4></center></h4>            
+          {gs1FieldWidget}
                             {atpFieldWidget}
                             {beFieldWidget}
                       
                             {caFieldWidget}
-                      </div>
-                              
-                                 
-                                <div>
-                                {brFieldWidget}
+    
+    
+           
+          
+          <br/>
+       
+
+          {brFieldWidget}
                                 {chFieldWidget}
                                 {cnFieldWidget}
-                                {deppnFieldWidget}
-                                </div>
-                                <div >
+                                {deppnFieldWidget}<br/>
                                 {dosageFieldWidget}
                                 {depznFieldWidget}
                                 {ean13FieldWidget}
-                                {formFieldWidget}
-                                </div>
-                               
-                      <div >
-                      {/* {statuswidget} */}
-                      {genericFieldWidget}
+                                {formFieldWidget}<br/>
+                                {genericFieldWidget}
                       {grFieldWidget}
                       {hrFieldWidget}
-                      {inFieldWidget}
-
-                      </div>
-                      <div>
+                      {inFieldWidget}<br/>
                       {krFieldWidget}
                       {licencenumberFieldWidget}
                       {manufacturingdateFieldWidget}
-                      {nlFieldWidget}
-                      </div>
-                      <div>
+                      {nlFieldWidget}<br/>
                       {nrdFieldWidget}
                       {packettypeFieldWidget}
                       {revisionnumberFieldWidget}
-                      {ptFieldWidget}
-                      </div>
-                      <div id="productpropertybutton">
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                  <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                                            
-                                  </button>
-                             
-                      
-                                
-                      
-                          </div>              
+                      {ptFieldWidget}<br/>
+                      {headwidget}
+
+          <div className="row">
+            <div className="col-4">
+           
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div className="col-4">
+            <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button>
+            </div>
+            <div className="col-4">
+            </div>
+           
+          
+          </div>
+            
+           
+          </div>
+         
+        </Box>        
+                   
                        
                       
-                        
-                        <div>
-                            
-                      </div>
-                            
-                          </Box> 
-                          <hr></hr>    
-                                        </div>
-                                    </div>
-                                </div>  
-                      
-                        </>
-                    );
+        </>
+    );
 }
 
 export default ProductPropertyEdit

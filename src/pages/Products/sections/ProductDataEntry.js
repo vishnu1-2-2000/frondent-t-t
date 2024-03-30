@@ -18,17 +18,14 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
 
+import Autocomplete from '@mui/material/Autocomplete';
 
 function ProductDataEntry() {
   
-
-
-
-
-
-var warningDiv= <div className="alert alert-success pt-4" role="alert">
-<h5>Input all the values</h5>
+  var warningDiv= <div className="alert alert-success pt-4" role="alert">
+  <h5>Input all the values</h5>
     </div>
 
 
@@ -87,22 +84,22 @@ var warningDiv= <div className="alert alert-success pt-4" role="alert">
   const [hrf5,setHrf5]= useState("");
 
   const[showhrf,setHrf]=useState("");
-
+  const [testStatusChecked, setTestStatusChecked] = useState(false);
 
   const[cusnamelabel,setCusnameLabel] =useState("");
   const[cusnamevalue,setCusnameValue]=useState("")   
   
      
   
-      const navigate = useNavigate();
-      const {uniqueID}=useParams();
-      const { operation } = useParams();
+  const navigate = useNavigate();
+  const {uniqueID}=useParams();
+  const { operation } = useParams();
   var username = window.localStorage.getItem('username')
   var password = window.localStorage.getItem('password')
   // var userrole =window.localStorage.getItem('userrole')
-var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+  var loggedInUsername=window.localStorage.getItem('loggedInUsername')
 
-var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
+  var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
   let optionsNew=[]
 
   const ITEM_HEIGHT = 48;
@@ -118,65 +115,59 @@ var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
 function selectedCustomername(cusnamefunparam) {
   //alert("anu");
   axios
-    .get("http://localhost:8000//master/customer/",
-      {
+  .get(window.url+"/master/customer/",
+    {
         // auth: {
         //   username: username,
         //   password: password
         // }
-      },
-      {
-        'param': 'anu' 
-      }
+    },
+    {
+      'param': 'anu' 
+    }
     )
     .then((res) => {
       // let batchNumberOptionsInitial = "";
       res.data.map(data => {
-      if(data.id==cusnamefunparam){
-        setCusnameLabel(data.name);
-        setCusnameValue(data.id);
-      }
+        if(data.id==cusnamefunparam){
+          setCusnameLabel(data.name);
+          setCusnameValue(data.id);
+        }
         
-
       });  
-    
-      
       
     });
-}
+  }
 
 
   // useEffect(() => {
    
   //   }, []);
 
-    function getProductNumberData() {
+  function getProductNumberData() {
       //alert(processOrderNumber);
  
-     axios
-     .get("http://localhost:8000//sapapp/sapproduct/"+gtin_number+"/",
-       {
+    axios
+    .get(window.url+"/sapapp/sapproduct/"+gtin_number+"/",
+    {
         //  auth: {
         //    username: username,
         //    password: password
         //  }
-       },
-       {
-         'param': 'vbc' 
-       }
-     )
-     .then((res) => {
+    },
+    {
+      'param': 'vbc' 
+    }
+    )
+    .then((res) => {
     //  alert(res.data[0].status)
-         setName(res.data[0].name);
-         setImn(res.data[0].imn);
-        setCreatedby(res.data[0].created_by);
+      setName(res.data[0].name);
+      setImn(res.data[0].imn);
+      setCreatedby(res.data[0].created_by);
         // setStatus(res.data[0].status);
         // setDesp(res.data[0].description);
-        
-
-
-     });
- }
+    });
+  }
 
 
 
@@ -189,19 +180,44 @@ function selectedCustomername(cusnamefunparam) {
 //       // setCustomername(event.label); 
 //       //  window.localStorage.setItem(option)    
 //     }
-    const getProduct=event=>{
-      setCustomerid(event.target.value)
-  // setSelectCustomerName(event.label)
-  setCusnameLabel(event.label)
-  setCusnameValue(event.target.value)
-  // alert(event.target.value)
-  //  alert(event.label)
+  // const getProduct=event=>{
+  
+  //   setCustomerid(event.target.value)
+  // // setSelectCustomerName(event.label)
+  //   setCusnameLabel(event.label)
+  //   setCusnameValue(event.target.value)
+  // // alert(event.target.value)
+  // //  alert(event.label)
+  // }
+
+  const getProduct = (event, value) => {
+   
+    // setCustomerid(value)
+  // setSelectCustomerName(label)
+    // setCusnameLabel(value)
+    // setCusnameValue(value)
+    axios
+  .get(window.url+"/master/customername/"+value+"/",
+ 
+)
+.then((res) => {
+ 
+
+  setCustomerid(res.data[0].id);
+  
+ 
+
+});
+    
+
+    
+    
 }
-function getCustomerId(cuslocfunparam) {
+  function getCustomerId(cuslocfunparam) {
   //alert("anu");
-  axios
-    .get("http://127.0.0.1:8000/master/customer/",
-      
+    axios
+      .get(window.url+"/master/customer/",
+        
     )
     .then((res) => {
      
@@ -213,7 +229,7 @@ function getCustomerId(cuslocfunparam) {
           optionsNew.push({ value:data.id,label:data.name});
           // temparray.push({ value: data.id,label:data.name});
           
-         }
+        }
         // alert(demolist)
         // if(data.id==cuslocfunparam ){
         //           setCuslocLabel(data.name);
@@ -230,63 +246,66 @@ function getCustomerId(cuslocfunparam) {
       // setTransferData(temparray)
       
     });
-}
-        useEffect(() => {
-          getCustomerId();
-        }, []);
+  }
+  useEffect(() => {
+    getCustomerId();
+  }, []);
 
 
-        const StatusCheck=(event)=>{
+  const StatusCheck=(event)=>{
 
-          setStatus(event.target.checked);
+    setStatus(event.target.checked);
       
        
       
-        }
+  }
 
        
  
 
 
+  const productstatusfield = [
+    {
+      value: 'Confirmed',
+      label: 'Confirmed',
+    },
+    {
+      value: 'Not Confirmed',
+      label: 'Not Confirmed',
+    },
+
+    
+  ];
 
      
   if(operation === 'new') {
     var headwidget=
-      <Box
-      component="form"
-      sx={{
-        width: 500,
-        maxWidth: '100%',
+      <Controls.Input 
+        disabled
+        // fullWidth
         
-        
-      }}
-      noValidate
-      autoComplete="off"
-    ><Controls.Input 
-      disabled
-      fullWidth
+              id="outlined-Company Prefix"
+              value={loggedInUsername}
+              //label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                       Enter Product Data </font></h4></pre></h4>}
+            
       
-            id="outlined-Company Prefix"
-            label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                       Enter Product Data </font></h4></pre></h4>}
-           
+      />
      
-   />
-   </Box>
-   var gtinFieldWidget = <TextField required
-   label="Gtin"
-   id="outline-gtin"
+  var gtinFieldWidget =<TextField required
+                            label="Gtin"
+                            id="outline-gtin"
     
-    onChange={(e) => setGtin(e.target.value)}
-  /> 
+                            onChange={(e) => setGtin(e.target.value)}
+                        /> 
 //   var fetchwidget=<button className="btn btn-primary"
 //   onClick={() => getProductNumberData()}>
 //   <AiIcons.AiOutlineCloudDownload size={35}/>
 // </button>
-var nameWidget = <TextField required
-      id="outline-name"
-      onChange={(e) => setName(e.target.value)}
-      label="Name"
-    />
+  var nameWidget = <TextField required
+                      id="outline-name"
+                      onChange={(e) => setName(e.target.value)}
+                      label="Name"
+                  />
      
   
   
@@ -300,47 +319,84 @@ var nameWidget = <TextField required
     var custnameFieldWidget = 
   
     
-<Box sx={{ minWidth: 70 }}>
-<FormControl >
-<InputLabel id="demo-simple-select-label">Customer Name</InputLabel>
-<NativeSelect
-labelId="demo-simple-select-label"
-id="demo-simple-select"
-input={<OutlinedInput label="Customer Name" />}
-MenuProps={MenuProps}
-label="Customer Name"
-onChange={getProduct}
-><option>Select Customer Name</option> 
-{customerLocationOptionsNew.map((data) => (
+//   <Box sx={{ minWidth: 70 }}>
+//     <FormControl >
+//       <InputLabel id="demo-simple-select-label">Customer Name</InputLabel>
+//       <NativeSelect
+//       labelId="demo-simple-select-label"
+//       id="demo-simple-select"
+//       input={<OutlinedInput label="Customer Name" />}
+//       MenuProps={MenuProps}
+
+//       label="Customer Name"
+//       onChange={getProduct}
+//       ><option style={{color:"red"}}> Select Customer Name</option> 
+//       {customerLocationOptionsNew.map((data) => (
 
 
-<option key={data.label} value={data.value}>
+//       <option key={data.label} value={data.value}>
 
-{data.label}
+//       {data.label}
 
-</option>
+//       </option>
 
-))}
-</NativeSelect>
-</FormControl>
-</Box> 
-            
+// ))}
+//   </NativeSelect>
+//   </FormControl>
+//   </Box> 
+
+      <Autocomplete
+                disablePortal
+
+                id="combo-box-demo"
+
+                options={customerLocationOptionsNew}
+                onInputChange={getProduct}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params}  label="Select Customer" />}
+                /> 
+ 
+//  var custnameFieldWidget = 
+//   <Autocomplete
+//   id="free-solo-demo"
+//   onChange={getProduct}
+//   freeSolo
+//   options={customerLocationOptionsNew.map((option) => option.label)}
+//   options2={customerLocationOptionsNew.map((option2) => option2.value)}
+//   renderInput={(params) => <TextField {...params} label="freeSolo" />}
+// />
        
   var imnFieldWidget = <TextField required
-            id="outline-imn"
-            label="Imn" 
-            onChange={(e) => setImn(e.target.value)}
+                          id="outline-imn"
+                          label="Imn" 
+                          onChange={(e) => setImn(e.target.value)}
            
-          /> 
+                      /> 
 
-var createdbyFieldWidget = <TextField required
-                 id="outline-createdby"
-                  label="Created by"
-                disabled
-  
-                  value={loggedInUsername}
-                />
-var statuswidget= <input type="checkbox" checked={status} onChange={e => setStatus(e.target.checked)}/>
+  var createdbyFieldWidget = <TextField required
+                                id="outline-createdby"
+                                label="Created by"
+                                disabled
+                  
+                                value={loggedInUsername}
+                              />
+  var statusfield=<Grid item xs={12}><Controls.Input
+                              id="outlined-select-Status"
+                              select
+                              label="Status"
+                              defaultValue="EUR"
+                              helperText="Please select Customer Status"
+                              onChange={(e) =>setStatus(e.target.value)} value={status}
+                            >
+            
+                              {productstatusfield.map((option1) => (
+                                <MenuItem key={option1.value} value={option1.value}>
+                                  {option1.label}
+                                </MenuItem>
+                              ))}
+                              </Controls.Input>
+                            </Grid>                           
+// var statuswidget= <input type="checkbox" checked={status} onChange={e => setStatus(e.target.checked)}/>
 // var createdbyFieldWidget =<input
 //                             type="text"
 //                             className="form-control"
@@ -353,7 +409,7 @@ var statuswidget= <input type="checkbox" checked={status} onChange={e => setStat
   
 
 
-      const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
             e.preventDefault();
             // console.log("clicked");
             //alert(address);
@@ -401,18 +457,18 @@ var statuswidget= <input type="checkbox" checked={status} onChange={e => setStat
               testpassed="false"
             }
           }
-          // if(testpassed == "true") {
-          //   if(created_by!=""){
-          //     testpassed="true"
-          //   }
-          //   else{
-          //     warningDiv =<div className="alert alert-danger pt-4" role="alert">
-          //     <h5>Input Createdby</h5>
-          //     </div>
-          //     setWarningmessage(warningDiv)
-          //     testpassed="false"
-          //   }
-          // }
+          if(testpassed == "true") {
+            if(customer_id!=""){
+              testpassed="true"
+            }
+            else{
+              warningDiv =<div className="alert alert-danger pt-4" role="alert">
+              <h5>Input Customer Name</h5>
+              </div>
+              setWarningmessage(warningDiv)
+              testpassed="false"
+            }
+          }
 
             
 
@@ -423,13 +479,13 @@ var statuswidget= <input type="checkbox" checked={status} onChange={e => setStat
             alert(customer_id) 
         
               axios
-                .post('http://localhost:8000//master/product/', 
+                .post(window.url+'/master/product/', 
                 {
                   "name": name, 
                   "imn":  imn,
                   // "description ":desp,
                   
-                  "status":status,   
+                  "status":testStatusChecked,   
                   "gtin_number":gtin_number,
                   "created_by":loggedInUsername,
                   "customer_id":customer_id,
@@ -480,96 +536,68 @@ var statuswidget= <input type="checkbox" checked={status} onChange={e => setStat
             
   return (
     <>
-                       
-                       <br></br>
-    <br></br>
-    <br></br>
-        <div class="container-fluid">
-                  <div class="card shadow mb-4" id="customerfullcard"> 
-                      <div class="card-header py-3" id="customercardhead">
-                          <div className='row'>
-                              <div className='col-10' id="customerhead">
-                              {headwidget}
-                              </div>
-                          </div>
-                                                          
-                      </div>
-    
-                      <div class="card-body">  
-                      <br></br>
-        <br></br>
+       <br/><br/><br/><br/><br/>
+
+{warningmessage}        
         
-        {/* <div id="locationhead">
-        {headwidget}
-        </div>
-        <br></br> */}
-        
-        <Box id="customerbox"
+        <Box
           component="form"
           sx={{
-            '& .MuiTextField-root': { m: 2, width: '25ch' },
+            '& .MuiTextField-root': { m: 4, width: '25' },
           }}
           noValidate
           autoComplete="off"
         >
-          <br></br>
-          <div>
-              {warningmessage}
-             {nameWidget}
-              {imnFieldWidget}
-    
-            {gtinFieldWidget}
-    
-            
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                          
-                </button>
-              <div>
-              {createdbyFieldWidget}
-              <div id="productselectbox">
-              {custnameFieldWidget}
-              </div>
-             
-    <div id="productstatus">
-    {/* {statuswidget} */}
-    <FormControlLabel  control={<Checkbox 
-      
-      checked={status}
+           
+          <div style={{backgroundColor:"#AAF0D1"}} >
+          <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add Product Details </font></h4></center></h4>            
+          {nameWidget}  
+          {imnFieldWidget}
+          {gtinFieldWidget}
+        
 
-      onChange={e => setStatus(e.target.checked)}
+    
+    
+           
+          
+          <br/>
+        
+
+
+{headwidget}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<FormControlLabel  control={<Checkbox 
+      
+      checked={testStatusChecked}
+      style={{marginTop:10}}
+      onChange={e => setTestStatusChecked(e.target.checked)}
       sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }}
       label="Gilad Gray"
-    />} label="Status" />
-    </div>
-            
-    
-                
-              </div>
-    
-              <div >
-             
-              
-            
-              
+    />} label="Status" /> 
+
+  {custnameFieldWidget}
+
+          <div className="row">
+            <div className="col-4">
+           
+            </div>
+            <div className="col-4">
+            <button
+                        type="submit"
+                        className="btn btn-primary"
+                        onClick={handleSubmit} >
+                          Save data
+                      </button>
+            </div>
+            <div className="col-4">
+            </div>
+           
+          
           </div>
-    
-          <div>
-          
-    
-        </div>              
-     
-    
-      </div>
-      <div>
-          
-    </div>
-          
-        </Box> 
-        <hr></hr>    
-                      </div>
-                  </div>
-              </div>  
+            
+           
+          </div>
+         
+        </Box>
     {/*                        
           <br></br>
           <br></br>

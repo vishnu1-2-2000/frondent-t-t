@@ -1,89 +1,61 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from 'react'
 import axios from "axios";
-import { DataGrid, GridColDef, GridValueGetterParams } from '@material-ui/data-grid';
-import { Box,useTheme  } from "@mui/material";
+import { useNavigate } from "react-router";
 
-function TaskTable() {
+const TaskTable = () => {
+  const [history,setHistory]=useState([]);
+  
+  let optionsnew=[];
+  let historyDivelements;
 
-                    const[Data,setData] = useState([])
-                    const [userDataRows, setUserDataRows] = useState([]);
-                  
+  function getHistory(){
+    axios.get(window.url+"/accounts/history/")
+    .then((res)=>{
+      var i=0
+      res.data.map((data2)=>{
+      // alert(data2)
+        var len=res.data.length
+        if(len>10){
+          if(i<10){
+            historyDivelements=<span>{historyDivelements}{`\u29BF`+"  "+data2.description}<br></br></span>
+            //  alert(historyDivelements)
+          }
+        }
+          else{
+            historyDivelements=<span>{historyDivelements}{`\u29BF`+"  "+data2.description}<br></br></span>
+          }
+          i=i+1
+       
+        setHistory(historyDivelements)
+      })
+    })
+  }
 
-                    const[table,setTable]=useState();
 
-                    let userDataColumns = [
-                                        { field: 'id', headerName: 'Id', width:100 },
-                                        // { field: 'modelname',headerName: 'Model Name', width: 180,headerClassName: "MuiDataGrid-columnHeaders", },
-                                        // { field: 'donedatetime', headerName: 'doneDateTime', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
-                                        {field: 'description', headerName: 'description', width: 400,headerClassName: "MuiDataGrid-columnHeaders",}
-                                        ]
 
-                                        function createRows(rowDatas) {
-                                                            //alert(rowDatas.length);
-                                                        
-                                                            // let editButton = <button></button>;  
-                                                        
-                                                            rowDatas.map(rowData => {
-                                                              //alert(rowData.id);
-                                                              setUserDataRows( userDataRows => [
-                                                                ...userDataRows,
-                                                                {'id':rowData.id, 
-                                                                'description':rowData.description
-                                                                // 'modelname':rowData.modelname,'donedatetime':rowData.donedatetime,
-                                                                },
-                                                              ]);
-                                                        
-                                                            })
-                                                          }
-                                                          function getData() {
-                                                            //alert("anu");
-                                                            axios
-                                                              .get("http://localhost:8000//accounts/history/",
-                                                                
-                                                                {
-                                                                  'param': 'anu' 
-                                                                }
-                                                              )
-                                                              .then((res) => {
-                                                           
-                                                                //alert(res.data.length);
-                                                                setData(res.data);
-                                                                createRows(res.data);
-                                                              });
-                                                          } 
-                                                          
-                                                          useEffect(() => {
-                                                            //console.log('i fire once');
-                                                  getData();
-                                                  // getProduct();
-                                                  // getProductionorder();
-                                                  // getCustomers();
-                                                  // getStock();
-                                                            //alert("anu");
-                                            }, []);
+
+  useEffect(() => {
+    getHistory();
+
+  }, []);
+
   return (
-    <div>
-      <div class="card shadow mb-2" id ="tablecard">
-    <Box sx={{ height: 350, width: '94%', }} id="tablebox" >
-      <h2>Tasks</h2>
-      <DataGrid 
-        rows={userDataRows}
-        columns={userDataColumns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      />
-    </Box>
-    </div> 
-    </div>
+    <div class="productionOrderReportResultTableDIVouter" style={{backgroundColor:"lightskyblue"}}>
+      <div className="productionOrderReportResultTableDIV" style={{backgroundColor:"lightskyblue"}}>
+        <table class="productionOrderReportResultTable" id="productionOrderReportResultTableID">
+          <tr>
+            {/* <th class="productionOrderReportResultTH">Event:</th> */}
+            <th class="productionOrderReportResultTH" style={{backgroundColor:"lightskyblue"}} >Task</th>
+          </tr>
+          <tr>
+            {/* <th class="productionOrderReportResultTH">Event:</th> */}
+            <td class="productionOrderReportResultTH">{history}</td>
+          </tr>
+        </table>
+      </div>
+    </div>            
   )
 }
 
-export default TaskTable
+export default TaskTable;
+

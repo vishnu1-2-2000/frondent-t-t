@@ -30,22 +30,24 @@ function TracelinkSetting() {
   const[sftp_username,setSftpusername]=useState("");
   const[file_receiver,setfilereceiver]=useState("");
                  
-  const [showPassword, setShowPassword] = React.useState(false);              
+  const [showPassword, setShowPassword] = React.useState(false);    
+  const [showPassword1, setShowPassword1] = React.useState(false);           
                     //   For navigate function
   const navigate = useNavigate();
           ////    for receiving the parameters from URL
   const { operation } = useParams();
   const {uniqueID} =useParams();
-  var username = window.localStorage.getItem('username')
-  var password = window.localStorage.getItem('password')
+
   var currentUserrole = window.localStorage.getItem('userrole')
-                 
+  var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+
+  var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')              
                  
 
   function getTracelinkEditdata(){
        
         axios
-            .get("http://127.0.0.1:8000/master/tracelink/"+uniqueID+"/")
+            .get(window.url+"/master/tracelink/"+uniqueID+"/")
                 .then((res)=>{
                   // alert(res.data[0].file_sender)
                     setFilesender(res.data[0].file_sender);
@@ -74,35 +76,32 @@ function TracelinkSetting() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+  const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
+
+  const handleMouseDownPassword1 = (event) => {
+    event.preventDefault();
+  };
+     
                    //if(operation=='new'){
       // if(operation === 'new') {
         var headwidget=
-        <Box
-            component="form"
-            sx={{
-              width: 500,
-              maxWidth: '100%',
-              
-              
-            }}
-            noValidate
-            autoComplete="off"
-      ><Controls.Input 
+        
+        <Controls.Input 
         disabled
         // fullWidth
         
               id="outlined-Company Prefix"
-              label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">            Enter Company Tracelink Details </font></h4></pre></h4>}
+              // label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">            Enter Company Tracelink Details </font></h4></pre></h4>}
              
-       
+       value={loggedInUsername}
      />
-     </Box>
+    
         
    
 
   var titlewidget= <TextField required
-  id="outlined-title"
-  label="Title"
+                    id="outlined-title"
+                    label="Title"
                
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -161,20 +160,20 @@ function TracelinkSetting() {
                           </InputAdornment>
                         )
                       }}
-                          />
+                    />
                  
-  var filesenderwidget =<TextField required 
-                       id="outlined-filesender"
-                       label="File Sender"
-                        value={file_sender}
-                        onChange={(e)=> setFilesender(e.target.value)}
+  var filesenderwidget = <TextField required 
+                            id="outlined-filesender"
+                            label="File Sender"
+                            value={file_sender}
+                            onChange={(e)=> setFilesender(e.target.value)}
                         />
                  
                  
   var sendingsystemwidget =<TextField required
                             
-  id="outlined-sendingsystem"
-  label="Sending System"
+                            id="outlined-sendingsystem"
+                            label="Sending System"
                             value={sending_system}
                             onChange={(e)=> setsendingsystem(e.target.value)}
                           />
@@ -188,7 +187,7 @@ function TracelinkSetting() {
                         InputLabelProps={{
                           shrink: true,
                         }}
-                  type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+                  type={showPassword1 ? "text" : "password"} // <-- This is where the magic happens
                   // value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   InputProps={{ // <-- This is where the toggle button is added.
@@ -196,10 +195,10 @@ function TracelinkSetting() {
                       <InputAdornment position="end">
                         <IconButton
                           aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
+                          onClick={handleClickShowPassword1}
+                          onMouseDown={handleMouseDownPassword1}
                         >
-                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                          {showPassword1 ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
                     )
@@ -227,7 +226,7 @@ function TracelinkSetting() {
                  
   var filereceiverwidget =<TextField required
                             id="outlined-filereceiver"
-label="File Receiver"
+                            label="File Receiver"
                             value={file_receiver}
                             onChange={(e)=> setfilereceiver(e.target.value)}
                           />
@@ -242,7 +241,7 @@ label="File Receiver"
                   // alert(siteid)            // alert(company_name)
         axios
          
-            .put(`http://127.0.0.1:8000/master/tracelink/update/${uniqueID}`, 
+            .put(window.url+`/master/tracelink/update/${uniqueID}`, 
                                                    
                  {
                       "title":title,  
@@ -271,96 +270,71 @@ label="File Receiver"
                                  
   return (
             <>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-    <div class="container-fluid">
-              <div class="card shadow mb-4" id="companytracelinkfullcard"> 
-                  <div class="card-header py-3" id="customercardhead">
-                      <div className='row'>
-                          <div className='col-10' id="companytracelinkcardhead">
-                          {headwidget}
-                          </div>
-                      </div>
-                                                      
-                  </div>
+  <br/><br/><br/><br/><br/>
 
-                  <div class="card-body">  
-                  <br></br>
-    <br></br>
-    
-    {/* <div id="locationhead">
-    {headwidget}
-    </div>
-    <br></br> */}
-    
-    <Box id="customerbox"
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <br></br>
-      <div>
-          {/* {warningmessage} */}
-         
-          {titlewidget}
-
-          {urlwidget}
-
-          {usernamewidget}
-  
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button onClick={handleSubmit}><MdOutlineSave size={38}/>
-                                                      
-            </button>
-          <div>
-
+      
         
-          {siteidwidget}
-           
-          {sftpportwidget}
-
-          {sftppasswordwidget}
-        
-            
-          </div>
-
-          <div >
-          {filesenderwidget}
-          {sendingsystemwidget}
-        
-          {passwordwidget}
-       
-        
-          
-      </div>
-
-      <div>
-      {sftphostwidget}
-      {sftpusernamewidget}
-      {filereceiverwidget}
-    
-
-    </div>              
+<Box
+  component="form"
+  sx={{
+    '& .MuiTextField-root': { m: 4, width: '25' },
+  }}
+  noValidate
+  autoComplete="off"
+>
    
+  <div style={{backgroundColor:"#AAF0D1"}} >
+  <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add Company Tracelink Settings </font></h4></center></h4>            
+  {titlewidget}
 
+  {urlwidget}
+
+  {usernamewidget}
+
+  {siteidwidget}
+
+   
+  
+  <br/>
+  
+
+  {sftpportwidget}
+
+{headwidget}
+
+{filesenderwidget}
+<br/>
+{sendingsystemwidget}
+
+{sftphostwidget}
+{sftpusernamewidget}<br/>
+{filereceiverwidget}
+{ sftppasswordwidget}
+{passwordwidget}
+
+
+  <div className="row">
+    <div className="col-4">
+   
+    </div>
+    <div className="col-4">
+    <button
+                type="submit"
+                className="btn btn-primary"
+                onClick={handleSubmit} >
+                  Save data
+              </button>
+    </div>
+    <div className="col-4">
+    </div>
+   
+  
   </div>
-  <br></br> 
-  <div>
-     
-</div>
-
-    </Box> 
-    <br></br>
-    <hr></hr>    
-                  </div>
-              </div>
-          </div>  
-
+    
+   
+  </div>
+ 
+</Box>
 
                 {/* <br></br>
                 <br></br>

@@ -20,80 +20,63 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
 function ShippingProperties() {
-                    const [id,setId]=useState("");
-                    const [exempted_from_barcoding,setExempted_Barcode]=useState("");
-                    const [exemption_notification_and_date,setExemted_notification]=useState("");
-                    const [sold_to,setSoldto]=useState("");
-                    const [advance_ship_notice,setAdvanceShip]=useState("");
-                    const [shippoEditID,setShippoEditID]=useState("");
-                    const [batch_for_export,setBatchforExport]=useState("");
+  const [id,setId]=useState("");
+  const [exempted_from_barcoding,setExempted_Barcode]=useState("");
+  const [exemption_notification_and_date,setExemted_notification]=useState("");
+  const [sold_to,setSoldto]=useState("");
+  const [advance_ship_notice,setAdvanceShip]=useState("");
+  const [shippoEditID,setShippoEditID]=useState("");
+  const [batch_for_export,setBatchforExport]=useState("");
                   
                   
-                   
-                    
+  const { operation } = useParams();
+  const {uniqueID} =useParams();
+  var loggedInUsername=window.localStorage.getItem('loggedInUsername')
+  var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
                   
                   
-                    const { operation } = useParams();
-                    const {uniqueID} =useParams();
-                    var loggedInUsername=window.localStorage.getItem('loggedInUsername')
-                    var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
+  function getShippoEditRequestData() {
                   
-                  
-                    function getShippoEditRequestData() {
-                  
-                     axios
-                      .get("http://127.0.0.1:8000/master/shippoproperty/"+uniqueID+"/",
+    axios
+        .get(window.url+"/master/shippoproperty/"+uniqueID+"/",
                       
-                      )
-                      .then((res)=>{
+            )
+              .then((res)=>{
                   
-                        setId(res.data[0].id);
+                  setId(res.data[0].id);
                       
-                        setBatchforExport(res.data[0].batch_for_export);
-                        setExemted_notification(res.data[0].exemption_notification_and_date);
+                  setBatchforExport(res.data[0].batch_for_export);
+                  setExemted_notification(res.data[0].exemption_notification_and_date);
                         
-                        setAdvanceShip(res.data[0].advance_ship_notice);
-                        setExempted_Barcode(res.data[0].exempted_from_barcoding);
+                  setAdvanceShip(res.data[0].advance_ship_notice);
+                  setExempted_Barcode(res.data[0].exempted_from_barcoding);
                         
-                        setSoldto(res.data[0].sold_to);
-                        
+                  setSoldto(res.data[0].sold_to);
+              })
+            } 
                   
-                  
-                  
-                  
-                      })
-                     
+  const navigate = useNavigate();
+
+        useEffect(() => {
                       
-                    } 
+                    getShippoEditRequestData(); 
+                }, []);
                   
-                    const navigate = useNavigate();
-                    useEffect(() => {
-                      
-                      getShippoEditRequestData(); 
-                    }, []);
-                  
-                    var headwidget=
-          <Box
-            component="form"
-            sx={{
-              width: 500,
-              maxWidth: '100%',
-              
-              
-            }}
-              noValidate
-              autoComplete="off"
-          ><Controls.Input 
+  var headwidget=
+    
+            <Controls.Input 
             disabled
-            fullWidth
+            // fullWidth
             
             id="outlined-Company Prefix"
-            label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                Enter Shipping Order Propertys</font> </h4></pre></h4>}
+            value={loggedInUsername}
+            //label={<h4 ><pre><h4 style={{color:"white"}}><font face="times new roman" size="6">                Enter Shipping Order Propertys</font> </h4></pre></h4>}
           />
-          </Box>
+        
                   
-        var barcodeFieldWidget = 
+  var barcodeFieldWidget = 
                   // <input
                   //           type="text"
                   //           className="form-control form-control-sm"
@@ -172,7 +155,7 @@ function ShippingProperties() {
                         
                         // if(operation === 'new') {
                     axios
-                          .put(`http://127.0.0.1:8000/master/shippoproperty/update/${uniqueID}`, 
+                          .put(window.url+`/master/shippoproperty/update/${uniqueID}`, 
                             // alert(batch_for_export),
                             {
                               "exempted_from_barcoding": exempted_from_barcoding,    
@@ -195,59 +178,61 @@ function ShippingProperties() {
                           }
 return (
   <>                                    
-  <br></br>
-  <br></br>
-   
-   <div class="container-fluid">
-             <div class="card shadow mb-4" id="customerfullcard"> 
-                 <div class="card-header py-3" id="customercardhead">
-                     <div className='row'>
-                         <div className='col-10' id="locationhead">
-                         {headwidget}
-                         </div>
-                     </div>
-                                                     
-                 </div>
-
-                 <div class="card-body">  
-                 <br></br>
-   
-  <Box 
-        component="form"
-        sx={{
-        '& .MuiTextField-root': { m: 2, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-  >
-
-     <div className="container" id="locationpropertybox" >
-        <div className="row">
-           <div className="col-4">
-           {batchforFieldWidget}
+                        
+                        <br/>        <br/>        <br/>   <br/> 
+           {/* {warningmessage}         */}
+        
+    <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 4, width: '25' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+       
+      <div style={{backgroundColor:"#AAF0D1"}} >
+      <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Enter Shipping Order Properties </font></h4></center></h4>            
+        
+      {batchforFieldWidget}
            {barcodeFieldWidget}
-                
-             
-           </div>
-           <div className="col-4">
-           {notificationFieldWidget}
+           {notificationFieldWidget}<br/>
            {soldFieldWidget}
-           </div>
-           <div className="col-2">
+       
+        
            {advanceFieldWidget}
-           </div>
-           <div className="col-4" id="shippingpropertybutton" >
-          
-              <button  onClick={handleSubmit}><MdOutlineSave size={38}/>                                                
-              </button>
-           </div>
+
+       
+      
+        {headwidget}
+      <div className="row">
+        <div className="col-4">
+       
         </div>
-     </div>
- </Box>
- </div>
-             </div>
-         </div>   
-   <hr></hr>  
+        <div className="col-4">
+        <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button>
+        </div>
+        <div className="col-4">
+        </div>
+        {/* <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmit} >
+                      Save data
+                  </button> */}
+       
+      
+      </div>
+        
+       
+      </div>
+     
+    </Box> 
             
 </>
                   

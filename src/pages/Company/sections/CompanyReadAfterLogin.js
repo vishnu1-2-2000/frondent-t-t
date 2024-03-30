@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react';
 // import Sidebar from '../../Common/Sidebar';
 // import Header from '../../Common/Header';
 // import Footer from '../../Common/Footer';
+import Sidebar from '../../../components/Sidnav/Sidebar';
 import axios from "axios";
 import CompanyDataGrid from './CompanyDataGrid';
 // import { Alert } from 'react-bootstrap';
-
+import { Box, Button, TextField } from "@mui/material";
 function CompanyReadAfterLogin() {
   const loadingSection = <div class="container-fluid">
                     <div class="card shadow mb-4"> 
@@ -22,7 +23,7 @@ function CompanyReadAfterLogin() {
           
   const [selectedDIV_state, setSelectedDIV_state] = useState(loadingSection);
                 
-  const notAuthorizedSection = <div class="container-fluid">
+  const notAuthorizedSection = <div class="container-fluid" id="companypermission">
                         <div class="card shadow mb-4"> 
                             <div class="card-body">  
                               
@@ -36,7 +37,7 @@ function CompanyReadAfterLogin() {
   function checkAuthorization() 
         {
             axios
-                .get("http://localhost:8000/accounts/userrolePermissionsRead")
+                .get(window.url+"/accounts/userrolePermissionsRead")
                 .then((res) => {
                   var authorized = false;
                   //  alert("haiii")
@@ -120,7 +121,8 @@ function CompanyReadAfterLogin() {
              
               return (
                   <div id="wrapper">
-                           
+                       <Box sx={{ display: 'flex' }}>
+                              
                       <div id="content-wrapper" class="d-flex flex-column">
                           <div id="content">
                               {/* <Header></Header>   */}
@@ -130,7 +132,7 @@ function CompanyReadAfterLogin() {
                           {/* </Sidebar>Footer></Footer> */}
           
                       </div>
-                   
+                   </Box>
               </div>
             )
 }

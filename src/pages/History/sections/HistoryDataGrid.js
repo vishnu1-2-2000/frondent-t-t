@@ -15,37 +15,37 @@ import { DataGrid, GridToolbar, GridApi, GridCellValue, GridToolbarContainer, Gr
 GridToolbarFilterButton, GridToolbarDensitySelector, GridToolbarExport } from '@material-ui/data-grid';
 
 const HistoryDataGrid=(props)=> {
-                    const theme = useTheme();
-                    const colors = tokens(theme.palette.mode);
-                    const [data, setData] = useState([]);
-                    const [tabledark, setTableDark] = useState("");
+const theme = useTheme();
+const colors = tokens(theme.palette.mode);
+const [data, setData] = useState([]);
+const [tabledark, setTableDark] = useState("");
 
-                    const [DataGri,setDataGri]=useState();
+const [DataGri,setDataGri]=useState();
                   
-                    const [userDataRows, setUserDataRows] = useState([]);
+const [userDataRows, setUserDataRows] = useState([]);
                   
                     ///   For navigate function
-                    const navigate = useNavigate();
+const navigate = useNavigate();
                   
-                    function logout() {
+  function logout() {
                       window.localStorage.removeItem("username");
                       window.localStorage.removeItem("password");
                   
-                      navigate("/account/login");
-                    }
+                    navigate("/account/login");
+                }
                   
                   
                  
                 
-                    let userDataColumns = [
-                                        { field: 'id', headerName: 'Id', width:90,headerClassName: "MuiDataGrid-columnHeaders", },
-                                        { field: 'modelname',headerName: 'Model Name', width: 160,headerClassName: "MuiDataGrid-columnHeaders", },
-                                        { field: 'savedid', headerName: 'savedID ', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
-                                        { field: 'operationdone', headerName: 'operationDone', width: 240,headerClassName: "MuiDataGrid-columnHeaders", },
-                                        { field: 'donebyuser', headerName: 'doneByUser', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
-                                        { field: 'donebyuserrole', headerName: 'doneByUserRole', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
-                                        { field: 'donedatetime', headerName: 'doneDateTime', width: 160,headerClassName: "MuiDataGrid-columnHeaders", },
-                                        { field: 'donebyemployeeid', headerName: 'donebyemployeeid', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
+  let userDataColumns = [
+                          { field: 'id', headerName: 'Id', width:90,headerClassName: "MuiDataGrid-columnHeaders", },
+                          { field: 'modelname',headerName: 'Model Name', width: 160,headerClassName: "MuiDataGrid-columnHeaders", },
+                          { field: 'savedid', headerName: 'savedID ', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
+                          { field: 'operationdone', headerName: 'operationDone', width: 240,headerClassName: "MuiDataGrid-columnHeaders", },
+                          { field: 'donebyuser', headerName: 'doneByUser', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
+                          { field: 'donebyuserrole', headerName: 'doneByUserRole', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
+                          { field: 'donedatetime', headerName: 'doneDateTime', width: 160,headerClassName: "MuiDataGrid-columnHeaders", },
+                          { field: 'donebyemployeeid', headerName: 'donebyemployeeid', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
                       // {
                       //   field: 'edit',
                       //   headerName: 'Edit',
@@ -93,24 +93,24 @@ const HistoryDataGrid=(props)=> {
                       //     }
                       //   },
                       // },
-                      {                             
-                                        field: 'delete',
-                                        headerName: 'Delete',
-                                        headerClassName: "MuiDataGrid-columnHeaders",
+            {                             
+                field: 'delete',
+                headerName: 'Delete',
+                headerClassName: "MuiDataGrid-columnHeaders",
                                                                              
-                                            sortable: false,
-                                                    renderCell: (params) => {
-                                                            const onClick = (e) => {
-                                                                   e.stopPropagation(); // don't select this row after clicking
+                sortable: false,
+                renderCell: (params) => {
+                const onClick = (e) => {
+                                        e.stopPropagation(); // don't select this row after clicking
                                                                           
-                                                                   const api: GridApi = params.api;
-                                                                    const thisRow: Record<string, GridCellValue> = {};
-                                                                              api
-                                                          .getAllColumns()
-                                                          .filter((c)=>c.field!=='__check__'&&!!c)
-                                                          .forEach(
-                                                                 (c)=>(thisRow[c.field]=params.getValue(params.id,c.field)),
-                                                          );
+                                        const api: GridApi = params.api;
+                                        const thisRow: Record<string, GridCellValue> = {};
+                                          api
+                                                .getAllColumns()
+                                                .filter((c)=>c.field!=='__check__'&&!!c)
+                                                .forEach(
+                                                (c)=>(thisRow[c.field]=params.getValue(params.id,c.field)),
+                                );
                                                                         
                                                                                 //   api
                                                                                 //     .getAllColumns()
@@ -122,42 +122,42 @@ const HistoryDataGrid=(props)=> {
                                                                             
                                                                                   //return alert(JSON.stringify(thisRow, null, 4));
                                                                         
-                                                          const confirmBox = window.confirm(
-                                                                              "Do you really want to delete this user?"
-                                                                              )
-                                                    if (confirmBox === true) {
-                                                          axios
-                                                          .delete(`http://localhost:8000//accounts/history/delete/${thisRow.id}`,
+                    const confirmBox = window.confirm(
+                                                        "Do you really want to delete this user?"
+                                                      )
+                    if (confirmBox === true) {
+                                                axios
+                                                .delete(window.url+`/accounts/history/trash/${thisRow.id}`,
                                                           {
                                                           data: { 
-                                                            "Name" : thisRow.name,
+                                                            "savedid" : thisRow.savedid,
                                                           "email" : thisRow.email,
                                                           "userRole" : thisRow.userRole,
                                                           "loggedInUsername": window.localStorage.getItem('loggedInUsername'),
                                                           "loggedInUserrole": window.localStorage.getItem('loggedInUserrole')
                                                           }
-                                                          })
-                                                          .then(() => {
-                                                          getData();
+                                  })
+                                    .then(() => {
+                                                  getData();
                                                           //alert("anju");
                                                           //navigate("/account/read");
-                                                          window.location.reload();
-                                                          });
-                                                          }
+                                                      window.location.reload();
+                                                });
+                                            }
                                                                                   
                                                                         
-                                                 };
-                                          const api2: GridApi = params.api;
-                                          const thisRow2: Record<string, GridCellValue> = {};
-                                                api2
-                                                .getAllColumns()
-                                                .filter((c)=>c.field!=='__check__'&&!!c)
-                                                .forEach(
-                                                  (c)=>(thisRow2[c.field]=params.getValue(params.id,c.field)),
-                                                );
+                                    };
+                          const api2: GridApi = params.api;
+                          const thisRow2: Record<string, GridCellValue> = {};
+                              api2
+                                    .getAllColumns()
+                                    .filter((c)=>c.field!=='__check__'&&!!c)
+                                    .forEach(
+                                              (c)=>(thisRow2[c.field]=params.getValue(params.id,c.field)),
+                                          );
                                         
-                                              if(props.deleteButtonStatus === "enabled" ) {
-                                                return <button
+                                        if(props.deleteButtonStatus === "enabled" ) {
+                                          return <button
                                                   className="btn btn-danger" 
                                                   onClick={onClick}><MdIcons.MdDelete size={23}/></button>;
                                               }
@@ -167,37 +167,32 @@ const HistoryDataGrid=(props)=> {
                                                   disabled = "true"
                                                   onClick={onClick}><MdIcons.MdDelete size={23}/></button>;
                                               }
-                                                              },
-                                                            },
+                                          },
+                                    },
                     ];  
                   
                   
-                    function createRows(rowDatas) {
+      function createRows(rowDatas) {
                       //alert(rowDatas.length);
             
 
 
 
-                      let tempArrayFunction = [];
-                      
-                      
-                      
-                      
-                      
-                      
-                    let editButton = <button></button>;  
+                  let tempArrayFunction = [];
+                  let editButton = <button></button>;  
                   
                     rowDatas.map(rowData => {
 
-
-                                        tempArrayFunction.push({'id':rowData.id,'modelname':rowData.modelname,
-                                                                  'savedid':rowData.savedid,
+                      if(rowData.historyflag===false){
+                    tempArrayFunction.push({'id':rowData.id,'modelname':rowData.modelname,
+                                                'savedid':rowData.savedid,
                                                 'operationdone':rowData.operationdone,
                                                 'donebyuser':rowData.donebyuser,
                                                 'donebyuserrole':rowData.donebyuserrole ,
                                                 'donedatetime':rowData.donedatetime,
                                                 'description':rowData.description,
-                                              'donebyemployeeid':rowData.donebyemployeeid})
+                                                'donebyemployeeid':rowData.donebyemployeeid
+                                              })
                         //alert(rowData.id);
 //                         setUserDataRows( userDataRows => [
 //                           ...userDataRows,
@@ -211,9 +206,9 @@ const HistoryDataGrid=(props)=> {
         
 //       },
 //                         ]);
-                  
+                                            }
                       })
-                    setDataGri(<div class="container-fluid" id="historycard">
+          setDataGri(<div  id="historycard">
                     <div class="card shadow mb-4"> 
                         <div class="card-header py-3">
                             <h2 class="m-0 font-weight-bold text-success">AuditLog</h2>                         
@@ -221,7 +216,7 @@ const HistoryDataGrid=(props)=> {
             
                         
                         <div class="card-body">  
-                            <div className="prr" style={{ height: 650, width: '102%',height:600}} >
+                            <div className="prr" style={{ height: 650, width: '100%',height:600}} >
                                 <DataGrid rows={tempArrayFunction} columns={userDataColumns} pageSize={10} components={{ Toolbar: CustomToolbar }}/>
                             </div>
                         </div>
@@ -230,112 +225,104 @@ const HistoryDataGrid=(props)=> {
                      
                     }
                   
-function getData() {
+  function getData() {
                     //   alert("anu");
-                    axios
-                        .get("http://localhost:8000//accounts/history/",
+    axios
+      .get(window.url+"/accounts/history/",
                           
-                        )
-                        .then((res) => {
+    )
+    .then((res) => {
                     //       alert(res.data.length);
-                          setData(res.data);
-                          createRows(res.data);
-                        });
-                    }
+      setData(res.data);
+      createRows(res.data);
+    });
+  }
                   
                   
                     // const navigateToCreatePage = () => {
                     //   navigate("/audit/auditcreate/new");
                     // };
                   
-                    useEffect(() => {
+    useEffect(() => {
                       //console.log('i fire once');
                      
-                    getData();
+      getData();
                     
                       
                       //alert("anu");
-                    }, []);
+    }, []);
                     
-function CustomToolbar() {
-                    return (
-                        <GridToolbarContainer>
-                           &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                          <GridToolbarColumnsButton />
-                          &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                          <GridToolbarFilterButton />
-                          &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                          <GridToolbarDensitySelector />
-                          &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                          <GridToolbarExport />
-                          &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                        </GridToolbarContainer>
-                      );
-                    }  
+  function CustomToolbar() {
+
+    return (
+      <GridToolbarContainer>
+        &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+      <GridToolbarColumnsButton />
+        &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+      <GridToolbarFilterButton />
+        &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+      <GridToolbarDensitySelector />
+        &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+      <GridToolbarExport />
+        &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+      </GridToolbarContainer>
+   );
+  }  
                   
-                    return (
-                      <>
+  return (
+    <>
                  
-                  <Box sx={{ display: 'flex' }}> 
-          
-          <Sidebar/>
-       
-           
-           <Box component="main" sx={{ flexGrow: 3, p: 7 }}>
-                       
-                     
-                        <div style={{ height: 700, width:"240%" }} id="history">
-                          
-                          
-                         <Box m="20px">
-    <Box display="flex" justifyContent="space-between" alignItems="center">
-     
-    </Box>
-   
-    <Box
-      m="8px 0 0 0"
-      width="100%"
-      height="80vh"
-      sx={{
-        "& .MuiDataGrid-root": {
-          border: "none",
-        },
-        "& .MuiDataGrid-cell": {
-          borderBottom: "none",
-        },
-        "& .name-column--cell": {
-          color: colors.greenAccent[300],
-        },
-       
-        "& .MuiDataGrid-columnHeaders": {
-          backgroundColor: colors.greenAccent[700],
-          borderBottom: "none",
-        },
-        "& .MuiDataGrid-virtualScroller": {
-          backgroundColor: colors.primary[400],
-        },
-        "& .MuiDataGrid-footerContainer": {
-          borderTop: "none",
-          backgroundColor: colors.greenAccent[700],
-        },
-        "& .MuiCheckbox-root": {
-          color: `${colors.greenAccent[200]} !important`,
-        },
-        "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-          color: `${colors.grey[100]} !important`,
-        },
-      }}
-    >
-      {DataGri}
-      
-      </Box>
-  </Box>
+    <Box sx={{ display: 'flex' }}>    
+      <Sidebar/>     
+      <Box component="main" sx={{ flexGrow: 3, p: 7 }}>              
+        <div style={{ height: 700, width:"240%" }} id="history">              
+          <Box m="20px">
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+            </Box>
+            <Box
+              m="8px 0 0 0"
+              width="100%"
+              height="80vh"
+              sx={{
+                "& .MuiDataGrid-root": {
+                  border: "none",
+                },
+                "& .MuiDataGrid-cell": {
+                  borderBottom: "none",
+                },
+                "& .name-column--cell": {
+                  color: colors.greenAccent[300],
+                },
+              
+                "& .MuiDataGrid-columnHeaders": {
+                  backgroundColor: colors.greenAccent[700],
+                  borderBottom: "none",
+                },
+                "& .MuiDataGrid-virtualScroller": {
+                  backgroundColor: colors.primary[400],
+                },
+                "& .MuiDataGrid-footerContainer": {
+                  borderTop: "none",
+                  backgroundColor: colors.greenAccent[700],
+                },
+                "& .MuiCheckbox-root": {
+                  color: `${colors.greenAccent[200]} !important`,
+                },
+                "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                  color: `${colors.grey[100]} !important`,
+                },
+              }}
+            >
+              {DataGri}
+              
+            </Box>
+          </Box>
                          
-                        </div>
-                  </Box>
-                  </Box>
-                      </>
-                    );
+        </div>
+      </Box>
+    </Box>
+  </>
+  );
 }
 
 export default HistoryDataGrid

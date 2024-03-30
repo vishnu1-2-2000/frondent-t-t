@@ -7,34 +7,34 @@ import CompanyCreateAfterLogin from "./sections/CompanyCreateAfterLogin";
 import Loading from "../../components/Common/Loading"
 import { Box } from "@mui/material";
 function CompanyCreate() {
-                    const navigate = useNavigate(); 
+  const navigate = useNavigate(); 
 
-                    const [selectedDIV_state, setSelectedDIV_state] = useState(<Loading/>);
+  const [selectedDIV_state, setSelectedDIV_state] = useState(<Loading/>);
                   
-                    useEffect(() => {
+    useEffect(() => {
                       if(window.localStorage.getItem('loggedInUsername') != null) {
                         setSelectedDIV_state(<CompanyCreateAfterLogin/>);
                       }
                       else {
                           navigate("/");
                       }
-                    }, []);
+              }, []);
                   
-                    return (
-                      <>
+  return (
+          <>
                     
-                    <Box sx={{ display: 'flex' }}> 
+            <Box sx={{ display: 'flex' }}> 
 
                             
 
  
                   <Box component="main" sx={{ flexGrow: 3, p: 7 }}>
-                {selectedDIV_state}
-                    </Box>
-                    </Box>
-                      </>
+                      {selectedDIV_state}
+                  </Box>
+                  </Box>
+          </>
                       
-                    );
+      );
 }
 
 export default CompanyCreate

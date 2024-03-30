@@ -13,21 +13,21 @@ import ProductPropertyEdit from './ProductPropertyEdit';
 
 
 function ProductPropertyAfterLogin() {
-                    const [selectedDIV_state,setSelectedDIV_state]=useState(<Loading/>);
-                    const notAuthorizedSection = <div class="container-fluid">
-                    <div class="card shadow mb-4"> 
-                        <div class="card-body">  
+    const [selectedDIV_state,setSelectedDIV_state]=useState(<Loading/>);
+    const notAuthorizedSection = <div class="container-fluid">
+            <div class="card shadow mb-4"> 
+                <div class="card-body">  
                           
-                          <div class="text-primary text-center">
-                            <img src='/img/forbidden.jpg'/>
+                    <div class="text-primary text-center">
+                        <img src='/img/forbidden.jpg'/>
                           </div>
                         </div>
                     </div>
                   </div>
-                function checkAuthorization()
-                {
-                    axios
-                    .get("http://localhost:8000/accounts/userrolePermissionsRead")
+    function checkAuthorization()
+        {
+            axios
+                    .get(window.url+"/accounts/userrolePermissionsRead")
                     .then((res)=>{
                         res.data.forEach(element=>{
                             if(element['activity_name'] === 'product') {
@@ -57,13 +57,13 @@ function ProductPropertyAfterLogin() {
                         });
                     });
                 }
-                useEffect(()=>{
-                checkAuthorization();
-                },[]);
+        useEffect(()=>{
+            checkAuthorization();
+        },[]);
                               
   return (
-                    <div id="wrapper">
-                    <Box sx={{ display: 'flex' }}>
+            <div id="wrapper">
+                <Box sx={{ display: 'flex' }}>
                       <br></br>
             {/* <Navbar />  */}
             <Sidebar/>

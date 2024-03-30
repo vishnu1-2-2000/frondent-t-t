@@ -33,7 +33,7 @@ function PrinterDataReadAfterLogin() {
               function checkAuthorization() 
               {
                 axios
-                .get("http://127.0.0.1:8000/accounts/userrolePermissionsRead")
+                .get(window.url+"/accounts/userrolePermissionsRead")
                 .then((res) => {
                   var authorized = false;
                   //  alert("haiii")

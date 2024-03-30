@@ -14,22 +14,23 @@ import NotAuthorizedSection from '../../../components/Common/NotAuthorizedSectio
 
 
 function PrinterDataCreateAfterLogin() {
-                    const [selectedDIV_state,setSelectedDIV_state]=useState(<Loading/>);
-                    const { operation } = useParams();
-                    const { uniqueID } = useParams();
-                    const notAuthorizedSection = <div class="container-fluid" id="notauthprinterpool">
-                    <div class="card shadow mb-4"> 
-                        <div class="card-body">  
+  const [selectedDIV_state,setSelectedDIV_state]=useState(<Loading/>);
+  const { operation } = useParams();
+  const { uniqueID } = useParams();
+  const notAuthorizedSection = <div class="container-fluid" id="notauthprinterpool">
+    <div class="card shadow mb-4"> 
+        <div class="card-body">  
                           
-                          <div class="text-primary text-center">
-                            <img src='/img/forbidden.jpg'/>
-                          </div>
+            <div class="text-primary text-center">
+                <img src='/img/forbidden.jpg'/>
                         </div>
+                      </div>
                     </div>
                   </div>
-                function checkAuthorization() {
+                  
+  function checkAuthorization() {
                     axios
-                    .get("http://127.0.0.1:8000/accounts/userrolePermissionsRead")
+                    .get(window.url+"/accounts/userrolePermissionsRead")
                     .then((res) => {
                       var authorized = false;
                       // alert("haiii")
@@ -74,11 +75,11 @@ function PrinterDataCreateAfterLogin() {
                       }
                     }
                   })
-                    });
-                  }
-                useEffect(()=>{
+                });
+              }
+    useEffect(()=>{
                 checkAuthorization();
-                },[]);
+            },[]);
                 
     return(
       <div id="wrapper">
