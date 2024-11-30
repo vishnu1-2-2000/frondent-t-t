@@ -360,7 +360,7 @@ function getProcessOrderNumberData() {
   axios
   .get(window.url+"/sapapp/sapproductionorder/"+processOrderNumber+"/",
     {
-      
+       
     },
     {
       'param': 'vbc' 
@@ -1013,7 +1013,7 @@ if(testPassed == "true") {
       })
 
       .then((res) => {
-        //alert(res.data.process_order_number);
+        alert(res.data.process_order_number);
         if(res.data.process_order_number == "production order with this process order number already exists."){
           warningDIV =  <div className="alert alert-danger pt-4" role="alert">
                             <h5>Process order already downloaded, try another process order</h5>
@@ -1021,11 +1021,50 @@ if(testPassed == "true") {
 
             setWaringmessage(warningDIV)                         
         }
+        else if(res.data.batch_number == "production order with this batch number already exists."){
+          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                            <h5>Batch Number already downloaded, try another Batch Number</h5>
+                          </div>
+
+            setWaringmessage(warningDIV)                         
+        }
+        
 
         else{
         navigate("/productionorder");
         }
       });
+
+      axios
+  
+      .post(window.url+"/master/ProdOrderReport/",
+
+    {
+      "process_order_number":processOrderNumber,
+      "batch_number": batch,
+      "gtin":gtin,
+      "expiration_date" :expiration_date,
+      "numbers":0,   
+      "type" :type,
+      "ip_address":line,
+      "product_name":prodforegin,
+      "manufacture_loc_name":manufactureforegin,
+      "accepted":0,
+      "specimen":0,
+      "damaged":0,
+     "sample":0,
+      "challenged":0,
+     "teach":0,
+      "inprocess":0,
+      "rejectedbycamera":0,
+     "unused":0,
+     "production_date" :production_date
+
+    })
+
+.then((res2) => {
+})
+    
           
     }
   

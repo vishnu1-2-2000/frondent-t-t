@@ -356,6 +356,7 @@ const CompanyDataGrid=(props)=> {
                             {/* </div> */}
                 
                             {/* <div class="card-body">   */}
+                            
                       <div style={{ height: 700, width: '100%'}} >
                           <DataGrid rows={tempArrayFunction} columns={userDataColumns} pageSize={10} components={{ Toolbar: CustomToolbar }}/>
                       </div>
@@ -402,11 +403,13 @@ const CompanyDataGrid=(props)=> {
     //         };
                   
   useEffect(() => {
+
                       //console.log('i fire once');
+
             
     getData();
                       
-                      //alert("anu");
+               
   }, []);
                     
                   

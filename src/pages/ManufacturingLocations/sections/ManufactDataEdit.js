@@ -205,14 +205,17 @@ function getManufactEditRequestData(){
                               
                               )
                               .then((res) => {
-                                if(res.data===200){
-                              // alert(res.data)
-                                  warningDIV=    <Alert severity="success">This is a success alert — Data Saved Successfully!</Alert>
-                                  setWarningDIVstate(warningDIV);
-                             
-                                  
+                                if(res.data.name == "manufacturing locations with this name already exists."){
+                                  warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                    <h5>This Manufacturing Location already exist,Enter Another One</h5>
+                                                  </div>
+                        
+                        setWarningDIVstate(warningDIV)                         
                                 }
-                                // navigate("/manufacturinglocation");
+                                else
+                                {
+                                   navigate("/manufacturinglocation");
+                                }
                               });
                               // navigate("/manufacturinglocation");
                           }
@@ -227,7 +230,7 @@ function getManufactEditRequestData(){
                         <>
                            
            <br/>        <br/>        <br/>   <br/>         
-        {warningmessage}
+      
     <Box
       component="form"
       sx={{
@@ -236,6 +239,7 @@ function getManufactEditRequestData(){
       noValidate
       autoComplete="off"
     >
+        {warningmessage}
        
       <div style={{backgroundColor:"#AAF0D1"}} >
       <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Edit Manufacturing Location </font></h4></center></h4>            

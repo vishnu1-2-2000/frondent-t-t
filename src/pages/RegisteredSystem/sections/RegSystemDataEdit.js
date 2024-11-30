@@ -349,6 +349,28 @@ function RegSystemDataEdit() {
           
           )
           .then((res) => {
+            alert(res.data)
+            if(res.data.ip_address == "registered system with this ip address already exists."){
+              warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                <h5>Ip Address Already Exist</h5>
+                              </div>
+    
+              setWarningmessage(warningDIV)                         
+            }
+            else if(res.data.line == "registered system with this line already exists."){
+              warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                <h5>Line Already Exist.Enter Another One</h5>
+                              </div>
+    
+              setWarningmessage(warningDIV)                         
+            }
+            else if(res.data.manufacturinglocation_id == "registered system with this manufacturinglocation id already exists."){
+              warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                <h5>Manufacturing Location Already Used.Enter Another One In Manfacturing Location</h5>
+                              </div>
+    
+              setWarningmessage(warningDIV)                         
+            }
             if (res.data === 200){
        
               warningDIV =  <div className="alert alert-success pt-4" role="alert">
@@ -360,6 +382,23 @@ function RegSystemDataEdit() {
             }
             // navigate("/regsystem/regsystemdatagrid");
           });
+
+          axios
+          .put(window.url+`/accounts/loginmodel/update/${regsyEditID}`, 
+          {
+            
+            "loginuname" :"jnhj",
+            "userrole":"ghg",
+            "ip_address":ip_address,
+            "line":line
+       
+            // "createdby":loggedInUsername,
+         
+  
+          },
+          )
+          .then((res) => {
+          })
         }
       };
     }

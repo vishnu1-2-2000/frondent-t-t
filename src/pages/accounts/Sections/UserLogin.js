@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router";
 
+import "../../../pages/accounts/Sections/cssduply.css"
 import { Box, Button, TextField } from "@mui/material";
 
 
@@ -160,6 +161,7 @@ const UserLogin = () => {
     var usernameFieldWidget = <input
           type="text"
           className="form-control"
+          placeholder='Enter Email'
           onChange={(e) => setUsername(e.target.value)}
         /> 
 
@@ -167,63 +169,74 @@ const UserLogin = () => {
           type="password"
           className="form-control"
           aria-describedby="emailHelp"
+          placeholder='Enter Password'
           onChange={(e) => setPassword(e.target.value)}
         />
 
     return(
         <>
-            <div className='head'>
-              <div className='full'>
-            
-            
-              <div class="container-fluid">
-              <div class="card shadow mb-4" id="loginfullcard"> 
-                  <div class="card-header py-3" id="logincardhead">
-                      <div className='row'>
-                          <div className='col-10' id="loginhead">
-                         {headfield}
-                          </div>
-                      </div>
-                                                      
-                  </div>
-
-                  <div class="card-body">  
-            
-                  {warningDIVstate}
-<table class="table table-borderless productionOrderReportSearchTable" id="loginReportSearchTableID"  >
+        <div style={{background: "linear-gradient(90deg,#4c7a73,#1b899f)"}}>
+           <div class="container1">
+   
+   <div class="screen">
+     <div class="screen__content">
+       {/* <form class="login" > */}
+        
+      
+       <br></br><br></br><br></br>
+ 
+    
+      
+<table class="table table-borderless" >
 
 
   
                       <tbody>
-                    
-
-                      <tr>
-                     
-                      <td class="productionOrderReportSearchTD">Email</td>
-                      <td class="productionOrderReportSearchTD">
-                      {usernameFieldWidget}
-                      </td>
-                      
-                      
-                      
-                      </tr>
-                      <tr>
-                      <td class="productionOrderReportSearchTD">Password</td>
+                    <div className='row'>
+                      <div className='col-2'></div>
+                      <div className='col-8'>
+                      {warningDIVstate}
+                        <br/><br/>
+                        <tr>
+                   
+                   {/* <td class="productionOrderReportSearchTD">Email</td> */}
+                   <td class="productionOrderReportSearchTD">
+                   {usernameFieldWidget}
+                   </td>
+               
+                   
+                   
+                   </tr><br/>
+                   <tr>
+                        
+                      {/* <td class="productionOrderReportSearchTD">Password</td> */}
                       <td class="productionOrderReportSearchTD">
                       {passwordFieldWidget}
                       </td>
+                    
                       </tr>
+                      <tr>
+                      <td class="productionOrderReportSearchTD">
+                       
+                                    
+         <button class="button login__submit" onClick={handleSignIn}>
+          Log In Now
+           <i class="button__icon fas fa-chevron-right"></i>
+         </button>  
+                      </td>
+                      </tr>
+                   </div>
+                      <div className='col-2'></div>
+                    </div>
+
+                      
+                      
                       
                       
                       
                      
                       
-                      <tr>
-                      <td class="productionOrderReportSearchTD">
-                       
-                      <button className="btn btn-success" onClick={handleSignIn}>Login</button>
-                      </td>
-                      </tr>
+                      
                       
                       
                       
@@ -231,12 +244,30 @@ const UserLogin = () => {
                       
                       </tbody>
                       </table>
-                      </div>
-                      </div>
-                      </div>
-                      </div>
-                      </div>
-                     
+       
+                      
+                       
+                      
+                      
+                      
+                      
+                 
+                      {/* </table> */}
+        
+        
+          
+       {/* </form> */}
+      
+     </div>
+     <div class="screen__background">
+       <span class="screen__background__shape screen__background__shape4"></span>
+       <span class="screen__background__shape screen__background__shape3"></span>    
+       <span class="screen__background__shape screen__background__shape2"></span>
+       <span class="screen__background__shape screen__background__shape1"></span>
+     </div>    
+   </div>
+ </div>
+ </div>                
         </>
        
     )

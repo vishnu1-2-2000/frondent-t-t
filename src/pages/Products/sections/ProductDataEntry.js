@@ -520,6 +520,21 @@ function selectedCustomername(cusnamefunparam) {
                     setWarningmessage(warningDiv);
 
                   }
+                  else if(res.data.name == "product with this name already exists."){
+                    warningDiv=  <div className="alert alert-danger pt-4" role="alert">
+                                      <h5>Product with this name already configured, try another product</h5>
+                                    </div>
+          
+                    setWarningmessage(warningDiv)                         
+                  }
+                  else if(res.data.imn == "product with this imn already exists."){
+                    warningDiv=  <div className="alert alert-danger pt-4" role="alert">
+                                      <h5>Product with this imn already configured, try another product imn</h5>
+                                    </div>
+          
+                    setWarningmessage(warningDiv)                         
+                  }
+                  
 
                   else {
 

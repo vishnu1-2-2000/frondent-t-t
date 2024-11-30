@@ -9,18 +9,23 @@ function Downloadcodes() {
 
 const[serialnumbers,setSerialnumbers]=useState();
 const navigate = useNavigate();
-const { gtin } = useParams();
+var warningDIV = <div className="alert alert-success pt-4" role="alert">
+                    <h5>Input all the values</h5>
+                 </div>  
+const[warningmessage,setWaringmessage]=useState("");
+const { batch_number } = useParams();
 const { processnumber } = useParams();
-var gtinno=gtin
+
+var batch_number1=batch_number
 var processno= processnumber
 
   useEffect(() => {
 
-                    axios
+    axios
    .post(window.url+"/master/downloadcodes/",
         {
-            
-                    "gtin":gtinno,
+                    "batch_number":batch_number,
+                   
                     "process_order_number":processno,
                     "serialnumberwithgtin":{
                                       "5855": "56566"
@@ -29,8 +34,17 @@ var processno= processnumber
                     // "password":pass
                   })
     .then((res) => {
-              
+      if(res.data == 300) {
+        //alert(res.data['email']);
+        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                <h5>Such A Csv file related with this batch number Is Not Exist</h5>
+                </div>
+                setWaringmessage(warningDIV);
+    }  
+    else{
       navigate("/productionorder");
+      
+    }     
       
     });
                                       
@@ -39,7 +53,7 @@ var processno= processnumber
 
   return (
     <div>
-   
+   {warningmessage}
     </div>
   )
 }

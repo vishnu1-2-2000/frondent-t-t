@@ -10,7 +10,7 @@ import Select from "react-select";
 // import Sidebar from "../Sidebar/Sidebar";
 import { Box, Button, TextField } from "@mui/material";
 import Chart from "highcharts-react-official";
-import Highcharts from "highcharts";
+import Highcharts, { dateFormats } from "highcharts";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import * as htmlToImage from "html-to-image";
@@ -25,8 +25,11 @@ const Productionreport = () => {
  const [lineName, setLineName] = useState("");
  const [productName, setProductName] = useState("");
  const [systemName, setSystemName] = useState("");
- const [dateFrom, setDateFrom] = useState("2022-11-16");
- const [dateTo, setDateTo] = useState("2022-12-16");
+ const [status, setStatus] = useState("");
+ const[package_name,setPackage] = useState("");
+ const[expiry_date,setExpiry] = useState("");
+ const [date, setDate] = useState();
+ const [time, setTime] = useState();
 
  const [Accepted, setAcceptedValue] = useState("");
  const [Specimen, setSpecimenValue] = useState("");
@@ -125,16 +128,44 @@ const Productionreport = () => {
  setBatchNumber(event.value); 
  //alert(event.value);
  axios
- .get(window.url+"/reports/ProductionOrderReport/"+ event.value +"/",
+ .get(window.url+"/master/ProdOrderReport/"+ event.value +"/",
  
  )
  .then((res) => {
     // alert("anu")
-//  alert(res.data[0].process_order_number)
+// alert(res.data[0].production_time)
     setProductionOrderNumber(res.data[0].process_order_number);
     setLineName(res.data[0].line_name );
-    setProductName(res.data[0].product_name);
+    // setProductName(res.data[0].product_name);
     setSystemName(res.data[0].system_name);
+ 
+    axios
+    .get(window.url+"/master/product/"+ res.data[0].product_name +"/",
+    
+    )
+    .then((res1)=>{
+        setProductName(res1.data[0].name);
+    })
+
+    axios
+    .get(window.url+"/master/productionorderidinprintertable/"+ res.data[0].process_order_number +"/",
+    
+    )
+    .then((res2)=>{
+        //  alert(res2.data[0].expiry_date)
+        setPackage(res2.data[0].packaging_Version)
+        setStatus(res2.data[0].status)
+        setExpiry(res2.data[0].expiration_date)
+        axios
+        .get(window.url+"/productionline/registeredsystemline/"+ res2.data[0].line +"/",
+        
+        )
+        .then((res3)=>{
+
+        setLineName(res3.data[0].line);
+        setSystemName(res3.data[0].system_name);
+        })
+    })
  });
  }
 
@@ -143,90 +174,39 @@ const Productionreport = () => {
   
 //  alert(batchNumberFunctionValue);
  axios
- .get(window.url+"/reports/ProductionOrderReport/"+batchNumberFunctionValue +"/",
+ .get(window.url+"/master/ProdOrderReport/"+batchNumberFunctionValue +"/",
  
  )
  .then((res) => {
-//  alert(res.data[0].Accepted)
-        setAcceptedValue(res.data[0].accepted);
-        setSpecimenValue(res.data[0].specimen);
-        setDamagedValue(res.data[0].damaged);
-        setSampleValue(res.data[0].sample);
-        setChallengedValue(res.data[0].challenged);
-        setTeachValue(res.data[0].teach);
-        setInProcessValue(res.data[0].inprocess);
-        setRejectedByCameraValue(res.data[0].rejectedbycamera);
-        setUnusedValue(res.data[0].unused);
+// alert(res.data[0].damagedcount)
+        setAcceptedValue(res.data[0].acceptedcount);
+        setSpecimenValue(res.data[0].specimencount);
+        setDamagedValue(res.data[0].damagedcount);
+        setSampleValue(res.data[0].samplecount);
+        setChallengedValue(res.data[0].challengedcount);
+        setTeachValue(res.data[0].teachcount);
+        setInProcessValue(res.data[0].inprocesscount);
+        setRejectedByCameraValue(res.data[0].rejectedbycameracount);
+        setUnusedValue(res.data[0].unusedcount);
+        setTime(res.data[0].current_production_time);
+        setDate(res.data[0].current_production_date)
   
-//  setA(res.data[0].A);
-//  setB(res.data[0].B); 
-//  setC(res.data[0].C); 
-//  setD(res.data[0].D); 
-//  setE(res.data[0].E); 
-//  setF(res.data[0].F); 
- 
-//  setG(res.data[0].G);
-//  setH(res.data[0].H); 
-//  setI(res.data[0].I); 
-//  setJ(res.data[0].J);
-//  setK(res.data[0].K); 
-//  setL(res.data[0].L); 
-//  setM(res.data[0].M); 
-//  setN(res.data[0].N); 
-//  setO(res.data[0].O); 
-//  setP(res.data[0].P); 
-//  setQ(res.data[0].Q);  
-//  setR(res.data[0].R);  
- 
-//  setS(res.data[0].S); 
-//  setT(res.data[0].T); 
-//  setU(res.data[0].U); 
-//  setV(res.data[0].V); 
-//  setW(res.data[0].W); 
-//  setX(res.data[0].X); 
-//  setY(res.data[0].Y);  
-//  setZ(res.data[0].Z);  
+
 
 setPieChartData(
     [
-    ['Accepted', res.data[0].accepted],
-    ['Specimen', res.data[0].specimen],
-    ['Damaged', res.data[0].damagedamaged],
-    ['Sample', res.data[0].sample],
-    ['Challenged', res.data[0].challenged],
-    ['Teach', res.data[0].teach],
-    ['In process', res.data[0].inprocess],
-    ['Rejected by camera', res.data[0].rejectedbycamera],
-    ['Unused', res.data[0].unused] ,
+    ['Accepted', res.data[0].acceptedcount],
+    ['Specimen', res.data[0].specimencount],
+    ['Damaged', res.data[0].damagedcount],
+    ['Sample', res.data[0].samplecount],
+    ['Challenged', res.data[0].challengedcount],
+    ['Teach', res.data[0].teachcount],
+    ['In process', res.data[0].inprocesscount],
+    ['Rejected by camera', res.data[0].rejectedbycameracount],
+    ['Unused', res.data[0].unusedcount] ,
    
    
-   //  ['A',res.data[0].A],
-   //  ['B',res.data[0].B],
-   //  ['C',res.data[0].C],
-   //  ['D',res.data[0].D],
-   //  ['E',res.data[0].E],
-   //  ['F',res.data[0].F],
-   //  ['G',res.data[0].G],
-   //  ['H',res.data[0].H],
-   //  ['I',res.data[0].I],
-   //  ['J',res.data[0].J],
-   //  ['K',res.data[0].K],
-   //  ['L',res.data[0].L],
-   //  ['M',res.data[0].M],
-   //  ['N',res.data[0].N],
-   //  ['O',res.data[0].O],
-   //  ['P',res.data[0].P],
-   //  ['Q',res.data[0].Q],
-   //  ['R',res.data[0].R],
    
-   //  ['S',res.data[0].S],
-   //  ['T',res.data[0].T],
-   //  ['U',res.data[0].U],
-   //  ['V',res.data[0].V],
-   //  ['W',res.data[0].W],
-   //  ['X',res.data[0].X],
-   //  ['Y',res.data[0].Y],
-   //  ['Z',res.data[0].Z],
     ]
    
     );
@@ -234,9 +214,51 @@ setPieChartData(
  });
  }
 
+ const getBatchReportData = (batchNumberFunctionValue) => {
+    axios
+    .get(window.url+"/master/ProdOrderReport/"+batchNumberFunctionValue +"/",
+    
+    )
+    .then((res) => {
+   
+           setAcceptedValue(res.data[0].accepted);
+           setSpecimenValue(res.data[0].specimen);
+           setDamagedValue(res.data[0].damaged);
+           setSampleValue(res.data[0].sample);
+           setChallengedValue(res.data[0].challenged);
+           setTeachValue(res.data[0].teach);
+           setInProcessValue(res.data[0].inprocess);
+           setRejectedByCameraValue(res.data[0].rejectedbycamera);
+           setUnusedValue(res.data[0].unused);
+           setTime(res.data[0].production_time);
+           setDate(res.data[0].production_date)
+     
+   
+   
+   setPieChartData(
+       [
+       ['Accepted', res.data[0].accepted],
+       ['Specimen', res.data[0].specimen],
+       ['Damaged', res.data[0].damaged],
+       ['Sample', res.data[0].sample],
+       ['Challenged', res.data[0].challenged],
+       ['Teach', res.data[0].teach],
+       ['In process', res.data[0].inprocess],
+       ['Rejected by camera', res.data[0].rejectedbycamera],
+       ['Unused', res.data[0].unused] ,
+      
+      
+      
+       ]
+      
+       );
+    
+    });
+ }
+
  function getBatchNumbers() {
  axios
- .get(window.url+"/reports/ProductionOrderReport/",
+ .get(window.url+"/master/ProdOrderReport/",
  
  )
  .then((res) => {
@@ -392,24 +414,26 @@ setPieChartData(
                                             {productionOrderNumber}
                                         </span> */}
                                     </td>
-                                    <td class="productionOrderReportSearchTD">Date from</td>
+                                    <td class="productionOrderReportSearchTD">Production Date</td>
                                     <td class="productionOrderReportSearchTD">
                                         <input
                                         type="date"
+                                        value={date}
                                         className="form-control"
-                                        onChange={(e) => setDateFrom(e.target.value)}
+                                        onChange={(e) => setDate(e.target.value)}
                                         />
 
                                         {/* <span class="productionOrderReportSearchBoxInvisble">
                                             {dateFrom}
                                         </span> */}
                                     </td>
-                                    <td class="productionOrderReportSearchTD">Date to</td>
+                                    <td class="productionOrderReportSearchTD">Time</td>
                                     <td class="productionOrderReportSearchTD">
                                         <input
-                                        type="date"
+                                        type="time"
                                         className="form-control"
-                                        onChange={(e) => setDateTo(e.target.value)}
+                                        value={time}
+                                        onChange={(e) => setTime(e.target.value)}
                                         />
 
                                         {/* <span class="productionOrderReportSearchBoxInvisble">
@@ -424,6 +448,7 @@ setPieChartData(
                                         <input
                                         type="text"
                                         className="form-control"
+                                    value={package_name}
                                         /> 
                                     </td>
                                     <td class="productionOrderReportSearchTD">Product name</td>
@@ -433,6 +458,7 @@ setPieChartData(
                                         <input
                                         type="date"
                                         className="form-control"
+                                        value={expiry_date}
                                         />
                                     </td>
                                     <td class="productionOrderReportSearchTD">Status</td>
@@ -440,6 +466,7 @@ setPieChartData(
                                         <input
                                         type="text"
                                         className="form-control"
+                                        value={status}
                                         />
                                     </td>
                                 </tr>
@@ -453,7 +480,7 @@ setPieChartData(
                         </table>
                         <div class="container">
                             <div class="row">
-                                <div class="col-8">
+                                <div class="col-6">
  
                                 </div>
                                 <div class="col-2">
@@ -461,7 +488,15 @@ setPieChartData(
                                     className="btn btn-success"
                                     onClick={() => getBatchNumberTableData(batchNumber)}
                                     ><i class="fa-solid fa-book"></i>&nbsp;
-                                    Get report
+                                    Current Report Based On Line
+                                    </button> 
+                                </div>
+                                <div class="col-2">
+                                    <button
+                                    className="btn btn-success"
+                                    onClick={() => getBatchReportData(batchNumber)}
+                                    ><i class="fa-solid fa-book"></i>&nbsp;
+                                   Batch Report After Stop
                                     </button> 
                                 </div>
                            
@@ -478,7 +513,7 @@ setPieChartData(
                                     <button
                                     className="btn btn-success"
                                     onClick={() => exportReportsToPDF()}
-                                    ><i class="fa-solid fa-file-pdf"></i>&nbsp;
+                                    style={{height:"60px"}}><i class="fa-solid fa-file-pdf"></i>&nbsp;
                                     Export to PDF
                                     </button> 
                                 </div>

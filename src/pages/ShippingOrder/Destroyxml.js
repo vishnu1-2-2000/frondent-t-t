@@ -41,7 +41,12 @@ const[destroyednumbrs,setDestroyednumbers]=useState("")
 
 var loggedInUsername=window.localStorage.getItem('loggedInUsername')
 var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')                  
-                    
+
+var warningDIV = <div className="alert alert-success pt-4" role="alert">
+                    <h5>Input all the values</h5>
+                 </div>  
+
+const [warningmessage,setWarningmessage]=useState(warningDIV);                  
                     
 const { processnumber } = useParams();
 
@@ -306,8 +311,133 @@ var reasondescriptionFieldWidget =
                                                           
                                                             // });
                                                            
-                                                      
-                                                           
+                                                            var testPassed = "false";
+
+                                                            if(filesendernumber !=""){
+                                                            testPassed = "true";
+                                                        
+                                                            }
+                                                            else {
+                                                            warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                              <h5>Input File Sender number</h5>
+                                                        
+                                                            
+                                                            </div>
+                                                            setWarningmessage(warningDIV)
+                                                            testPassed = "false";
+                                                            }
+                                                        
+                                                        //////////////////  Product name testing
+                                                        
+                                                            if(testPassed == "true") {
+                                                            if(filereceivernumber != "") {
+                                                              testPassed = "true";
+                                                            }
+                                                            else {
+                                                            warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                              <h5>Input File Receiver Number</h5>
+                                                            </div>
+                                                              setWarningmessage(warningDIV)
+                                                              testPassed="false";
+                                                            }
+                                                            }
+                                                            if(testPassed == "true") {
+                                                                if(filecontrolnumber != "") {
+                                                                  testPassed = "true";
+                                                                }
+                                                                else {
+                                                                warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                  <h5>Input File Control Number</h5>
+                                                                </div>
+                                                                  setWarningmessage(warningDIV)
+                                                                  testPassed="false";
+                                                                }
+                                                                }
+                                                                if(testPassed == "true") {
+                                                                    if(filedate != "") {
+                                                                      testPassed = "true";
+                                                                    }
+                                                                    else {
+                                                                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                      <h5>Input File Date</h5>
+                                                                    </div>
+                                                                      setWarningmessage(warningDIV)
+                                                                      testPassed="false";
+                                                                    }
+                                                                    }
+                                                                    if(testPassed == "true") {
+                                                                        if(filetime != "") {
+                                                                          testPassed = "true";
+                                                                        }
+                                                                        else {
+                                                                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                          <h5>Input File Time</h5>
+                                                                        </div>
+                                                                          setWarningmessage(warningDIV)
+                                                                          testPassed="false";
+                                                                        }
+                                                                        }
+                                                                        if(testPassed == "true") {
+                                                                            if(eventdatetime != "") {
+                                                                              testPassed = "true";
+                                                                            }
+                                                                            else {
+                                                                            warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                              <h5>Input Eventdatetime</h5>
+                                                                            </div>
+                                                                              setWarningmessage(warningDIV)
+                                                                              testPassed="false";
+                                                                            }
+                                                                            }
+                                                                            if(testPassed == "true") {
+                                                                                if(EventTimeZoneOffset != "") {
+                                                                                  testPassed = "true";
+                                                                                }
+                                                                                else {
+                                                                                warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                                  <h5>Input Event TimeZone</h5>
+                                                                                </div>
+                                                                                  setWarningmessage(warningDIV)
+                                                                                  testPassed="false";
+                                                                                }
+                                                                                }
+                                                                                if(testPassed == "true") {
+                                                                                    if(PackagingSerialNumberStatus != "") {
+                                                                                      testPassed = "true";
+                                                                                    }
+                                                                                    else {
+                                                                                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                                      <h5>Input Packaging Status</h5>
+                                                                                    </div>
+                                                                                      setWarningmessage(warningDIV)
+                                                                                      testPassed="false";
+                                                                                    }
+                                                                                    }
+                                                                                    if(testPassed == "true") {
+                                                                                        if(eventLocation != "") {
+                                                                                          testPassed = "true";
+                                                                                        }
+                                                                                        else {
+                                                                                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                                          <h5>Input Event Location</h5>
+                                                                                        </div>
+                                                                                          setWarningmessage(warningDIV)
+                                                                                          testPassed="false";
+                                                                                        }
+                                                                                        }
+                                                                                        if(testPassed == "true") {
+                                                                                            if(reasonDescription != "") {
+                                                                                              testPassed = "true";
+                                                                                            }
+                                                                                            else {
+                                                                                            warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                                              <h5>Input Reason Description</h5>
+                                                                                            </div>
+                                                                                              setWarningmessage(warningDIV)
+                                                                                              testPassed="false";
+                                                                                            }
+                                                                                            }
+                                                                                            if(testPassed == "true") {  
                                                          axios
                                                          .post(window.url+"/master/destroyxmldata/",
                                                          {
@@ -319,7 +449,7 @@ var reasondescriptionFieldWidget =
                                                            "filedate":filedate,
                                                            "filetime":filetime,
                                         //                    "serialnumber":serialnumbers,
-                                                        //    "eventdatetime":eventdatetime,
+                                                           "eventdatetime":eventdatetime,
                                                            "EventTimeZoneOffset":EventTimeZoneOffset,
                                                            "packagingstatus":PackagingSerialNumberStatus,
                                                            "eventLocation":eventLocation,
@@ -337,6 +467,67 @@ var reasondescriptionFieldWidget =
                                         
                                         
                                                          })
+                                                         .then((res)=>{
+                                                            if(res.data===100){
+                                                                warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                <h5>There Are No Rejected Numbers For This Batch.Please Upload It And Try Again</h5>
+                                                              </div>
+                                      
+                                                setWarningmessage(warningDIV)  
+                                                            }
+                                                            if(res.data===250){
+                                                                warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                <h5>Input File Sender Number</h5>
+                                                              </div>
+                                      
+                                                setWarningmessage(warningDIV)  
+                                                            }
+                                                            if(res.data===300){
+                                                                warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                <h5>Input File Receiver Number</h5>
+                                                              </div>
+                                      
+                                                setWarningmessage(warningDIV)  
+                                                            }
+                                                            if(res.data===350){
+                                                                warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                <h5>Input  File ControlNumber</h5>
+                                                              </div>
+                                      
+                                                setWarningmessage(warningDIV)  
+                                                            }
+                                                            if(res.data===400){
+                                                                warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                <h5>Input File Date</h5>
+                                                              </div>
+                                      
+                                                setWarningmessage(warningDIV)  
+                                                            }
+                                                            if(res.data===450){
+                                                                warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                <h5>Input EventTimeZone Offset</h5>
+                                                              </div>
+                                      
+                                                setWarningmessage(warningDIV)  
+                                                            }
+                                                            if(res.data===500){
+                                                                warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                                <h5>Input FileTime</h5>
+                                                              </div>
+                                      
+                                                setWarningmessage(warningDIV)  
+                                                            }
+                                                            if(res.data===200){
+                                                                warningDIV =  <div className="alert alert-success pt-4" role="alert">
+                                                                <h5>Destoy Xml File Created Successfully</h5>
+                                                              </div>
+                                      
+                                                setWarningmessage(warningDIV)   
+                                                // navigate("/shipping/export/"+ processno+"/"+id)                      
+                                            } 
+                      
+                                                         })
+                                                        }
                                                          
                                         }              
                                                         
@@ -354,7 +545,7 @@ var reasondescriptionFieldWidget =
       noValidate
       autoComplete="off"
     >
-       
+      {warningmessage}
       <div style={{backgroundColor:"#AAF0D1"}} >
       <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Enter Destroy  Data </font></h4></center></h4>            
         

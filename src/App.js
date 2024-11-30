@@ -83,7 +83,8 @@ import Downloadcodes from "./pages/Productionorder/sections/Downloadcodes";
 
 // import ShippingReport from "./pages/ShippingReport/ShippingReport";
 import ShippingReportPage from "./pages/ShippingReport/ShippingReportPage";
-import Productionreport from "./pages/ProductionReport/Productionreport";
+import ProductionReportPage from "./pages/ProductionReport/ProductionReportPage";
+
 
 import Trash from "./pages/Trash/Trash";
 import ProductionOrderTrash from "./pages/Trash/sections/ProductionorderTrash/ProductionOrderTrash";
@@ -97,6 +98,8 @@ import ShippoTrash from "./pages/Trash/sections/Shippotrash/Shippotrash";
 import ManufacturingLocationTrash from "./pages/Trash/sections/ManufacturinglocationTrash/ManufacturingLocationTrash";
 import ProductionlineTrash from "./pages/Trash/sections/ProductionlineTrash/ProductionlineTrash";
 
+
+import AllocatedNoAfterLoginCheck from "./pages/Productionorder/sections/AllocatedNoAfterLoginCheck";
 
 
 function App() {
@@ -116,7 +119,7 @@ function App() {
         <Route path="/productionorder/property/:uniqueID" element={<PoPropertys/>} /> 
         <Route path="/productionorder/identifier" element={<Identifiers/>} />
         <Route path="/productionorder/hrf/:uniqueID" element={<PoHrf />} />
-        <Route path="/productionorder/downloadcodes/:gtin/:processnumber" element={<Downloadcodes />} />
+        <Route path="/productionorder/downloadcodes/:batch_number/:processnumber" element={<Downloadcodes />} />
         <Route path="productionorderview/:operation/:uniqueID/" element={<PoView/>} />
 
         <Route path="/shippingorder/shippocreate/:operation/:uniqueID/:processnumber" element={<ShippingCreate />} />
@@ -178,7 +181,7 @@ function App() {
         <Route exact path="/userauditreport" element={<UserAuditReport/>}></Route>   
 
         <Route exact path="/shippingreport" element={<ShippingReportPage/>}></Route>
-        <Route path="/report/productionorderreport" element={<Productionreport />} />     
+        <Route path="/report/productionorderreport" element={<ProductionReportPage />} />     
         <Route path="*" element={<> not found</>} />
 
         <Route path="/trash" element={<Trash/>}></Route>
@@ -192,6 +195,8 @@ function App() {
           <Route path="/shippotrash" element={<ShippoTrash/>}></Route>
           <Route path="/manufacturinglocationtrash" element={<ManufacturingLocationTrash/>}></Route>
           <Route path="/productionlinetrash" element={<ProductionlineTrash/>}></Route>
+
+          <Route path="/allocatednumbers" element={<AllocatedNoAfterLoginCheck/>}></Route>
         </Routes>
      
     </Router>

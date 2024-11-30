@@ -78,6 +78,11 @@ const[destination_zip,setDesZip]=useState("");
 const[destination_gln,setDesGln]=useState("");
 
 const[ponumber,setPo]=useState("") 
+var warningDIV = <div className="alert alert-success pt-4" role="alert">
+                    <h5>Input all the values</h5>
+                 </div>  
+
+const [warningmessage,setWarningmessage]=useState(warningDIV);   
 // this field is used for processorder value disply in report page
 
 const { operation } = useParams();
@@ -92,7 +97,14 @@ function getShippingOrderdata(){
         .get(window.url+"/master/shippoint/"+process_order_number+"/") 
         .then((res)=>{
                     // alert("hi")
-                    // alert(res.data[0].source_location)
+                  //  alert(res.data[0].source_location)
+                  if(res.data===100){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                    <h5>ProcessOrder Number Does Not Exist</h5>
+                  </div>
+
+    setWarningmessage(warningDIV)  
+                }
               setShippingname(res.data[0].shipping_order_name) 
               setDestinationLoc(res.data[0].destination_location)
               setSourcelocationlabel(res.data[0].source_location)
@@ -417,10 +429,11 @@ var shippingdatewidget =
     
           <div class="container-fluid">
       <div class="card shadow mb-4"> 
-     
+      {warningmessage}
         <div class="card-header py-3">
           <div className='row'>
             <div className='col-10'>
+              
               <h5 class="m-0 font-weight-bold text-primary">Shipping Report</h5>
             </div>
             <div class="card-body pb-1" >

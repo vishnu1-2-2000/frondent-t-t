@@ -377,19 +377,44 @@ setWaringmessage(warningDIV);
     //window.localStorage.setItem(option); 
   
   }
-  const getProductasoptions = event => {
-    // alert(event.value)
-    setProdforegin(event.value); 
 
+
+
+
+
+
+
+  const getProductasoptions = event => {
+    // alert(event.target.value)
+    setProdforegin(event.value); 
+  
     setProductnameLabel(event.label);
-    setProductnameValue(event.value);
-// mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm
-// ghghghghghghghghghghghghghghghghghghghghghghghghghghghghghgh
+    setProductnameValue(event.name);
+  // mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm,mlm
+  // ghghghghghghghghghghghghghghghghghghghghghghghghghghghghghgh
     // setCustomername(event.label);
     //  window.localStorage.setItem(option);
-
-  }
+    axios
+    .get(window.url+"/master/product/"+event.value+"/",
+   
+  )
+  .then((res) => {
+    // alert("klo")
+    // alert(res.data)
+    // alert(res.data[0].gtin_number)
   
+    setGtin(res.data[0].gtin_number);
+    
+   
+  
+  });
+  
+  }
+
+  
+
+
+
   const getProductionlineasoptions = event => {
     // alert(event.value)
     setProductionforegin(event.value); 

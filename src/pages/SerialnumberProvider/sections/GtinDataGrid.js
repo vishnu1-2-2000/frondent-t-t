@@ -28,10 +28,10 @@ const[gtindata,setGtinData]=useState("");
   let userDataColumns= [
                 { field: 'id', headerName: 'Id', width:200,headerClassName: "MuiDataGrid-columnHeaders", },
                 { field: 'gtin', headerName: 'Gtin', width:200,headerClassName: "MuiDataGrid-columnHeaders", },
-                { field: 'quantity', headerName: 'Available Quantity', width:200,headerClassName: "MuiDataGrid-columnHeaders", },
-                //{ field: 'available_quantity', headerName: 'Available Quantity', width:200,headerClassName: "MuiDataGrid-columnHeaders", },
-                { field: 'minimum_quantity', headerName: 'Minimum Quantity', width:200,headerClassName: "MuiDataGrid-columnHeaders", },
-                { field: 'renewal_quantity', headerName: 'renewal quantity', width:200,headerClassName: "MuiDataGrid-columnHeaders", },
+                // { field: 'quantity', headerName: 'Available Quantity', width:200,headerClassName: "MuiDataGrid-columnHeaders", },
+                { field: 'available_quantity', headerName: 'Available Quantity', width:200,headerClassName: "MuiDataGrid-columnHeaders", },
+                // { field: 'minimum_quantity', headerName: 'Minimum Quantity', width:200,headerClassName: "MuiDataGrid-columnHeaders", },
+                // { field: 'renewal_quantity', headerName: 'renewal quantity', width:200,headerClassName: "MuiDataGrid-columnHeaders", },
                
                     
 
@@ -225,10 +225,10 @@ rowDatas.map(rowData => {
     'id':rowData.id,
   // 'gtin':rowdata.gtin,
   'gtin':rowData.gtin,
-  //'available_quantity':rowdata.available_quantity,
+  'available_quantity':rowData.available_quantity,
   "minimum_quantity":rowData.minimum_quantity,
   "renewal_quantity":rowData.renewal_quantity,
-  "quantity":rowData.snnumbers
+  // "quantity":rowData.snnumbers
   })
 })
 

@@ -169,17 +169,23 @@ const UserDataEdit = (props) => {
             })
             .then((res) => {
                     //alert(res.data['email']);
-                if(res.data['email'] == 'register with this email already exists.') {
-                    //alert(res.data['email']);
-                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                            <h5>Email already registered</h5>
-                            </div>
-                            setWarningDIVstate(warningDIV);
-                }
-                else {
-                    navigate("/registeredusers");
-                }
-
+                    if(res.data.email=='register with this email already exists.')
+                      {
+                        warningDIV=<div className="alert alert-danger pt-4" role="alert">
+                          <h5>Email already registered</h5>
+                        </div>
+                        setWarningDIVstate(warningDIV)
+                      }
+                      else if(res.data.employeeid == "register with this employeeid already exists."){
+                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                          <h5>Employee Id Already Exist.Enter Another One</h5>
+                                        </div>
+              
+                        setWarningDIVstate(warningDIV)                        
+                      }
+                      else{
+                        navigate("/registeredusers");
+                      }
             });
         }
     }

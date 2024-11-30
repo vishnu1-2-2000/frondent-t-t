@@ -64,6 +64,12 @@ const[to_business_part_lookupid2,setTo_business_part_lookupid2]=useState()
 const[filesendernolabel,setLabel]=useState();
 const[filesendernumbervalue,setValue]=useState();
 const[prodforgin,setProdforegin]=useState()
+var warningDIV = <div className="alert alert-success pt-4" role="alert">
+                    <h5>Input all the values</h5>
+                 </div>  
+
+
+const [warningmessage,setWarningmessage]=useState(warningDIV);
 
 const { process } = useParams();
 const {uniqueID}=useParams();
@@ -482,8 +488,104 @@ var  to_business_part_lookupid2FieldWidget = <input
 
                   const handleSubmit= (e)=>{
                     e.preventDefault();
-                    alert(filereceivernumber)
-
+                    // alert(filereceivernumber)
+                    var testpassed="false"
+                    // alert(filecontrolnumber)
+                    if(filecontrolnumber!==""){
+                   
+                      testpassed="true"
+                    }
+                    else{
+                      warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                  <h5>Input  File Control Number</h5>
+                                </div>
+                              setWarningmessage(warningDIV);
+                      testpassed="false"
+                    }
+                    if(testpassed==="true"){
+                      // alert(testpassed)  
+                      if(delivery_completeflag!=="")
+                      {
+                        testpassed="true"
+                      }
+                      else{
+                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                        <h5>Input Delivery Complete Flag</h5>
+                      </div>
+                    setWarningmessage(warningDIV);
+                    testpassed="false"
+                      }
+                    }
+                    if(testpassed==="true"){
+                      if(transactiondate!=="")
+                      {
+                        testpassed="true"
+                      }
+                      else{
+                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                        <h5>Input Transaction Date</h5>
+                      </div>
+                    setWarningmessage(warningDIV);
+                    testpassed="false"
+                      }
+                    }
+                    if(testpassed==="true"){
+                      if(transactiontime!=="")
+                      {
+                        testpassed="true"
+                      }
+                      else{
+                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                        <h5>Input Transaction Time</h5>
+                      </div>
+                    setWarningmessage(warningDIV);
+                    testpassed="false"
+                      }
+                    }
+                    if(testpassed==="true"){
+                      if(salesdistribution_type!=="")
+                      {
+                        testpassed="true"
+                      }
+                      else{
+                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                        <h5>Input Sales Distribution Type</h5>
+                      </div>
+                    setWarningmessage(warningDIV);
+                    testpassed="false"
+                      }
+                    }
+                    if(testpassed==="true"){
+                      if(shipfrom_countrycode!=="")
+                      {
+                        testpassed="true"
+                      }
+                      else{
+                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                        <h5>Input Ship From Country Code</h5>
+                      </div>
+                    setWarningmessage(warningDIV);
+                    testpassed="false"
+                      }
+                    }
+                    if(testpassed==="true"){
+                      if(shipto_countrycode!=="")
+                      {
+                        testpassed="true"
+                      }
+                      else{
+                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                        <h5>Input Ship To Country Code</h5>
+                      </div>
+                    setWarningmessage(warningDIV);
+                    testpassed="false"
+                      }
+                    }
+              
+              
+              
+                  // alert(eventdatetime) 
+                  if(testpassed==="true"){
                     
                  axios
                  .post(window.url+"/master/xmldata/",
@@ -523,8 +625,8 @@ var  to_business_part_lookupid2FieldWidget = <input
 
                 //    "quantity":quantity,
                 //    "business_id_type":business_id_type,
-                   "business_name":business_name,
-                   "street1":street1,
+                  //  "business_name":business_name,
+                  //  "street1":street1,
 
                    "factilty_type1": factilty_type1,
                    "factilty_type2":factilty_type2,
@@ -542,6 +644,243 @@ var  to_business_part_lookupid2FieldWidget = <input
                    "process_no_original":processno,
 
                 })
+                .then((res)=>{
+                  if(res.data===50){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Gln In Company First And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===100){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter File Sender Number  In Shippo  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===150){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter BusinessName  In Shippo  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===250){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter BusinessParty Lookupid  In Shippo  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===300){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Lot Number  In Shippo  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===350){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter FileDate In Shippo  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===400){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter FileTime In Shippo  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===450){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Business Name In Company  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===500){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Postal Code Of Business  In Company  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===550){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Country Of Business  In Company  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===600){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Street Of Business  In Company  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===650){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter State Or Region Of Business  In Company  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===700){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter City Of Business  In Company  And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===750){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Facility Type  In Shippo And Try Again</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===800){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input File Control Number</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===850){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input Delivery Complete Flag</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===900){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input Transaction Date</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===950){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input Transaction Time</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===1000){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input Sales Distribution Type</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===1050){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input Ship From CountryCode</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===1070){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input Ship To CountryCode</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+
+                  if(res.data===3000){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Internal Material Number In Product</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===3050){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Quantity In ProductionOrder</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===4050){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Company Gln In Customer</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===5000){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Address In Locations</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===5050){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter City In Locations</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===6000){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter State In Locations</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===6050){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Zip In Locations</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===7000){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter District In Locations</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===7050){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Country In Locations</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===8000){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Business PartyLookupid In Customer Properties</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+                  if(res.data===8050){
+                    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Ship toLocationLookupid In CustomerLocation Properties</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)  
+                  }
+
+                  if(res.data===200){
+                    warningDIV =  <div className="alert alert-success pt-4" role="alert">
+                    <h5>Shipping Xml File Created Successfully</h5>
+                  </div>
+
+    setWarningmessage(warningDIV)   
+    // navigate("/shipping/export/"+ processno+"/"+id)                      
+} 
+                })
+              }
                  
 }              
 
@@ -559,7 +898,7 @@ var  to_business_part_lookupid2FieldWidget = <input
       noValidate
       autoComplete="off"
     >
-       
+       {warningmessage}       
       <div style={{backgroundColor:"#AAF0D1"}} >
       <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">  Enter Shippment  Data</font></h4></center></h4>            
         

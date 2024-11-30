@@ -37,7 +37,8 @@ const[available,setAvailable]=useState("")
 const[newsnnumber,setNewsnnumber]=useState("");
 const[gtinlabel,setGtinlabel]=useState("");
 const[gtinvalue,setGtinvalue]=useState("");
-
+const [saveButtonText_state, setSaveButtonText_state] = useState("Save Data");
+const [saveButtonMode_state, setSaveButtonMode_state] = useState(false);
 const navigate=useNavigate();
 const{uniqueID}=useParams();
 const{operation}=useParams();
@@ -147,7 +148,7 @@ useEffect(()=>{
 
 
   // const getGtin = event =>{
-  //   alert(event)
+  //   // alert(event.value)
   //   setGtinnumber(event.target.value)
   //   setGtinlabel(event.target.label)
   //   setGtinvalue(event.target.value) ; 
@@ -185,7 +186,7 @@ if (operation=="new"){
   
 
   var gtinfield= 
-//  <Select className="s" onChange={getGtin} options={gtin}  />  
+  // <Select className="s" onChange={getGtin} options={gtin}  />  
 //  <Box sx={{ minWidth: 70 }}>
 //           <FormControl >
 //           <InputLabel id="demo-simple-select-label">Gtin</InputLabel>
@@ -234,7 +235,7 @@ renderInput={(params) => <TextField {...params}  label="Select Gtin" />}
                   <TextField required
                     label="AvailableQuantity"
                     id="outline-AvailableQuantity"
-                   
+                   disabled
                     onChange={(e)=>setAvailableQuantity(e.target.value)} 
                     /> 
 //var availablefield= <Select className="s" onChange={getSerialnumberoptions} options={availablequantity}  /> 
@@ -292,35 +293,38 @@ renderInput={(params) => <TextField {...params}  label="Select Gtin" />}
                               setWarningmessage(warningDIV);
                       testpassed="false"
                     }
+                    // if(testpassed=="true"){
+                    //   // alert(testpassed)  
+                    //   if(minimumquantity!="")
+                    //   {
+                    //     testpassed="true"
+                    //   }
+                    //   else{
+                    //     warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                    //     <h5>Input  Mininmum Quantity</h5>
+                    //   </div>
+                    // setWarningmessage(warningDIV);
+                    // testpassed="false"
+                    //   }
+                    // }
+                    // if(testpassed=="true"){
+                    //   if(renewalquantity!="")
+                    //   {
+                    //     testpassed="true"
+                    //   }
+                    //   else{
+                    //     warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                    //     <h5>Input  Renewal Quantity</h5>
+                    //   </div>
+                    // setWarningmessage(warningDIV);
+                    // testpassed="false"
+                    //   }
+                    // }
                     if(testpassed=="true"){
-                      // alert(testpassed)  
-                      if(minimumquantity!="")
-                      {
-                        testpassed="true"
-                      }
-                      else{
-                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                        <h5>Input  Mininmum Quantity</h5>
-                      </div>
-                    setWarningmessage(warningDIV);
-                    testpassed="false"
-                      }
-                    }
-                    if(testpassed=="true"){
-                      if(renewalquantity!="")
-                      {
-                        testpassed="true"
-                      }
-                      else{
-                        warningDIV =  <div className="alert alert-danger pt-4" role="alert">
-                        <h5>Input  Renewal Quantity</h5>
-                      </div>
-                    setWarningmessage(warningDIV);
-                    testpassed="false"
-                      }
-                    }
-                    if(testpassed=="true"){
-                      alert("hi")   
+                      setSaveButtonText_state("Save Data");
+                      setSaveButtonMode_state(true);
+                      // alert("hi")   
+
                  axios
                  .post(window.url+"/master/gtin/",
                  {
@@ -333,11 +337,12 @@ renderInput={(params) => <TextField {...params}  label="Select Gtin" />}
                   //  "gtin":gtinlabel,
                    //"available_quantity":available,
                 //    "numbers":serialnumbers,
-                   "minimum_quantity":minimumquantity,
-                   "renewal_quantity":renewalquantity,
-                   "snnumbers":"45"
+                  //  "minimum_quantity":minimumquantity,
+                  //  "renewal_quantity":renewalquantity,
+                  //  "snnumbers":"45"
                  })
                  .then((res)=>{
+                  // alert(res.data.gtin)
                     if(res.data.gtin == "gtins with this gtin already exists."){
                         warningDIV =  <div className="alert alert-danger pt-4" role="alert">
                                           <h5>Gtin Already Exist Try Another Gtin </h5>
@@ -346,7 +351,13 @@ renderInput={(params) => <TextField {...params}  label="Select Gtin" />}
                 setWarningmessage(warningDIV)                         
                       }
                       else{ 
-                        navigate("/gtinpool")
+                        setSaveButtonText_state("Save Data");
+                        setSaveButtonMode_state(false);
+                        warningDIV =  <div className="alert alert-success pt-4" role="alert">
+                        <h5>Successfully Downloading Finished</h5>
+                      </div>
+
+setWarningmessage(warningDIV)     
                       }
                     
                  })   
@@ -368,6 +379,7 @@ renderInput={(params) => <TextField {...params}  label="Select Gtin" />}
     noValidate
     autoComplete="off"
     >
+      {warningmessage}
      
     <div style={{backgroundColor:"#AAF0D1"}} >
     <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">  Add Gtin Data</font></h4></center></h4>            
@@ -376,8 +388,8 @@ renderInput={(params) => <TextField {...params}  label="Select Gtin" />}
     {availablefield}
     {headwidget}
     <br/>
-    {minimumfield}
-    {renewalfield}
+    {/* {minimumfield}
+    {renewalfield} */}
     
     
     
@@ -392,8 +404,8 @@ renderInput={(params) => <TextField {...params}  label="Select Gtin" />}
       <button
                   type="submit"
                   className="btn btn-primary"
-                  onClick={handleSubmit} >
-                    Save data
+                  onClick={handleSubmit} disabled={saveButtonMode_state} >
+                      {saveButtonText_state}
                 </button>
       </div>
       <div className="col-4">

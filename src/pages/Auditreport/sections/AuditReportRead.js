@@ -72,6 +72,8 @@ function AuditReportRead() {
  const[exportpdf,setExportpdf]=useState("");
  const[headwidget,setHeadwidget]=useState("");
  const conponentPDF= useRef();
+ let optionsNew=[];
+ let optionsNewcustomer=[];
  const doc = new jsPDF()
  autoTable(doc, { html: '#my-table' })
  let userDataColumns = [
@@ -92,20 +94,20 @@ function AuditReportRead() {
 
  ]
 
- let userDataColumns1 = [
+ let userDataColumns2 = [
   { field: 'id', headerName: 'ID', width:100,headerClassName: "MuiDataGrid-columnHeaders", },
   { field: 'modelname', headerName: 'Modelname', width:180,headerClassName: "MuiDataGrid-columnHeaders", },
   { field: 'operationdone',headerName: 'operationdone', width: 180,headerClassName: "MuiDataGrid-columnHeaders", },
   { field: 'donebyuser', headerName: 'Donebyuser', width: 160,headerClassName: "MuiDataGrid-columnHeaders", },
   { field: 'donebyuserrole', headerName: 'Donebyuserrole', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
   { field: 'donedatetime', headerName: 'Donedatetime', width: 120,headerClassName: "MuiDataGrid-columnHeaders", },
-
+  { field: 'description', headerName: 'Donedatetime', width: 120,headerClassName: "MuiDataGrid-columnHeaders", },
  
   
 
  ]
 
- let userDataColumns2 = [
+ let userDataColumns1 = [
   { field: 'id', headerName: 'ID', width:100,headerClassName: "MuiDataGrid-columnHeaders", },
   { field: 'shipping_order_name', headerName: 'Shipping Order Name', width:180,headerClassName: "MuiDataGrid-columnHeaders", },
   { field: 'process_no_original',headerName: 'Process Number', width: 180,headerClassName: "MuiDataGrid-columnHeaders", },
@@ -140,27 +142,62 @@ const generatePDF= useReactToPrint({
 
  
 
- function createRows(rowDatas) {
+function createRows(rowDatas) {
   //alert(rowDatas.length);
+  let tempArrayFunction = []; 
+  let tempArrayFunction1 = []; 
+  var sourceLocationFromID  = "";
+  var destinationLocationFromID  = "";
+  var subjectNameFromID  = "";
+  rowDatas.map(rowData => {
+      optionsNew.map((temp)=>{
+          if(temp['value'] === rowData.source_location) {
+            // alert("haiii")
+           sourceLocationFromID = temp['label'];
+          }
+        });
+  
+        optionsNew.map((temp)=>{
+          if(temp['value'] === rowData.destination_location) {
+            destinationLocationFromID = temp['label'];
+          }
+        });
+  
+        optionsNewcustomer.map((temp)=>{
+          if(temp['value'] === rowData.subject_name) {
+            subjectNameFromID = temp['label'];
+          }
+        });
+  
+      //alert(rowData.id);
+      tempArrayFunction.push( 
+          {'id':rowData.id,'process_order_number':rowData.process_order_number, 'batch_number':rowData.batch_number,
+          'product_name':rowData.product_name,'accepted':rowData.accepted,
+          'specimen':rowData.specimen,'damaged':rowData.damaged,
+          'sample':rowData.sample,'challenged':rowData.challenged,
+          'teach':rowData.teach,
+          'inprocess':rowData.inprocess,
+          'rejectedbycamera':rowData.rejectedbycamera,
+          'unused':rowData.unused,
+          'production_date':rowData.production_date,
+
+          'shipping_order_name':rowData.shipping_order_name,'source_location':sourceLocationFromID,
+          'destination_location':destinationLocationFromID,'subject_name':subjectNameFromID,
+          'shipping_type':rowData.shipping_type,'shipping_date':rowData.shipping_type,
+          
+          'process_no_original':rowData.process_no_original,
+
+          'modelname':rowData.modelname,
+          'operationdone':rowData.operationdone,
+          'donebyuser':rowData.donebyuser,
+        
+          'donedatetime':rowData.donedatetime,
+          'description':rowData.description,
+          },
+      );
+     
+
  
-
-let tempArrayFunction = []; 
-rowDatas.map(rowData => {
-    //alert(rowData.id);
-    tempArrayFunction.push( 
-      {'id':rowData.id,'process_order_number':rowData.process_order_number, 'batch_number':rowData.batch_number,
-      'product_name':rowData.product_name,'accepted':rowData.accepted,
-      'specimen':rowData.specimen,'damaged':rowData.damaged,
-      'sample':rowData.sample,'challenged':rowData.challenged,
-      'teach':rowData.teach,
-      'inprocess':rowData.inprocess,
-      'rejectedbycamera':rowData.rejectedbycamera,
-      'unused':rowData.unused,
-      'production_date':rowData.production_date
-   
-    },
-    );
-
   })
 
   function CustomToolbar() {
@@ -199,20 +236,60 @@ rowDatas.map(rowData => {
  }
  
  function createRows2(rowDatas) {
-  // alert(rowDatas.length);
- 
-
+  //alert(rowDatas.length);
   let tempArrayFunction = []; 
+  let tempArrayFunction1 = []; 
+  var sourceLocationFromID  = "";
+  var destinationLocationFromID  = "";
+  var subjectNameFromID  = "";
   rowDatas.map(rowData => {
-  //   alert(rowData.id);
-    tempArrayFunction.push( 
-      {'id':rowData.id,'modelname':rowData.modelname, 'operationdone':rowData.operationdone,
-      'donebyuser':rowData.donebyuser,'donebyuserrole':rowData.donebyuserrole,
-      'donedatetime':rowData.donedatetime,
-      
-   
-    },
-    );
+      optionsNew.map((temp)=>{
+          if(temp['value'] === rowData.source_location) {
+            // alert("haiii")
+           sourceLocationFromID = temp['label'];
+          }
+        });
+  
+        optionsNew.map((temp)=>{
+          if(temp['value'] === rowData.destination_location) {
+            destinationLocationFromID = temp['label'];
+          }
+        });
+  
+        optionsNewcustomer.map((temp)=>{
+          if(temp['value'] === rowData.subject_name) {
+            subjectNameFromID = temp['label'];
+          }
+        });
+  
+      //alert(rowData.id);
+      tempArrayFunction.push( 
+          {'id':rowData.id,'process_order_number':rowData.process_order_number, 'batch_number':rowData.batch_number,
+          'product_name':rowData.product_name,'accepted':rowData.accepted,
+          'specimen':rowData.specimen,'damaged':rowData.damaged,
+          'sample':rowData.sample,'challenged':rowData.challenged,
+          'teach':rowData.teach,
+          'inprocess':rowData.inprocess,
+          'rejectedbycamera':rowData.rejectedbycamera,
+          'unused':rowData.unused,
+          'production_date':rowData.production_date,
+
+          'shipping_order_name':rowData.shipping_order_name,'source_location':sourceLocationFromID,
+          'destination_location':destinationLocationFromID,'subject_name':subjectNameFromID,
+          'shipping_type':rowData.shipping_type,'shipping_date':rowData.shipping_type,
+          
+          'process_no_original':rowData.process_no_original,
+
+          'modelname':rowData.modelname,
+          'operationdone':rowData.operationdone,
+          'donebyuser':rowData.donebyuser,
+        
+          'donedatetime':rowData.donedatetime,
+          'description':rowData.description,
+
+          },
+      );
+     
 
   })
   setSelectedDIV_state(<div>
@@ -237,19 +314,58 @@ rowDatas.map(rowData => {
 
  function createRows3(rowDatas) {
   //alert(rowDatas.length);
- 
+  let tempArrayFunction = []; 
+  let tempArrayFunction1 = []; 
+  var sourceLocationFromID  = "";
+  var destinationLocationFromID  = "";
+  var subjectNameFromID  = "";
+  rowDatas.map(rowData => {
+      optionsNew.map((temp)=>{
+          if(temp['value'] === rowData.source_location) {
+            // alert("haiii")
+           sourceLocationFromID = temp['label'];
+          }
+        });
+  
+        optionsNew.map((temp)=>{
+          if(temp['value'] === rowData.destination_location) {
+            destinationLocationFromID = temp['label'];
+          }
+        });
+  
+        optionsNewcustomer.map((temp)=>{
+          if(temp['value'] === rowData.subject_name) {
+            subjectNameFromID = temp['label'];
+          }
+        });
+  
+      //alert(rowData.id);
+      tempArrayFunction.push( 
+          {'id':rowData.id,'process_order_number':rowData.process_order_number, 'batch_number':rowData.batch_number,
+          'product_name':rowData.product_name,'accepted':rowData.accepted,
+          'specimen':rowData.specimen,'damaged':rowData.damaged,
+          'sample':rowData.sample,'challenged':rowData.challenged,
+          'teach':rowData.teach,
+          'inprocess':rowData.inprocess,
+          'rejectedbycamera':rowData.rejectedbycamera,
+          'unused':rowData.unused,
+          'production_date':rowData.production_date,
 
-let tempArrayFunction = []; 
-rowDatas.map(rowData => {
-    //alert(rowData.id);
-    tempArrayFunction.push( 
-      {'id':rowData.id,'shipping_order_name':rowData.shipping_order_name, 'process_no_original':rowData.process_no_original,
-      'source_location':rowData.source_location,'destination_location':rowData.destination_location,
-      'subject_name':rowData.subject_name,'shipping_date':rowData.shipping_date,
-      
-   
-    },
-    );
+          'shipping_order_name':rowData.shipping_order_name,'source_location':sourceLocationFromID,
+          'destination_location':destinationLocationFromID,'subject_name':subjectNameFromID,
+          'shipping_type':rowData.shipping_type,'shipping_date':rowData.shipping_type,
+          
+          'process_no_original':rowData.process_no_original,
+
+          'modelname':rowData.modelname,
+          'operationdone':rowData.operationdone,
+          'donebyuser':rowData.donebyuser,
+        
+          'donedatetime':rowData.donedatetime,
+          'description':rowData.description,
+          }
+      );
+     
 
   })
   setSelectedDIV_state(<div>
@@ -304,83 +420,153 @@ rowDatas.map(rowData => {
   
 //     }
 
-    const getProductionreport = (e) => {
-      e.preventDefault();
-      console.log("clicked");
-      //alert(address);
-    
-    
-    
-      
-      //     alert(startdate)
-          axios
-            .post(window.url+'/reports/ProductionOrderReportdate/', 
-           
-            {
-                          "datefrom":startdate,  
-                          "dateto":enddate,
-            },
-            
-            )
-           
-                          // alert("8445")
-                          // alert(res.data)
-                          .then((res)=>{
-           
-                          //  alert("anu");
-                          setHeadwidget("Production Audit Report")             
-                          setData(res.data);
-                          createRows(res.data);
-                            })              
-      
-        }
-        function getData() {
-          // alert("anu");
-      axios
-      .post(window.url+"/accounts/userAuditReportdate/",
-      {
-        "datefrom":startdate,  
-        "dateto":enddate,
-}, 
-            )
-            .then((res) => {
-              //alert(res.data.length);
-              setHeadwidget("Users Audit Report")   
-              setData2(res.data);
-              createRows2(res.data);
-            });
-        }
+function getData() {
+  // alert("anu")                                
+  axios            
+  .post(window.url+'/master/ProductionOrderReportdate/', 
+  {
+      "datefrom":startdate,
+      "dateto":enddate
 
-        const getShipporeport = (e) => {
-          e.preventDefault();
-          console.log("clicked");
-          //alert(address);
+  })            
+  .then((res) => {
+      setHeadwidget("Production Audit Report")               
+      setData(res.data);
+      createRows(res.data);
+  })
+
+
+
+
+}
+
+function getData2() {
+  // alert("anu")                                
+  axios            
+  .post(window.url+'/master/ShippoauditReportdate/', 
+  {
+      "datefrom":startdate,
+      "dateto":enddate
+
+  })            
+  .then((res1) => {
+      //   alert("gj")
+      setHeadwidget("Shipping Audit Report")
+      axios.get(window.url+"/master/locations/")
+      .then((res) => {
+      res.data.map(data => {
+//alert(data.id)
+      optionsNew.push({ value: data.id, label: data.name });
+      });
+      axios.get(window.url+"/master/customer/")
+      .then((res2) => {
+          res2.data.map(data2 => {
+              // alert(data2.id)
+          optionsNewcustomer.push({ value: data2.id, label: data2.name });
+          });              
+      setData2(res1.data);
+      createRows2(res1.data);
+      })
+      })
+  })
+
+  
+
+}
+function getData3() {
+  // alert("anu")                                
+  axios            
+  .post(window.url+"/accounts/userAuditReportdate/",
+  {
+      "datefrom":startdate,
+      "dateto":enddate
+
+  })            
+  .then((res3) => {
+      //   alert("gj")   
+      setHeadwidget("Users Audit Report")           
+      setData3(res3.data);
+      createRows3(res3.data);
+  })
+}         
+
+//     const getProductionreport = (e) => {
+//       e.preventDefault();
+//       console.log("clicked");
+//       //alert(address);
+    
+    
+    
+      
+//       //     alert(startdate)
+//           axios
+//             .post(window.url+'/master/ProductionOrderReportdate/', 
+           
+//             {
+//                           "datefrom":startdate,  
+//                           "dateto":enddate,
+//             },
+            
+//             )
+           
+//                           // alert("8445")
+//                           // alert(res.data)
+//                           .then((res)=>{
+           
+//                           // alert("anu");
+//                           setHeadwidget("Production Audit Report")             
+//                           setData(res.data);
+//                           createRows(res.data);
+//                             })              
+      
+//         }
+//         function getData() {
+//           // alert("anu");
+//       axios
+//       .post(window.url+"/accounts/userAuditReportdate/",
+//       {
+//         "datefrom":startdate,  
+//         "dateto":enddate,
+// }, 
+//             )
+//             .then((res) => {
+//               //alert(res.data.length);
+//               setHeadwidget("Users Audit Report")   
+//               setData2(res.data);
+//               createRows2(res.data);
+//             });
+//         }
+
+//         const getShipporeport = (e) => {
+//           e.preventDefault();
+//           console.log("clicked");
+//           //alert(address);
         
         
         
           
-          //     alert(startdate)
-              axios
-                .post(window.url+'/master/ShippoauditReportdate/', 
+//           //     alert(startdate)
+//               axios
+//                 .post(window.url+'/master/ShippoauditReportdate/', 
                
-                {
-                              "datefrom":startdate,  
-                              "dateto":enddate,
-                },
+//                 {
+//                               "datefrom":startdate,  
+//                               "dateto":enddate,
+//                 },
                 
-                )
+//                 )
                
-                              // alert("8445")
-                              // alert(res.data)
-                              .then((res)=>{
+//                               // alert("8445")
+//                               // alert(res.data)
+//                               .then((res)=>{
                
-                              //  alert("anu");
-                               setHeadwidget("Shipping Audit Report")             
-                              setData3(res.data);
-                              createRows3(res.data);
-                                })              
+//                               //  alert("anu");
+//                                setHeadwidget("Shipping Audit Report")             
+//                               setData3(res.data);
+//                               createRows3(res.data);
+//                                 })              
           
-            }
+//             }
     
 
 var userheadwidget=
@@ -454,12 +640,12 @@ var shippingheadwidget=
                         // })
                         
                         // doc.save('table.pdf')   
-                        const navigateToCreatepage = () => {
-                          navigate("/shippingauditreport");
-                        };  
-                        const navigateToUseauditreportpage = () => {
-                          navigate("/userauditreport");
-                        };                               
+                        // const navigateToCreatepage = () => {
+                        //   navigate("/shippingauditreport");
+                        // };  
+                        // const navigateToUseauditreportpage = () => {
+                        //   navigate("/userauditreport");
+                        // };                               
   return (
     <>
     <Box sx={{ display: 'flex' }} > 
@@ -523,17 +709,17 @@ var shippingheadwidget=
           {date2widget}
           <br></br>
           <br></br>
-          <button onClick={getProductionreport} className="btn btn-success">                                              
+          <button onClick={getData} className="btn btn-success">                                              
           Production Audit Report</button>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           {/* <button onClick={autoTable} className="btn btn-success">                                              
           Production Report pdf</button> */}
-         
-          <button onClick={getData}  className="btn btn-success">                                               
+          
+          <button onClick={getData2} className="btn btn-success">                                              
+          Shipping Report</button>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button onClick={getData3}  className="btn btn-success">                                               
           User Report</button>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button onClick={getShipporeport} className="btn btn-success">                                              
-          Shipping Report</button> 
+        
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button className="btn btn-success" onClick={ generatePDF}>PDF</button>   
         </div>  

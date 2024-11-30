@@ -60,13 +60,13 @@ function PoReadAfterLoginCheck() {
                 
                 
                 else if(element.admin['DELETE']==="Checked" && element.admin['UPDATE']==="Unchecked") {
-                    element.activity_name ==='productionorder' && element.admin['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "enabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled" />) :setSelectedDIV_state(notAuthorizedSection);
+                    element.activity_name ==='productionorder' && element.admin['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "enabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "disabled" viewButtonStatus = "enabled" />) :setSelectedDIV_state(notAuthorizedSection);
                 }
                 else if(element.admin['DELETE']==="Unchecked" && element.admin['UPDATE']==="Checked") {
                     element.activity_name ==='productionorder' && element.admin['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "disabled" editButtonStatus = "enabled" propertyButtonStatus ="enabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled" />) :setSelectedDIV_state(notAuthorizedSection);
                 }
                 else if(element.admin['DELETE']==="Unchecked" && element.admin['UPDATE']==="Unchecked") {
-                    element.activity_name ==='productionorder' && element.admin['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "disabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled"  sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
+                    element.activity_name ==='productionorder' && element.admin['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "disabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled"  sendtoshipButtonStatus = "disabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
                 }
                 
             }
@@ -77,13 +77,13 @@ function PoReadAfterLoginCheck() {
                     element.activity_name ==='productionorder' && element.operator['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "enabled" editButtonStatus = "enabled" propertyButtonStatus ="enabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
                 }
                 else if(element.operator['DELETE']==="Checked" && element.operator['UPDATE']==="Unchecked") {
-                    element.activity_name ==='productionorder' && element.operator['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "enabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
+                    element.activity_name ==='productionorder' && element.operator['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "enabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "disabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
                 }
                 else if(element.operator['DELETE']==="Unchecked" && element.operator['UPDATE']==="Checked") {
                     element.activity_name ==='productionorder' && element.operator['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "disabled" editButtonStatus = "enabled" propertyButtonStatus ="enabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
                 }
                 else if(element.operator['DELETE']==="Unchecked" && element.operator['UPDATE']==="Unchecked") {
-                    element.activity_name ==='productionorder' && element.operator['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "disabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
+                    element.activity_name ==='productionorder' && element.operator['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "disabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "disabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
                 }
             
             }
@@ -94,7 +94,7 @@ function PoReadAfterLoginCheck() {
                 }
                 else if(element.masterdata['DELETE']==='Checked' && element.masterdata['UPDATE']==="Unchecked")
                 {
-                    element.activity_name==='productionorder' && element.masterdata['READ']==="Checked"?setSelectedDIV_state(<PoDataGrid deleteButtonStatus="enabled" editButtonStatus="disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled"/>):setSelectedDIV_state(notAuthorizedSection);
+                    element.activity_name==='productionorder' && element.masterdata['READ']==="Checked"?setSelectedDIV_state(<PoDataGrid deleteButtonStatus="enabled" editButtonStatus="disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "disabled" viewButtonStatus = "enabled"/>):setSelectedDIV_state(notAuthorizedSection);
                 }
                 else if(element.masterdata['DELETE']==='Unchecked' && element.masterdata['UPDATE']==="Checked")
                 {
@@ -102,7 +102,7 @@ function PoReadAfterLoginCheck() {
                 }
                 else if(element.masterdata['DELETE']==='Unchecked' && element.masterdata['UPDATE']==='Unchecked')
                 {
-                    element.activity_name==='productionorder' && element.masterdata['READ']==='Checked'?setSelectedDIV_state(<PoDataGrid deleteButtonStatus="disabled" editButtonStatus="disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled"/>):setSelectedDIV_state(notAuthorizedSection);
+                    element.activity_name==='productionorder' && element.masterdata['READ']==='Checked'?setSelectedDIV_state(<PoDataGrid deleteButtonStatus="disabled" editButtonStatus="disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "disabled" viewButtonStatus = "enabled"/>):setSelectedDIV_state(notAuthorizedSection);
                 }
 
             }
@@ -111,13 +111,13 @@ function PoReadAfterLoginCheck() {
                     element.activity_name ==='productionorder' && element.supervisor['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "enabled" editButtonStatus = "enabled" propertyButtonStatus ="enabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
                 }
                 else if(element.supervisor['DELETE']==="Checked" && element.supervisor['UPDATE']==="Unchecked") {
-                    element.activity_name ==='productionorder' && element.supervisor['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "enabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
+                    element.activity_name ==='productionorder' && element.supervisor['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "enabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "disabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
                 }
                 else if(element.supervisor['DELETE']==="Unchecked" && element.supervisor['UPDATE']==="Checked") {
                     element.activity_name ==='productionorder' && element.supervisor['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "disabled" editButtonStatus = "enabled" propertyButtonStatus ="enabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
                 }
                 else if(element.supervisor['DELETE']==="Unchecked" && element.supervisor['UPDATE']==="Unchecked") {
-                    element.activity_name ==='productionorder' && element.supervisor['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "disabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "enabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
+                    element.activity_name ==='productionorder' && element.supervisor['READ']==="Checked" ? setSelectedDIV_state(<PoDataGrid deleteButtonStatus = "disabled" editButtonStatus = "disabled" propertyButtonStatus ="disabled" sendtoshipButtonStatus = "disabled" viewButtonStatus = "enabled"/>) :setSelectedDIV_state(notAuthorizedSection);
                 }
             }
          

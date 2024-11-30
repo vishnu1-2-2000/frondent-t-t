@@ -13,7 +13,10 @@ function ProviderDataEntry() {
   const navigate=useNavigate();
   const {uniqueID} =useParams();
   const {operations}=useParams();
-
+  var warningDIV= <div className="alert alert-warning pt-4" role="alert">
+  <h5>Input all the values</h5>
+  </div>
+const [warningmessage,setWarningmessage]=useState(warningDIV);
   var namewidget=<input type="text"
   className="form-control"
   onChange={(e)=>setName(e.target.value)}
@@ -28,8 +31,19 @@ function ProviderDataEntry() {
           "name":name ,
           "extrafield":name              
         }) 
-.then(()=>{
-       navigate("/snprovider") ;            
+.then((res)=>{
+  if(res.data.name == "sn provider with this name already exists."){
+    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                      <h5>Serial Number Provider Already Exist</h5>
+                    </div>
+
+    setWarningmessage(warningDIV)                         
+  }
+  else
+  {
+    navigate("/snprovider") ;    
+  }
+               
 })            
 
 
@@ -49,7 +63,7 @@ function ProviderDataEntry() {
                           <button className="btn btn-primary">Show Data</button>
                         </Link>
                       </div>
-                      {/* {warningmessage} */}
+                      {warningmessage}
                         <table class="table table-borderless productionOrderReportSearchTable" id="productionOrderReportSearchTableID">
                           <tbody>
                             <tr>

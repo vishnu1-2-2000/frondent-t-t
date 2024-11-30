@@ -62,48 +62,83 @@ function ProductHrfEdit() {
       setHrf4(res.data[0].hrf4)
       setHrf5(res.data[0].hrf5)
       setHrf6(res.data[0].hrf6)
-     if(res.data[0].hrf1!=""){
+      alert(res.data[0].hrf1)
+     if(res.data[0].hrf1!=null & res.data[0].hrf1!=""){
       setHrf2State(false)
-     }
-     else{
-      setHrf2State(true)
-     }
-
-     if(res.data[0].hrf2!=""){
-      setHrf3State(false)
-     }
-     else{
       setHrf3State(true)
-     }
-
-     
-     if(res.data[0].hrf3!=""){
-      setHrf4State(false)
-     }
-     else{
       setHrf4State(true)
-     }
-
-     if(res.data[0].hrf4!=""){
-      setHrf5State(false)
-     }
-     else{
       setHrf5State(true)
-     }
-
-     if(res.data[0].hrf5!=""){
-      setHrf6State(false)
-     }
-     else{
       setHrf6State(true)
      }
      
+   else if(res.data[0].hrf2!=null & res.data[0].hrf2!=""){
+      setHrf3State(false)
+      setHrf4State(true)
+      setHrf5State(true)
+      setHrf6State(true)
+     }
+     
+     
+    else if(res.data[0].hrf3!=null & res.data[0].hrf3!=""){
+      setHrf4State(false)
+      setHrf5State(true)
+      setHrf6State(true)
+     }
+    
+
+    else  if(res.data[0].hrf4!=null & res.data[0].hrf4!=""){
+      setHrf5State(false)
+      setHrf6State(true)
+     }
+     
+
+     else if(res.data[0].hrf5!=null & res.data[0].hrf5!=""){
+      setHrf6State(false)
+     }
+     
+     else if(res.data[0].hrf1==null & res.data[0].hrf1!=""){
+      setHrf2State(true)
+      setHrf3State(true)
+      setHrf4State(true)
+      setHrf5State(true)
+      setHrf6State(true)
+     }
+     else if(res.data[0].hrf2==null & res.data[0].hrf2!=""){
+     
+      setHrf3State(true)
+      setHrf4State(true)
+      setHrf5State(true)
+      setHrf6State(true)
+     }
+     else if(res.data[0].hrf3==null & res.data[0].hrf3!=""){
+     
+      
+      setHrf4State(true)
+      setHrf5State(true)
+      setHrf6State(true)
+     }
+     else if(res.data[0].hrf4==null & res.data[0].hrf4!=""){
+     
+    
+      setHrf5State(true)
+      setHrf6State(true)
+     }
+     else if(res.data[0].hrf5==null & res.data[0].hrf5!=""){
+     
+   
+      setHrf6State(true)
+     }
     })
   }
                                     
   useEffect(() => {
-    getHrfEditdata()
-   
+  getHrfEditdata()
+// setHrf1State(false);
+//  setHrf2State(true);
+//   setHrf3State(true);
+//   setHrf4State(true);
+//   setHrf5State(true);
+//   setHrf6State(true);
                                     
   }, []);
 

@@ -450,8 +450,18 @@ const getLocation=event=>{
           "loggedInUserrole":loggedInUserrole   
         }, 
         )
-        .then(() => {
-          navigate("/customerlocation");
+        .then((res) => {
+          if(res.data.loc_gln=='locations with this loc gln already exists.')
+            {
+              warningDIV=<div className="alert alert-danger pt-4" role="alert">
+                <h5>Location With This Gln already registered</h5>
+              </div>
+              setWarningmessage(warningDIV)
+            }
+            else{
+              navigate("/customerlocation");
+            }
+          
         });
       // }  
     }

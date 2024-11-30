@@ -29,14 +29,18 @@ const[availablequantity,setAvailableQuantity] =useState("");
 const[minimumquantity,setMinimumQuantity] =useState("");
 const [renewalquantity,setRenewalQuantity]=useState("");
 const[gtinforeign,setGtinforeign]=useState("");
-                    
+const [saveButtonText_state, setSaveButtonText_state] = useState("Save Data");
+const [saveButtonMode_state, setSaveButtonMode_state] = useState(false);                    
 
 const[gtinlabel,setGtinlabel]=useState("");
 const[gtinvalue,setGtinvalue]=useState("");
 const navigate=useNavigate();
 const{uniqueID}=useParams();
 const{operation}=useParams();
-
+var warningDIV = <div className="alert alert-success pt-4" role="alert">
+                  <h5>Input all the values</h5>
+               </div>
+  const [warningmessage,setWarningmessage]=useState(warningDIV);
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;   
@@ -76,7 +80,7 @@ axios
 //     })
    setGtin(res.data[0].gtin);
    getGtinselectedData(res.data[0].gtin)
-   setAvailableQuantity(res.data[0].snnumbers);
+   setAvailableQuantity(res.data[0].available_quantity);
    setMinimumQuantity(res.data[0].minimum_quantity);
    setRenewalQuantity(res.data[0].renewal_quantity);
 
@@ -217,6 +221,8 @@ var renewalfield=
 }
 
 const handleSubmit =(e)=>{
+  setSaveButtonText_state("Save Data");
+  setSaveButtonMode_state(true);
     // alert(gtinlabel)
           axios
          
@@ -224,12 +230,19 @@ const handleSubmit =(e)=>{
           {
                     "gtin":gtin,
                     "available_quantity":availablequantity,
-                    "minimum_quantity":minimumquantity,
-                    "renewal_quantity":renewalquantity
+                    // "minimum_quantity":minimumquantity,
+                    // "renewal_quantity":renewalquantity
 
           })
           .then(()=>{
-                    navigate("/gtinpool")
+            setSaveButtonText_state("Save Data");
+            setSaveButtonMode_state(false);
+            warningDIV =  <div className="alert alert-success pt-4" role="alert">
+            <h5>Successfully Downloading Finished</h5>
+          </div>
+
+setWarningmessage(warningDIV) 
+// navigate("/gtinserialpool")
           })          
 }
   return (
@@ -247,7 +260,8 @@ sx={{
 noValidate
 autoComplete="off"
 >
- 
+{warningmessage}
+
 <div style={{backgroundColor:"#AAF0D1"}} >
 <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">  Edit Gtin Data</font></h4></center></h4>            
 {gtinfield}
@@ -255,8 +269,8 @@ autoComplete="off"
 {availablefield}
 {headwidget}
 <br/>
-{minimumfield}
-{renewalfield}
+{/* {minimumfield}
+{renewalfield} */}
 
 
 
@@ -268,12 +282,14 @@ autoComplete="off"
  
   </div>
   <div className="col-4">
-  <button
+  <center><button
               type="submit"
               className="btn btn-primary"
-              onClick={handleSubmit} >
-                Save data
-            </button>
+              onClick={handleSubmit}
+              disabled={saveButtonMode_state} 
+              >
+             {saveButtonText_state}
+            </button></center>
   </div>
   <div className="col-4">
   </div>

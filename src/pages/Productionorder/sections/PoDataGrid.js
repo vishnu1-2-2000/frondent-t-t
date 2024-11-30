@@ -13,6 +13,7 @@ import { SiAddthis } from 'react-icons/si';
 import { MdOutlineAssignmentReturn } from "react-icons/md";
 import { MdKeyboardReturn } from "react-icons/md";
 import { BsFillSendFill } from "react-icons/bs";
+import { Visibility } from '@mui/icons-material';
   const PoDataGrid = (props) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -42,7 +43,10 @@ import { BsFillSendFill } from "react-icons/bs";
     { field: 'batch_number', headerName: 'Batch Number ', width: 180,headerClassName: "MuiDataGrid-columnHeaders",  },
 
     // { field: 'manufacturing_location', headerName: 'Manufacturing Location', minWidth: 150, flex:1,headerClassName: "MuiDataGrid-columnHeaders",  },
-    // { field: 'product_conn', headerName: 'Product Name', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
+    { field: 'product_conn', headerName: 'Product Name', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
+    {field: 'gtin_number', headerName: 'Gtin', width: 170,headerClassName: "MuiDataGrid-columnHeaders",},
+    { field: 'status', headerName: 'Status', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
+    { field: 'btncontrollstatus', headerName: 'btncontrollstatus', width: 150,headerClassName: "MuiDataGrid-columnHeaders", hide:true },
 /*{
     { field: 'Production_line_id', headerName: 'Productionline id ', width: 170 },
 
@@ -55,7 +59,7 @@ import { BsFillSendFill } from "react-icons/bs";
     // { field: 'created_by', headerName: 'created by', width: 170,headerClassName: "MuiDataGrid-columnHeaders", },
     // { field: 'line', headerName: 'Line', width: 140,headerClassName: "MuiDataGrid-columnHeaders", },
     // { field: 'type', headerName: 'Type', width: 150,headerClassName: "MuiDataGrid-columnHeaders",},
-    { field: 'status', headerName: 'Status', width: 150,headerClassName: "MuiDataGrid-columnHeaders", },
+   
     
 /*
     { field: 'packaging_Version', headerName: 'packaging Version', width: 170 },
@@ -169,7 +173,8 @@ import { BsFillSendFill } from "react-icons/bs";
               (c) => (thisRow2[c.field] = params.getValue(params.id, c.field)),
             );
 
-        //alert(currentUserrole);
+        // alert(thisRow2.status);
+ 
 
         if(props.editButtonStatus === "enabled"&& thisRow2.status=='Draft' ) {
           return <button
@@ -312,15 +317,15 @@ import { BsFillSendFill } from "react-icons/bs";
             //     disabled = "true"
             //     onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
             // }
-            if(props.editButtonStatus === "enabled"&& thisRow2.status=='Draft' ) {
+            if(props.editButtonStatus === "enabled" && thisRow2.status=='Draft' ) {
               return <button
-                className="btn btn-dark" 
+                className="btn btn-success" 
               
                 onClick={onClick}><SiAddthis size={23}/></button>;
             }
             else if(props.editButtonStatus === "disabled"|| thisRow2.status=='Closed'|| thisRow2.status=='Inproduction') {
               return <button
-                className="btn btn-dark" 
+                className="btn btn-success" 
                 disabled = "true"
                 onClick={onClick}><SiAddthis size={23}/></button>;
             }
@@ -424,9 +429,9 @@ import { BsFillSendFill } from "react-icons/bs";
           // window.localStorage.setItem("productionOrderEditID", thisRow.id);
     
           // navigate("/po/pocreate/edit");
-          navigate("/productionorder/downloadcodes/"+thisRow.gtin_number+"/"+thisRow.process_order_number);
+          navigate("/productionorder/downloadcodes/"+thisRow.batch_number+"/"+thisRow.process_order_number);
     
-         
+          // thisRow.balanceflag="true";
         };
     
         const api2: GridApi = params.api;
@@ -438,7 +443,7 @@ import { BsFillSendFill } from "react-icons/bs";
           .forEach(
             (c) => (thisRow2[c.field] = params.getValue(params.id, c.field)),
           );
-    
+          // alert(thisRow2.balanceflag)
           //if(currentUserrole == 'admin') {
             // if(props.propertyButtonStatus === "enabled"&& thisRow2.status=='Draft' ) {
             //   return <button
@@ -452,17 +457,22 @@ import { BsFillSendFill } from "react-icons/bs";
             //     disabled = "true"
             //     onClick={onClick}><i class="fa-solid fa-folder-open"></i></button>;
             // }
-            if(props.editButtonStatus === "enabled"&& thisRow2.status=='Closed' ) {
+           
+            if(props.editButtonStatus === "enabled" && thisRow2.status=='Closed'  && thisRow2.btncontrollstatus=='Not Downloaded') {
+
               return <button
-                className="btn btn-dark" 
+                className="btn btn" 
+               style={{backgroundColor:"#E75480"}}
+                onClick={onClick}><MdDownloadForOffline size={23}/></button>;
                
-                onClick={onClick}><MdDownloadForOffline size={23}/></button>;
             }
-            else if(props.editButtonStatus === "disabled"|| thisRow2.status=='Draft'|| thisRow2.status=='Inproduction') {
+            else if(props.editButtonStatus === "disabled"|| thisRow2.status=='Draft'|| thisRow2.status=='Inproduction'  ) {
               return <button
-                className="btn btn-dark" 
+                className="btn btn" 
                 disabled = "true"
+                style={{backgroundColor:"#E75480"}}
                 onClick={onClick}><MdDownloadForOffline size={23}/></button>;
+              
             }
     
         //alert(currentUserrole);
@@ -504,10 +514,12 @@ import { BsFillSendFill } from "react-icons/bs";
           .forEach(
 
             (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
+            
 
           );
-
-        //alert(thisRow.id);
+          // alert(thisRow2.balanceflag)
+        //alert(thisRow.id);    
+        // thisRow2.shippingflag=true; 
 
         let serial=[];
 
@@ -517,7 +529,7 @@ import { BsFillSendFill } from "react-icons/bs";
         .post(window.url+"/master/returnslno/",
 
       {
-        
+        "batch_number":thisRow.batch_number,
         "gtin":thisRow.gtin_number,
         
         "id":thisRow.id 
@@ -541,36 +553,43 @@ import { BsFillSendFill } from "react-icons/bs";
 
 
 
-
+   
         //return alert(JSON.stringify(thisRow, null, 4));
 
       };
-      const api2: GridApi = params.api;
+      const api3: GridApi = params.api;
+      const thisRow3: Record<string, GridCellValue> = {};
 
-      const thisRow2: Record<string, GridCellValue> = {};
-
-
-
-      api2
-
+      api3
         .getAllColumns()
-
         .filter((c) => c.field !== '__check__' && !!c)
-
         .forEach(
-
-          (c) => (thisRow2[c.field] = params.getValue(params.id, c.field)),
-
+          (c) => (thisRow3[c.field] = params.getValue(params.id, c.field)),
         );
 
-      //alert(currentUserrole);
+    // alert(thisRow3.balanceflag);
+
+        axios
+        .get(window.url+`/master/productionorder/${thisRow3.id}`,
+       
+      )
+      .then((res8) => {
+        // alert(res8.data[0].btncontrollstatus);
+      //   // alert(res.data)
+      //   // alert(res.data[0].gtin_number)
+      
+      //   // setGtin(res.data[0].gtin_number);
+        
+      //  alert(thisRow2.id)
+      
+      });
 
 
 
 
-
-      if(props.sendtoshipButtonStatus === "enabled" && thisRow2.status=='Closed') {
-
+       
+      if( thisRow3.btncontrollstatus === 'Downloaded')  {
+  
       return <button
 
         className="btn btn-success"
@@ -578,13 +597,21 @@ import { BsFillSendFill } from "react-icons/bs";
         onClick={onClick}><MdKeyboardReturn  size={23}/></button>;
 
       }
-      else if(props.sendtoshipButtonStatus === "disabled"|| thisRow2.status=='Draft'|| thisRow2.status=='Inproduction' || thisRow2.status=='Running') {
+      // else if( thisRow3.status=='Draft'|| thisRow3.status=='Inproduction' || thisRow3.status=='Running' ) {
+      //   return <button
+      //   className="btn btn-success"
+      //     disabled = "true"
+      //     // style={{backgroundColor:"Aqua"}}
+      //     onClick={onClick}><MdKeyboardReturn size={23}/></button>;
+      // }
+      else{
         return <button
         className="btn btn-success"
           disabled = "true"
           // style={{backgroundColor:"Aqua"}}
           onClick={onClick}><MdKeyboardReturn size={23}/></button>;
       }
+     
     },
 
     },
@@ -665,7 +692,7 @@ import { BsFillSendFill } from "react-icons/bs";
 
 
 
-      if(props.sendtoshipButtonStatus === "enabled" && thisRow2.status=='Closed') {
+      if(props.sendtoshipButtonStatus === "enabled"  && thisRow2.btncontrollstatus ==="Numbers Returened") {
 
       return <button
 
@@ -675,12 +702,19 @@ import { BsFillSendFill } from "react-icons/bs";
 
       }
 
-      else if(props.sendtoshipButtonStatus === "disabled"|| thisRow2.status=='Draft'|| thisRow2.status=='Inproduction' || thisRow2.status=='Running') {
-        return <button
-        className="btn btn-primary"
-          disabled = "true"
+      // else if(props.sendtoshipButtonStatus === "disabled"|| thisRow2.status=='Draft'|| thisRow2.status=='Inproduction' || thisRow2.status=='Running' || thisRow2.status=='Closed') {
+      //   return <button
+      //   className="btn btn-primary"
+      //     disabled = "true"
           
-          onClick={onClick}><BsFillSendFill size={23}/></button>;
+      //     onClick={onClick}><BsFillSendFill size={23}/></button>;
+      // }
+      else{
+        return <button
+          className="btn btn-primary"
+            disabled = "true"
+            
+            onClick={onClick}><BsFillSendFill size={23}/></button>;
       }
     },
 
@@ -745,6 +779,7 @@ import { BsFillSendFill } from "react-icons/bs";
               'gtin_number':rowData.gtin_number,
               'type':rowData.type,
               'status':rowData.status,
+              "btncontrollstatus":rowData.btncontrollstatus
             
              
               // 'packaging_Version':rowData.packaging_Version,
@@ -766,7 +801,7 @@ import { BsFillSendFill } from "react-icons/bs";
         
       )
       .then((res) => {
-        //alert(res.data.length);
+       
         setData(res.data);
         createRows(res.data);
       });
@@ -802,6 +837,10 @@ import { BsFillSendFill } from "react-icons/bs";
 
   const navigateToPrinterdataPage =()=>{
     navigate("/printerpool/new/new")
+  }
+
+  const navigateToAllocatednumbersPage =()=>{
+    navigate("/allocatednumbers")
   }
 useEffect(() => {
   //console.log('i fire once');
@@ -868,6 +907,11 @@ useEffect(() => {
      
      onClick={navigateToPrinterdataPage} 
      className="btn btn-success">PrinterPool</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<button align='right'
+     
+     onClick={navigateToAllocatednumbersPage} 
+     className="btn btn-success">Allocated Numbers</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
   
             <button align='right'

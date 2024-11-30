@@ -111,9 +111,23 @@ function getData(){
   axios
   .get(window.url+"/master/productionorderidinprintertable/"+ponumber+"/")
   .then((res2)=>{
-    
+    alert(res2.data)
   // var jsonobject=JSON.parse(res2.data[0].hrf)
-                  
+if(res2.data == 100){
+    warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                  <h5>Process Order Number Does Not Exist</h5>
+                </div>
+
+setWaringmessage(warningDIV)                         
+}    
+else if(res2.data!=""){
+  warningDIV =  <div className="alert alert-success pt-4" role="alert">
+  <h5>Production Order Fetched  Successfully</h5>
+  </div>
+
+    setWaringmessage(warningDIV);               
+        }
+           
    alert(res2.data[0].expiration_date)
   //                 setHrf1(jsonobject.hrf1);
   //                 setHrf1value(jsonobject.hrf1value)
@@ -126,12 +140,8 @@ function getData(){
       setLine(res2.data[0].line)
 
   }) 
-  warningDIV =  <div className="alert alert-success pt-4" role="alert">
-  <h5>Production Order Fetched  Successfully</h5>
-  </div>
-
-    setWaringmessage(warningDIV);               
-        }
+  
+}
     useEffect(()=>{
       // getGtin();
       
@@ -298,7 +308,7 @@ alert(event.target.value)
   //           if(type== "type5" || type== "type1")
   //           {
 
-  //           }
+  //           }ProductionOrderReport/
       alert(ponumber)
           axios
   
@@ -317,7 +327,7 @@ alert(event.target.value)
             })
   
       .then((res2) => {
-      // alert(res2.data)
+       alert(res2.data)
       if (res2.data === 400){
        
         warningDIV =  <div className="alert alert-danger pt-4" role="alert">
@@ -334,6 +344,13 @@ alert(event.target.value)
   
             setWaringmessage(warningDIV)                         
         }
+        else if(res2.data.lot == "printerdata table with this lot already exists."){
+          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                    <h5>This Batch Number Already Downloaded</h5>
+                  </div>
+
+    setWaringmessage(warningDIV)                         
+}
   
           else if(res2.data.gtin == "printerdata table with this gtin already exists."){
               warningDIV =  <div className="alert alert-danger pt-4" role="alert">
@@ -349,16 +366,18 @@ alert(event.target.value)
 
       setWaringmessage(warningDIV)                         
     }
-
+    
   else{
-    navigate("/productionorder");
+    navigate("/printerpool");
   }
   
       
            
     
       });
-     
+
+
+ 
   
     }
   

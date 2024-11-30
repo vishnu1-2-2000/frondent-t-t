@@ -43,7 +43,12 @@ var loggedInUsername=window.localStorage.getItem('loggedInUsername')
 var loggedInUserrole=window.localStorage.getItem('loggedInUserrole')
 
 
+var warningDIV = <div className="alert alert-success pt-4" role="alert">
+                    <h5>Input all the values</h5>
+                 </div>  
+
 const { processnumber } = useParams();
+const [warningmessage,setWarningmessage]=useState(warningDIV);
 const [data, setData] = useState([]);
 const {uniqueID}=useParams();
 const navigate = useNavigate();
@@ -251,7 +256,7 @@ var expirationdateFieldWidget = <input
 
                         
                          
-                        // alert(res.data[0].destination_location)
+                       // alert(res.data[0].destination_location)
                         setFilesenderno(res.data[0].source_location);
                         setFiledate(res.data[0].shipping_date);
                         setFiletime(res.data[0].shipping_time);
@@ -261,10 +266,14 @@ var expirationdateFieldWidget = <input
 
                     axios
                         .get(window.url+"/master/company/")
-                        .then((res) => {
-                            
-                            
-                          setFilereciverno(res.data[0].gln);
+                        .then((res1) => {
+                         
+                     
+                          // alert(res1.data[0].gln)
+                       
+                       
+                            setFilereciverno(res1.data[0].gln);
+                
                     
                           //  alert(optionsNew)
                         });
@@ -273,12 +282,12 @@ var expirationdateFieldWidget = <input
                                         .get(window.url+"/master/downloadcodes/"+processno+"/",
                                          
                                         )
-                                        .then((res) => {
+                                        .then((res2) => {
                                           
                                             // alert(res.data[0].serialnumberwithgtin)
                                         // var no=JSON.parse(res.data[0].serialnumberwithgtin)
                                         // setSerialnumbers(no);
-                                        setSerialnumbers(res.data[0].serialnumberwithgtin)
+                                        setSerialnumbers(res2.data[0].serialnumberwithgtin)
                                                                               
                                     
                                           
@@ -294,10 +303,75 @@ var expirationdateFieldWidget = <input
                     const handleSubmit= (e)=>{
                                         e.preventDefault();
                                        
-
-                                        
-                                  
+                                        var testpassed="false"
+                                        alert(filecontrolnumber)
+                                        if(filecontrolnumber!=""){
                                        
+                                          testpassed="true"
+                                        }
+                                        else{
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                      <h5>Input  File Control Number</h5>
+                                                    </div>
+                                                  setWarningmessage(warningDIV);
+                                          testpassed="false"
+                                        }
+                                        if(testpassed=="true"){
+                                          // alert(testpassed)  
+                                          if(eventdatetime!="")
+                                          {
+                                            testpassed="true"
+                                          }
+                                          else{
+                                            warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                            <h5>Input Event Date Time</h5>
+                                          </div>
+                                        setWarningmessage(warningDIV);
+                                        testpassed="false"
+                                          }
+                                        }
+                                        if(testpassed=="true"){
+                                          if(EventTimeZoneOffset!="")
+                                          {
+                                            testpassed="true"
+                                          }
+                                          else{
+                                            warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                            <h5>Input   Event Timezone</h5>
+                                          </div>
+                                        setWarningmessage(warningDIV);
+                                        testpassed="false"
+                                          }
+                                        }
+                                        if(testpassed=="true"){
+                                          if(packagingLevel!="")
+                                          {
+                                            testpassed="true"
+                                          }
+                                          else{
+                                            warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                            <h5>Input   Packaging Level</h5>
+                                          </div>
+                                        setWarningmessage(warningDIV);
+                                        testpassed="false"
+                                          }
+                                        }
+                                        if(testpassed=="true"){
+                                          if(eventLocation!="")
+                                          {
+                                            testpassed="true"
+                                          }
+                                          else{
+                                            warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                            <h5>Input   Event Location</h5>
+                                          </div>
+                                        setWarningmessage(warningDIV);
+                                        testpassed="false"
+                                          }
+                                        }
+                                  
+                                      // alert(eventdatetime) 
+                                      if(testpassed=="true"){
                                      axios
                                      .post(window.url+"/master/commissioningxmldata/",
                                      {
@@ -305,11 +379,12 @@ var expirationdateFieldWidget = <input
                                        "filesendernumber":filesendernumber,
                                     
                                        "filereceivernumber":filereceivernumber,
-                                       "filecontrolnumber":filecontrolnumber,
+                                      
                                        "filedate":filedate,
                                        "filetime":filetime,
                                        "serialnumber":serialnumbers,
-                                        // "eventdatetime":eventdatetime,
+                                        "eventdatetime":eventdatetime,
+                                        "filecontrolnumber":filecontrolnumber,
                                        "EventTimeZoneOffset":EventTimeZoneOffset,
                                        "packagingLevel":packagingLevel,
                                        "eventLocation":eventLocation,
@@ -327,16 +402,123 @@ var expirationdateFieldWidget = <input
                     
                     
                                      })
-                                     
+                                     .then((res)=>{
+                                      // setWarningmessage("jjjjjjjjjj")  
+                                      if(res.data===100){
+              
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter Gln Number In Company First And Try Again </h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)                         
+                                        } 
+                                        if(res.data===300){
+              
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter filesender number in shippo table </h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)                         
+                                        } 
+                                        if(res.data===400){
+              
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter filedate number in shippo table </h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)                         
+                                        } 
+                                        if(res.data===500){
+              
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter filetime number in shippo table </h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)                         
+                                        } 
+                                        if(res.data===600){
+              
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Enter lot number in shippo table </h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)                         
+                                        } 
+                                        if(res.data===700){
+              
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Download codes in production order and try again </h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)                         
+                                        }
+                                        
+                                        if(res.data===800){
+              
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input EventTimeZoneOffset </h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)                         
+                                        } 
+                                                
+                                        if(res.data===900){
+              
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input File Control Number</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)                         
+                                        } 
+                                        if(res.data===950){
+              
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input Internal Material Number In ProductionOrder</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)                         
+                                        } 
+                                        if(res.data===1000){
+              
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input Expiration Date In ProductionOrder</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)                         
+                                        }
+                                        if(res.data===1050){
+              
+                                          warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                                                            <h5>Input Production Line In ProductionOrder</h5>
+                                                          </div>
+                                  
+                                            setWarningmessage(warningDIV)                         
+                                        }
+                                       
+                                       
+                                        if(res.data===200){
+                                          warningDIV =  <div className="alert alert-success pt-4" role="alert">
+                                          <h5>Commissioning Xml File Created Successfully</h5>
+                                        </div>
+                
+                          setWarningmessage(warningDIV)   
+                          // navigate("/shipping/export/"+ processno+"/"+id)                      
+                      } 
+
+                                     })
+
+                                    }  
                     }              
                                     
   return (
                   
     <>
    <br/>        <br/>        <br/>   <br/><br/><br/> <br/><br/>
-           {/* {warningmessage}         */}
+              
            <Box sx={{ display: 'flex' }}>
            <Sidebar/>   
+          
+             
     <Box
       component="form"
       sx={{
@@ -345,7 +527,7 @@ var expirationdateFieldWidget = <input
       noValidate
       autoComplete="off"
     >
-       
+      {warningmessage}  
       <div style={{backgroundColor:"#AAF0D1"}} >
       <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6"> Enter Commissioning  Data </font></h4></center></h4>            
         

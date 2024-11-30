@@ -182,16 +182,21 @@ function ManufactDataEntry() {
         },
         )
         .then((res) => {
-          if(res.data===200){
-            // alert(res.data)
-                warningDIV=   "This is a success alert — Data Saved Successfully!"
-               setWarningmessage(warningDIV);
-           
-                
-              }
-          // navigate("/manufacturinglocation");
+          // alert(res.data.name)
+          if(res.data.name == "manufacturing locations with this name already exists."){
+            warningDIV =  <div className="alert alert-danger pt-4" role="alert">
+                              <h5>This Manufacturing Location already exist,Enter Another One</h5>
+                            </div>
+  
+  setWarningmessage(warningDIV)                         
+          }
+          else
+          {
+             navigate("/manufacturinglocation");
+          }
+         
         });
-        // navigate("/manufacturinglocation");
+    
     
   
         
@@ -204,7 +209,6 @@ function ManufactDataEntry() {
     <>
                            
            <br/>        <br/>        <br/>   <br/> 
-           {warningmessage}        
         
     <Box
       component="form"
@@ -214,7 +218,8 @@ function ManufactDataEntry() {
       noValidate
       autoComplete="off"
     >
-       
+          {warningmessage}        
+        
       <div style={{backgroundColor:"#AAF0D1"}} >
       <h4 ><center><h4 style={{color:"black"}}><font face="times new roman" size="6">Add Manufacturing Location </font></h4></center></h4>            
         
